@@ -1,0 +1,303 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="سفرة الدالية: مشاوي وسندويشات بخلدة. موقع تجريبي من نافذة.">
+</head>
+<body>
+<title>سفرة الدالية</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Reem+Kufi:wght@600;700&family=Tajawal:wght@400;500;700&display=swap">
+<style>
+/* Layout: one narrow column like a printed takeaway menu; vine-green band on top, sticky order bar at the bottom */
+:root {
+  --bg: #FBFAF6;
+  --surface: #FFFFFF;
+  --fg: #1E241F;
+  --muted: #5B645C;
+  --line: #E3E1D8;
+  --vine: #2F5D3A;
+  --vine-ink: #FFFFFF;
+  --vine-soft: #E7EFE5;
+  --sumac: #9B2C36;
+  --wa: #1F7A45;
+  --display: 'Reem Kufi', 'Tajawal', 'Segoe UI', Tahoma, sans-serif;
+  --body: 'Tajawal', 'Segoe UI', Tahoma, Arial, sans-serif;
+}
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+  --bg: #141815; --surface: #1C211D; --fg: #EDEFE9; --muted: #A8B0A8; --line: #2E352F;
+  --vine: #3F7A4D; --vine-ink: #FFFFFF; --vine-soft: #213026; --sumac: #E07A82; --wa: #2B9A5A; color-scheme: dark } }
+:root[data-theme="dark"] {
+  --bg: #141815; --surface: #1C211D; --fg: #EDEFE9; --muted: #A8B0A8; --line: #2E352F;
+  --vine: #3F7A4D; --vine-ink: #FFFFFF; --vine-soft: #213026; --sumac: #E07A82; --wa: #2B9A5A; color-scheme: dark }
+
+* { box-sizing: border-box }
+body { background: var(--bg); color: var(--fg); font-family: var(--body); font-size: 17px; line-height: 1.6; margin: 0 }
+a { color: inherit }
+button { font-family: inherit }
+:focus-visible { outline: 3px solid var(--sumac); outline-offset: 2px }
+
+.demo { background: var(--fg); color: var(--bg); font-size: 14px; text-align: center; padding: 8px 16px }
+.demo a { color: var(--bg); font-weight: 700 }
+
+.wrap { max-width: 760px; margin: 0 auto; padding-inline: 16px }
+
+.top { background: var(--vine); color: var(--vine-ink) }
+.top .wrap { padding-block: 18px 36px; display: flex; flex-direction: column; gap: 20px }
+.bar { display: flex; justify-content: space-between; align-items: center; gap: 12px }
+.logo { display: flex; align-items: center; gap: 10px; font-family: var(--display); font-size: 22px; font-weight: 700 }
+.lang { background: transparent; color: var(--vine-ink); border: 2px solid currentColor; border-radius: 999px; padding: 8px 16px; min-height: 44px; font-size: 15px; font-weight: 700; cursor: pointer }
+.hero h1 { font-family: var(--display); font-size: clamp(34px, 8vw, 52px); line-height: 1.2; margin: 0; text-wrap: balance }
+.hero p { margin: 8px 0 0; font-size: 18px; opacity: .92; max-width: 34em }
+.status { display: inline-flex; align-items: center; gap: 8px; background: rgba(255,255,255,.14); border-radius: 999px; padding: 4px 14px; font-size: 15px; font-weight: 500; width: fit-content }
+.dot { width: 9px; height: 9px; border-radius: 50%; background: #9BE29F }
+.dot.closed { background: #F1A3A9 }
+.cta { display: flex; flex-wrap: wrap; gap: 12px }
+.btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 48px; padding: 0 22px; border-radius: 12px; font-weight: 700; font-size: 17px; text-decoration: none; border: 0; cursor: pointer }
+.btn-light { background: var(--vine-ink); color: var(--vine) }
+.btn-ghost { background: transparent; color: var(--vine-ink); border: 2px solid rgba(255,255,255,.7) }
+
+.menu { padding-block: 32px 24px; display: flex; flex-direction: column; gap: 20px }
+.menu h2, .info h2 { font-family: var(--display); font-size: 30px; margin: 0; color: var(--vine) }
+.tabs { display: flex; gap: 8px; overflow-x: auto; padding-bottom: 4px; scrollbar-width: none; position: sticky; top: env(safe-area-inset-top, 0px); background: var(--bg); padding-block: 10px; z-index: 5 }
+.tab { flex: none; border: 1.5px solid var(--line); background: var(--surface); color: var(--fg); border-radius: 999px; padding: 8px 16px; min-height: 44px; font-size: 16px; font-weight: 500; cursor: pointer }
+.tab[aria-pressed="true"] { background: var(--vine); border-color: var(--vine); color: var(--vine-ink) }
+
+.cat { display: flex; flex-direction: column; gap: 4px; scroll-margin-top: 80px }
+.cat h3 { font-family: var(--display); font-size: 22px; margin: 12px 0 4px; display: flex; align-items: baseline; gap: 10px }
+.cat h3 small { font-family: var(--body); font-size: 14px; font-weight: 500; color: var(--muted) }
+.item { display: grid; grid-template-columns: minmax(0,1fr) auto; gap: 4px 14px; align-items: center; padding-block: 14px; border-bottom: 1px solid var(--line) }
+.item .name { font-weight: 700; font-size: 18px; display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 10px }
+.leader { flex: 1 1 24px; border-bottom: 2px dotted var(--line); transform: translateY(-5px); min-width: 24px }
+.price { font-weight: 700; color: var(--sumac); font-variant-numeric: tabular-nums; white-space: nowrap }
+.item .desc { grid-column: 1; color: var(--muted); font-size: 15px; margin: 0 }
+.qty { grid-column: 2; grid-row: 1 / span 2; display: flex; align-items: center; gap: 6px }
+.qbtn { width: 44px; height: 44px; border-radius: 12px; border: 1.5px solid var(--vine); background: var(--surface); color: var(--vine); font-size: 22px; font-weight: 700; line-height: 1; cursor: pointer; display: grid; place-items: center }
+.qbtn.add { background: var(--vine); color: var(--vine-ink) }
+.qn { min-width: 22px; text-align: center; font-weight: 700; font-variant-numeric: tabular-nums }
+.note { color: var(--muted); font-size: 14px; margin: 0 }
+
+.info { padding-block: 24px 140px; display: flex; flex-direction: column; gap: 16px }
+.cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px }
+.card { background: var(--vine-soft); border-radius: 16px; padding: 18px; display: flex; flex-direction: column; gap: 6px; min-width: 0 }
+.card b { font-size: 15px; color: var(--vine) }
+.card span, .card a { font-size: 17px }
+.hours { display: grid; grid-template-columns: auto 1fr; gap: 2px 16px; font-variant-numeric: tabular-nums }
+.ltr { direction: ltr; unicode-bidi: isolate }
+.foot { color: var(--muted); font-size: 14px; text-align: center; padding-top: 12px }
+.foot a { color: var(--vine); font-weight: 700 }
+
+.order { position: fixed; inset-inline: 0; bottom: 0; padding: 12px 16px calc(12px + env(safe-area-inset-bottom, 0px)); background: var(--surface); border-top: 1px solid var(--line); box-shadow: 0 -6px 20px rgba(0,0,0,.08); z-index: 10 }
+.order .wrap { padding-inline: 0; display: flex; align-items: center; gap: 12px }
+.order .sum { flex: 1; min-width: 0; font-size: 15px; color: var(--muted) }
+.order .sum strong { display: block; color: var(--fg); font-size: 19px; font-variant-numeric: tabular-nums }
+.order .go { background: var(--wa); color: #FFFFFF }
+.order .go[aria-disabled="true"] { opacity: .55; pointer-events: none }
+@media (prefers-reduced-motion: no-preference) { html { scroll-behavior: smooth } }
+</style>
+
+<div class="demo" id="demoBar"></div>
+
+<header class="top">
+  <div class="wrap">
+    <div class="bar">
+      <div class="logo">
+        <svg aria-hidden="true" width="30" height="30" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 29V15"/><path d="M16 15c-6 0-10-4-10-10 6 0 10 4 10 10z"/><path d="M16 15c6 0 10-4 10-10-6 0-10 4-10 10z"/><circle cx="11" cy="22" r="2.4"/><circle cx="21" cy="22" r="2.4"/><circle cx="16" cy="25" r="2.4"/></svg>
+        <span id="brand"></span>
+      </div>
+      <button class="lang" id="langBtn" type="button"></button>
+    </div>
+    <div class="hero">
+      <div class="status"><span class="dot" id="dot"></span><span id="statusText"></span></div>
+      <h1 id="heroTitle"></h1>
+      <p id="heroText"></p>
+    </div>
+    <div class="cta">
+      <a class="btn btn-light" href="#menu" id="ctaMenu"></a>
+      <a class="btn btn-ghost" id="ctaCall" target="_blank" rel="noopener"></a>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+  <section class="menu" id="menu">
+    <h2 id="menuTitle"></h2>
+    <nav class="tabs" id="tabs" aria-label="Menu sections"></nav>
+    <div id="cats"></div>
+    <p class="note" id="priceNote"></p>
+  </section>
+
+  <section class="info" id="info">
+    <h2 id="infoTitle"></h2>
+    <div class="cards">
+      <div class="card"><b id="lblAddr"></b><span id="addr"></span><a id="mapLink" target="_blank" rel="noopener"></a></div>
+      <div class="card"><b id="lblHours"></b><div class="hours" id="hours"></div></div>
+      <div class="card"><b id="lblPhone"></b><span class="ltr">+961 71 163 991</span><span id="delivery"></span></div>
+    </div>
+    <p class="foot" id="foot"></p>
+  </section>
+</main>
+
+<div class="order">
+  <div class="wrap">
+    <div class="sum" id="sum"></div>
+    <a class="btn go" id="goBtn" target="_blank" rel="noopener"></a>
+  </div>
+</div>
+
+<script>
+const WA = '96171163991';
+const MENU = [
+  { id: 'sand', ar: 'سندويشات', en: 'Sandwiches', items: [
+    { id: 's1', ar: 'شاورما دجاج', en: 'Chicken shawarma', dar: 'مع توم، بطاطا ومخلل', den: 'Garlic sauce, fries and pickles', p: 5 },
+    { id: 's2', ar: 'شاورما لحمة', en: 'Beef shawarma', dar: 'مع طحينة، بندورة وبقدونس', den: 'Tahini, tomato and parsley', p: 6 },
+    { id: 's3', ar: 'طاووق', en: 'Shish taouk', dar: 'دجاج مشوي عالفحم مع توم', den: 'Charcoal-grilled chicken with garlic sauce', p: 5 },
+    { id: 's4', ar: 'كفتة', en: 'Kafta', dar: 'لحمة مفرومة مع بقدونس وبصل', den: 'Minced meat with parsley and onion', p: 5 },
+    { id: 's5', ar: 'فلافل', en: 'Falafel', dar: 'مع طحينة، خضرا ومخلل', den: 'Tahini, greens and pickles', p: 3 }
+  ]},
+  { id: 'grill', ar: 'صحون مشاوي', en: 'Grill plates', items: [
+    { id: 'g1', ar: 'مشاوي مشكّلة', en: 'Mixed grill', dar: 'لحمة، طاووق وكفتة مع بطاطا وتوم', den: 'Beef, taouk and kafta with fries and garlic', p: 16 },
+    { id: 'g2', ar: 'صحن طاووق', en: 'Taouk plate', dar: 'مع بطاطا، توم وخبز', den: 'With fries, garlic sauce and bread', p: 11 },
+    { id: 'g3', ar: 'صحن كفتة', en: 'Kafta plate', dar: 'مع بطاطا، طحينة وخبز', den: 'With fries, tahini and bread', p: 11 },
+    { id: 'g4', ar: 'صحن شاورما دجاج', en: 'Chicken shawarma plate', dar: 'مع بطاطا، توم ومخلل', den: 'With fries, garlic sauce and pickles', p: 10 }
+  ]},
+  { id: 'mezze', ar: 'مازات وسلطات', en: 'Mezze and salads', items: [
+    { id: 'm1', ar: 'حمص', en: 'Hummus', dar: 'مع زيت زيتون', den: 'With olive oil', p: 4 },
+    { id: 'm2', ar: 'متبل', en: 'Moutabal', dar: 'باذنجان مشوي مع طحينة', den: 'Grilled eggplant with tahini', p: 4 },
+    { id: 'm3', ar: 'تبولة', en: 'Tabbouleh', dar: 'بقدونس، برغل وحامض', den: 'Parsley, bulgur and lemon', p: 5 },
+    { id: 'm4', ar: 'فتوش', en: 'Fattoush', dar: 'خضرا، خبز محمّص ودبس رمان', den: 'Greens, toasted bread and pomegranate molasses', p: 5 },
+    { id: 'm5', ar: 'كبة مقلية', en: 'Fried kibbeh', dar: '4 قطع', den: '4 pieces', p: 5 },
+    { id: 'm6', ar: 'بطاطا مقلية', en: 'French fries', dar: '', den: '', p: 3 }
+  ]},
+  { id: 'drinks', ar: 'مشروبات', en: 'Drinks', items: [
+    { id: 'd1', ar: 'ليموناضة', en: 'Lemonade', dar: 'مع نعنع', den: 'With mint', p: 3 },
+    { id: 'd2', ar: 'عصير برتقال طازج', en: 'Fresh orange juice', dar: '', den: '', p: 4 },
+    { id: 'd3', ar: 'عيران', en: 'Ayran', dar: '', den: '', p: 1.5 },
+    { id: 'd4', ar: 'مشروبات غازية', en: 'Soft drinks', dar: '', den: '', p: 1.5 },
+    { id: 'd5', ar: 'مي', en: 'Water', dar: '', den: '', p: 1 }
+  ]}
+];
+const HOURS = [ { ar: 'الإثنين - السبت', en: 'Mon - Sat', h: '11:00 - 23:00', o: 11, c: 23, days: [1,2,3,4,5,6] }, { ar: 'الأحد', en: 'Sunday', h: '12:00 - 23:00', o: 12, c: 23, days: [0] } ];
+const T = {
+  ar: { dir: 'rtl', lang: 'English', brand: 'سفرة الدالية',
+    demo: 'هيدا موقع تجريبي لمطعم وهمي، من تصميم <a href="https://nafetha-web.github.io" target="_blank" rel="noopener">نافذة</a>.',
+    open: 'مفتوح هلق', closed: 'مسكّر هلق',
+    heroTitle: 'مشاوي عالفحم وسندويشات من قلب خلدة', heroText: 'اختار من المنيو، وابعتلنا طلبك عالواتساب بكبسة وحدة.',
+    ctaMenu: 'شوف المنيو', ctaCall: 'احكينا عالواتساب', menuTitle: 'المنيو', priceNote: 'الأسعار بالدولار وبتشمل الضريبة.',
+    infoTitle: 'زورونا', lblAddr: 'العنوان', addr: 'خلدة، الأوتوستراد، حد محطة المحروقات', map: 'افتح عالخريطة',
+    lblHours: 'ساعات الفتح', lblPhone: 'واتساب وتلفون', delivery: 'توصيل لخلدة والجوار',
+    foot: 'الموقع من تصميم <a href="https://nafetha-web.github.io" target="_blank" rel="noopener">نافذة</a>',
+    empty: 'ما زدت شي بعد', items: (n) => n + (n === 1 ? ' صنف' : ' أصناف'), go: 'اطلب عالواتساب',
+    add: 'زيد', remove: 'شيل', money: (n) => fmtNum(n) + '$',
+    hello: 'مرحبا سفرة الدالية، بدي اطلب:', total: 'المجموع', ask: 'مرحبا سفرة الدالية، عندي سؤال.' },
+  en: { dir: 'ltr', lang: 'عربي', brand: 'Sofret El Dalieh',
+    demo: 'This is a demo site for a fictional restaurant, designed by <a href="https://nafetha-web.github.io" target="_blank" rel="noopener">Nafetha</a>.',
+    open: 'Open now', closed: 'Closed now',
+    heroTitle: 'Charcoal grills and sandwiches in Khaldeh', heroText: 'Pick from the menu and send your order on WhatsApp in one tap.',
+    ctaMenu: 'See the menu', ctaCall: 'Message us on WhatsApp', menuTitle: 'Menu', priceNote: 'Prices are in US dollars and include tax.',
+    infoTitle: 'Visit us', lblAddr: 'Address', addr: 'Khaldeh, main highway, next to the gas station', map: 'Open in Maps',
+    lblHours: 'Opening hours', lblPhone: 'WhatsApp and phone', delivery: 'Delivery to Khaldeh and nearby',
+    foot: 'Site designed by <a href="https://nafetha-web.github.io" target="_blank" rel="noopener">Nafetha</a>',
+    empty: 'Nothing added yet', items: (n) => n + (n === 1 ? ' item' : ' items'), go: 'Order on WhatsApp',
+    add: 'Add', remove: 'Remove', money: (n) => '$' + fmtNum(n),
+    hello: 'Hello Sofret El Dalieh, I would like to order:', total: 'Total', ask: 'Hello Sofret El Dalieh, I have a question.' }
+};
+function fmtNum(n) { return Number.isInteger(n) ? String(n) : n.toFixed(1) }
+
+let lang = 'ar';
+let activeCat = MENU[0].id;
+const cart = {};
+try { const s = localStorage.getItem('dalieh-lang'); if (s === 'en' || s === 'ar') lang = s } catch (e) {}
+
+const $ = (id) => document.getElementById(id);
+const allItems = () => MENU.flatMap(c => c.items);
+
+function isOpen() {
+  const d = new Date();
+  const h = d.getHours() + d.getMinutes() / 60;
+  return HOURS.some(x => x.days.includes(d.getDay()) && h >= x.o && h < x.c);
+}
+
+function renderStatic() {
+  const t = T[lang];
+  document.documentElement.lang = lang;
+  document.documentElement.dir = t.dir;
+  document.title = t.brand;
+  $('demoBar').innerHTML = t.demo;
+  $('brand').textContent = t.brand;
+  $('langBtn').textContent = t.lang;
+  const open = isOpen();
+  $('dot').className = 'dot' + (open ? '' : ' closed');
+  $('statusText').textContent = open ? t.open : t.closed;
+  ['heroTitle','heroText','ctaMenu','ctaCall','menuTitle','priceNote','infoTitle','lblAddr','addr','lblHours','lblPhone','delivery'].forEach(k => { $(k).textContent = t[k] });
+  $('ctaCall').href = 'https://wa.me/' + WA + '?text=' + encodeURIComponent(t.ask);
+  $('mapLink').textContent = t.map;
+  $('mapLink').href = 'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent('Khaldeh, Lebanon');
+  $('foot').innerHTML = t.foot;
+  $('hours').innerHTML = HOURS.map(x => '<span>' + x[lang] + '</span><span class="ltr">' + x.h + '</span>').join('');
+}
+
+function renderMenu() {
+  const t = T[lang];
+  $('tabs').innerHTML = MENU.map(c => '<button type="button" class="tab" data-cat="' + c.id + '" aria-pressed="' + (c.id === activeCat) + '">' + c[lang] + '</button>').join('');
+  $('cats').innerHTML = MENU.map(c => '<div class="cat" id="cat-' + c.id + '"><h3>' + c[lang] + ' <small>' + c.items.length + '</small></h3>' +
+    c.items.map(i => {
+      const q = cart[i.id] || 0;
+      const desc = i['d' + lang];
+      return '<div class="item"><div class="name"><span>' + i[lang] + '</span><span class="leader" aria-hidden="true"></span><span class="price">' + t.money(i.p) + '</span></div>' +
+        (desc ? '<p class="desc">' + desc + '</p>' : '') +
+        '<div class="qty">' +
+          (q ? '<button type="button" class="qbtn" data-dec="' + i.id + '" aria-label="' + t.remove + ' ' + i[lang] + '">−</button><span class="qn">' + q + '</span>' : '') +
+          '<button type="button" class="qbtn add" data-inc="' + i.id + '" aria-label="' + t.add + ' ' + i[lang] + '">+</button>' +
+        '</div></div>';
+    }).join('') + '</div>').join('');
+}
+
+function renderOrder() {
+  const t = T[lang];
+  const lines = allItems().filter(i => cart[i.id]);
+  const count = lines.reduce((a, i) => a + cart[i.id], 0);
+  const total = lines.reduce((a, i) => a + cart[i.id] * i.p, 0);
+  $('sum').innerHTML = count ? t.items(count) + '<strong>' + t.money(total) + '</strong>' : t.empty;
+  const go = $('goBtn');
+  go.textContent = t.go;
+  if (count) {
+    const msg = t.hello + '\n' + lines.map(i => '- ' + cart[i.id] + ' × ' + i[lang] + ' (' + t.money(cart[i.id] * i.p) + ')').join('\n') + '\n' + t.total + ': ' + t.money(total);
+    go.href = 'https://wa.me/' + WA + '?text=' + encodeURIComponent(msg);
+    go.removeAttribute('aria-disabled');
+  } else {
+    go.href = '#menu';
+    go.setAttribute('aria-disabled', 'true');
+  }
+}
+
+function renderAll() { renderStatic(); renderMenu(); renderOrder() }
+
+$('langBtn').addEventListener('click', () => {
+  lang = lang === 'ar' ? 'en' : 'ar';
+  try { localStorage.setItem('dalieh-lang', lang) } catch (e) {}
+  renderAll();
+});
+$('tabs').addEventListener('click', (e) => {
+  const b = e.target.closest('[data-cat]'); if (!b) return;
+  activeCat = b.dataset.cat;
+  document.querySelectorAll('.tab').forEach(x => x.setAttribute('aria-pressed', String(x.dataset.cat === activeCat)));
+  const el = $('cat-' + activeCat); if (el) el.scrollIntoView({ block: 'start' });
+});
+$('cats').addEventListener('click', (e) => {
+  const inc = e.target.closest('[data-inc]'); const dec = e.target.closest('[data-dec]');
+  if (inc) cart[inc.dataset.inc] = (cart[inc.dataset.inc] || 0) + 1;
+  else if (dec) { const k = dec.dataset.dec; cart[k] = Math.max(0, (cart[k] || 0) - 1); if (!cart[k]) delete cart[k] }
+  else return;
+  const id = (inc || dec).dataset.inc || (inc || dec).dataset.dec;
+  renderMenu(); renderOrder();
+  const again = document.querySelector('[data-inc="' + id + '"]'); if (again) again.focus({ preventScroll: true });
+});
+
+renderAll();
+</script>
+
+</body>
+</html>
