@@ -1,0 +1,198 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>الشروط والخصوصية | نافذة</title>
+<meta name="description" content="شروط الاشتراك وسياسة الخصوصية لنافذة.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=El+Messiri:wght@600;700&amp;family=IBM+Plex+Sans+Arabic:wght@400;500;600&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#FFFFFF}
+a{color:#0E4D4A}a:hover{color:#0A3735}
+</style>
+<style>html{scroll-behavior:smooth}img,svg{max-width:100%}</style>
+</head>
+<body>
+<div id="app"></div>
+<template id="tpl">
+
+<div dir="{{dir}}" style="font-family: 'IBM Plex Sans Arabic', sans-serif; color: #1B1B1F; background: #FFFFFF; line-height: 1.8">
+
+  <header style="max-width: 1200px; margin: 0 auto; padding: 18px 24px; display: flex; flex-wrap: wrap; gap: 16px; align-items: center; justify-content: space-between">
+    <a href="index.html" style="display: flex; align-items: center; gap: 10px; text-decoration: none; color: #0E4D4A">
+      <svg aria-hidden="true" width="34" height="34" viewBox="0 0 32 32" fill="none" stroke="#0E4D4A" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="24" height="24" rx="4"/><path d="M16 4v24M4 16h24"/></svg>
+      <span style="font-family: 'El Messiri', serif; font-size: 28px; font-weight: 700">{{t.brand}}</span>
+    </a>
+    <div style="display: flex; flex-wrap: wrap; gap: 10px; align-items: center">
+      <button onClick="{{toggleLang}}" style="font-family: inherit; font-size: 15px; font-weight: 600; background: transparent; color: #0E4D4A; border: 2px solid #0E4D4A; border-radius: 999px; padding: 8px 18px; min-height: 44px; cursor: pointer">{{t.langBtn}}</button>
+      <a href="index.html" style="text-decoration: none; background: #0E4D4A; color: #FFFFFF; padding: 11px 22px; border-radius: 999px; font-weight: 600">{{t.back}}</a>
+    </div>
+  </header>
+
+  <section style="background: #0E4D4A; color: #FFFFFF">
+    <div style="max-width: 820px; margin: 0 auto; padding: 64px 24px 56px; display: flex; flex-direction: column; gap: 12px">
+      <h1 style="margin: 0; font-family: 'El Messiri', serif; font-size: 44px; font-weight: 700; line-height: 1.3">{{t.title}}</h1>
+      <p style="margin: 0; font-size: 18px; color: #D5E6E4">{{t.intro}}</p>
+      <p style="margin: 0; font-size: 15px; color: #D5E6E4">{{t.updated}}</p>
+    </div>
+  </section>
+
+  <main style="max-width: 820px; margin: 0 auto; padding: 56px 24px 72px; display: flex; flex-direction: column; gap: 48px">
+
+    <section style="display: flex; flex-direction: column; gap: 20px">
+      <h2 style="margin: 0; font-family: 'El Messiri', serif; font-size: 34px; font-weight: 700; color: #0E4D4A">{{t.termsTitle}}</h2>
+      <sc-for list="{{t.terms}}" as="item" hint-placeholder-count="7">
+        <div style="display: flex; flex-direction: column; gap: 6px; padding-bottom: 20px; border-bottom: 1px solid #E4E2DC">
+          <h3 style="margin: 0; font-size: 20px; font-weight: 600">{{item.h}}</h3>
+          <p style="margin: 0; font-size: 17px; color: #3A3A40">{{item.p}}</p>
+        </div>
+      </sc-for>
+    </section>
+
+    <section style="display: flex; flex-direction: column; gap: 20px">
+      <h2 style="margin: 0; font-family: 'El Messiri', serif; font-size: 34px; font-weight: 700; color: #0E4D4A">{{t.privTitle}}</h2>
+      <sc-for list="{{t.priv}}" as="item" hint-placeholder-count="5">
+        <div style="display: flex; flex-direction: column; gap: 6px; padding-bottom: 20px; border-bottom: 1px solid #E4E2DC">
+          <h3 style="margin: 0; font-size: 20px; font-weight: 600">{{item.h}}</h3>
+          <p style="margin: 0; font-size: 17px; color: #3A3A40">{{item.p}}</p>
+        </div>
+      </sc-for>
+    </section>
+
+    <section style="background: #F7F5F0; border-radius: 20px; padding: 28px; display: flex; flex-direction: column; gap: 10px">
+      <h2 style="margin: 0; font-size: 22px; font-weight: 600">{{t.qTitle}}</h2>
+      <p style="margin: 0; font-size: 17px; color: #3A3A40">{{t.qText}}</p>
+      <div style="display: flex; flex-wrap: wrap; gap: 8px 24px; font-size: 17px">
+        <a href="https://wa.me/96171163991" target="_blank" style="font-weight: 600"><span dir="ltr" style="unicode-bidi: isolate">+961 71 163 991</span></a>
+        <a href="mailto:nafetha.web@gmail.com" style="font-weight: 600"><span dir="ltr" style="unicode-bidi: isolate">nafetha.web@gmail.com</span></a>
+      </div>
+    </section>
+  </main>
+
+  <footer style="max-width: 1200px; margin: 0 auto; padding: 28px 24px; display: flex; flex-wrap: wrap; gap: 12px; justify-content: space-between; font-size: 15px; color: #55555C">
+    <span>© 2026 {{t.brand}}</span>
+    <a href="index.html" style="color: #0E4D4A; text-decoration: none; font-weight: 600">{{t.back}}</a>
+  </footer>
+</div>
+</template>
+<script>
+
+class DCLogic { constructor(props){ this.props = props || {}; this.state = {}; } setState(p){ Object.assign(this.state, p); __render(); } forceUpdate(){ __render(); } }
+function __lookup(path, scope){ path = path.trim(); if (path === 'true') return true; if (path === 'false') return false; if (/^-?\d+(\.\d+)?$/.test(path)) return Number(path); let v = scope; for (const k of path.split('.')) { if (v == null) return undefined; v = v[k]; } return v; }
+const __HOLE = /\{\{\s*([^}]+?)\s*\}\}/g;
+function __interp(s, scope){ return s.replace(__HOLE, (_, p) => { const v = __lookup(p, scope); return v == null ? '' : String(v); }); }
+function __proc(node, scope){
+  if (node.nodeType === 3) { if (node.nodeValue.indexOf('{{') >= 0) node.nodeValue = __interp(node.nodeValue, scope); return; }
+  if (node.nodeType !== 1) return;
+  const tag = node.tagName.toLowerCase();
+  if (tag === 'sc-for' || tag === 'sc-if') {
+    const frag = document.createDocumentFragment();
+    if (tag === 'sc-for') {
+      const m = /^\{\{\s*(.+?)\s*\}\}$/.exec(node.getAttribute('list') || ''); const list = m ? (__lookup(m[1], scope) || []) : [];
+      const as = node.getAttribute('as') || 'item';
+      list.forEach((item, i) => { const s = Object.assign({}, scope, { [as]: item, $index: i }); Array.from(node.childNodes).forEach(c => { const cl = c.cloneNode(true); const w = document.createElement('div'); w.appendChild(cl); __proc(cl, s); while (w.firstChild) frag.appendChild(w.firstChild); }); });
+    } else {
+      const m = /^\{\{\s*(.+?)\s*\}\}$/.exec(node.getAttribute('value') || ''); if (m && __lookup(m[1], scope)) { Array.from(node.childNodes).forEach(c => frag.appendChild(c)); Array.from(frag.childNodes).forEach(c => __proc(c, scope)); }
+    }
+    node.replaceWith(frag); return;
+  }
+  let selectVal = null;
+  for (const a of Array.from(node.attributes)) {
+    const whole = /^\{\{\s*([^}]+?)\s*\}\}$/.exec(a.value);
+    if (a.name.startsWith('on') && whole) { const fn = __lookup(whole[1], scope); node.removeAttribute(a.name); if (typeof fn === 'function') node.addEventListener(a.name.slice(2), fn); continue; }
+    if (a.name === 'data-options') { const opts = __lookup(a.value, scope) || []; opts.forEach(o => { const op = document.createElement('option'); op.value = o.v; op.textContent = o.label; node.appendChild(op); }); node.removeAttribute(a.name); continue; }
+    if (a.value.indexOf('{{') >= 0) { const v = __interp(a.value, scope); if (a.name === 'value' && (tag === 'select' || tag === 'input')) { selectVal = v; } node.setAttribute(a.name, v); }
+  }
+  Array.from(node.childNodes).forEach(c => __proc(c, scope));
+  if (selectVal !== null) node.value = selectVal;
+}
+let __comp = null;
+function __render(){
+  const root = document.getElementById('app');
+  const ae = document.activeElement; const fid = ae && ae.id; let ss = null, se = null; try { ss = ae.selectionStart; se = ae.selectionEnd; } catch (e) {}
+  const vals = __comp.renderVals();
+  const frag = document.getElementById('tpl').content.cloneNode(true);
+  const w = document.createElement('div'); w.appendChild(frag);
+  Array.from(w.childNodes).forEach(c => __proc(c, vals));
+  root.replaceChildren(...w.childNodes);
+  if (vals.dir) { document.documentElement.dir = vals.dir; document.documentElement.lang = vals.dir === 'rtl' ? 'ar' : 'en'; }
+  if (fid) { const el = document.getElementById(fid); if (el) { el.focus(); try { if (ss != null) el.setSelectionRange(ss, se); } catch (e) {} } }
+}
+
+
+const T = {
+  ar: {
+    dir: 'rtl', langBtn: 'English', brand: 'نافذة', back: 'رجوع للصفحة الرئيسية',
+    title: 'الشروط والخصوصية',
+    intro: 'هون موضّحين كيف بيشتغل الاشتراك مع نافذة، وكيف منتعامل مع معلوماتك. إذا في شي مش واضح، احكينا.',
+    updated: 'آخر تحديث: تشرين الأول 2026',
+    termsTitle: 'شروط الاشتراك',
+    terms: [
+      {h:'الخدمة', p:'نافذة بتصمّم موقع لمحلّك وبتستضيفو وبتعدّل عليه حسب الباقة يلي اخترتها. تفاصيل كل باقة موجودة بقسم الأسعار.'},
+      {h:'الاشتراك والدفع', p:'الاشتراك شهري أو سنوي، وبينْدفع سلفاً ببداية كل فترة، كاش أو بالتحويل. الأسعار هي المعلنة بالموقع وقت الاشتراك.'},
+      {h:'التأخر بالدفع', p:'إذا تأخر الدفع أكتر من 7 أيام، منوقّف الموقع مؤقتاً لحتى يتسدّد المبلغ، ومنرجّعو بدون ما يضيع شي.'},
+      {h:'الإلغاء', p:'فيك تلغي بأي وقت بإشعار قبل نهاية الشهر. الموقع بيضل شغّال لآخر الفترة المدفوعة. الاشتراك السنوي ما بيسترجع.'},
+      {h:'التعديلات', p:'التعديلات البسيطة مشمولة، متل تغيير الأسعار، الأصناف، الصور وساعات الفتح. إعادة التصميم الكاملة أو إضافة صفحات جديدة بتنحسب لحالها، ومنتفق عليها قبل.'},
+      {h:'المحتوى', p:'إنت مسؤول عن صحة المعلومات والصور يلي بتبعتلنا ياها، وعن إنو إلك حق تستعملها. منحتفظ بحق نرفض أي محتوى مخالف للقانون.'},
+      {h:'الرابط والدومين', p:'الباقة الأساسية بتجي مع رابط خاص باسم محلّك ضمن نافذة. باقة المطعم والشركات فيهن دومين خاص (.com)، بينسجّل باسم محلّك، ونحنا منديرو ومنجدّدو طول ما الاشتراك شغّال. إذا ألغيت، منسلّمك الدومين وبيصير تجديدو عليك.'},
+      {h:'ملكية التصميم', p:'تصميم الموقع والكود تبعو ملك لنافذة، وهني جزء من خدمة الاشتراك. عند الإلغاء، الموقع بيتوقف وما بينتقل للزبون، بس المحتوى تبعك، متل الصور والنصوص والمنيو، بيضل إلك وفيك تطلبو منا.'}
+    ],
+    privTitle: 'الخصوصية',
+    priv: [
+      {h:'شو المعلومات يلي منجمعها؟', p:'فورم "اطلب نموذج مجاني" ما بيحفظ شي على موقعنا. بس بيفتحلك واتساب برسالة فيها اسم المحل ونوع النشاط، وما بتنبعت إلا إذا كبست إرسال. وكمان منحتفظ بالمعلومات يلي بتبعتلنا ياها لنجهّز موقعك.'},
+      {h:'كيف منستعملها؟', p:'بس لنتواصل معك، نجهّز موقعك ونعدّل عليه، ونتابع الاشتراك والدفع.'},
+      {h:'مع مين منشاركها؟', p:'ما منبيع معلوماتك ولا منعطيها لحدا. بعض الخدمات التقنية يلي منستعملها، متل الاستضافة وواتساب، بتمرق المعلومات من خلالها.'},
+      {h:'معلومات زباين محلّك', p:'إذا موقعك فيه طلبات أو حجوزات، المعلومات بتوصلك إنت مباشرة، ونحنا ما منستعملها لأي شي تاني.'},
+      {h:'حقك بمعلوماتك', p:'فيك تطلب تشوف المعلومات يلي عنا عنك، أو تعدّلها أو نمحيها، برسالة عالواتساب أو الإيميل.'}
+    ],
+    qTitle: 'عندك سؤال؟', qText: 'احكينا عالواتساب أو ابعتلنا إيميل، ومنرد عليك.'
+  },
+  en: {
+    dir: 'ltr', langBtn: 'عربي', brand: 'Nafetha', back: 'Back to home',
+    title: 'Terms and Privacy',
+    intro: 'How a Nafetha subscription works and how we handle your information. If anything is unclear, get in touch.',
+    updated: 'Last updated: October 2026',
+    termsTitle: 'Subscription terms',
+    terms: [
+      {h:'The service', p:'Nafetha designs, hosts and updates a website for your business according to the plan you choose. Each plan is detailed in the Pricing section.'},
+      {h:'Subscription and payment', p:'Plans are monthly or yearly and paid in advance at the start of each period, in cash or by transfer. Prices are those shown on the site when you subscribe.'},
+      {h:'Late payment', p:'If payment is more than 7 days late, we pause the site until it is settled, then restore it with nothing lost.'},
+      {h:'Cancellation', p:'You can cancel anytime with notice before the end of the month. Your site stays live until the end of the paid period. Yearly plans are not refundable.'},
+      {h:'Updates', p:'Small updates are included, such as prices, items, photos and opening hours. A full redesign or new pages are quoted separately and agreed in advance.'},
+      {h:'Your content', p:'You are responsible for the accuracy of the information and photos you send us, and for having the right to use them. We may refuse content that breaks the law.'},
+      {h:'Web address and domain', p:'The Basic plan comes with a link with your business name under Nafetha. The Restaurant and Business plans include your own domain (.com), registered in your business name and managed and renewed by us while your subscription is active. If you cancel, we hand the domain over to you and its renewal becomes yours.'},
+      {h:'Design ownership', p:'The site’s design and code belong to Nafetha and are part of the subscription service. On cancellation the site is taken offline and is not transferred, but your content, such as photos, text and menu, remains yours and you can ask us for it.'}
+    ],
+    privTitle: 'Privacy',
+    priv: [
+      {h:'What we collect', p:'The free demo form does not store anything on our site. It opens WhatsApp with a message containing your business name and type, and nothing is sent until you press send. We also keep the information you send us to build your site.'},
+      {h:'How we use it', p:'Only to contact you, build and update your site, and manage your subscription and payments.'},
+      {h:'Who we share it with', p:'We do not sell or give your information to anyone. Some technical services we rely on, such as hosting and WhatsApp, carry it as part of their service.'},
+      {h:'Your customers’ information', p:'If your site takes orders or bookings, that information goes straight to you, and we do not use it for anything else.'},
+      {h:'Your rights', p:'You can ask to see, correct or delete the information we hold about you by WhatsApp or email.'}
+    ],
+    qTitle: 'Questions?', qText: 'Message us on WhatsApp or send an email and we will get back to you.'
+  }
+};
+
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = { lang: 'ar' };
+  }
+  renderVals() {
+    const t = T[this.state.lang];
+    return {
+      t: t,
+      dir: t.dir,
+      toggleLang: () => this.setState({ lang: this.state.lang === 'ar' ? 'en' : 'ar' })
+    };
+  }
+}
+
+__comp = new Component({});
+__render();
+</script>
+</body>
+</html>
