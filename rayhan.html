@@ -1,0 +1,414 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="مطبخ الريحان: أكل بيتي لبناني بخلدة. موقع تجريبي من نافذة.">
+</head>
+<body>
+<title>مطبخ الريحان</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Aref+Ruqaa:wght@700&family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&display=swap">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<style>
+/* Layout: sit-down restaurant page; navy band hero, photo-tile menu grid, booking card, gallery strip, table-QR panel */
+:root {
+  --bg: #F7F5F1;
+  --surface: #FFFFFF;
+  --fg: #1C2233;
+  --muted: #5D6273;
+  --line: #E2DFD8;
+  --navy: #1F2A44;
+  --navy-ink: #FFFFFF;
+  --saffron: #C77A1F;
+  --saffron-soft: #F6E8D3;
+  --wa: #1F7A45;
+  --display: 'Aref Ruqaa', 'Times New Roman', serif;
+  --body: 'IBM Plex Sans Arabic', 'Segoe UI', Tahoma, Arial, sans-serif;
+}
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+  --bg: #12151D; --surface: #1A1F2B; --fg: #ECEDF1; --muted: #A6ABB8; --line: #2B3141;
+  --navy: #26324F; --navy-ink: #FFFFFF; --saffron: #E9A54E; --saffron-soft: #33291B; --wa: #2B9A5A; color-scheme: dark } }
+:root[data-theme="dark"] {
+  --bg: #12151D; --surface: #1A1F2B; --fg: #ECEDF1; --muted: #A6ABB8; --line: #2B3141;
+  --navy: #26324F; --navy-ink: #FFFFFF; --saffron: #E9A54E; --saffron-soft: #33291B; --wa: #2B9A5A; color-scheme: dark }
+
+* { box-sizing: border-box }
+body { background: var(--bg); color: var(--fg); font-family: var(--body); font-size: 17px; line-height: 1.65; margin: 0 }
+a { color: inherit }
+button, input, select, textarea { font-family: inherit; font-size: 16px }
+:focus-visible { outline: 3px solid var(--saffron); outline-offset: 2px }
+h1, h2, h3 { text-wrap: balance }
+
+.demo { background: var(--fg); color: var(--bg); font-size: 14px; text-align: center; padding: 8px 16px }
+.demo a { color: var(--bg); font-weight: 700 }
+.wrap { max-width: 1040px; margin: 0 auto; padding-inline: 16px }
+
+.tablebar { background: var(--saffron); color: #1C2233; text-align: center; font-weight: 700; padding: 10px 16px }
+
+.top { background: var(--navy); color: var(--navy-ink) }
+.top .wrap { padding-block: 18px 44px; display: flex; flex-direction: column; gap: 28px }
+.bar { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 12px }
+.logo { display: flex; align-items: center; gap: 10px; font-family: var(--display); font-size: 26px }
+.nav { display: flex; flex-wrap: wrap; gap: 6px 18px; align-items: center; font-size: 15px }
+.nav a { text-decoration: none; opacity: .9 }
+.lang { background: transparent; color: var(--navy-ink); border: 2px solid currentColor; border-radius: 999px; padding: 6px 16px; min-height: 44px; font-weight: 600; cursor: pointer }
+.hero { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 28px; align-items: center }
+.hero h1 { font-family: var(--display); font-size: clamp(40px, 8vw, 64px); line-height: 1.25; margin: 0 }
+.hero p { margin: 10px 0 0; font-size: 18px; opacity: .9; max-width: 32em }
+.status { display: inline-flex; align-items: center; gap: 8px; background: rgba(255,255,255,.12); border-radius: 999px; padding: 4px 14px; font-size: 15px; width: fit-content; margin-bottom: 12px }
+.dot { width: 9px; height: 9px; border-radius: 50%; background: #9BE29F }
+.dot.closed { background: #F1A3A9 }
+.cta { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 20px }
+.btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 48px; padding: 0 22px; border-radius: 12px; font-weight: 700; font-size: 17px; text-decoration: none; border: 0; cursor: pointer }
+.btn-saffron { background: var(--saffron); color: #1C2233 }
+.btn-ghost { background: transparent; color: var(--navy-ink); border: 2px solid rgba(255,255,255,.7) }
+.heroart { display: flex; justify-content: center }
+.heroart svg { width: min(320px, 100%); height: auto }
+
+section.block { padding-block: 44px 8px; display: flex; flex-direction: column; gap: 18px }
+.eyebrow { font-size: 14px; font-weight: 600; letter-spacing: .04em; color: var(--saffron); margin: 0 }
+.block h2 { font-family: var(--display); font-size: 36px; margin: 0; line-height: 1.3 }
+.block > p.lead { margin: 0; color: var(--muted); max-width: 40em }
+
+.tabs { display: flex; gap: 8px; overflow-x: auto; scrollbar-width: none; position: sticky; top: env(safe-area-inset-top, 0px); background: var(--bg); padding-block: 10px; z-index: 5 }
+.tab { flex: none; border: 1.5px solid var(--line); background: var(--surface); color: var(--fg); border-radius: 999px; padding: 8px 16px; min-height: 44px; font-weight: 500; cursor: pointer }
+.tab[aria-pressed="true"] { background: var(--navy); border-color: var(--navy); color: var(--navy-ink) }
+.grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 16px }
+.dish { background: var(--surface); border: 1px solid var(--line); border-radius: 18px; overflow: hidden; display: flex; flex-direction: column; min-width: 0 }
+.dish .ph { aspect-ratio: 4 / 3; max-width: 100%; display: grid; place-items: center; position: relative }
+.dish .ph svg { width: 78%; height: auto }
+.dish .ph .tag { position: absolute; inset-inline-start: 10px; top: 10px; background: rgba(255,255,255,.9); color: #1C2233; font-size: 12px; font-weight: 600; border-radius: 999px; padding: 2px 10px }
+.dish .body { padding: 14px 16px 16px; display: flex; flex-direction: column; gap: 4px; flex: 1 }
+.dish .row { display: flex; justify-content: space-between; align-items: baseline; gap: 10px }
+.dish h3 { margin: 0; font-size: 18px; font-weight: 700 }
+.price { font-weight: 700; color: var(--saffron); font-variant-numeric: tabular-nums; white-space: nowrap }
+.dish p { margin: 0; color: var(--muted); font-size: 15px; flex: 1 }
+.qty { display: flex; align-items: center; gap: 8px; margin-top: 10px }
+.qbtn { width: 44px; height: 44px; border-radius: 12px; border: 1.5px solid var(--navy); background: var(--surface); color: var(--fg); font-size: 22px; font-weight: 700; line-height: 1; cursor: pointer; display: grid; place-items: center }
+.qbtn.add { background: var(--navy); color: var(--navy-ink); border-color: var(--navy) }
+.qn { min-width: 22px; text-align: center; font-weight: 700; font-variant-numeric: tabular-nums }
+.note { color: var(--muted); font-size: 14px; margin: 0 }
+
+.split { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; align-items: start }
+.panel { background: var(--surface); border: 1px solid var(--line); border-radius: 20px; padding: 22px; display: flex; flex-direction: column; gap: 14px; min-width: 0 }
+.field { display: flex; flex-direction: column; gap: 6px }
+.field label { font-size: 15px; font-weight: 600 }
+.field input, .field select, .field textarea { border: 1.5px solid var(--line); background: var(--bg); color: var(--fg); border-radius: 12px; padding: 11px 13px; min-height: 46px; width: 100% }
+.two { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 12px }
+.wa { background: var(--wa); color: #FFFFFF }
+.wa[aria-disabled="true"] { opacity: .5; pointer-events: none }
+.hint { font-size: 14px; color: var(--muted); margin: 0 }
+
+.qrbox { display: flex; flex-wrap: wrap; gap: 18px; align-items: center }
+.qr { background: #FFFFFF; padding: 12px; border-radius: 14px; width: 160px; height: 160px; display: grid; place-items: center; flex: none }
+.qr img, .qr canvas { width: 136px !important; height: 136px !important }
+.qrtext { flex: 1 1 200px; min-width: 0; display: flex; flex-direction: column; gap: 8px }
+.tables { display: flex; flex-wrap: wrap; gap: 6px }
+.tables button { min-width: 44px; min-height: 44px; border-radius: 10px; border: 1.5px solid var(--line); background: var(--bg); color: var(--fg); font-weight: 600; cursor: pointer }
+.tables button[aria-pressed="true"] { background: var(--saffron); border-color: var(--saffron); color: #1C2233 }
+.mono { font-family: ui-monospace, Menlo, Consolas, monospace; font-size: 13px; color: var(--muted); overflow-wrap: anywhere; direction: ltr; unicode-bidi: isolate }
+
+.gallery { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 10px }
+.gallery figure { margin: 0; border-radius: 16px; overflow: hidden; aspect-ratio: 1; max-width: 100%; display: grid; place-items: center; position: relative }
+.gallery figure svg { width: 70%; height: auto }
+.gallery figcaption { position: absolute; inset-inline: 0; bottom: 0; padding: 8px 10px; font-size: 13px; font-weight: 600; color: #FFFFFF; background: linear-gradient(transparent, rgba(0,0,0,.55)) }
+
+.info { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px }
+.card { background: var(--saffron-soft); border-radius: 16px; padding: 18px; display: flex; flex-direction: column; gap: 6px; min-width: 0 }
+.card b { font-size: 15px; color: var(--saffron) }
+.hours { display: grid; grid-template-columns: auto 1fr; gap: 2px 16px; font-variant-numeric: tabular-nums }
+.ltr { direction: ltr; unicode-bidi: isolate }
+.foot { color: var(--muted); font-size: 14px; text-align: center; padding-block: 28px 140px }
+.foot a { color: var(--saffron); font-weight: 700 }
+
+.order { position: fixed; inset-inline: 0; bottom: 0; padding: 12px 16px calc(12px + env(safe-area-inset-bottom, 0px)); background: var(--surface); border-top: 1px solid var(--line); box-shadow: 0 -6px 20px rgba(0,0,0,.08); z-index: 10 }
+.order .wrap { padding-inline: 0; display: flex; align-items: center; gap: 12px }
+.order .sum { flex: 1; min-width: 0; font-size: 15px; color: var(--muted) }
+.order .sum strong { display: block; color: var(--fg); font-size: 19px; font-variant-numeric: tabular-nums }
+@media (prefers-reduced-motion: no-preference) { html { scroll-behavior: smooth } }
+</style>
+
+<div class="demo" id="demoBar"></div>
+<div class="tablebar" id="tableBar" hidden></div>
+
+<header class="top">
+  <div class="wrap">
+    <div class="bar">
+      <div class="logo">
+        <svg aria-hidden="true" width="30" height="30" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 29V9"/><path d="M16 21c-5 0-8-3-8-8 5 0 8 3 8 8z"/><path d="M16 16c5 0 8-3 8-8-5 0-8 3-8 8z"/><path d="M16 9c-2-2-2-5 0-6 2 1 2 4 0 6z"/></svg>
+        <span id="brand"></span>
+      </div>
+      <nav class="nav" aria-label="Sections">
+        <a href="#menu" id="navMenu"></a><a href="#book" id="navBook"></a><a href="#gallery" id="navGallery"></a>
+        <button class="lang" id="langBtn" type="button"></button>
+      </nav>
+    </div>
+    <div class="hero">
+      <div>
+        <div class="status"><span class="dot" id="dot"></span><span id="statusText"></span></div>
+        <h1 id="heroTitle"></h1>
+        <p id="heroText"></p>
+        <div class="cta">
+          <a class="btn btn-saffron" href="#book" id="ctaBook"></a>
+          <a class="btn btn-ghost" href="#menu" id="ctaMenu"></a>
+        </div>
+      </div>
+      <div class="heroart" id="heroArt"></div>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+  <section class="block" id="menu">
+    <p class="eyebrow" id="menuEyebrow"></p>
+    <h2 id="menuTitle"></h2>
+    <nav class="tabs" id="tabs" aria-label="Menu sections"></nav>
+    <div class="grid" id="grid"></div>
+    <p class="note" id="priceNote"></p>
+  </section>
+
+  <section class="block" id="book">
+    <p class="eyebrow" id="bookEyebrow"></p>
+    <h2 id="bookTitle"></h2>
+    <div class="split">
+      <form class="panel" id="bookForm" novalidate>
+        <div class="field"><label for="bName" id="lName"></label><input id="bName" type="text" autocomplete="name"></div>
+        <div class="two">
+          <div class="field"><label for="bDate" id="lDate"></label><input id="bDate" type="date"></div>
+          <div class="field"><label for="bTime" id="lTime"></label><select id="bTime"></select></div>
+        </div>
+        <div class="two">
+          <div class="field"><label for="bPeople" id="lPeople"></label><select id="bPeople"></select></div>
+          <div class="field"><label for="bSeat" id="lSeat"></label><select id="bSeat"></select></div>
+        </div>
+        <div class="field"><label for="bNote" id="lNote"></label><textarea id="bNote" rows="2"></textarea></div>
+        <a class="btn wa" id="bookBtn" target="_blank" rel="noopener"></a>
+        <p class="hint" id="bookHint"></p>
+      </form>
+
+      <div class="panel" id="qrPanel">
+        <p class="eyebrow" id="qrEyebrow"></p>
+        <h3 style="margin:0; font-size: 22px" id="qrTitle"></h3>
+        <div class="qrbox">
+          <div class="qr" id="qr" role="img"></div>
+          <div class="qrtext">
+            <p class="hint" id="qrText"></p>
+            <div class="tables" id="tables"></div>
+            <span class="mono" id="qrUrl"></span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="block" id="gallery">
+    <p class="eyebrow" id="galEyebrow"></p>
+    <h2 id="galTitle"></h2>
+    <div class="gallery" id="gal"></div>
+    <a class="btn btn-saffron" style="width: fit-content" id="instaBtn" href="https://www.instagram.com/nafethah.web" target="_blank" rel="noopener"></a>
+  </section>
+
+  <section class="block" id="visit">
+    <h2 id="visitTitle"></h2>
+    <div class="info">
+      <div class="card"><b id="lblAddr"></b><span id="addr"></span><a id="mapLink" target="_blank" rel="noopener"></a></div>
+      <div class="card"><b id="lblHours"></b><div class="hours" id="hours"></div></div>
+      <div class="card"><b id="lblPhone"></b><span class="ltr">+961 71 163 991</span><span id="extra"></span></div>
+    </div>
+  </section>
+  <p class="foot" id="foot"></p>
+</main>
+
+<div class="order">
+  <div class="wrap">
+    <div class="sum" id="sum"></div>
+    <a class="btn wa" id="goBtn" target="_blank" rel="noopener"></a>
+  </div>
+</div>
+
+<script>
+const WA = '96171163991';
+const PAGE = 'https://nafetha-web.github.io/rayhan.html';
+// palette per dish: [plate, base, a, b, garnish]
+const MENU = [
+  { id: 'start', ar: 'مقبلات', en: 'Starters', items: [
+    { id: 'a1', ar: 'حمص بالصنوبر', en: 'Hummus with pine nuts', dar: 'حمص مع لحمة مفرومة وصنوبر محمّص', den: 'Topped with minced meat and toasted pine nuts', p: 7, c: ['#EDE6D8','#E9D3A8','#9A5A2E','#F2E3B8','#6E8B3D'], tag: 1 },
+    { id: 'a2', ar: 'فتوش', en: 'Fattoush', dar: 'خضرا موسمية، خبز محمّص ودبس رمان', den: 'Seasonal greens, toasted bread and pomegranate molasses', p: 6, c: ['#E9EEF0','#7FAF4E','#D9412F','#E8C27A','#4E7A2E'] },
+    { id: 'a3', ar: 'تبولة', en: 'Tabbouleh', dar: 'بقدونس، برغل، بندورة وحامض', den: 'Parsley, bulgur, tomato and lemon', p: 6, c: ['#EEF0EA','#4F8A35','#D9412F','#C9D98A','#2F5D23'] },
+    { id: 'a4', ar: 'كبة مقلية', en: 'Fried kibbeh', dar: '6 قطع مع لبن', den: '6 pieces with yogurt', p: 7, c: ['#F1EDE6','#8A4F27','#6B3A1C','#F4F1E8','#6E8B3D'] }
+  ]},
+  { id: 'main', ar: 'أطباق رئيسية', en: 'Mains', items: [
+    { id: 'b1', ar: 'مشاوي مشكّلة', en: 'Mixed grill', dar: 'لحمة، طاووق وكفتة مع خضرا مشوية', den: 'Beef, taouk and kafta with grilled vegetables', p: 19, c: ['#E8E4DC','#8E4B26','#C7782C','#D9412F','#4E7A2E'], tag: 1 },
+    { id: 'b2', ar: 'فرّوج مشوي', en: 'Grilled half chicken', dar: 'نص فرّوج مع توم وبطاطا', den: 'Half chicken with garlic sauce and fries', p: 14, c: ['#EEEAE2','#D08A3A','#E9C27A','#F7F2E6','#7FAF4E'] },
+    { id: 'b3', ar: 'كبة بلبن', en: 'Kibbeh in yogurt', dar: 'طبخة بيتية مع رز', den: 'Home-style stew served with rice', p: 13, c: ['#ECE8E0','#F3EFE4','#8A4F27','#E6DCC6','#6E8B3D'] },
+    { id: 'b4', ar: 'سمكة حرّة', en: 'Samke harra', dar: 'سمك بطحينة وكزبرة وحر', den: 'Fish baked with spicy tahini and coriander', p: 18, c: ['#E6ECEE','#E3C99A','#C2552E','#F1E2C2','#3F7A35'] }
+  ]},
+  { id: 'sweet', ar: 'حلويات', en: 'Desserts', items: [
+    { id: 'c1', ar: 'مهلبية', en: 'Mouhalabieh', dar: 'مع فستق وماء الزهر', den: 'With pistachio and orange blossom', p: 5, c: ['#EFEBE4','#F7F1E4','#8DB255','#E9DCC0','#C2552E'] },
+    { id: 'c2', ar: 'كنافة بالجبن', en: 'Knefeh with cheese', dar: 'سخنة مع قطر', den: 'Served warm with syrup', p: 6, c: ['#ECE6DC','#E2963A','#F4E9C8','#C8742A','#8DB255'], tag: 1 }
+  ]},
+  { id: 'drinks', ar: 'مشروبات', en: 'Drinks', items: [
+    { id: 'd1', ar: 'ليموناضة بالنعنع', en: 'Mint lemonade', dar: '', den: '', p: 4, c: ['#E8EEF0','#E8E07A','#7FAF4E','#F7F4D8','#4E7A2E'] },
+    { id: 'd2', ar: 'جلاب', en: 'Jallab', dar: 'مع صنوبر وزبيب', den: 'With pine nuts and raisins', p: 5, c: ['#EDE8E2','#5A2A20','#E9D3A8','#8A4F27','#F2E3B8'] },
+    { id: 'd3', ar: 'قهوة عربية', en: 'Arabic coffee', dar: '', den: '', p: 2, c: ['#EEEAE4','#4A2E1C','#C9A36A','#6B4430','#F2E3B8'] }
+  ]}
+];
+const GALLERY = [
+  { ar: 'الصالة', en: 'Dining room', c: ['#1F2A44','#C77A1F','#F6E8D3','#7FAF4E','#E2DFD8'] },
+  { ar: 'المطبخ', en: 'Kitchen', c: ['#8E4B26','#E9C27A','#F7F2E6','#D9412F','#4E7A2E'] },
+  { ar: 'التراس', en: 'Terrace', c: ['#3F6A3A','#E8E07A','#F4F1E8','#C77A1F','#9BC48A'] },
+  { ar: 'سفرة جمعة', en: 'Friday spread', c: ['#5A2A20','#E2963A','#F4E9C8','#7FAF4E','#D9412F'] }
+];
+const HOURS = [ { ar: 'كل يوم', en: 'Every day', h: '12:00 - 00:00', o: 12, c: 24, days: [0,1,2,3,4,5,6] } ];
+const TIMES = ['13:00','14:00','15:00','19:00','20:00','21:00','22:00'];
+const T = {
+  ar: { dir: 'rtl', lang: 'English', brand: 'مطبخ الريحان',
+    demo: 'هيدا موقع تجريبي لمطعم وهمي بباقة المطعم، من تصميم <a href="https://nafetha-web.github.io" target="_blank" rel="noopener">نافذة</a>. الصور رسومات توضيحية، وبموقعك منحط صور أطباقك الحقيقية.',
+    navMenu: 'المنيو', navBook: 'احجز طاولة', navGallery: 'صور',
+    open: 'مفتوح هلق', closed: 'مسكّر هلق',
+    heroTitle: 'أكل بيتي لبناني بخلدة', heroText: 'طبخات يومية، مشاوي عالفحم وحلويات عربية. احجز طاولتك أو اطلب لبيتك.',
+    ctaBook: 'احجز طاولة', ctaMenu: 'شوف المنيو',
+    menuEyebrow: 'منيو بالصور', menuTitle: 'شو في عنا اليوم', priceNote: 'الأسعار بالدولار وبتشمل الضريبة.', popular: 'الأكثر طلباً',
+    bookEyebrow: 'حجز طاولات', bookTitle: 'احجز طاولتك',
+    lName: 'الاسم', lDate: 'التاريخ', lTime: 'الساعة', lPeople: 'عدد الأشخاص', lSeat: 'وين بتحب تقعد', lNote: 'ملاحظة (اختياري)',
+    seats: ['جوّا', 'عالتراس', 'ما في فرق'], person: (n) => n + (n === 1 ? ' شخص' : ' أشخاص'),
+    bookBtn: 'ابعت الحجز عالواتساب', bookHint: 'بتوصلنا رسالة فيها تفاصيل الحجز، ومنأكّدلك ياه عالواتساب.', fillName: 'اكتب اسمك لتبعت الحجز',
+    bookMsg: (b) => 'مرحبا مطبخ الريحان، بدي احجز طاولة:\nالاسم: ' + b.name + '\nالتاريخ: ' + b.date + '\nالساعة: ' + b.time + '\nالعدد: ' + b.people + '\nالمكان: ' + b.seat + (b.note ? '\nملاحظة: ' + b.note : ''),
+    qrEyebrow: 'QR كود للطاولات', qrTitle: 'امسح واطلب من طاولتك',
+    qrText: 'كل طاولة إلها كود. الزبون بيمسحو بالتلفون، بيفتح المنيو، وبيوصلك الطلب مع رقم الطاولة. جرّب امسح الكود من تلفون تاني.',
+    table: 'طاولة', tableBar: (n) => 'إنت عطاولة رقم ' + n + '. طلبك رح يوصل للمطبخ مع رقم الطاولة.',
+    galEyebrow: 'معرض صور', galTitle: 'من جوّا المطعم', insta: 'تابعنا عالإنستغرام',
+    visitTitle: 'زورونا', lblAddr: 'العنوان', addr: 'خلدة، الطريق البحري', map: 'افتح عالخريطة',
+    lblHours: 'ساعات الفتح', lblPhone: 'واتساب وتلفون', extra: 'موقف سيارات مجاني',
+    foot: 'الموقع من تصميم <a href="https://nafetha-web.github.io" target="_blank" rel="noopener">نافذة</a>',
+    empty: 'ما زدت شي بعد', items: (n) => n + (n === 1 ? ' صنف' : ' أصناف'), go: 'اطلب عالواتساب',
+    add: 'زيد', remove: 'شيل', money: (n) => n + '$',
+    hello: 'مرحبا مطبخ الريحان، بدي اطلب:', total: 'المجموع', tableLine: (n) => 'طاولة رقم ' + n },
+  en: { dir: 'ltr', lang: 'عربي', brand: 'Matbakh El Rayhan',
+    demo: 'This is a demo site for a fictional restaurant on the Restaurant plan, designed by <a href="https://nafetha-web.github.io" target="_blank" rel="noopener">Nafetha</a>. Pictures are illustrations; your site shows photos of your real dishes.',
+    navMenu: 'Menu', navBook: 'Book a table', navGallery: 'Photos',
+    open: 'Open now', closed: 'Closed now',
+    heroTitle: 'Lebanese home cooking in Khaldeh', heroText: 'Daily dishes, charcoal grills and Arabic sweets. Book a table or order to your door.',
+    ctaBook: 'Book a table', ctaMenu: 'See the menu',
+    menuEyebrow: 'Photo menu', menuTitle: 'On the menu today', priceNote: 'Prices are in US dollars and include tax.', popular: 'Popular',
+    bookEyebrow: 'Table booking', bookTitle: 'Book your table',
+    lName: 'Name', lDate: 'Date', lTime: 'Time', lPeople: 'Guests', lSeat: 'Seating', lNote: 'Note (optional)',
+    seats: ['Indoors', 'Terrace', 'No preference'], person: (n) => n + (n === 1 ? ' guest' : ' guests'),
+    bookBtn: 'Send booking on WhatsApp', bookHint: 'We get a message with your booking details and confirm it on WhatsApp.', fillName: 'Enter your name to send the booking',
+    bookMsg: (b) => 'Hello Matbakh El Rayhan, I would like to book a table:\nName: ' + b.name + '\nDate: ' + b.date + '\nTime: ' + b.time + '\nGuests: ' + b.people + '\nSeating: ' + b.seat + (b.note ? '\nNote: ' + b.note : ''),
+    qrEyebrow: 'Table QR codes', qrTitle: 'Scan and order from your table',
+    qrText: 'Each table has its own code. Guests scan it, the menu opens, and the order reaches you with the table number. Try scanning it from another phone.',
+    table: 'Table', tableBar: (n) => 'You are at table ' + n + '. Your order goes to the kitchen with your table number.',
+    galEyebrow: 'Photo gallery', galTitle: 'Inside the restaurant', insta: 'Follow us on Instagram',
+    visitTitle: 'Visit us', lblAddr: 'Address', addr: 'Khaldeh, seaside road', map: 'Open in Maps',
+    lblHours: 'Opening hours', lblPhone: 'WhatsApp and phone', extra: 'Free parking',
+    foot: 'Site designed by <a href="https://nafetha-web.github.io" target="_blank" rel="noopener">Nafetha</a>',
+    empty: 'Nothing added yet', items: (n) => n + (n === 1 ? ' item' : ' items'), go: 'Order on WhatsApp',
+    add: 'Add', remove: 'Remove', money: (n) => '$' + n,
+    hello: 'Hello Matbakh El Rayhan, I would like to order:', total: 'Total', tableLine: (n) => 'Table ' + n }
+};
+
+let lang = 'ar', activeCat = MENU[0].id, qrTable = 5;
+const cart = {};
+const tableFromHash = (() => { const m = /^#t(\d{1,2})$/.exec(location.hash || ''); return m ? Number(m[1]) : null })();
+try { const s = localStorage.getItem('rayhan-lang'); if (s === 'en' || s === 'ar') lang = s } catch (e) {}
+const $ = (id) => document.getElementById(id);
+const esc = (s) => String(s).replace(/[&<>"]/g, (ch) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[ch]));
+
+function rand(seed) { let h = 2166136261; for (const ch of seed) { h ^= ch.charCodeAt(0); h = Math.imul(h, 16777619) } return () => { h ^= h << 13; h ^= h >>> 17; h ^= h << 5; return ((h >>> 0) % 1000) / 1000 } }
+function plateSVG(seed, c, size) {
+  const r = rand(seed); let blobs = '';
+  for (let i = 0; i < 7; i++) { const a = r() * 6.28, d = r() * 22, x = 60 + Math.cos(a) * d, y = 60 + Math.sin(a) * d, rx = 9 + r() * 12, ry = 7 + r() * 10, col = c[2 + (i % 2)];
+    blobs += '<ellipse cx="' + x.toFixed(1) + '" cy="' + y.toFixed(1) + '" rx="' + rx.toFixed(1) + '" ry="' + ry.toFixed(1) + '" transform="rotate(' + Math.round(r() * 180) + ' ' + x.toFixed(1) + ' ' + y.toFixed(1) + ')" fill="' + col + '" opacity=".92"/>' }
+  let dots = '';
+  for (let i = 0; i < 14; i++) { const a = r() * 6.28, d = r() * 32; dots += '<circle cx="' + (60 + Math.cos(a) * d).toFixed(1) + '" cy="' + (60 + Math.sin(a) * d).toFixed(1) + '" r="' + (1.4 + r() * 2).toFixed(1) + '" fill="' + c[4] + '"/>' }
+  return '<svg viewBox="0 0 120 120" aria-hidden="true" width="' + size + '"><circle cx="62" cy="64" r="56" fill="rgba(0,0,0,.12)"/><circle cx="60" cy="60" r="56" fill="' + c[0] + '"/><circle cx="60" cy="60" r="44" fill="#FFFFFF" opacity=".55"/><circle cx="60" cy="60" r="40" fill="' + c[1] + '"/>' + blobs + dots + '</svg>';
+}
+function tint(hex) { return hex + '33' }
+
+function isOpen() { const d = new Date(); const h = d.getHours() + d.getMinutes() / 60; return HOURS.some(x => x.days.includes(d.getDay()) && h >= x.o && h < x.c) }
+
+function renderStatic() {
+  const t = T[lang];
+  document.documentElement.lang = lang; document.documentElement.dir = t.dir; document.title = t.brand;
+  $('demoBar').innerHTML = t.demo;
+  $('brand').textContent = t.brand; $('langBtn').textContent = t.lang;
+  const open = isOpen(); $('dot').className = 'dot' + (open ? '' : ' closed'); $('statusText').textContent = open ? t.open : t.closed;
+  ['navMenu','navBook','navGallery','heroTitle','heroText','ctaBook','ctaMenu','menuEyebrow','menuTitle','priceNote','bookEyebrow','bookTitle','lName','lDate','lTime','lPeople','lSeat','lNote','bookHint','qrEyebrow','qrTitle','qrText','galEyebrow','galTitle','visitTitle','lblAddr','addr','lblHours','lblPhone','extra'].forEach(k => { $(k).textContent = t[k] });
+  $('instaBtn').textContent = t.insta;
+  $('mapLink').textContent = t.map; $('mapLink').href = 'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent('Khaldeh, Lebanon');
+  $('foot').innerHTML = t.foot;
+  $('hours').innerHTML = HOURS.map(x => '<span>' + x[lang] + '</span><span class="ltr">' + x.h + '</span>').join('');
+  $('heroArt').innerHTML = plateSVG('hero', MENU[1].items[0].c, 320);
+  if (tableFromHash) { $('tableBar').hidden = false; $('tableBar').textContent = t.tableBar(tableFromHash) }
+  const keep = { time: $('bTime').value, people: $('bPeople').value, seat: $('bSeat').value };
+  $('bTime').innerHTML = TIMES.map(x => '<option value="' + x + '">' + x + '</option>').join('');
+  $('bPeople').innerHTML = [1,2,3,4,5,6,7,8,10,12].map(n => '<option value="' + n + '">' + t.person(n) + '</option>').join('');
+  $('bSeat').innerHTML = t.seats.map((s, i) => '<option value="' + i + '">' + s + '</option>').join('');
+  $('bTime').value = keep.time || '20:00'; $('bPeople').value = keep.people || '2'; $('bSeat').value = keep.seat || '2';
+  $('gal').innerHTML = GALLERY.map((g, i) => '<figure style="background:' + g.c[0] + '">' + plateSVG('g' + i, g.c.slice(1).concat([g.c[3]]).slice(0,5), 120) + '<figcaption>' + g[lang] + '</figcaption></figure>').join('');
+  $('tables').innerHTML = [1,2,3,4,5,6,7,8].map(n => '<button type="button" data-table="' + n + '" aria-pressed="' + (n === qrTable) + '" aria-label="' + t.table + ' ' + n + '">' + n + '</button>').join('');
+  renderQR(); renderBooking();
+}
+
+function renderMenu() {
+  const t = T[lang];
+  $('tabs').innerHTML = MENU.map(c => '<button type="button" class="tab" data-cat="' + c.id + '" aria-pressed="' + (c.id === activeCat) + '">' + c[lang] + '</button>').join('');
+  const cat = MENU.find(c => c.id === activeCat);
+  $('grid').innerHTML = cat.items.map(i => {
+    const q = cart[i.id] || 0; const d = i['d' + lang];
+    return '<article class="dish"><div class="ph" style="background:' + tint(i.c[2]) + '">' + plateSVG(i.id, i.c, 200) + (i.tag ? '<span class="tag">' + t.popular + '</span>' : '') + '</div>' +
+      '<div class="body"><div class="row"><h3>' + i[lang] + '</h3><span class="price">' + t.money(i.p) + '</span></div>' + (d ? '<p>' + d + '</p>' : '<p></p>') +
+      '<div class="qty">' + (q ? '<button type="button" class="qbtn" data-dec="' + i.id + '" aria-label="' + t.remove + ' ' + i[lang] + '">−</button><span class="qn">' + q + '</span>' : '') +
+      '<button type="button" class="qbtn add" data-inc="' + i.id + '" aria-label="' + t.add + ' ' + i[lang] + '">+</button></div></div></article>';
+  }).join('');
+}
+
+function renderOrder() {
+  const t = T[lang];
+  const lines = MENU.flatMap(c => c.items).filter(i => cart[i.id]);
+  const count = lines.reduce((a, i) => a + cart[i.id], 0), total = lines.reduce((a, i) => a + cart[i.id] * i.p, 0);
+  $('sum').innerHTML = count ? t.items(count) + '<strong>' + t.money(total) + '</strong>' : (tableFromHash ? t.tableLine(tableFromHash) : t.empty);
+  const go = $('goBtn'); go.textContent = t.go;
+  if (count) {
+    const msg = t.hello + (tableFromHash ? '\n' + t.tableLine(tableFromHash) : '') + '\n' + lines.map(i => '- ' + cart[i.id] + ' × ' + i[lang] + ' (' + t.money(cart[i.id] * i.p) + ')').join('\n') + '\n' + t.total + ': ' + t.money(total);
+    go.href = 'https://wa.me/' + WA + '?text=' + encodeURIComponent(msg); go.removeAttribute('aria-disabled');
+  } else { go.href = '#menu'; go.setAttribute('aria-disabled', 'true') }
+}
+
+function renderBooking() {
+  const t = T[lang]; const name = $('bName').value.trim(); const btn = $('bookBtn');
+  if (!name) { btn.textContent = t.fillName; btn.href = '#book'; btn.setAttribute('aria-disabled', 'true'); return }
+  const b = { name: name, date: $('bDate').value || '-', time: $('bTime').value, people: $('bPeople').selectedOptions[0].textContent, seat: $('bSeat').selectedOptions[0].textContent, note: $('bNote').value.trim() };
+  btn.textContent = t.bookBtn; btn.href = 'https://wa.me/' + WA + '?text=' + encodeURIComponent(t.bookMsg(b)); btn.removeAttribute('aria-disabled');
+}
+
+function renderQR() {
+  const url = PAGE + '#t' + qrTable; const box = $('qr'); box.innerHTML = '';
+  box.setAttribute('aria-label', 'QR ' + T[lang].table + ' ' + qrTable);
+  $('qrUrl').textContent = url.replace('https://', '');
+  if (window.QRCode) { try { new QRCode(box, { text: url, width: 136, height: 136, colorDark: '#1C2233', colorLight: '#FFFFFF', correctLevel: QRCode.CorrectLevel.M }) } catch (e) {} }
+}
+
+function renderAll() { renderStatic(); renderMenu(); renderOrder() }
+
+$('langBtn').addEventListener('click', () => { lang = lang === 'ar' ? 'en' : 'ar'; try { localStorage.setItem('rayhan-lang', lang) } catch (e) {} renderAll() });
+$('tabs').addEventListener('click', (e) => { const b = e.target.closest('[data-cat]'); if (!b) return; activeCat = b.dataset.cat; renderMenu() });
+$('grid').addEventListener('click', (e) => {
+  const inc = e.target.closest('[data-inc]'), dec = e.target.closest('[data-dec]'); if (!inc && !dec) return;
+  const id = inc ? inc.dataset.inc : dec.dataset.dec;
+  if (inc) cart[id] = (cart[id] || 0) + 1; else { cart[id] = Math.max(0, (cart[id] || 0) - 1); if (!cart[id]) delete cart[id] }
+  renderMenu(); renderOrder(); const again = document.querySelector('[data-inc="' + id + '"]'); if (again) again.focus({ preventScroll: true });
+});
+$('tables').addEventListener('click', (e) => { const b = e.target.closest('[data-table]'); if (!b) return; qrTable = Number(b.dataset.table); document.querySelectorAll('[data-table]').forEach(x => x.setAttribute('aria-pressed', String(Number(x.dataset.table) === qrTable))); renderQR() });
+['bName','bDate','bTime','bPeople','bSeat','bNote'].forEach(id => { $(id).addEventListener('input', renderBooking); $(id).addEventListener('change', renderBooking) });
+$('bookForm').addEventListener('submit', (e) => e.preventDefault());
+(function () { const d = new Date(); d.setDate(d.getDate() + 1); $('bDate').value = d.toISOString().slice(0, 10) })();
+
+renderAll();
+</script>
+
+</body>
+</html>
