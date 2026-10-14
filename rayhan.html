@@ -379,7 +379,10 @@ function qtyHTML(i) {
   return '<div class="qty">' + (q ? '<button type="button" class="qbtn" data-dec="' + i.id + '" aria-label="' + t.remove + ' ' + i[lang] + '">−</button><span class="qn">' + q + '</span>' : '') +
     '<button type="button" class="qbtn add" data-inc="' + i.id + '" aria-label="' + t.add + ' ' + i[lang] + '">+</button></div>';
 }
-function setTabs() { document.querySelectorAll('.tab').forEach(x => x.setAttribute('aria-pressed', String(x.dataset.cat === activeCat))) }
+function setTabs() {
+  let on = null; document.querySelectorAll('.tab').forEach(x => { const a = x.dataset.cat === activeCat; x.setAttribute('aria-pressed', String(a)); if (a) on = x });
+  const bar = $('tabs'); if (on && bar) { const bl = bar.getBoundingClientRect(), r = on.getBoundingClientRect(); if (r.left < bl.left || r.right > bl.right) bar.scrollLeft += (r.left + r.width / 2) - (bl.left + bl.width / 2) }
+}
 
 function renderStatic() {
   const t = T[lang];
