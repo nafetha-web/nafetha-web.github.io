@@ -114,6 +114,8 @@ section.block { padding-block: 36px 4px; display: flex; flex-direction: column; 
 .wa[aria-disabled="true"] { opacity: .5; pointer-events: none }
 button.btn { font-family: inherit }
 .hint { font-size: 13px; color: var(--muted); margin: 0 }
+#qrPanel { border: 2px dashed var(--saffron); background: var(--saffron-soft) }
+#qrPanel .eyebrow::before { content: "★ " }
 .qrbox { display: flex; flex-wrap: wrap; gap: 16px; align-items: center }
 .qr { background: #FFFFFF; padding: 12px; border-radius: 14px; width: 160px; height: 160px; display: grid; place-items: center; flex: none; border: 1px solid var(--line) }
 .qr img, .qr canvas { width: 136px !important; height: 136px !important }
@@ -324,8 +326,8 @@ const T = {
     seats: ['في الداخل', 'على التراس', 'لا فرق'], person: (n) => n === 1 ? 'شخص واحد' : n === 2 ? 'شخصان' : n <= 10 ? n + ' أشخاص' : n + ' شخصًا',
     bookBtn: 'أرسل الحجز عبر واتساب', bookHint: 'تصلنا رسالة بتفاصيل الحجز، ونؤكّده لك عبر واتساب.', fillName: 'اكتب اسمك لإرسال الحجز',
     bookMsg: (b) => 'مرحبًا مطبخ الريحان، أودّ حجز طاولة:\nالاسم: ' + b.name + '\nالتاريخ: ' + b.date + '\nالوقت: ' + b.time + '\nالعدد: ' + b.people + '\nالمكان: ' + b.seat + (b.note ? '\nملاحظة: ' + b.note : ''),
-    qrEyebrow: 'رمز QR للطاولات', qrTitle: 'امسح الرمز واطلب من طاولتك',
-    qrText: 'لكل طاولة رمز خاص. يمسحه الزبون بهاتفه فتُفتح القائمة، ويصلك الطلب مع رقم الطاولة.',
+    qrEyebrow: 'ميزة لصاحب المطعم', qrTitle: 'طلب من الطاولة',
+    qrText: 'هذا القسم للعرض فقط ولا يظهر في موقعك. نطبع لكل طاولة رمزًا خاصًا، يمسحه الزبون فيصلك طلبه مع رقم الطاولة. جرّب مسح الرمز من هاتف آخر.',
     table: 'طاولة', tableBar: (n) => 'أنت على الطاولة رقم ' + n + '. سيصل طلبك إلى المطبخ مع رقم الطاولة.',
     galEyebrow: 'معرض الصور', galTitle: 'من أجوائنا', insta: 'تابعنا على إنستغرام',
     visitTitle: 'زورونا', lblAddr: 'العنوان', addr: 'خلدة، الطريق البحري', map: 'افتح على الخريطة',
@@ -348,8 +350,8 @@ const T = {
     seats: ['Indoors', 'Terrace', 'No preference'], person: (n) => n + (n === 1 ? ' guest' : ' guests'),
     bookBtn: 'Send booking on WhatsApp', bookHint: 'We get a message with your booking details and confirm it on WhatsApp.', fillName: 'Enter your name to send the booking',
     bookMsg: (b) => 'Hello Matbakh El Rayhan, I would like to book a table:\nName: ' + b.name + '\nDate: ' + b.date + '\nTime: ' + b.time + '\nGuests: ' + b.people + '\nSeating: ' + b.seat + (b.note ? '\nNote: ' + b.note : ''),
-    qrEyebrow: 'Table QR codes', qrTitle: 'Scan and order from your table',
-    qrText: 'Each table has its own code. Guests scan it, the menu opens, and the order reaches you with the table number.',
+    qrEyebrow: 'For the restaurant owner', qrTitle: 'Order from the table',
+    qrText: 'This section is for the demo only and does not appear on your site. We print a code for each table; guests scan it and their order reaches you with the table number. Try scanning it from another phone.',
     table: 'Table', tableBar: (n) => 'You are at table ' + n + '. Your order goes to the kitchen with your table number.',
     galEyebrow: 'Photo gallery', galTitle: 'Around the place', insta: 'Follow us on Instagram',
     visitTitle: 'Visit us', lblAddr: 'Address', addr: 'Khaldeh, seaside road', map: 'Open in Maps',
