@@ -53,10 +53,6 @@ h1, h2, h3 { text-wrap: balance }
 .logo b { font-family: var(--display); font-weight: 700 }
 .logo b span { color: var(--saffron) }
 .hero h1 em { font-style: normal; color: var(--saffron) }
-.dish.noimg .body { padding: 8px 12px; flex-direction: row; flex-wrap: wrap; align-items: center; gap: 4px 12px }
-.dish.noimg h4 { flex: 1 1 auto }
-.dish.noimg p { order: 3; flex-basis: 100% }
-.dish.noimg .row { margin: 0; padding: 0; gap: 12px }
 .contacts { display: grid; grid-template-columns: auto 1fr; gap: 2px 14px }
 .contacts a { text-decoration: none; font-weight: 600 }
 .nav { display: flex; gap: 4px 16px; align-items: center; font-size: 15px }
@@ -164,6 +160,19 @@ button.btn { font-family: inherit }
 .revtotal strong { font-size: 22px; font-variant-numeric: tabular-nums }
 .back { background: transparent; color: var(--fg); border: 1.5px solid var(--line) }
 @media (prefers-reduced-motion: no-preference) { html { scroll-behavior: smooth } }
+/* Baron Shant: two-up menu cards */
+.list { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px }
+@media (min-width: 720px) { .list { grid-template-columns: repeat(4, minmax(0, 1fr)) } }
+.dish { flex-direction: column }
+.dish .ph { width: 100%; min-height: 0; height: 92px; flex: none }
+.dish .ph.empty { background: var(--saffron-soft) }
+.dish .ph.empty .fb { opacity: .45 }
+.dish .body { padding: 8px 10px 10px }
+.dish h4 { font-size: 14.5px }
+.dish p { font-size: 12px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden }
+.dish .row { flex-wrap: wrap; gap: 6px }
+.dish .price { font-size: 13.5px }
+.dish .qbtn { width: 34px; height: 34px; font-size: 18px }
 </style>
 </head>
 <body>
@@ -394,7 +403,7 @@ function renderMenu() {
   $('cats').innerHTML = MENU.map(c => '<div class="cat" id="cat-' + c.id + '"><h3 class="ch">' + c[lang] + ' <small>' + t.count(c.items.length) + '</small></h3><div class="list">' +
     c.items.map(i => {
       const d = i['d' + lang];
-      return '<article class="dish' + (i.ph ? '' : ' noimg') + '">' + (i.ph ? '<div class="ph">' + photo(i.ph, 208, 208, i[lang]) + '</div>' : '') +
+      return '<article class="dish">' + (i.ph ? '<div class="ph">' + photo(i.ph, 208, 208, i[lang]) + '</div>' : '<div class="ph empty"><span class="fb" aria-hidden="true">' + i[lang].charAt(0) + '</span></div>') +
         '<div class="body"><h4>' + i[lang] + '</h4>' + (d ? '<p>' + d + '</p>' : '') + '<div class="row"><span class="price">' + t.money(i.p) + '</span>' + qtyHTML(i) + '</div></div></article>';
     }).join('') + '</div></div>').join('');
   if ('IntersectionObserver' in window) {
