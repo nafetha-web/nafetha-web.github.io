@@ -1,0 +1,534 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="Prime Estate - مكتب عقاري بإدارة حسين فوعاني. شقق وفلل ومحلات للبيع والإيجار.">
+<style>:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
+<title>Prime Estate</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Reem+Kufi:wght@500;600;700&family=IBM+Plex+Sans+Arabic:wght@300;400;500;600&family=Marcellus&display=swap">
+<style>
+/* Layout: calm white pages with gold hairlines — home (hero search, listings, services, contact) and a separate "list your property" page */
+:root{
+  --bg:#fbfaf7;         /* soft white, easy on the eyes */
+  --surface:#ffffff;    /* cards */
+  --tint:#f5f0e6;       /* light gold wash for bands and inputs */
+  --gold:#b8964f;       /* gold accent (readable on white) */
+  --gold-deep:#8f7135;  /* gold for small text */
+  --gold-soft:#e6d6b2;  /* light gold fills */
+  --ink:#2c2924;        /* main text */
+  --mute:#6f685d;       /* secondary text */
+  --line:#ece4d4;
+  --display:"Reem Kufi","Marcellus","IBM Plex Sans Arabic",serif;
+  --body:"IBM Plex Sans Arabic",system-ui,-apple-system,"Segoe UI",sans-serif;
+  color-scheme:light;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:16px;line-height:1.75;-webkit-font-smoothing:antialiased}
+a{color:inherit}
+.wrap{max-width:1180px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+h1,h2,h3{font-family:var(--display);font-weight:600;text-wrap:balance;margin:0;line-height:1.3;color:var(--ink)}
+html[lang="en"] h1,html[lang="en"] h2,html[lang="en"] h3,html[lang="en"] .brand b{font-family:"Marcellus",serif;font-weight:400}
+.eyebrow{font-size:.88rem;color:var(--gold-deep);font-weight:500}
+html[lang="en"] .eyebrow{font-size:.76rem;letter-spacing:.16em;text-transform:uppercase}
+button,input,select,textarea{font:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+
+/* header */
+header{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:rgba(251,250,247,.92);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.bar{display:flex;align-items:center;justify-content:space-between;gap:12px;padding-block:12px}
+.brand{display:flex;align-items:center;gap:10px;text-decoration:none}
+.mark{width:38px;height:38px;flex:none}
+.brand b{font-family:var(--display);font-size:1.12rem;letter-spacing:.06em;color:var(--ink);display:block;line-height:1.1}
+.brand small{display:block;font-size:.74rem;color:var(--gold-deep)}
+nav.links{display:flex;gap:22px;align-items:center}
+nav.links a{text-decoration:none;color:var(--mute);font-size:.95rem}
+nav.links a:hover,nav.links a[aria-current="page"]{color:var(--gold-deep)}
+.hdr-actions{display:flex;gap:8px;align-items:center}
+.lang{background:var(--surface);border:1px solid var(--line);border-radius:999px;padding:6px 14px;cursor:pointer;color:var(--gold-deep);font-size:.85rem}
+.lang:hover{border-color:var(--gold)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;background:var(--gold);color:#fff;border:0;border-radius:999px;padding:10px 20px;font-weight:500;text-decoration:none;cursor:pointer;font-size:.95rem;white-space:nowrap}
+.btn:hover{background:var(--gold-deep)}
+.btn.ghost{background:var(--surface);color:var(--gold-deep);border:1px solid var(--gold-soft)}
+.btn.ghost:hover{border-color:var(--gold)}
+.btn svg{width:18px;height:18px}
+.sell-link{border:1px solid var(--gold-soft);border-radius:999px;padding:5px 14px;color:var(--gold-deep)!important}
+@media (max-width:860px){nav.links{display:none}.hdr-actions .btn span{display:none}.hdr-actions .btn{padding:9px}}
+.mnav{display:none;gap:8px;overflow-x:auto;padding-block:0 10px}
+.mnav a{text-decoration:none;font-size:.88rem;color:var(--mute);border:1px solid var(--line);border-radius:999px;padding:4px 12px;white-space:nowrap;background:var(--surface)}
+.mnav a.hl{color:var(--gold-deep);border-color:var(--gold-soft)}
+@media (max-width:860px){.mnav{display:flex}}
+
+/* hero */
+.hero{position:relative;overflow:hidden;background:linear-gradient(180deg,var(--bg) 0%,var(--tint) 100%);border-bottom:1px solid var(--line)}
+.hero-art{position:absolute;inset:0;pointer-events:none}
+.hero-inner{position:relative;padding-block:64px 52px;display:grid;gap:32px}
+.hero h1{font-size:clamp(2rem,5vw,3.5rem);max-width:17ch}
+.hero h1 em{font-style:normal;color:var(--gold)}
+.hero p.lead{max-width:54ch;color:var(--mute);font-size:1.06rem;margin:14px 0 0}
+.search{display:grid;grid-template-columns:repeat(4,minmax(0,1fr)) auto;gap:10px;background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:12px;max-width:980px;box-shadow:0 10px 30px rgba(143,113,53,.08)}
+.search label{display:flex;flex-direction:column;gap:2px;font-size:.78rem;color:var(--mute);padding:2px 6px;min-width:0}
+.search select{background:var(--tint);border:1px solid transparent;border-radius:8px;padding:9px 10px;font-size:.95rem;width:100%}
+.search .btn{align-self:end;border-radius:10px;margin:0 4px 4px}
+@media (max-width:860px){.search{grid-template-columns:repeat(2,minmax(0,1fr))}.search .btn{grid-column:1/-1}}
+.stats{display:flex;flex-wrap:wrap;gap:24px 48px}
+.stats div{display:flex;flex-direction:column}
+.stats b{font-family:var(--display);font-size:1.8rem;color:var(--gold-deep);font-variant-numeric:tabular-nums;line-height:1.1}
+.stats span{font-size:.86rem;color:var(--mute)}
+
+/* sections */
+section.block{padding-block:68px}
+.band{background:var(--tint);border-block:1px solid var(--line)}
+.sec-head{display:flex;justify-content:space-between;align-items:end;gap:20px;flex-wrap:wrap;margin-bottom:28px}
+.sec-head h2{font-size:clamp(1.55rem,3.2vw,2.3rem);margin-top:4px}
+.tabs{display:flex;gap:4px;background:var(--surface);border:1px solid var(--line);border-radius:999px;padding:4px}
+.tabs button{background:none;border:0;border-radius:999px;padding:7px 16px;cursor:pointer;color:var(--mute);font-size:.92rem}
+.tabs button[aria-pressed="true"]{background:var(--gold);color:#fff}
+
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(285px,1fr));gap:22px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:14px;overflow:hidden;display:flex;flex-direction:column;cursor:pointer;transition:transform .25s,box-shadow .25s}
+.card:hover{transform:translateY(-3px);box-shadow:0 14px 34px rgba(143,113,53,.12)}
+.ph{position:relative;aspect-ratio:4/3;max-width:100%;background:var(--tint)}
+.ph svg{display:block;width:100%;height:100%}
+.badge{position:absolute;top:12px;inset-inline-start:12px;background:rgba(255,255,255,.92);border:1px solid var(--line);color:var(--gold-deep);font-size:.78rem;padding:2px 10px;border-radius:999px}
+.badge.new{inset-inline-start:auto;inset-inline-end:12px;background:var(--gold);color:#fff;border-color:var(--gold)}
+.card-body{padding:16px 18px 18px;display:flex;flex-direction:column;gap:6px;flex:1}
+.price{font-family:var(--display);font-size:1.35rem;color:var(--gold-deep);font-variant-numeric:tabular-nums}
+.price small{font-family:var(--body);font-size:.8rem;color:var(--mute)}
+.card h3{font-size:1.02rem;font-family:var(--body);font-weight:500}
+html[lang="en"] .card h3{font-family:var(--body);font-weight:500}
+.loc{font-size:.86rem;color:var(--mute)}
+.specs{display:flex;gap:16px;border-top:1px solid var(--line);padding-top:10px;margin-top:auto;font-size:.88rem;font-variant-numeric:tabular-nums}
+.specs span{display:flex;align-items:center;gap:6px}
+.specs svg{width:16px;height:16px;color:var(--gold)}
+.empty{padding:40px;text-align:center;color:var(--mute);border:1px dashed var(--gold-soft);border-radius:14px;grid-column:1/-1}
+
+.why-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:28px}
+.why-grid div{border-top:2px solid var(--gold-soft);padding-top:16px}
+.why-grid h3{font-size:1.08rem;margin-bottom:6px}
+.why-grid p{margin:0;color:var(--mute);font-size:.94rem}
+@media (max-width:900px){.why-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:520px){.why-grid{grid-template-columns:1fr}}
+
+.cta-sell{display:flex;justify-content:space-between;align-items:center;gap:24px;flex-wrap:wrap;background:var(--surface);border:1px solid var(--gold-soft);border-radius:16px;padding:28px}
+.cta-sell p{margin:6px 0 0;color:var(--mute);max-width:52ch}
+
+/* contact */
+.contact{display:grid;grid-template-columns:1fr 1.1fr;gap:40px}
+.agent{display:flex;flex-direction:column;gap:14px}
+.num{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.num code{font-family:var(--body);font-size:1.45rem;color:var(--gold-deep);direction:ltr;unicode-bidi:embed;user-select:all;font-variant-numeric:tabular-nums}
+.copy{background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:5px 12px;cursor:pointer;color:var(--mute);font-size:.85rem}
+.copy:hover{color:var(--gold-deep);border-color:var(--gold)}
+.agent dl{display:grid;grid-template-columns:auto 1fr;gap:6px 18px;margin:0;font-size:.95rem}
+.agent dt{color:var(--mute)}
+.agent dd{margin:0}
+form.req{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:22px;display:grid;gap:14px}
+form.req .row{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+form.req .row3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+form.req label{display:flex;flex-direction:column;gap:4px;font-size:.85rem;color:var(--mute);min-width:0}
+form.req input,form.req select,form.req textarea{background:var(--tint);border:1px solid transparent;border-radius:8px;padding:10px 12px;width:100%;color:var(--ink)}
+form.req input:focus,form.req select:focus,form.req textarea:focus{border-color:var(--gold-soft);outline:none;background:#fff}
+form.req textarea{min-height:90px;resize:vertical}
+.money{display:flex;align-items:center;background:var(--tint);border:1px solid transparent;border-radius:8px;min-width:0}
+.money:focus-within{border-color:var(--gold-soft);background:#fff}
+.money b{padding-inline-start:12px;color:var(--gold-deep);font-weight:600}
+.money i{font-style:normal;font-size:.75rem;color:var(--mute);padding-inline-end:12px}
+form.req .money input{background:transparent;border:0;padding-inline:6px;font-variant-numeric:tabular-nums;min-width:0}
+form.req .money input:focus{background:transparent;border:0}
+form.req .money input:first-child{padding-inline-start:12px}
+.money i[data-i18n="area"]{font-size:.9rem;color:var(--gold-deep);font-weight:500}
+form.req .hint{font-size:.84rem;color:var(--mute);margin:0}
+form.req fieldset{border:0;padding:0;margin:0;display:grid;gap:14px}
+form.req legend{font-family:var(--display);font-size:1.02rem;color:var(--gold-deep);margin-bottom:4px;padding:0}
+@media (max-width:860px){.contact{grid-template-columns:1fr}}
+@media (max-width:560px){form.req .row,form.req .row3{grid-template-columns:1fr}}
+
+/* sell page */
+.sell-hero{background:linear-gradient(180deg,var(--bg),var(--tint));border-bottom:1px solid var(--line)}
+.sell-hero .wrap{padding-block:56px 40px}
+.sell-hero h1{font-size:clamp(1.9rem,4.6vw,3.1rem);max-width:18ch;margin-top:6px}
+.sell-hero p{color:var(--mute);max-width:56ch;margin:12px 0 0;font-size:1.04rem}
+.steps{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:20px;list-style:none;padding:0;margin:32px 0 0;counter-reset:s}
+.steps li{counter-increment:s;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:16px}
+.steps li::before{content:counter(s);display:inline-flex;align-items:center;justify-content:center;width:28px;height:28px;border-radius:50%;background:var(--gold-soft);color:var(--gold-deep);font-weight:600;font-size:.9rem;margin-bottom:8px;font-variant-numeric:tabular-nums}
+.steps b{display:block;font-weight:600;margin-bottom:2px}
+.steps span{font-size:.9rem;color:var(--mute)}
+@media (max-width:860px){.steps{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:460px){.steps{grid-template-columns:1fr}}
+.sell-layout{display:grid;grid-template-columns:1.5fr 1fr;gap:32px;align-items:start}
+.aside{display:grid;gap:16px;position:sticky;top:96px}
+.aside .box{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:20px}
+.aside h3{font-size:1.05rem;margin-bottom:8px}
+.aside ul{margin:0;padding-inline-start:18px;color:var(--mute);font-size:.93rem;display:grid;gap:4px}
+@media (max-width:900px){.sell-layout{grid-template-columns:1fr}.aside{position:static}}
+.sent{background:var(--tint);border:1px solid var(--gold-soft);border-radius:10px;padding:12px 14px;font-size:.92rem}
+
+footer{border-top:1px solid var(--line);padding-block:26px;color:var(--mute);font-size:.86rem;background:var(--surface)}
+footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px}
+
+/* modal */
+.modal{position:fixed;inset:0;z-index:50;background:rgba(44,41,36,.45);display:flex;align-items:center;justify-content:center;padding:max(16px,env(safe-area-inset-top,0px)) max(16px,env(safe-area-inset-right,0px)) max(16px,env(safe-area-inset-bottom,0px)) max(16px,env(safe-area-inset-left,0px))}
+.sheet{background:var(--surface);border-radius:16px;max-width:760px;width:100%;max-height:100%;overflow:auto;box-shadow:0 30px 60px rgba(0,0,0,.18)}
+.sheet .ph{aspect-ratio:16/9}
+.sheet-body{padding:22px;display:grid;gap:14px}
+.sheet h3{font-size:1.35rem}
+.facts{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}
+.facts div{background:var(--tint);border-radius:10px;padding:10px 12px}
+.facts span{display:block;font-size:.76rem;color:var(--mute)}
+.facts b{font-weight:500;font-variant-numeric:tabular-nums}
+@media (max-width:560px){.facts{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.feat{display:flex;flex-wrap:wrap;gap:8px;list-style:none;padding:0;margin:0}
+.feat li{border:1px solid var(--gold-soft);border-radius:999px;padding:3px 12px;font-size:.86rem;color:var(--gold-deep)}
+.sheet-actions{display:flex;gap:10px;flex-wrap:wrap;justify-content:space-between;align-items:center}
+.toast{position:fixed;bottom:calc(20px + env(safe-area-inset-bottom,0px));left:50%;transform:translateX(-50%);background:var(--ink);color:#fff;padding:8px 18px;border-radius:999px;font-size:.9rem;z-index:60}
+
+.float-wa{position:fixed;bottom:calc(18px + env(safe-area-inset-bottom,0px));inset-inline-end:calc(18px + env(safe-area-inset-right,0px));z-index:30;width:54px;height:54px;border-radius:50%;background:var(--gold);color:#fff;display:flex;align-items:center;justify-content:center;box-shadow:0 8px 22px rgba(143,113,53,.35)}
+.float-wa svg{width:26px;height:26px}
+
+@media (prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap bar">
+    <a class="brand" href="#top" data-go="home" aria-label="Prime Estate">
+      <svg class="mark" viewBox="0 0 40 40" aria-hidden="true"><rect x="1" y="1" width="38" height="38" rx="8" fill="#fff" stroke="#b8964f" stroke-width="1.2"/><path d="M9 29V17l11-8 11 8v12" fill="none" stroke="#b8964f" stroke-width="1.6" stroke-linejoin="round"/><path d="M16 29v-9h6.5a3.5 3.5 0 0 1 0 7H16" fill="none" stroke="#8f7135" stroke-width="1.6" stroke-linejoin="round"/></svg>
+      <span><b>PRIME ESTATE</b><small data-i18n="by">بإدارة حسين فوعاني</small></span>
+    </a>
+    <nav class="links">
+      <a href="#listings" data-go="home" data-i18n="nav1">العقارات</a>
+      <a href="#why" data-go="home" data-i18n="nav2">خدماتنا</a>
+      <a href="#contact" data-go="home" data-i18n="nav4">تواصل معنا</a>
+      <a href="#sell" class="sell-link" data-go="sell" data-i18n="nav5">اعرض عقارك للبيع</a>
+    </nav>
+    <div class="hdr-actions">
+      <button class="lang" id="langBtn" type="button">English</button>
+      <a class="btn" id="hdrWa" href="#" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8s-.4-.1-.6.1-.7.8-.8 1-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4.3-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.7 11.8 11.8 0 0 0 4.5 4c1.7.7 2.3.8 3.2.7a2.7 2.7 0 0 0 1.8-1.3 2.2 2.2 0 0 0 .2-1.3c-.1-.1-.2-.2-.4-.3z"/></svg><span data-i18n="wa">واتساب</span></a>
+    </div>
+  </div>
+  <div class="wrap mnav">
+    <a href="#listings" data-go="home" data-i18n="nav1">العقارات</a>
+    <a href="#why" data-go="home" data-i18n="nav2">خدماتنا</a>
+    <a href="#contact" data-go="home" data-i18n="nav4">تواصل معنا</a>
+    <a href="#sell" class="hl" data-go="sell" data-i18n="nav5">اعرض عقارك للبيع</a>
+  </div>
+</header>
+
+<main id="top">
+<div id="pageHome">
+  <section class="hero">
+    <svg class="hero-art" viewBox="0 0 1200 520" preserveAspectRatio="xMidYMax slice" aria-hidden="true">
+      <g fill="none" stroke="#b8964f" stroke-opacity=".28" stroke-width="1">
+        <path d="M0 520V380h70v-60h50v60h40V300h90v220M250 520V340h60v-40h70v220M380 520V260h110v260M490 520V360h80v-50h60v210M630 520V230h120v290M750 520V330h70v-70h80v260M900 520V300h110v220M1010 520V360h80v-40h110v200"/>
+      </g>
+      <g fill="#b8964f" fill-opacity=".14" id="heroWins"></g>
+      <circle cx="1040" cy="120" r="46" fill="#e6d6b2" fill-opacity=".35"/>
+    </svg>
+    <div class="wrap hero-inner">
+      <div>
+        <div class="eyebrow" data-i18n="heroEye">مكتب عقاري موثوق</div>
+        <h1 data-i18n-html="heroH">بيتك القادم <em>في دوحة الحص</em> وجوارها، بثقة وراحة بال</h1>
+        <p class="lead" data-i18n="heroP">شقق وفلل ومحلات للبيع والإيجار. نرافقك في المعاينة، ونتحقق من السند، ونبقى معك حتى تستلم المفتاح.</p>
+      </div>
+      <form class="search" id="searchForm">
+        <label><span data-i18n="sDeal">نوع العرض</span>
+          <select id="fDeal"><option value="all" data-i18n="any">الكل</option><option value="sale" data-i18n="sale">للبيع</option><option value="rent" data-i18n="rent">للإيجار</option></select></label>
+        <label><span data-i18n="sType">نوع العقار</span>
+          <select id="fType"><option value="all" data-i18n="any">الكل</option><option value="apt" data-i18n="apt">شقة</option><option value="duplex" data-i18n="duplex">دوبلكس</option><option value="villa" data-i18n="villa">فيلا</option><option value="shop" data-i18n="shop">محل تجاري</option></select></label>
+        <label><span data-i18n="sRooms">غرف النوم</span>
+          <select id="fRooms"><option value="0" data-i18n="any">الكل</option><option value="1">1+</option><option value="2">2+</option><option value="3">3+</option><option value="4">4+</option></select></label>
+        <label><span data-i18n="sBudget">الميزانية</span>
+          <select id="fBudget"><option value="0" data-i18n="any">الكل</option><option value="150000">≤ $150,000</option><option value="250000">≤ $250,000</option><option value="400000">≤ $400,000</option><option value="1000">≤ $1,000</option></select></label>
+        <button class="btn" type="submit" data-i18n="search">ابحث</button>
+      </form>
+      <div class="stats">
+        <div><b>+120</b><span data-i18n="st1">عقار تم بيعه</span></div>
+        <div><b>+12</b><span data-i18n="st2">سنة من الخبرة</span></div>
+        <div><b>+40</b><span data-i18n="st3">مبنى نتعامل معه</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="block" id="listings">
+    <div class="wrap">
+      <div class="sec-head">
+        <div><div class="eyebrow" data-i18n="lEye">العروض الحالية</div><h2 data-i18n="lH">عقارات مختارة</h2></div>
+        <div class="tabs" role="group" aria-label="filter">
+          <button type="button" data-deal="all" aria-pressed="true" data-i18n="any">الكل</button>
+          <button type="button" data-deal="sale" aria-pressed="false" data-i18n="sale">للبيع</button>
+          <button type="button" data-deal="rent" aria-pressed="false" data-i18n="rent">للإيجار</button>
+        </div>
+      </div>
+      <div class="grid" id="grid"></div>
+    </div>
+  </section>
+
+  <section class="block band" id="why">
+    <div class="wrap">
+      <div class="sec-head"><div><div class="eyebrow" data-i18n="wEye">لماذا Prime Estate</div><h2 data-i18n="wH">خدمة كاملة من أول معاينة حتى التوقيع</h2></div></div>
+      <div class="why-grid">
+        <div><h3 data-i18n="w1h">سند أخضر مضمون</h3><p data-i18n="w1p">نتحقق من السند والأوراق الرسمية قبل عرض أي عقار.</p></div>
+        <div><h3 data-i18n="w2h">معاينة في الوقت المناسب لك</h3><p data-i18n="w2p">احجز موعدك عبر واتساب ونلتقيك في العقار.</p></div>
+        <div><h3 data-i18n="w3h">أسعار عادلة</h3><p data-i18n="w3p">نعرف أسعار السوق جيداً، ونفاوض نيابةً عنك.</p></div>
+        <div><h3 data-i18n="w4h">متابعة الأوراق</h3><p data-i18n="w4p">نتابع معك كاتب العدل والتسجيل حتى الاستلام.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="block">
+    <div class="wrap">
+      <div class="cta-sell">
+        <div><h2 style="font-size:clamp(1.35rem,2.8vw,1.9rem)" data-i18n="ctaH">هل تملك عقاراً وتريد بيعه؟</h2><p data-i18n="ctaP">أرسل لنا تفاصيله، نعاينه ونقدّر سعره مجاناً، ثم نعرضه على مشترين جادّين.</p></div>
+        <a class="btn" href="#sell" data-go="sell" data-i18n="ctaB">اعرض عقارك للبيع</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="block band" id="contact">
+    <div class="wrap contact">
+      <div class="agent">
+        <div class="eyebrow" data-i18n="cEye">تواصل معنا</div>
+        <h2 data-i18n="cH">حسين فوعاني</h2>
+        <p style="color:var(--mute);margin:0" data-i18n="cP">تريد أن تشتري أو تستأجر أو تبيع؟ راسلنا عبر واتساب أو اتصل مباشرة.</p>
+        <div class="num"><code class="phone">+961 71 333 153</code><button class="copy" type="button" data-i18n="copy">نسخ الرقم</button></div>
+        <a class="btn" id="bigWa" href="#" target="_blank" rel="noopener" style="align-self:flex-start" data-i18n="waBig">راسلنا عبر واتساب</a>
+        <dl><dt data-i18n="hrsL">ساعات العمل</dt><dd data-i18n="hrs">الإثنين – السبت، ٩ صباحاً – ٧ مساءً</dd></dl>
+      </div>
+      <form class="req" id="reqForm">
+        <h3 data-i18n="fH">أخبرنا عمّا تبحث عنه</h3>
+        <div class="row">
+          <label><span data-i18n="fName">الاسم</span><input id="rName" required></label>
+          <label><span data-i18n="fDeal">أريد أن</span>
+            <select id="rDeal"><option data-i18n="buy">أشتري</option><option data-i18n="rentv">أستأجر</option></select></label>
+        </div>
+        <div class="row">
+          <label><span data-i18n="sRooms">غرف النوم</span><select id="rRooms"><option>1</option><option selected>2</option><option>3</option><option>4+</option></select></label>
+          <label><span data-i18n="sBudget">الميزانية</span><span class="money" dir="ltr"><b>$</b><input id="rBudget" inputmode="numeric" placeholder="150,000"><i>USD</i></span></label>
+        </div>
+        <label><span data-i18n="fNote">ملاحظات</span><textarea id="rNote" data-i18n-ph="fNotePh" placeholder="طابق مرتفع، موقفان للسيارة، إطلالة على البحر…"></textarea></label>
+        <button class="btn" type="submit" style="justify-self:start" data-i18n="fSend">أرسل الطلب عبر واتساب</button>
+        <p class="hint" data-i18n="fHint">سيفتح واتساب ورسالتك جاهزة للإرسال.</p>
+      </form>
+    </div>
+  </section>
+</div>
+
+<div id="pageSell" hidden>
+  <section class="sell-hero">
+    <div class="wrap">
+      <div class="eyebrow" data-i18n="slEye">لأصحاب العقارات</div>
+      <h1 data-i18n="slH">اعرض عقارك للبيع معنا</h1>
+      <p data-i18n="slP">نقدّر سعر عقارك مجاناً، ونسوّقه بصور احترافية، ونرسل لك فقط المشترين الجادّين.</p>
+      <ol class="steps">
+        <li><b data-i18n="s1b">أرسل التفاصيل</b><span data-i18n="s1s">املأ النموذج أدناه.</span></li>
+        <li><b data-i18n="s2b">نعاين العقار</b><span data-i18n="s2s">نتصل بك لتحديد موعد.</span></li>
+        <li><b data-i18n="s3b">نقدّر السعر</b><span data-i18n="s3s">سعر واقعي حسب السوق.</span></li>
+        <li><b data-i18n="s4b">نعرضه للمشترين</b><span data-i18n="s4s">على الموقع ولدى عملائنا.</span></li>
+      </ol>
+    </div>
+  </section>
+  <section class="block">
+    <div class="wrap sell-layout">
+      <form class="req" id="sellForm">
+        <fieldset>
+          <legend data-i18n="g1">معلوماتك</legend>
+          <div class="row">
+            <label><span data-i18n="fName">الاسم</span><input id="oName" required></label>
+            <label><span data-i18n="oPhone">رقم الهاتف</span><input id="oPhone" type="tel" inputmode="tel" dir="ltr" required placeholder="+961"></label>
+          </div>
+        </fieldset>
+        <fieldset>
+          <legend data-i18n="g2">معلومات العقار</legend>
+          <div class="tabs" role="group" id="oDealTabs" style="justify-self:start">
+            <button type="button" data-v="sale" aria-pressed="true" data-i18n="sale">للبيع</button>
+            <button type="button" data-v="rent" aria-pressed="false" data-i18n="rent">للإيجار</button>
+          </div>
+          <div class="row">
+            <label><span data-i18n="sType">نوع العقار</span>
+              <select id="oType"><option value="apt" data-i18n="apt">شقة</option><option value="duplex" data-i18n="duplex">دوبلكس</option><option value="villa" data-i18n="villa">فيلا</option><option value="shop" data-i18n="shop">محل تجاري</option><option value="land" data-i18n="land">أرض</option></select></label>
+            <label><span data-i18n="oLoc">المنطقة</span><input id="oLoc" required data-i18n-ph="oLocPh" placeholder="مثال: عرمون، قرب المدرسة"></label>
+          </div>
+          <div class="row3">
+            <label><span data-i18n="oArea">المساحة (م²)</span><span class="money" dir="ltr"><input id="oArea" inputmode="numeric" placeholder="150"><i data-i18n="area">م²</i></span></label>
+            <label><span data-i18n="sRooms">غرف النوم</span><select id="oRooms"><option>—</option><option>1</option><option>2</option><option selected>3</option><option>4</option><option>5+</option></select></label>
+            <label><span data-i18n="fFloor">الطابق</span><input id="oFloor" inputmode="numeric"></label>
+          </div>
+          <div class="row">
+            <label><span id="oPriceL">السعر المطلوب ($)</span><span class="money" dir="ltr"><b>$</b><input id="oPrice" inputmode="numeric" dir="auto" data-i18n-ph="oPricePh" placeholder="اتركه فارغاً إن أردت تقديرنا"><i>USD</i></span></label>
+            <label><span data-i18n="oDeed">نوع السند</span>
+              <select id="oDeed"><option data-i18n="dGreen">سند أخضر</option><option data-i18n="dShare">أسهم</option><option data-i18n="dOther">غير ذلك</option></select></label>
+          </div>
+          <label><span data-i18n="oFeat">مميزات العقار</span><textarea id="oFeat" data-i18n-ph="oFeatPh" placeholder="إطلالة، موقف سيارة، مصعد، طاقة شمسية، مفروش…"></textarea></label>
+        </fieldset>
+        <button class="btn" type="submit" style="justify-self:start" data-i18n="oSend">أرسل عقارك عبر واتساب</button>
+        <p class="hint" data-i18n="oHint">بعد فتح واتساب، يمكنك إرسال صور العقار في المحادثة نفسها.</p>
+        <div class="sent" id="sellSent" hidden data-i18n="oSent">تم تجهيز رسالتك في واتساب. لا تنسَ إرسال الصور بعدها.</div>
+      </form>
+      <aside class="aside">
+        <div class="box">
+          <h3 data-i18n="a1h">ما الذي تحتاجه؟</h3>
+          <ul><li data-i18n="a1">صورة عن السند</li><li data-i18n="a2">٥ إلى ١٠ صور واضحة للعقار</li><li data-i18n="a3">إفادة عقارية حديثة إن وُجدت</li></ul>
+        </div>
+        <div class="box">
+          <h3 data-i18n="a2h">تفضّل الاتصال؟</h3>
+          <div class="num"><code class="phone">+961 71 333 153</code><button class="copy" type="button" data-i18n="copy">نسخ الرقم</button></div>
+        </div>
+      </aside>
+    </div>
+  </section>
+</div>
+</main>
+
+<footer><div class="wrap"><span>© 2026 Prime Estate · <span data-i18n="cH">حسين فوعاني</span></span><span data-i18n="foot">لبنان</span></div></footer>
+
+<a class="float-wa" id="floatWa" href="#" target="_blank" rel="noopener" aria-label="WhatsApp"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8s-.4-.1-.6.1-.7.8-.8 1-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4.3-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.7 11.8 11.8 0 0 0 4.5 4c1.7.7 2.3.8 3.2.7a2.7 2.7 0 0 0 1.8-1.3 2.2 2.2 0 0 0 .2-1.3c-.1-.1-.2-.2-.4-.3z"/></svg></a>
+
+<div class="modal" id="modal" hidden><div class="sheet" role="dialog" aria-modal="true" id="sheet"></div></div>
+<div class="toast" id="toast" hidden></div>
+
+<script>
+const PHONE='96171333153';
+const T={
+ar:{by:"بإدارة حسين فوعاني",nav1:"العقارات",nav2:"خدماتنا",nav4:"تواصل معنا",nav5:"اعرض عقارك",wa:"واتساب",heroEye:"مكتب عقاري موثوق",heroH:'بيتك القادم <em>في دوحة الحص</em> وجوارها، بثقة وراحة بال',heroP:"شقق وفلل ومحلات للبيع والإيجار. نرافقك في المعاينة، ونتحقق من السند، ونبقى معك حتى تستلم المفتاح.",sDeal:"نوع العرض",sType:"نوع العقار",sRooms:"غرف النوم",sBudget:"الميزانية",any:"الكل",sale:"للبيع",rent:"للإيجار",apt:"شقة",duplex:"دوبلكس",villa:"فيلا",shop:"محل تجاري",land:"أرض",search:"ابحث",st1:"عقار تم بيعه",st2:"سنة من الخبرة",st3:"مبنى نتعامل معه",lEye:"العروض الحالية",lH:"عقارات مختارة",wEye:"لماذا Prime Estate",wH:"خدمة كاملة من أول معاينة حتى التوقيع",w1h:"سند أخضر مضمون",w1p:"نتحقق من السند والأوراق الرسمية قبل عرض أي عقار.",w2h:"معاينة في الوقت المناسب لك",w2p:"احجز موعدك عبر واتساب ونلتقيك في العقار.",w3h:"أسعار عادلة",w3p:"نعرف أسعار السوق جيداً، ونفاوض نيابةً عنك.",w4h:"متابعة الأوراق",w4p:"نتابع معك كاتب العدل والتسجيل حتى الاستلام.",ctaH:"هل تملك عقاراً وتريد بيعه أو تأجيره؟",ctaP:"أرسل لنا تفاصيله، نعاينه ونقدّر سعره مجاناً، ثم نعرضه على عملاء جادّين.",ctaB:"اعرض عقارك",cEye:"تواصل معنا",cH:"حسين فوعاني",cP:"تريد أن تشتري أو تستأجر أو تبيع؟ راسلنا عبر واتساب أو اتصل مباشرة.",copy:"نسخ الرقم",copied:"تم نسخ الرقم",waBig:"راسلنا عبر واتساب",hrsL:"ساعات العمل",hrs:"الإثنين – السبت، ٩ صباحاً – ٧ مساءً",fH:"أخبرنا عمّا تبحث عنه",fName:"الاسم",fDeal:"أريد أن",buy:"أشتري",rentv:"أستأجر",fNote:"ملاحظات",fNotePh:"طابق مرتفع، موقفان للسيارة، إطلالة على البحر…",fSend:"أرسل الطلب عبر واتساب",fHint:"سيفتح واتساب ورسالتك جاهزة للإرسال.",foot:"لبنان",
+ slEye:"لأصحاب العقارات",slH:"اعرض عقارك للبيع أو للإيجار",slP:"نقدّر سعر عقارك مجاناً، ونسوّقه بصور احترافية، ونرسل لك فقط العملاء الجادّين.",s1b:"أرسل التفاصيل",s1s:"املأ النموذج أدناه.",s2b:"نعاين العقار",s2s:"نتصل بك لتحديد موعد.",s3b:"نقدّر السعر",s3s:"سعر واقعي حسب السوق.",s4b:"نعرضه على المهتمين",s4s:"على الموقع ولدى عملائنا.",g1:"معلوماتك",g2:"معلومات العقار",oPhone:"رقم الهاتف",oLoc:"المنطقة",oLocPh:"مثال: عرمون، قرب المدرسة",oArea:"المساحة",fFloor:"الطابق",oPrice:"السعر المطلوب ($)",oPricePh:"اتركه فارغاً إن أردت تقديرنا",oDeed:"نوع السند",dGreen:"سند أخضر",dShare:"أسهم",dOther:"غير ذلك",oFeat:"مميزات العقار",oFeatPh:"إطلالة، موقف سيارة، مصعد، طاقة شمسية، مفروش…",oSend:"أرسل عقارك عبر واتساب",oHint:"بعد فتح واتساب، يمكنك إرسال صور العقار في المحادثة نفسها.",oSent:"تم تجهيز رسالتك في واتساب. لا تنسَ إرسال الصور بعدها.",a1h:"ما الذي تحتاجه؟",a1:"صورة عن السند",a2:"٥ إلى ١٠ صور واضحة للعقار",a3:"إفادة عقارية حديثة إن وُجدت",a2h:"تفضّل الاتصال؟",
+ month:"/ شهرياً",beds:"غرف",baths:"حمّام",area:"م²",new:"جديد",none:"لا توجد عقارات بهذه المواصفات حالياً. راسلنا وسنجد لك ما يناسبك.",close:"إغلاق",ask:"استفسر عن هذا العقار",fArea:"المساحة",fBeds:"غرف النوم",fBaths:"الحمّامات",waMsg:"مرحباً أستاذ حسين، أودّ الاستفسار عن",waHi:"مرحباً أستاذ حسين، أودّ الاستفسار عن عقار",reqMsg:"طلب عقار",sellMsg:"عرض عقار",oRentP:"الإيجار الشهري المطلوب ($)"},
+en:{by:"Managed by Hussein Fouani",nav1:"Listings",nav2:"Services",nav4:"Contact",nav5:"List your property",wa:"WhatsApp",heroEye:"A trusted real estate office",heroH:'Your next home <em>in Doha Al Hoss</em> and nearby, with peace of mind',heroP:"Apartments, villas and shops for sale and rent. We join you at viewings, verify the title deed, and stay with you until you get the keys.",sDeal:"Deal",sType:"Property type",sRooms:"Bedrooms",sBudget:"Budget",any:"All",sale:"For sale",rent:"For rent",apt:"Apartment",duplex:"Duplex",villa:"Villa",shop:"Shop",land:"Land",search:"Search",st1:"Properties sold",st2:"Years of experience",st3:"Buildings we work with",lEye:"Current offers",lH:"Selected properties",wEye:"Why Prime Estate",wH:"Full service from first viewing to signing",w1h:"Clean green deed",w1p:"We verify the title deed and official papers before listing any property.",w2h:"Viewings on your schedule",w2p:"Book on WhatsApp and we'll meet you at the property.",w3h:"Fair prices",w3p:"We know the market well and negotiate on your behalf.",w4h:"Paperwork handled",w4p:"We follow up with the notary and registration until handover.",ctaH:"Own a property you want to sell or rent out?",ctaP:"Send us the details. We'll view it, value it for free, and present it to serious clients.",ctaB:"List your property",cEye:"Contact",cH:"Hussein Fouani",cP:"Buying, renting or selling? Message us on WhatsApp or call directly.",copy:"Copy number",copied:"Number copied",waBig:"Message us on WhatsApp",hrsL:"Hours",hrs:"Mon – Sat, 9am – 7pm",fH:"Tell us what you're looking for",fName:"Name",fDeal:"I want to",buy:"Buy",rentv:"Rent",fNote:"Notes",fNotePh:"High floor, two parking spots, sea view…",fSend:"Send request on WhatsApp",fHint:"WhatsApp opens with your message ready.",foot:"Lebanon",
+ slEye:"For property owners",slH:"List your property for sale or rent",slP:"We value your property for free, market it with professional photos, and only send you serious clients.",s1b:"Send the details",s1s:"Fill in the form below.",s2b:"We view it",s2s:"We call to book a visit.",s3b:"We price it",s3s:"A realistic market price.",s4b:"We present it to clients",s4s:"On the site and to our clients.",g1:"Your details",g2:"Property details",oPhone:"Phone number",oLoc:"Area",oLocPh:"e.g. Aramoun, near the school",oArea:"Size",fFloor:"Floor",oPrice:"Asking price ($)",oPricePh:"Leave empty for our valuation",oDeed:"Deed type",dGreen:"Green deed",dShare:"Shares",dOther:"Other",oFeat:"Features",oFeatPh:"View, parking, elevator, solar power, furnished…",oSend:"Send your property on WhatsApp",oHint:"Once WhatsApp opens, you can send photos in the same chat.",oSent:"Your WhatsApp message is ready. Remember to send photos after it.",a1h:"What you'll need",a1:"A photo of the title deed",a2:"5 to 10 clear photos",a3:"A recent land registry statement, if available",a2h:"Prefer to call?",
+ month:"/ month",beds:"beds",baths:"baths",area:"m²",new:"New",none:"No properties match right now. Message us and we'll find one for you.",close:"Close",ask:"Ask about this property",fArea:"Size",fBeds:"Bedrooms",fBaths:"Bathrooms",waMsg:"Hello Mr. Hussein, I'd like to ask about",waHi:"Hello Mr. Hussein, I'd like to ask about a property",reqMsg:"Property request",sellMsg:"Property listing",oRentP:"Monthly rent asked ($)"}
+};
+const P=[
+{id:"PE-101",deal:"sale",type:"apt",price:185000,beds:3,baths:2,area:165,floor:5,isNew:true,hue:0,
+ t:{ar:"شقة ثلاث غرف بإطلالة على البحر",en:"3-bedroom apartment with sea view"},l:{ar:"دوحة الحص",en:"Doha Al Hoss"},
+ f:{ar:["سند أخضر","إطلالة بحرية","موقفان","طاقة شمسية","مصعد"],en:["Green deed","Sea view","2 parking spots","Solar power","Elevator"]}},
+{id:"PE-102",deal:"sale",type:"apt",price:128000,beds:2,baths:2,area:120,floor:3,isNew:false,hue:1,
+ t:{ar:"شقة غرفتين جاهزة للسكن",en:"2-bedroom, move-in ready"},l:{ar:"عرمون",en:"Aramoun"},
+ f:{ar:["سند أخضر","مفروشة جزئياً","موقف سيارة","كهرباء ٢٤ ساعة"],en:["Green deed","Partly furnished","Parking","24h power"]}},
+{id:"PE-103",deal:"rent",type:"apt",price:650,beds:2,baths:1,area:110,floor:2,isNew:true,hue:2,
+ t:{ar:"شقة للإيجار السنوي",en:"Apartment for yearly rent"},l:{ar:"بشامون",en:"Bchamoun"},
+ f:{ar:["عقد سنوي","مطبخ مجهّز","موقف سيارة","خزان مياه"],en:["Yearly lease","Fitted kitchen","Parking","Water tank"]}},
+{id:"PE-104",deal:"sale",type:"duplex",price:320000,beds:4,baths:3,area:280,floor:8,isNew:false,hue:3,
+ t:{ar:"دوبلكس مع سطح خاص",en:"Duplex with private rooftop"},l:{ar:"دوحة الحص",en:"Doha Al Hoss"},
+ f:{ar:["سطح ٩٠ م²","إطلالة على البحر والجبل","ثلاثة مواقف","طاقة شمسية","تدفئة مركزية"],en:["90 m² roof","Sea & mountain view","3 parking spots","Solar power","Central heating"]}},
+{id:"PE-105",deal:"rent",type:"apt",price:900,beds:3,baths:2,area:170,floor:6,isNew:false,hue:4,
+ t:{ar:"شقة مفروشة فاخرة",en:"Furnished luxury apartment"},l:{ar:"خلدة",en:"Khaldeh"},
+ f:{ar:["مفروشة بالكامل","إطلالة بحرية","موقف سيارة","حارس على مدار الساعة"],en:["Fully furnished","Sea view","Parking","24/7 concierge"]}},
+{id:"PE-106",deal:"sale",type:"villa",price:640000,beds:5,baths:4,area:450,floor:0,isNew:true,hue:5,
+ t:{ar:"فيلا مستقلة مع مسبح",en:"Detached villa with pool"},l:{ar:"عرمون",en:"Aramoun"},
+ f:{ar:["أرض ٨٠٠ م²","مسبح","حديقة","غرفة للحارس","سند أخضر"],en:["800 m² plot","Pool","Garden","Staff room","Green deed"]}},
+{id:"PE-107",deal:"rent",type:"shop",price:1200,beds:0,baths:1,area:95,floor:0,isNew:false,hue:6,
+ t:{ar:"محل تجاري على الطريق العام",en:"Shop on the main road"},l:{ar:"الشويفات",en:"Choueifat"},
+ f:{ar:["واجهة ٨ أمتار","سقف مرتفع","موقف أمام المحل"],en:["8 m frontage","High ceiling","Front parking"]}},
+{id:"PE-108",deal:"sale",type:"apt",price:235000,beds:3,baths:3,area:200,floor:4,isNew:false,hue:7,
+ t:{ar:"شقة واسعة بثلاث غرف ماستر",en:"Spacious 3-master apartment"},l:{ar:"دوحة الحص",en:"Doha Al Hoss"},
+ f:{ar:["ثلاث غرف ماستر","صالون واسع","موقفان","غرفة خادمة"],en:["3 master rooms","Large living room","2 parking spots","Maid's room"]}}
+];
+let lang='ar';try{const s=localStorage.getItem('pe-lang');if(s==='en'||s==='ar')lang=s}catch(e){}
+let filt={deal:'all',type:'all',rooms:0,budget:0};
+const $=s=>document.querySelector(s),$$=s=>document.querySelectorAll(s);
+const fmt=n=>new Intl.NumberFormat('en-US').format(n);
+const wa=msg=>'https://wa.me/'+PHONE+'?text='+encodeURIComponent(msg);
+function openWa(msg){const a=document.createElement('a');a.href=wa(msg);a.target='_blank';a.rel='noopener';document.body.appendChild(a);a.click();a.remove()}
+
+function art(p){
+  const tints=['#f3ece0','#efe7d8','#f5efe4','#ede4d2','#f2eadc','#f0e8da','#eee6d6','#f4ede1'];
+  const bg=tints[p.hue%8];const g='#b8964f';
+  let s=`<svg viewBox="0 0 400 300" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><rect width="400" height="300" fill="${bg}"/><circle cx="${60+p.hue*38}" cy="62" r="22" fill="#fff" fill-opacity=".7"/>`;
+  s+=`<path d="M0 252 Q100 ${232-p.hue*2} 200 247 T400 242 V300 H0Z" fill="#fff" fill-opacity=".6"/>`;
+  if(p.type==='villa'){
+    s+=`<g stroke="${g}" stroke-width="1.4"><path d="M70 250V170l90-50 90 50v80" fill="#fff"/><path d="M250 250V190h80v60" fill="#fff"/><rect x="95" y="190" width="40" height="34" fill="${g}" fill-opacity=".2"/><rect x="185" y="190" width="40" height="34" fill="${g}" fill-opacity=".35"/><rect x="265" y="205" width="50" height="24" fill="${g}" fill-opacity=".2"/></g><rect x="60" y="256" width="280" height="12" rx="2" fill="#8fbac6" fill-opacity=".55"/>`;
+  }else if(p.type==='shop'){
+    s+=`<g stroke="${g}" stroke-width="1.4"><rect x="70" y="110" width="260" height="140" fill="#fff"/><rect x="70" y="110" width="260" height="30" fill="${g}" fill-opacity=".25"/><rect x="90" y="160" width="100" height="90" fill="${g}" fill-opacity=".2"/><rect x="210" y="160" width="100" height="70" fill="${g}" fill-opacity=".12"/></g>`;
+  }else{
+    const floors=p.type==='duplex'?9:6+(p.hue%3);const w=150+(p.hue%3)*20;const x=200-w/2;const fh=18;const top=250-floors*fh;
+    s+=`<g stroke="${g}" stroke-width="1.3"><rect x="${x}" y="${top}" width="${w}" height="${floors*fh}" fill="#fff"/>`;
+    for(let i=0;i<floors;i++){const y=top+i*fh;s+=`<line x1="${x}" y1="${y}" x2="${x+w}" y2="${y}" stroke-opacity=".35"/>`;
+      const cols=Math.floor(w/34);for(let c=0;c<cols;c++){const lit=((i*7+c*3+p.hue)%5)===0;
+      s+=`<rect x="${x+8+c*34}" y="${y+4}" width="22" height="10" stroke="none" fill="${g}" fill-opacity="${lit?.55:.16}"/>`}}
+    if(p.type==='duplex')s+=`<rect x="${x+10}" y="${top-14}" width="${w-20}" height="14" fill="${g}" fill-opacity=".2"/>`;
+    s+=`</g><rect x="${x-30}" y="248" width="${w+60}" height="3" fill="${g}" fill-opacity=".6"/>`;
+  }
+  return s+'</svg>';
+}
+function priceHTML(p){return '$'+fmt(p.price)+(p.deal==='rent'?` <small>${T[lang].month}</small>`:'')}
+const icoBed='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 18V7M3 13h18v5M21 13a3 3 0 0 0-3-3h-7v3M7 11.5a1.5 1.5 0 1 0 0-.01"/></svg>';
+const icoBath='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 12h16v3a4 4 0 0 1-4 4H8a4 4 0 0 1-4-4zM6 12V6a2 2 0 0 1 4 0"/></svg>';
+const icoArea='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="4" y="4" width="16" height="16"/><path d="M4 9h5V4"/></svg>';
+
+function render(){
+  const t=T[lang];
+  const list=P.filter(p=>(filt.deal==='all'||p.deal===filt.deal)&&(filt.type==='all'||p.type===filt.type)&&p.beds>=filt.rooms&&(
+    !filt.budget||(filt.budget===1000?(p.deal==='rent'&&p.price<=1000):(p.deal==='sale'&&p.price<=filt.budget))));
+  $('#grid').innerHTML=list.length?list.map(p=>`<article class="card" tabindex="0" data-id="${p.id}">
+    <div class="ph">${art(p)}<span class="badge">${t[p.deal]} · ${t[p.type]}</span>${p.isNew?`<span class="badge new">${t.new}</span>`:''}</div>
+    <div class="card-body"><div class="price">${priceHTML(p)}</div><h3>${p.t[lang]}</h3><div class="loc">${p.l[lang]}</div>
+    <div class="specs">${p.beds?`<span>${icoBed}${p.beds} ${t.beds}</span>`:''}<span>${icoBath}${p.baths} ${t.baths}</span><span>${icoArea}${p.area} ${t.area}</span></div></div></article>`).join('')
+    :`<div class="empty">${t.none}</div>`;
+}
+function openP(id){
+  const p=P.find(x=>x.id===id);if(!p)return;const t=T[lang];
+  $('#sheet').innerHTML=`<div class="ph">${art(p)}<span class="badge">${p.id}</span></div><div class="sheet-body">
+   <div class="price">${priceHTML(p)}</div><h3>${p.t[lang]}</h3><div class="loc">${p.l[lang]}</div>
+   <div class="facts"><div><span>${t.fArea}</span><b>${p.area} ${t.area}</b></div><div><span>${t.fBeds}</span><b>${p.beds||'—'}</b></div><div><span>${t.fBaths}</span><b>${p.baths}</b></div><div><span>${t.fFloor}</span><b>${p.floor===0?'—':p.floor}</b></div></div>
+   <ul class="feat">${p.f[lang].map(x=>`<li>${x}</li>`).join('')}</ul>
+   <div class="sheet-actions"><a class="btn" target="_blank" rel="noopener" href="${wa(`${t.waMsg}: ${p.t[lang]} (${p.id}) – $${fmt(p.price)}`)}">${t.ask}</a><button class="btn ghost" type="button" id="closeM">${t.close}</button></div></div>`;
+  $('#modal').hidden=false;$('#closeM').focus();$('#closeM').onclick=closeM;
+}
+function closeM(){$('#modal').hidden=true}
+function showPage(pg,anchor){
+  const sell=pg==='sell';$('#pageHome').hidden=sell;$('#pageSell').hidden=!sell;
+  $$('[data-go="sell"]').forEach(a=>sell?a.setAttribute('aria-current','page'):a.removeAttribute('aria-current'));
+  if(sell)window.scrollTo(0,0);else if(anchor){const el=document.getElementById(anchor);if(el)el.scrollIntoView()}else window.scrollTo(0,0);
+}
+function applyLang(){
+  const t=T[lang];document.documentElement.lang=lang;document.documentElement.dir=lang==='ar'?'rtl':'ltr';
+  $$('[data-i18n]').forEach(el=>{const k=el.dataset.i18n;if(t[k]!=null)el.textContent=t[k]});
+  $$('[data-i18n-html]').forEach(el=>{el.innerHTML=t[el.dataset.i18nHtml]});
+  $$('[data-i18n-ph]').forEach(el=>{el.placeholder=t[el.dataset.i18nPh]});
+  $('#langBtn').textContent=lang==='ar'?'English':'عربي';
+  ['#hdrWa','#bigWa','#floatWa'].forEach(s=>$(s).href=wa(t.waHi));
+  $('#fBudget').options[4].textContent='≤ $1,000 '+t.month;
+  setPriceLabel();
+  render();
+}
+function toast(msg){const el=$('#toast');el.textContent=msg;el.hidden=false;clearTimeout(toast.t);toast.t=setTimeout(()=>el.hidden=true,2000)}
+
+$('#langBtn').onclick=()=>{lang=lang==='ar'?'en':'ar';try{localStorage.setItem('pe-lang',lang)}catch(e){};applyLang()};
+$$('[data-go]').forEach(a=>a.addEventListener('click',e=>{e.preventDefault();const h=a.getAttribute('href').slice(1);showPage(a.dataset.go,a.dataset.go==='home'&&h!=='top'?h:null)}));
+$('#searchForm').addEventListener('submit',e=>{e.preventDefault();
+  filt={deal:$('#fDeal').value,type:$('#fType').value,rooms:+$('#fRooms').value,budget:+$('#fBudget').value};
+  if(filt.budget===1000)filt.deal='rent';
+  $$('.tabs button').forEach(b=>b.setAttribute('aria-pressed',b.dataset.deal===filt.deal));
+  render();document.getElementById('listings').scrollIntoView();});
+$$('.tabs button').forEach(b=>b.onclick=()=>{filt.deal=b.dataset.deal;$('#fDeal').value=filt.deal;
+  $$('.tabs button').forEach(x=>x.setAttribute('aria-pressed',x===b));render()});
+$('#grid').addEventListener('click',e=>{const c=e.target.closest('.card');if(c)openP(c.dataset.id)});
+$('#grid').addEventListener('keydown',e=>{if(e.key==='Enter'){const c=e.target.closest('.card');if(c)openP(c.dataset.id)}});
+$('#modal').addEventListener('click',e=>{if(e.target.id==='modal')closeM()});
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeM()});
+$$('.copy').forEach(btn=>btn.onclick=()=>{const code=btn.parentElement.querySelector('.phone');
+  const sel=()=>{const r=document.createRange();r.selectNodeContents(code);const s=getSelection();s.removeAllRanges();s.addRange(r)};
+  try{navigator.clipboard.writeText('+96171333153').then(()=>toast(T[lang].copied)).catch(sel)}catch(e){sel()}});
+$('#reqForm').addEventListener('submit',e=>{e.preventDefault();const t=T[lang];
+  openWa(`${t.reqMsg}\n${t.fName}: ${$('#rName').value}\n${t.fDeal}: ${$('#rDeal').selectedOptions[0].text}\n${t.sRooms}: ${$('#rRooms').value}\n${t.sBudget}: ${usd('#rBudget')}\n${t.fNote}: ${$('#rNote').value||'-'}`)});
+$$('.money input').forEach(i=>i.addEventListener('input',()=>{const d=i.value.replace(/[٠-٩]/g,c=>c.charCodeAt(0)-1632).replace(/\D/g,'');i.value=d?fmt(+d):''}));
+const usd=id=>$(id).value?'$'+$(id).value:'-';
+let oDeal='sale';
+function setPriceLabel(){$('#oPriceL').textContent=oDeal==='rent'?T[lang].oRentP:T[lang].oPrice}
+$$('#oDealTabs button').forEach(b=>b.onclick=()=>{oDeal=b.dataset.v;$$('#oDealTabs button').forEach(x=>x.setAttribute('aria-pressed',x===b));setPriceLabel()});
+$('#sellForm').addEventListener('submit',e=>{e.preventDefault();const t=T[lang];const v=id=>$(id).value||'-';
+  openWa(`${t.sellMsg} ${t[oDeal]}\n${t.fName}: ${v('#oName')}\n${t.oPhone}: ${v('#oPhone')}\n${t.sType}: ${$('#oType').selectedOptions[0].text}\n${t.oLoc}: ${v('#oLoc')}\n${t.oArea}: ${$('#oArea').value?$('#oArea').value+' '+t.area:'-'}\n${t.sRooms}: ${v('#oRooms')}\n${t.fFloor}: ${v('#oFloor')}\n${oDeal==='rent'?t.oRentP:t.oPrice}: ${usd('#oPrice')}\n${t.oDeed}: ${$('#oDeed').selectedOptions[0].text}\n${t.oFeat}: ${v('#oFeat')}`);
+  $('#sellSent').hidden=false});
+
+(function(){const g=document.getElementById('heroWins');let h='';const xs=[[260,300,340],[390,430,460],[500,540,590],[640,680,720],[910,950,990]];
+ xs.forEach((row,i)=>row.forEach((x,j)=>{for(let k=0;k<6;k++){if((i+j+k)%3===0)h+=`<rect x="${x}" y="${280+k*34}" width="16" height="10"/>`}}));g.innerHTML=h})();
+
+applyLang();
+if(location.hash==='#sell')showPage('sell');
+</script>
+
+</body>
+</html>
