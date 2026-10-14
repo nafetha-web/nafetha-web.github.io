@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="description" content="مطبخ الريحان: أكل لبناني، مشاوي عالفحم ومازة. موقع تجريبي من نافذة.">
+<meta name="description" content="مطبخ الريحان: مأكولات لبنانية، ومشاوي على الفحم، ومازة. موقع تجريبي من نافذة.">
 <title>مطبخ الريحان</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -77,12 +77,6 @@ section.block { padding-block: 36px 4px; display: flex; flex-direction: column; 
 .eyebrow { font-size: 13px; font-weight: 700; letter-spacing: .04em; color: var(--saffron-ink); margin: 0 }
 .block h2 { font-family: var(--display); font-size: 34px; margin: 0; line-height: 1.3 }
 
-.strip { display: flex; gap: 12px; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; padding-bottom: 4px; margin-inline: -16px; padding-inline: 16px }
-.strip::-webkit-scrollbar { display: none }
-.pop { flex: none; width: 210px; scroll-snap-align: start; background: var(--surface); border: 1px solid var(--line); border-radius: 18px; overflow: hidden }
-.pop .ph { aspect-ratio: 4 / 3 }
-.pop .b { padding: 10px 12px 12px; display: flex; justify-content: space-between; align-items: center; gap: 8px }
-.pop h3 { margin: 0; font-size: 15px; line-height: 1.4 }
 
 .ph { position: relative; overflow: hidden; background: var(--saffron-soft) }
 .ph img { position: relative; z-index: 1; width: 100%; height: 100%; object-fit: cover }
@@ -118,6 +112,7 @@ section.block { padding-block: 36px 4px; display: flex; flex-direction: column; 
 .two { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 12px }
 .wa { background: var(--wa); color: #FFFFFF }
 .wa[aria-disabled="true"] { opacity: .5; pointer-events: none }
+button.btn { font-family: inherit }
 .hint { font-size: 13px; color: var(--muted); margin: 0 }
 .qrbox { display: flex; flex-wrap: wrap; gap: 16px; align-items: center }
 .qr { background: #FFFFFF; padding: 12px; border-radius: 14px; width: 160px; height: 160px; display: grid; place-items: center; flex: none; border: 1px solid var(--line) }
@@ -144,6 +139,21 @@ section.block { padding-block: 36px 4px; display: flex; flex-direction: column; 
 .order .wrap { padding-inline: 0; display: flex; align-items: center; gap: 12px }
 .order .sum { flex: 1; min-width: 0; font-size: 14px; color: var(--muted) }
 .order .sum strong { display: block; color: var(--fg); font-size: 19px; font-variant-numeric: tabular-nums }
+.sheet { border: 0; padding: 0; margin: auto auto 0; width: 100%; max-width: 560px; max-height: 88vh; border-radius: 22px 22px 0 0; background: var(--surface); color: var(--fg) }
+.sheet::backdrop { background: rgba(0,0,0,.45) }
+.sheet-in { padding: 18px 16px calc(18px + env(safe-area-inset-bottom, 0px)); display: flex; flex-direction: column; gap: 12px }
+.sheet-head { display: flex; justify-content: space-between; align-items: center }
+.sheet-head h2 { margin: 0; font-family: var(--display); font-size: 28px }
+.x { width: 40px; height: 40px; border-radius: 50%; border: 1px solid var(--line); background: var(--bg); color: var(--fg); font-size: 22px; cursor: pointer }
+.revlist { display: flex; flex-direction: column; gap: 8px; overflow-y: auto; max-height: 42vh }
+.rev { display: flex; align-items: center; gap: 10px; border: 1px solid var(--line); border-radius: 14px; padding: 8px }
+.rev .ph { width: 52px; height: 52px; border-radius: 10px; flex: none }
+.rev .ph .fb { font-size: 20px }
+.rev .nm { flex: 1; min-width: 0; font-weight: 600; font-size: 15px; line-height: 1.4 }
+.rev .nm small { display: block; color: var(--saffron-ink); font-weight: 700 }
+.revtotal { display: flex; justify-content: space-between; align-items: baseline; border-top: 1px dashed var(--line); padding-top: 10px; font-size: 16px }
+.revtotal strong { font-size: 22px; font-variant-numeric: tabular-nums }
+.back { background: transparent; color: var(--fg); border: 1.5px solid var(--line) }
 @media (prefers-reduced-motion: no-preference) { html { scroll-behavior: smooth } }
 </style>
 </head>
@@ -180,14 +190,7 @@ section.block { padding-block: 36px 4px; display: flex; flex-direction: column; 
 </section>
 
 <main class="wrap">
-  <section class="block" id="popular">
-    <p class="eyebrow" id="popEyebrow"></p>
-    <h2 id="popTitle"></h2>
-    <div class="strip" id="strip"></div>
-  </section>
-
   <section class="block" id="menu">
-    <p class="eyebrow" id="menuEyebrow"></p>
     <h2 id="menuTitle"></h2>
     <nav class="tabs" id="tabs" aria-label="Menu sections"></nav>
     <div id="cats"></div>
@@ -248,9 +251,20 @@ section.block { padding-block: 36px 4px; display: flex; flex-direction: column; 
 <div class="order">
   <div class="wrap">
     <div class="sum" id="sum"></div>
-    <a class="btn wa" id="goBtn" target="_blank" rel="noopener"></a>
+    <button class="btn wa" id="goBtn" type="button"></button>
   </div>
 </div>
+
+<dialog class="sheet" id="review" aria-labelledby="revTitle">
+  <div class="sheet-in">
+    <div class="sheet-head"><h2 id="revTitle"></h2><button type="button" class="x" id="revClose" aria-label="close">×</button></div>
+    <div class="revlist" id="revList"></div>
+    <div class="revtotal"><span id="revTotalLbl"></span><strong id="revTotal"></strong></div>
+    <div class="field"><label for="revNote" id="revNoteLbl"></label><textarea id="revNote" rows="2"></textarea></div>
+    <a class="btn wa" id="revSend" target="_blank" rel="noopener"></a>
+    <button type="button" class="btn back" id="revBack"></button>
+  </div>
+</dialog>
 
 <script>
 const WA = '96171163991';
@@ -259,75 +273,76 @@ const PAGE = 'https://nafetha-web.github.io/rayhan.html';
 const img = (id, w, h) => 'https://images.unsplash.com/' + id + '?auto=format&fit=crop&w=' + w + '&h=' + (h || w) + '&q=70';
 const MENU = [
   { id: 'mezze', ar: 'مازة', en: 'Mezze', items: [
-    { id: 'm1', ar: 'حمّص', en: 'Hummus', dar: 'بطحينة وزيت زيتون، مع خبز سخن', den: 'With tahini and olive oil, served with warm bread', p: 5, ph: 'photo-1637949385162-e416fb15b2ce', pop: 1 },
-    { id: 'm2', ar: 'صحن مازة مشكّلة', en: 'Mixed mezze platter', dar: 'تشكيلة مقبلات باردة مع خبز', den: 'A selection of cold starters with bread', p: 12, ph: 'photo-1767114915974-3481fa23cbb0' },
-    { id: 'm3', ar: 'تبولة', en: 'Tabbouleh', dar: 'بقدونس، برغل، بندورة وحامض', den: 'Parsley, bulgur, tomato and lemon', p: 6, ph: 'photo-1786174044919-c2119725afa1', pop: 1 },
-    { id: 'm4', ar: 'كبّة مقلية', en: 'Fried kibbeh', dar: '6 قطع مع لبن', den: '6 pieces with yogurt', p: 7, ph: 'photo-1786174044931-d395bf77e58e' },
-    { id: 'm5', ar: 'ورق عنب', en: 'Stuffed vine leaves', dar: 'بالزيت والحامض', den: 'In olive oil and lemon', p: 6, ph: 'photo-1786174045070-be6a0da3a39d' },
-    { id: 'm6', ar: 'فلافل', en: 'Falafel', dar: '6 حبّات مع طرطور', den: '6 pieces with tahini sauce', p: 5, ph: 'photo-1593001872095-7d5b3868fb1d' }
+    { id: 'm1', ar: 'حمّص', en: 'Hummus', dar: 'بالطحينة وزيت الزيتون، مع خبز ساخن', den: 'With tahini and olive oil, served with warm bread', p: 5, ph: 'photo-1637949385162-e416fb15b2ce', pop: 1 },
+    { id: 'm2', ar: 'صحن مازة مشكّلة', en: 'Mixed mezze platter', dar: 'تشكيلة من المقبلات الباردة مع الخبز', den: 'A selection of cold starters with bread', p: 12, ph: 'photo-1767114915974-3481fa23cbb0' },
+    { id: 'm3', ar: 'تبولة', en: 'Tabbouleh', dar: 'بقدونس وبرغل وطماطم وليمون', den: 'Parsley, bulgur, tomato and lemon', p: 6, ph: 'photo-1786174044919-c2119725afa1', pop: 1 },
+    { id: 'm4', ar: 'كبّة مقلية', en: 'Fried kibbeh', dar: 'ست قطع مع اللبن', den: '6 pieces with yogurt', p: 7, ph: 'photo-1786174044931-d395bf77e58e' },
+    { id: 'm5', ar: 'ورق عنب', en: 'Stuffed vine leaves', dar: 'محشو بالأرز، بزيت الزيتون والليمون', den: 'In olive oil and lemon', p: 6, ph: 'photo-1786174045070-be6a0da3a39d' },
+    { id: 'm6', ar: 'فلافل', en: 'Falafel', dar: 'ست حبّات مع صلصة الطحينة', den: '6 pieces with tahini sauce', p: 5, ph: 'photo-1593001872095-7d5b3868fb1d' }
   ]},
-  { id: 'grill', ar: 'مشاوي عالفحم', en: 'Charcoal grills', items: [
-    { id: 'g1', ar: 'مشاوي مشكّلة', en: 'Mixed grill', dar: 'لحمة، طاووق وكفتة مع خضرا مشوية', den: 'Beef, taouk and kafta with grilled vegetables', p: 19, ph: 'photo-1771285119408-04cca3b35036', pop: 1 },
-    { id: 'g2', ar: 'شيش طاووق', en: 'Shish taouk', dar: 'دجاج متبّل مع توم وبطاطا', den: 'Marinated chicken with garlic sauce and fries', p: 12, ph: 'photo-1705359573325-f2006d5e459f', pop: 1 },
-    { id: 'g3', ar: 'كفتة مشوية', en: 'Grilled kafta', dar: 'سيخين مع بطاطا وبصل وبندورة', den: 'Two skewers with fries, onion and tomato', p: 11, ph: 'photo-1603360946369-dc9bb6258143' },
-    { id: 'g4', ar: 'لحمة مشوية', en: 'Grilled beef', dar: 'قطع لحمة طرية مع خضرا', den: 'Tender beef cubes with vegetables', p: 16, ph: 'photo-1555939594-58d7cb561ad1' }
+  { id: 'grill', ar: 'مشاوي على الفحم', en: 'Charcoal grills', items: [
+    { id: 'g1', ar: 'مشاوي مشكّلة', en: 'Mixed grill', dar: 'لحم وطاووق وكفتة مع خضار مشوية', den: 'Beef, taouk and kafta with grilled vegetables', p: 19, ph: 'photo-1771285119408-04cca3b35036', pop: 1 },
+    { id: 'g2', ar: 'شيش طاووق', en: 'Shish taouk', dar: 'دجاج متبّل مع صلصة الثوم وبطاطا مقلية', den: 'Marinated chicken with garlic sauce and fries', p: 12, ph: 'photo-1705359573325-f2006d5e459f', pop: 1 },
+    { id: 'g3', ar: 'كفتة مشوية', en: 'Grilled kafta', dar: 'سيخان مع بطاطا وبصل وطماطم', den: 'Two skewers with fries, onion and tomato', p: 11, ph: 'photo-1603360946369-dc9bb6258143' },
+    { id: 'g4', ar: 'لحم مشوي', en: 'Grilled beef', dar: 'قطع لحم طرية مع خضار', den: 'Tender beef cubes with vegetables', p: 16, ph: 'photo-1555939594-58d7cb561ad1' }
   ]},
   { id: 'mains', ar: 'أطباق رئيسية', en: 'Mains', items: [
-    { id: 'r1', ar: 'صحن شاورما لحمة', en: 'Beef shawarma plate', dar: 'مع طرطور، مخلل وبطاطا', den: 'With tahini, pickles and fries', p: 12, ph: 'photo-1529006557810-274b9b2fc783' },
-    { id: 'r2', ar: 'سمكة مشوية', en: 'Grilled fish', dar: 'سمك اليوم مع حامض وصلصة', den: 'Catch of the day with lemon and sauce', p: 18, ph: 'photo-1665401015549-712c0dc5ef85' },
-    { id: 'r3', ar: 'ساندويش شاورما', en: 'Shawarma sandwich', dar: 'بخبز مرقوق مع توم ومخلل', den: 'In thin bread with garlic and pickles', p: 5, ph: 'photo-1699728088614-7d1d4277414b' }
+    { id: 'r1', ar: 'صحن شاورما لحم', en: 'Beef shawarma plate', dar: 'مع الطحينة والمخللات والبطاطا', den: 'With tahini, pickles and fries', p: 12, ph: 'photo-1529006557810-274b9b2fc783' },
+    { id: 'r2', ar: 'سمك مشوي', en: 'Grilled fish', dar: 'سمك اليوم مع الليمون والصلصة', den: 'Catch of the day with lemon and sauce', p: 18, ph: 'photo-1665401015549-712c0dc5ef85' },
+    { id: 'r3', ar: 'ساندويش شاورما', en: 'Shawarma sandwich', dar: 'بخبز رقيق مع الثوم والمخللات', den: 'In thin bread with garlic and pickles', p: 5, ph: 'photo-1699728088614-7d1d4277414b' }
   ]},
   { id: 'sweet', ar: 'حلويات', en: 'Desserts', items: [
-    { id: 's1', ar: 'بقلاوة بالفستق', en: 'Pistachio baklava', dar: '4 قطع', den: '4 pieces', p: 6, ph: 'photo-1761828122856-8703baac8e86' },
-    { id: 's2', ar: 'حلو عربي مشكّل', en: 'Arabic sweets selection', dar: 'تشكيلة بالفستق والقطر', den: 'Pistachio pastries with syrup', p: 5, ph: 'photo-1778447812923-88a9e3e6b567' }
+    { id: 's1', ar: 'بقلاوة بالفستق', en: 'Pistachio baklava', dar: 'أربع قطع', den: '4 pieces', p: 6, ph: 'photo-1761828122856-8703baac8e86' },
+    { id: 's2', ar: 'حلويات عربية مشكّلة', en: 'Arabic sweets selection', dar: 'تشكيلة بالفستق والقطر', den: 'Pistachio pastries with syrup', p: 5, ph: 'photo-1778447812923-88a9e3e6b567' }
   ]},
   { id: 'drinks', ar: 'مشروبات', en: 'Drinks', items: [
-    { id: 'd1', ar: 'ليموناضة بالنعنع', en: 'Mint lemonade', dar: 'حامض طازة ونعنع', den: 'Fresh lemon and mint', p: 4, ph: 'photo-1555949366-819808d99159' },
+    { id: 'd1', ar: 'ليموناضة بالنعناع', en: 'Mint lemonade', dar: 'ليمون طازج ونعناع', den: 'Fresh lemon and mint', p: 4, ph: 'photo-1555949366-819808d99159' },
     { id: 'd2', ar: 'قهوة', en: 'Coffee', dar: 'قهوة عربية أو تركية', den: 'Arabic or Turkish', p: 2, ph: 'photo-1695593217066-1e663f8524db' },
-    { id: 'd3', ar: 'شاي', en: 'Tea', dar: 'بالإبريق، مع نعنع', den: 'Served in a pot, with mint', p: 3, ph: 'photo-1564624171349-46ed471bf4e3' }
+    { id: 'd3', ar: 'شاي', en: 'Tea', dar: 'في إبريق، مع النعناع', den: 'Served in a pot, with mint', p: 3, ph: 'photo-1564624171349-46ed471bf4e3' }
   ]}
 ];
 const GALLERY = [
   { ar: 'التراس', en: 'Terrace', ph: 'photo-1770221636504-e606b81c412e' },
   { ar: 'الصالة', en: 'Dining room', ph: 'photo-1526069631228-723c945bea6b' },
-  { ar: 'سفرة المازة', en: 'Mezze spread', ph: 'photo-1724024702408-e7f08478b680' },
+  { ar: 'مائدة المازة', en: 'Mezze spread', ph: 'photo-1724024702408-e7f08478b680' },
   { ar: 'المطبخ', en: 'Kitchen', ph: 'photo-1684864115205-242c064363e6' }
 ];
 const HERO = 'photo-1743674453093-592bed88018e';
-const HOURS = [ { ar: 'كل يوم', en: 'Every day', h: '12:00 - 00:00', o: 12, c: 24, days: [0,1,2,3,4,5,6] } ];
+const HOURS = [ { ar: 'يوميًا', en: 'Every day', h: '12:00 - 00:00', o: 12, c: 24, days: [0,1,2,3,4,5,6] } ];
 const TIMES = ['13:00','14:00','15:00','19:00','20:00','21:00','22:00'];
 const T = {
   ar: { dir: 'rtl', lang: 'English', brand: 'مطبخ الريحان',
-    demo: 'موقع تجريبي لمطعم وهمي على باقة المطعم، من تصميم <a href="https://nafetha-web.github.io" target="_blank" rel="noopener">نافذة</a>. الصور توضيحية من Unsplash، وبموقعك منحط صور أطباقك.',
-    navMenu: 'المنيو', navBook: 'احجز', navGallery: 'صور',
-    open: 'مفتوح هلق', closed: 'مسكّر هلق',
-    heroTitle: 'مطبخ الريحان', heroText: 'مازة لبنانية، مشاوي عالفحم وحلويات عربية. اطلب لبيتك أو احجز طاولتك.',
-    ctaMenu: 'شوف المنيو', ctaBook: 'احجز طاولة', facts: ['مشاوي عالفحم', 'توصيل', 'تراس'],
-    popEyebrow: 'الأكثر طلباً', popTitle: 'جرّب هول', popular: 'الأكثر طلباً',
-    menuEyebrow: 'منيو بالصور', menuTitle: 'المنيو', priceNote: 'الأسعار بالدولار وبتشمل الضريبة.', count: (n) => n + ' أصناف',
-    bookEyebrow: 'حجز طاولات', bookTitle: 'احجز طاولتك',
-    lName: 'الاسم', lDate: 'التاريخ', lTime: 'الساعة', lPeople: 'عدد الأشخاص', lSeat: 'وين بتحب تقعد', lNote: 'ملاحظة (اختياري)',
-    seats: ['جوّا', 'عالتراس', 'ما في فرق'], person: (n) => n + (n === 1 ? ' شخص' : ' أشخاص'),
-    bookBtn: 'ابعت الحجز عالواتساب', bookHint: 'بتوصلنا رسالة فيها تفاصيل الحجز، ومنأكّدلك ياه عالواتساب.', fillName: 'اكتب اسمك لتبعت الحجز',
-    bookMsg: (b) => 'مرحبا مطبخ الريحان، بدي احجز طاولة:\nالاسم: ' + b.name + '\nالتاريخ: ' + b.date + '\nالساعة: ' + b.time + '\nالعدد: ' + b.people + '\nالمكان: ' + b.seat + (b.note ? '\nملاحظة: ' + b.note : ''),
-    qrEyebrow: 'QR كود للطاولات', qrTitle: 'امسح واطلب من طاولتك',
-    qrText: 'كل طاولة إلها كود. الزبون بيمسحو بالتلفون، بيفتح المنيو، وبيوصلك الطلب مع رقم الطاولة.',
-    table: 'طاولة', tableBar: (n) => 'إنت عطاولة رقم ' + n + '. طلبك رح يوصل للمطبخ مع رقم الطاولة.',
-    galEyebrow: 'معرض صور', galTitle: 'من عنّا', insta: 'تابعنا عالإنستغرام',
-    visitTitle: 'زورونا', lblAddr: 'العنوان', addr: 'خلدة، الطريق البحري', map: 'افتح عالخريطة',
-    lblHours: 'ساعات الفتح', lblPhone: 'واتساب وتلفون', extra: 'موقف سيارات مجاني',
-    foot: 'الموقع من تصميم <a href="https://nafetha-web.github.io" target="_blank" rel="noopener">نافذة</a>',
-    empty: 'ما زدت شي بعد', items: (n) => n + (n === 1 ? ' صنف' : ' أصناف'), go: 'اطلب عالواتساب',
-    add: 'زيد', remove: 'شيل', money: (n) => n + '$',
-    hello: 'مرحبا مطبخ الريحان، بدي اطلب:', total: 'المجموع', tableLine: (n) => 'طاولة رقم ' + n },
+    demo: 'هذا موقع تجريبي لمطعم وهمي ضمن باقة المطاعم، من تصميم <a href="https://nafetha-web.github.io" target="_blank" rel="noopener">نافذة</a>. الصور توضيحية من Unsplash، وفي موقعك نضع صور أطباقك.',
+    navMenu: 'القائمة', navBook: 'احجز', navGallery: 'الصور',
+    open: 'مفتوح الآن', closed: 'مغلق الآن',
+    heroTitle: 'مطبخ الريحان', heroText: 'مازة لبنانية، ومشاوي على الفحم، وحلويات عربية. اطلب إلى منزلك أو احجز طاولتك.',
+    ctaMenu: 'تصفّح القائمة', ctaBook: 'احجز طاولة', facts: ['مشاوي على الفحم', 'توصيل', 'تراس'],
+    popular: 'الأكثر طلبًا',
+    menuTitle: 'قائمة الطعام', priceNote: 'الأسعار بالدولار وتشمل الضريبة.', count: (n) => n + ' أصناف',
+    bookEyebrow: 'حجز الطاولات', bookTitle: 'احجز طاولتك',
+    lName: 'الاسم', lDate: 'التاريخ', lTime: 'الوقت', lPeople: 'عدد الأشخاص', lSeat: 'مكان الجلوس', lNote: 'ملاحظة (اختياري)',
+    seats: ['في الداخل', 'على التراس', 'لا فرق'], person: (n) => n === 1 ? 'شخص واحد' : n === 2 ? 'شخصان' : n <= 10 ? n + ' أشخاص' : n + ' شخصًا',
+    bookBtn: 'أرسل الحجز عبر واتساب', bookHint: 'تصلنا رسالة بتفاصيل الحجز، ونؤكّده لك عبر واتساب.', fillName: 'اكتب اسمك لإرسال الحجز',
+    bookMsg: (b) => 'مرحبًا مطبخ الريحان، أودّ حجز طاولة:\nالاسم: ' + b.name + '\nالتاريخ: ' + b.date + '\nالوقت: ' + b.time + '\nالعدد: ' + b.people + '\nالمكان: ' + b.seat + (b.note ? '\nملاحظة: ' + b.note : ''),
+    qrEyebrow: 'رمز QR للطاولات', qrTitle: 'امسح الرمز واطلب من طاولتك',
+    qrText: 'لكل طاولة رمز خاص. يمسحه الزبون بهاتفه فتُفتح القائمة، ويصلك الطلب مع رقم الطاولة.',
+    table: 'طاولة', tableBar: (n) => 'أنت على الطاولة رقم ' + n + '. سيصل طلبك إلى المطبخ مع رقم الطاولة.',
+    galEyebrow: 'معرض الصور', galTitle: 'من أجوائنا', insta: 'تابعنا على إنستغرام',
+    visitTitle: 'زورونا', lblAddr: 'العنوان', addr: 'خلدة، الطريق البحري', map: 'افتح على الخريطة',
+    lblHours: 'أوقات العمل', lblPhone: 'واتساب وهاتف', extra: 'موقف سيارات مجاني',
+    foot: 'تصميم الموقع: <a href="https://nafetha-web.github.io" target="_blank" rel="noopener">نافذة</a>',
+    items: (n) => n === 1 ? 'صنف واحد' : n === 2 ? 'صنفان' : (n >= 3 && n <= 10) ? n + ' أصناف' : n + (n === 0 ? ' أصناف' : ' صنفًا'), go: 'اطلب عبر واتساب',
+    add: 'أضف', remove: 'احذف', money: (n) => n + '$',
+    revTitle: 'مراجعة الطلب', revNote: 'ملاحظة للمطبخ (اختياري)', revNoteShort: 'ملاحظة', revSend: 'تأكيد وإرسال عبر واتساب', revBack: 'متابعة الاختيار',
+    hello: 'مرحبًا مطبخ الريحان، أودّ أن أطلب:', total: 'المجموع', tableLine: (n) => 'الطاولة رقم ' + n },
   en: { dir: 'ltr', lang: 'عربي', brand: 'Matbakh El Rayhan',
     demo: 'Demo site for a fictional restaurant on the Restaurant plan, designed by <a href="https://nafetha-web.github.io" target="_blank" rel="noopener">Nafetha</a>. Photos are illustrative from Unsplash; your site shows your own dishes.',
     navMenu: 'Menu', navBook: 'Book', navGallery: 'Photos',
     open: 'Open now', closed: 'Closed now',
     heroTitle: 'Matbakh El Rayhan', heroText: 'Lebanese mezze, charcoal grills and Arabic sweets. Order to your door or book a table.',
     ctaMenu: 'See the menu', ctaBook: 'Book a table', facts: ['Charcoal grill', 'Delivery', 'Terrace'],
-    popEyebrow: 'Most ordered', popTitle: 'Try these', popular: 'Popular',
-    menuEyebrow: 'Photo menu', menuTitle: 'Menu', priceNote: 'Prices are in US dollars and include tax.', count: (n) => n + ' items',
+    popular: 'Popular',
+    menuTitle: 'Menu', priceNote: 'Prices are in US dollars and include tax.', count: (n) => n + ' items',
     bookEyebrow: 'Table booking', bookTitle: 'Book your table',
     lName: 'Name', lDate: 'Date', lTime: 'Time', lPeople: 'Guests', lSeat: 'Seating', lNote: 'Note (optional)',
     seats: ['Indoors', 'Terrace', 'No preference'], person: (n) => n + (n === 1 ? ' guest' : ' guests'),
@@ -340,7 +355,8 @@ const T = {
     visitTitle: 'Visit us', lblAddr: 'Address', addr: 'Khaldeh, seaside road', map: 'Open in Maps',
     lblHours: 'Opening hours', lblPhone: 'WhatsApp and phone', extra: 'Free parking',
     foot: 'Site designed by <a href="https://nafetha-web.github.io" target="_blank" rel="noopener">Nafetha</a>',
-    empty: 'Nothing added yet', items: (n) => n + (n === 1 ? ' item' : ' items'), go: 'Order on WhatsApp',
+    items: (n) => n + (n === 1 ? ' item' : ' items'), go: 'Order on WhatsApp',
+    revTitle: 'Review your order', revNote: 'Note for the kitchen (optional)', revNoteShort: 'Note', revSend: 'Confirm and send on WhatsApp', revBack: 'Keep browsing',
     add: 'Add', remove: 'Remove', money: (n) => '$' + n,
     hello: 'Hello Matbakh El Rayhan, I would like to order:', total: 'Total', tableLine: (n) => 'Table ' + n }
 };
@@ -369,7 +385,7 @@ function renderStatic() {
   $('demoBar').innerHTML = t.demo;
   $('brand').textContent = t.brand; $('langBtn').textContent = t.lang;
   const open = isOpen(); $('dot').className = 'dot' + (open ? '' : ' closed'); $('statusText').textContent = open ? t.open : t.closed;
-  ['navMenu','navBook','navGallery','heroTitle','heroText','ctaBook','ctaMenu','popEyebrow','popTitle','menuEyebrow','menuTitle','priceNote','bookEyebrow','bookTitle','lName','lDate','lTime','lPeople','lSeat','lNote','bookHint','qrEyebrow','qrTitle','qrText','galEyebrow','galTitle','visitTitle','lblAddr','addr','lblHours','lblPhone','extra'].forEach(k => { $(k).textContent = t[k] });
+  ['navMenu','navBook','navGallery','heroTitle','heroText','ctaBook','ctaMenu','menuTitle','priceNote','bookEyebrow','bookTitle','lName','lDate','lTime','lPeople','lSeat','lNote','bookHint','qrEyebrow','qrTitle','qrText','galEyebrow','galTitle','visitTitle','lblAddr','addr','lblHours','lblPhone','extra'].forEach(k => { $(k).textContent = t[k] });
   $('facts').innerHTML = t.facts.map(f => '<span>' + f + '</span>').join('');
   if ($('heroImg')) $('heroImg').src = img(HERO, 1200, 900);
   $('instaBtn').textContent = t.insta;
@@ -391,8 +407,6 @@ let io = null;
 function renderMenu() {
   const t = T[lang];
   $('tabs').innerHTML = MENU.map(c => '<button type="button" class="tab" data-cat="' + c.id + '" aria-pressed="' + (c.id === activeCat) + '">' + c[lang] + '</button>').join('');
-  $('strip').innerHTML = ALL.filter(i => i.pop).map(i =>
-    '<article class="pop"><div class="ph">' + photo(i.ph, 420, 315, i[lang]) + '</div><div class="b"><div><h3>' + i[lang] + '</h3><span class="price">' + t.money(i.p) + '</span></div>' + qtyHTML(i) + '</div></article>').join('');
   $('cats').innerHTML = MENU.map(c => '<div class="cat" id="cat-' + c.id + '"><h3 class="ch">' + c[lang] + ' <small>' + t.count(c.items.length) + '</small></h3><div class="list">' +
     c.items.map(i => {
       const d = i['d' + lang];
@@ -410,13 +424,26 @@ function renderOrder() {
   const t = T[lang];
   const lines = ALL.filter(i => cart[i.id]);
   const count = lines.reduce((a, i) => a + cart[i.id], 0), total = lines.reduce((a, i) => a + cart[i.id] * i.p, 0);
-  $('sum').innerHTML = count ? t.items(count) + '<strong>' + t.money(total) + '</strong>' : (tableFromHash ? t.tableLine(tableFromHash) : t.empty);
+  $('sum').innerHTML = (tableFromHash ? t.tableLine(tableFromHash) + ' · ' : '') + t.items(count) + '<strong>' + t.money(total) + '</strong>';
   const go = $('goBtn'); go.textContent = t.go;
-  if (count) {
-    const msg = t.hello + (tableFromHash ? '\n' + t.tableLine(tableFromHash) : '') + '\n' + lines.map(i => '- ' + cart[i.id] + ' × ' + i[lang] + ' (' + t.money(cart[i.id] * i.p) + ')').join('\n') + '\n' + t.total + ': ' + t.money(total);
-    go.href = 'https://wa.me/' + WA + '?text=' + encodeURIComponent(msg); go.removeAttribute('aria-disabled');
-  } else { go.href = '#menu'; go.setAttribute('aria-disabled', 'true') }
+  if (count) go.removeAttribute('aria-disabled'); else go.setAttribute('aria-disabled', 'true');
+  if ($('review').open) renderReview();
 }
+
+function renderReview() {
+  const t = T[lang];
+  const lines = ALL.filter(i => cart[i.id]);
+  if (!lines.length) { closeReview(); return }
+  const total = lines.reduce((a, i) => a + cart[i.id] * i.p, 0);
+  $('revTitle').textContent = t.revTitle; $('revTotalLbl').textContent = t.total; $('revTotal').textContent = t.money(total);
+  $('revNoteLbl').textContent = t.revNote; $('revBack').textContent = t.revBack; $('revSend').textContent = t.revSend;
+  $('revList').innerHTML = lines.map(i => '<div class="rev"><div class="ph">' + photo(i.ph, 104, 104, i[lang]) + '</div><div class="nm">' + i[lang] + '<small>' + t.money(cart[i.id] * i.p) + '</small></div>' + qtyHTML(i) + '</div>').join('');
+  const note = $('revNote').value.trim();
+  const msg = t.hello + (tableFromHash ? '\n' + t.tableLine(tableFromHash) : '') + '\n' + lines.map(i => '- ' + cart[i.id] + ' × ' + i[lang] + ' (' + t.money(cart[i.id] * i.p) + ')').join('\n') + '\n' + t.total + ': ' + t.money(total) + (note ? '\n' + t.revNoteShort + ': ' + note : '');
+  $('revSend').href = 'https://wa.me/' + WA + '?text=' + encodeURIComponent(msg);
+}
+function openReview() { if (!ALL.some(i => cart[i.id])) return; renderReview(); const d = $('review'); if (d.showModal) d.showModal(); else d.setAttribute('open', '') }
+function closeReview() { const d = $('review'); if (d.open) { if (d.close) d.close(); else d.removeAttribute('open') } }
 
 function renderBooking() {
   const t = T[lang]; const name = $('bName').value.trim(); const btn = $('bookBtn');
@@ -443,9 +470,14 @@ function onQty(e) {
   const inc = e.target.closest('[data-inc]'), dec = e.target.closest('[data-dec]'); if (!inc && !dec) return;
   const id = inc ? inc.dataset.inc : dec.dataset.dec;
   if (inc) cart[id] = (cart[id] || 0) + 1; else { cart[id] = Math.max(0, (cart[id] || 0) - 1); if (!cart[id]) delete cart[id] }
-  const y = window.scrollY, sx = $('strip').scrollLeft; renderMenu(); renderOrder(); $('strip').scrollLeft = sx; window.scrollTo(0, y);
+  const y = window.scrollY; renderMenu(); renderOrder(); window.scrollTo(0, y);
 }
-$('cats').addEventListener('click', onQty); $('strip').addEventListener('click', onQty);
+$('cats').addEventListener('click', onQty);
+$('goBtn').addEventListener('click', openReview);
+$('revList').addEventListener('click', (e) => { const inc = e.target.closest('[data-inc]'), dec = e.target.closest('[data-dec]'); if (!inc && !dec) return; const id = inc ? inc.dataset.inc : dec.dataset.dec; if (inc) cart[id] = (cart[id] || 0) + 1; else { cart[id] = Math.max(0, (cart[id] || 0) - 1); if (!cart[id]) delete cart[id] } const y = window.scrollY; renderMenu(); renderOrder(); window.scrollTo(0, y) });
+$('revNote').addEventListener('input', renderReview);
+$('revClose').addEventListener('click', closeReview); $('revBack').addEventListener('click', closeReview);
+$('review').addEventListener('click', (e) => { if (e.target === $('review')) closeReview() });
 $('tables').addEventListener('click', (e) => { const b = e.target.closest('[data-table]'); if (!b) return; qrTable = Number(b.dataset.table); document.querySelectorAll('[data-table]').forEach(x => x.setAttribute('aria-pressed', String(Number(x.dataset.table) === qrTable))); renderQR() });
 ['bName','bDate','bTime','bPeople','bSeat','bNote'].forEach(id => { $(id).addEventListener('input', renderBooking); $(id).addEventListener('change', renderBooking) });
 $('bookForm').addEventListener('submit', (e) => e.preventDefault());
