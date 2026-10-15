@@ -70,7 +70,7 @@ p { margin: 0 }
 .hero::before { content: ""; position: absolute; inset: 0; background: radial-gradient(60% 70% at 25% 40%, rgba(226,176,74,.16), transparent 70%); pointer-events: none }
 [dir="ltr"] .hero::before { background: radial-gradient(60% 70% at 75% 40%, rgba(226,176,74,.16), transparent 70%) }
 .hero .wrap { position: relative; display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(0, .95fr); gap: 48px; align-items: center; padding-block: 64px 72px }
-@media (max-width: 900px) { .hero .wrap { grid-template-columns: 1fr; padding-block: 44px 56px; gap: 40px } }
+@media (max-width: 900px) { .hero .wrap { grid-template-columns: minmax(0, 1fr); padding-block: 44px 56px; gap: 40px } }
 .hero h1 { font-size: clamp(38px, 6.4vw, 66px); line-height: 1.22 }
 .hero .lead { font-size: 19px; color: #D5E6E4; margin-top: 20px; max-width: 34em }
 .hero .cta { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 30px }
@@ -80,13 +80,14 @@ p { margin: 0 }
 .assure svg { flex: none; color: var(--gold) }
 
 /* the window: live demo framed by shutters */
-.window { display: flex; flex-direction: column; align-items: center }
+.window { display: flex; flex-direction: column; align-items: center; min-width: 0; width: 100% }
 .frame { display: flex; align-items: center; justify-content: center; gap: 0 }
 .shutter { width: 92px; height: 470px; flex: none; color: var(--teal-2) }
 .shutter.r { transform: scaleX(-1) }
 [dir="ltr"] .shutter.l { transform: scaleX(-1) }
 [dir="ltr"] .shutter.r { transform: none }
 @media (max-width: 520px) { .shutter { width: 44px; height: 300px } }
+@media (max-width: 400px) { .shutter { width: 22px; height: 260px } }
 .phone { position: relative; width: 300px; height: 610px; background: var(--teal-deep); border-radius: 44px; padding: 11px; box-shadow: 0 30px 60px -20px rgba(0,0,0,.45), 0 0 0 1px rgba(255,255,255,.08) inset; flex: none }
 @media (max-width: 520px) { .phone { width: 262px; height: 540px; border-radius: 40px } }
 .phone .screen { position: relative; width: 100%; height: 100%; border-radius: 34px; overflow: hidden; background: #FFFFFF }
