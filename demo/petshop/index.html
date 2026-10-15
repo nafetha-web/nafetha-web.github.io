@@ -92,7 +92,18 @@ h1, h2, h3 { margin: 0; text-wrap: balance }
 .card { background: var(--surface); border: 1px solid var(--line); border-radius: 16px; overflow: hidden; display: flex; flex-direction: column }
 .thumb { aspect-ratio: 1 / 1; background: var(--soft); display: flex; align-items: center; justify-content: center; position: relative; color: #94A3B8 }
 .thumb svg.ph { width: 42%; height: 42% }
-.thumb img { width: 100%; height: 100%; object-fit: cover }
+.thumb img { width: 100%; height: 100%; object-fit: contain; background: #FFFFFF }
+.thumb.has-img { background: #FFFFFF; border-bottom: 1px solid var(--line) }
+.oosb { position: absolute; bottom: 10px; inset-inline-start: 10px; background: rgba(17,24,39,.78); color: #FFFFFF; font-size: 12.5px; font-weight: 600; border-radius: 7px; padding: 1px 8px }
+.card.oos .thumb img, .card.oos .thumb svg.ph { opacity: .45 }
+.buy:disabled, .addc:disabled { background: var(--soft); color: var(--muted); border-color: var(--line); cursor: not-allowed }
+.price .fr { font-size: 13px; color: var(--muted); font-weight: 500 }
+.subs { display: flex; gap: 8px; overflow-x: auto; scrollbar-width: none; margin: -2px 0 14px; padding-bottom: 2px }
+.subs::-webkit-scrollbar { display: none }
+.sub { flex: none; min-height: 38px; padding: 0 14px; border-radius: 999px; border: 1.5px solid var(--line); background: var(--surface); font-weight: 600; font-size: 14px; cursor: pointer; white-space: nowrap }
+.sub[aria-pressed="true"] { background: var(--ink); border-color: var(--ink); color: #FFFFFF }
+.logo b { color: #4C9BE0 } .logo b span { color: #5DBB46 }
+.line .mini img { object-fit: contain; background: #FFFFFF }
 .off { position: absolute; top: 10px; inset-inline-start: 10px; background: var(--sale); color: #FFFFFF; font-weight: 700; font-size: 12.5px; border-radius: 7px; padding: 1px 8px }
 .fav { position: absolute; top: 8px; inset-inline-end: 8px; width: 36px; height: 36px; border-radius: 50%; border: 0; background: var(--surface); color: var(--muted); display: flex; align-items: center; justify-content: center; cursor: pointer; box-shadow: 0 1px 4px rgba(0,0,0,.1) }
 .fav[aria-pressed="true"] { color: var(--sale) }
@@ -178,7 +189,7 @@ dialog.sheet::backdrop { background: rgba(10,16,24,.55) }
 <header class="top">
   <div class="wrap">
     <div class="bar">
-      <a class="logo" href="#"><i><svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><ellipse cx="6" cy="9" rx="2.2" ry="2.8"/><ellipse cx="10" cy="5.5" rx="2.2" ry="2.8"/><ellipse cx="14.5" cy="5.5" rx="2.2" ry="2.8"/><ellipse cx="18.5" cy="9" rx="2.2" ry="2.8"/><path d="M12 11c-3 0-6.5 3.6-6.5 6.4 0 2 1.6 2.9 3.4 2.9 1.2 0 2.1-.6 3.1-.6s1.9.6 3.1.6c1.8 0 3.4-.9 3.4-2.9 0-2.8-3.5-6.4-6.5-6.4z"/></svg></i><span data-t="shop"></span></a>
+      <a class="logo" href="#"><i><svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><ellipse cx="6" cy="9" rx="2.2" ry="2.8"/><ellipse cx="10" cy="5.5" rx="2.2" ry="2.8"/><ellipse cx="14.5" cy="5.5" rx="2.2" ry="2.8"/><ellipse cx="18.5" cy="9" rx="2.2" ry="2.8"/><path d="M12 11c-3 0-6.5 3.6-6.5 6.4 0 2 1.6 2.9 3.4 2.9 1.2 0 2.1-.6 3.1-.6s1.9.6 3.1.6c1.8 0 3.4-.9 3.4-2.9 0-2.8-3.5-6.4-6.5-6.4z"/></svg></i><b>FAME<span>STO</span></b></a>
       <button class="lang" id="langBtn" type="button"></button>
       <button class="ibtn" id="accBtn" type="button"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4.4 3.6-7 8-7s8 2.6 8 7"/></svg></button>
       <button class="ibtn" id="cartBtn" type="button"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 4h2l2.4 11.2a2 2 0 0 0 2 1.6h7.7a2 2 0 0 0 2-1.5L21 8H6.2"/><circle cx="10" cy="20" r="1.4"/><circle cx="17" cy="20" r="1.4"/></svg><span class="badge" id="cartCount" hidden>0</span></button>
@@ -207,6 +218,7 @@ dialog.sheet::backdrop { background: rgba(10,16,24,.55) }
 
   <section class="sec" id="all">
     <div class="sechead"><h2 id="listTitle"></h2><span class="muted" id="listCount"></span></div>
+    <div class="subs" id="subs" hidden></div>
     <div class="legend"><span><b data-t="orderNow"></b><span data-t="legBuy"></span></span><span><b class="o"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 4h2l2.4 11.2a2 2 0 0 0 2 1.6h7.7a2 2 0 0 0 2-1.5L21 8H6.2"/><path d="M13 9.5v4M11 11.5h4"/></svg></b><span data-t="legAdd"></span></span></div>
     <div class="grid" id="grid"></div>
     <p class="empty" id="empty" hidden data-t="noMatch"></p>
@@ -224,7 +236,7 @@ dialog.sheet::backdrop { background: rgba(10,16,24,.55) }
   <div class="wrap">
     <div class="fgrid">
       <div><h3 data-t="shop"></h3><p data-t="footAbout"></p></div>
-      <div><h3 data-t="contact"></h3><p>WhatsApp: <span class="ltr" id="waShow"></span></p><p>Instagram: <span class="ltr">@shop</span></p></div>
+      <div><h3 data-t="contact"></h3><p>WhatsApp: <a class="ltr" id="waShow" href="https://wa.me/96171891228" target="_blank" rel="noopener">+961 71 891 228</a></p><p>Facebook: <a href="https://www.facebook.com/famesto.online" target="_blank" rel="noopener" class="ltr">famesto.online</a></p></div>
       <div><h3 data-t="hoursT"></h3><p data-t="hours"></p></div>
     </div>
     <p class="credit"><span data-t="by"></span> <a href="https://nafetha-web.github.io" target="_blank" rel="noopener">Nafetha</a></p>
@@ -295,20 +307,20 @@ dialog.sheet::backdrop { background: rgba(10,16,24,.55) }
 const WA = '96171163991';   // client's WhatsApp number goes here
 const T = {
   en: {
-    shop: 'Store Name', langBtn: 'عربي', search: 'Search products', account: 'My account', cart: 'Cart',
+    shop: 'Famesto', tagline: 'Expect more, pay less', from: 'From', oos: 'Out of stock', allSub: 'All', langBtn: 'عربي', search: 'Search products', account: 'My account', cart: 'Cart',
     heroTag: 'Delivery across Lebanon · Cash on delivery', heroTitle: 'Everything your pet needs, in one place',
     heroText: 'Supplies for dogs, cats and birds, plus smart electronics. Pick a product and order it straight on WhatsApp.',
     heroSale: 'Current offers', heroCats: 'Shop by category', cats: 'Categories', sales: 'Offers', saleTag: 'Discounts', seeAll: 'See all',
     allProducts: 'All products', results: 'Search results', count: n => n + (n === 1 ? ' product' : ' products'),
     orderNow: 'Order now', legBuy: 'sends your order right away', legAdd: 'adds it to your cart for later', noMatch: 'No matching products.',
     perk1: 'Delivery across Lebanon', perk2: 'Cash on delivery', perk3: 'Genuine products', perk4: '7-day exchange',
-    footAbout: 'Pet supplies and electronics.', contact: 'Contact us', hoursT: 'Opening hours', hours: 'Every day, 9 am to 9 pm', by: 'Website by',
+    footAbout: 'Pet supplies, electronics and home essentials across Lebanon.', contact: 'Contact us', hoursT: 'Opening hours', hours: 'Every day, 9 am to 9 pm', by: 'Website by',
     cartTitle: 'Your cart', orderTitle: 'Order now', cartEmpty: 'Your cart is empty. Tap the cart button on any product to add it.',
     subtotal: 'Subtotal', saved: 'You save', total: 'Total', each: 'each',
     hint: 'Have an account? Sign in to fill in your details automatically.', signIn: 'Sign in',
     method: 'How do you want it?', delivery: 'Delivery', pickup: 'Pick up from store',
     name: 'Name', phone: 'Phone number', address: 'Address', addrPh: 'Area, street, building', note: 'Note (optional)',
-    send: 'Send order on WhatsApp', payNote: 'Pay on delivery. We will confirm your order on WhatsApp.',
+    send: 'Send order on WhatsApp', payNote: 'Cash on delivery, in USD or LBP (rate 90,000). We will confirm your order on WhatsApp.',
     errName: 'Please enter your name.', errPhone: 'Please enter your phone number.', errAddr: 'Please enter your address for delivery.',
     accHead: 'Create a free account (optional)', accText: 'We save your details on this device so you can order faster, with your favourites and past orders. You can also order without an account.',
     addrOpt: 'Address (optional)', mailOpt: 'Email (optional)', email: 'Email', create: 'Create account', guest: 'Continue as guest',
@@ -319,20 +331,20 @@ const T = {
     waHead: 'New order from the website', waTotal: 'Total', waMethod: 'Method', waName: 'Name', waPhone: 'Phone', waAddr: 'Address', waNote: 'Note'
   },
   ar: {
-    shop: 'اسم المتجر', langBtn: 'English', search: 'ابحث عن منتج', account: 'حسابي', cart: 'السلة',
+    shop: 'Famesto', tagline: 'Expect more, pay less', from: 'ابتداءً من', oos: 'غير متوفر', allSub: 'الكل', langBtn: 'English', search: 'ابحث عن منتج', account: 'حسابي', cart: 'السلة',
     heroTag: 'توصيل لكل لبنان · الدفع عند الاستلام', heroTitle: 'كل ما يحتاجه حيوانك الأليف، في مكان واحد',
     heroText: 'مستلزمات الكلاب والقطط والطيور، وإلكترونيات ذكية. اختر منتجك واطلبه مباشرة عبر واتساب.',
     heroSale: 'العروض الحالية', heroCats: 'تسوّق حسب القسم', cats: 'الأقسام', sales: 'العروض', saleTag: 'خصومات', seeAll: 'عرض الكل',
     allProducts: 'كل المنتجات', results: 'نتائج البحث', count: n => n + ' منتج',
     orderNow: 'اطلب الآن', legBuy: 'يرسل طلبك مباشرة', legAdd: 'يضيف المنتج إلى السلة لوقت لاحق', noMatch: 'لا توجد منتجات مطابقة.',
     perk1: 'توصيل لكل لبنان', perk2: 'الدفع عند الاستلام', perk3: 'منتجات أصلية', perk4: 'استبدال خلال 7 أيام',
-    footAbout: 'مستلزمات الحيوانات الأليفة والإلكترونيات.', contact: 'تواصل معنا', hoursT: 'ساعات العمل', hours: 'يوميًا من 9 صباحًا حتى 9 مساءً', by: 'تصميم',
+    footAbout: 'مستلزمات الحيوانات الأليفة والإلكترونيات وأغراض المنزل في كل لبنان.', contact: 'تواصل معنا', hoursT: 'ساعات العمل', hours: 'يوميًا من 9 صباحًا حتى 9 مساءً', by: 'تصميم',
     cartTitle: 'سلة المشتريات', orderTitle: 'اطلب الآن', cartEmpty: 'السلة فارغة. اضغط زر السلة على أي منتج لإضافته.',
     subtotal: 'المجموع', saved: 'وفّرت', total: 'الإجمالي', each: 'للقطعة',
     hint: 'لديك حساب؟ سجّل الدخول لتعبئة معلوماتك تلقائيًا.', signIn: 'تسجيل',
     method: 'طريقة الاستلام', delivery: 'توصيل', pickup: 'استلام من المحل',
     name: 'الاسم', phone: 'رقم الهاتف', address: 'العنوان', addrPh: 'المنطقة، الشارع، المبنى', note: 'ملاحظة (اختياري)',
-    send: 'إرسال الطلب عبر واتساب', payNote: 'الدفع عند الاستلام. سنؤكد طلبك على واتساب.',
+    send: 'إرسال الطلب عبر واتساب', payNote: 'الدفع نقدًا عند الاستلام بالدولار أو بالليرة (سعر 90,000). سنؤكد طلبك على واتساب.',
     errName: 'الرجاء كتابة الاسم.', errPhone: 'الرجاء كتابة رقم الهاتف.', errAddr: 'الرجاء كتابة العنوان للتوصيل.',
     accHead: 'أنشئ حسابًا مجانيًا (اختياري)', accText: 'نحفظ معلوماتك على هذا الجهاز لتطلب أسرع، مع المفضلة وطلباتك السابقة. يمكنك الطلب دون حساب.',
     addrOpt: 'العنوان (اختياري)', mailOpt: 'البريد الإلكتروني (اختياري)', email: 'البريد الإلكتروني', create: 'إنشاء الحساب', guest: 'متابعة كزائر',
@@ -356,33 +368,110 @@ const svg = (k, s = 24, cls = '') => `<svg ${cls ? `class="${cls}" ` : ''}width=
 const CATS = [
   { k: 'all', i: 'all', en: 'All', ar: 'الكل' },
   { k: 'sale', i: 'sale', en: 'Offers', ar: 'العروض', sale: true },
-  { k: 'dogs', i: 'dog', en: 'Dogs', ar: 'كلاب' },
   { k: 'cats', i: 'cat', en: 'Cats', ar: 'قطط' },
+  { k: 'dogs', i: 'dog', en: 'Dogs', ar: 'كلاب' },
   { k: 'birds', i: 'bird', en: 'Birds', ar: 'طيور' },
-  { k: 'petech', i: 'chip', en: 'Smart pet devices', ar: 'أجهزة ذكية للحيوانات' },
   { k: 'tech', i: 'tech', en: 'Electronics', ar: 'إلكترونيات' }
 ];
+const SUBS = {
+  cats: [
+    { k: 'bed', en: 'Beds & houses', ar: 'أسرّة وبيوت' }, { k: 'tree', en: 'Trees & scratchers', ar: 'أشجار ومخادش' },
+    { k: 'feed', en: 'Feeders & fountains', ar: 'معالف ونوافير' }, { k: 'litter', en: 'Litter boxes', ar: 'صناديق الرمل' },
+    { k: 'toy', en: 'Toys', ar: 'ألعاب' }, { k: 'groom', en: 'Grooming', ar: 'العناية' }, { k: 'carry', en: 'Carriers & cages', ar: 'حقائب وأقفاص' }
+  ]
+};
+const IMG = 'https://www.famesto.com/wp-content/uploads/';
 // sample catalogue: replace with the client's products. o = price before discount, img = photo path (optional)
+// cats: real Famesto catalogue (first 5 pages). dogs, birds and electronics are still samples
 const P = [
+  {"id": 101, "c": "cats", "s": "bed", "en": "2-in-1 Plush Pet Bed with Cover, 50 cm", "ar": "سرير مخملي 2 في 1 مع غطاء، 50 سم", "p": 15, "from": 1, "img": "2026/01/WhatsApp-Image-2026-01-29-at-9.18.37-AM-1.jpeg"},
+  {"id": 102, "c": "cats", "s": "bed", "en": "2-Story Foldable Cat House Condo, 40×40×63 cm", "ar": "بيت قطط قابل للطي بطابقين، 40×40×63 سم", "p": 39, "img": "2026/10/IMG_7684.jpeg"},
+  {"id": 103, "c": "cats", "s": "feed", "en": "5L Smart Automatic Pet Feeder", "ar": "معلف ذكي أوتوماتيك 5 لتر", "p": 79, "img": "2026/01/IMG_3329.jpeg"},
+  {"id": 104, "c": "cats", "s": "feed", "en": "6.5L Smart Automatic Pet Feeder", "ar": "معلف ذكي أوتوماتيك 6.5 لتر", "p": 89, "img": "2026/01/IMG_3336.jpeg"},
+  {"id": 105, "c": "cats", "s": "bed", "en": "Plush Cat Cave Bed with Ears", "ar": "سرير كهف مخملي بأذنين", "p": 24, "o": 35, "oos": 1, "img": "2025/10/61lPEgLG5DL._AC_SL1001_-2.jpg"},
+  {"id": 106, "c": "cats", "s": "toy", "en": "Window Perch Track Toy with Suction Cups", "ar": "لعبة مسار للنافذة بشفّاطات", "p": 6, "o": 10, "img": "2026/07/WhatsApp-Image-2026-07-15-at-17.51.05-1.jpeg"},
+  {"id": 107, "c": "cats", "s": "feed", "en": "Water Fountain with Steel Bowl and Filter", "ar": "نافورة مياه مع وعاء ستانلس وفلتر", "p": 19, "o": 25, "img": "2025/09/51PzhmzKoL-1.jpg"},
+  {"id": 108, "c": "cats", "s": "feed", "en": "Automatic Drinking Fountain with 2 Filters", "ar": "نافورة شرب أوتوماتيك مع فلترين", "p": 17, "img": "2025/09/51dT0fUOulL._AC_-1.jpg"},
+  {"id": 109, "c": "cats", "s": "feed", "en": "Automatic Feeder and Water Dispenser", "ar": "معلف وموزّع مياه أوتوماتيك", "p": 14, "o": 16, "img": "2026/01/IMG_2462.jpeg"},
+  {"id": 110, "c": "cats", "s": "toy", "en": "Interactive LED Collar Toy, Rechargeable", "ar": "لعبة طوق تفاعلية بضوء LED قابلة للشحن", "p": 4, "img": "2026/01/IMG_2533.jpeg"},
+  {"id": 111, "c": "cats", "s": "feed", "en": "Silent Pet Water Fountain with Filtration", "ar": "نافورة مياه صامتة مع فلترة", "p": 25, "img": "2026/01/IMG_2436.jpeg"},
+  {"id": 112, "c": "cats", "s": "feed", "en": "Automatic Pet Water Fountain, 1.5 L", "ar": "نافورة مياه أوتوماتيك 1.5 لتر", "p": 16, "o": 20, "img": "2026/01/IMG_2450.jpeg"},
+  {"id": 113, "c": "cats", "s": "litter", "en": "Self-Cleaning Automatic Litter Box", "ar": "صندوق رمل أوتوماتيك ذاتي التنظيف", "p": 250, "img": "2026/04/WhatsApp-Image-2026-07-15-at-17.19.17-1-1.jpeg"},
+  {"id": 114, "c": "cats", "s": "groom", "en": "Baba Flea and Tick Kitten Shampoo, 250 ml", "ar": "شامبو بابا للقطط الصغيرة ضد البراغيث والقراد، 250 مل", "p": 6, "img": "2026/08/WhatsApp-Image-2026-08-06-at-16.48.00-2.jpeg"},
+  {"id": 115, "c": "cats", "s": "groom", "en": "Baba 2-in-1 Cat Shampoo and Conditioner, 250 ml", "ar": "شامبو وبلسم بابا 2 في 1 للقطط، 250 مل", "p": 6, "img": "2026/08/WhatsApp-Image-2026-08-06-at-16.47.48-1.jpeg"},
+  {"id": 116, "c": "cats", "s": "feed", "en": "Bee Pet Water Fountain", "ar": "نافورة مياه Bee", "p": 18, "o": 36, "img": "2026/02/IMG_4311.webp"},
+  {"id": 117, "c": "cats", "s": "litter", "en": "Bioline Litter Deodorizer, 425 g", "ar": "مزيل روائح الرمل Bioline، 425 غ", "p": 7, "img": "2026/04/WhatsApp-Image-2026-07-14-at-15.50.51-1.jpeg"},
+  {"id": 118, "c": "cats", "s": "toy", "en": "Bioline Catnip Spray, 50 ml", "ar": "بخاخ نعناع القطط Bioline، 50 مل", "p": 6, "img": "2026/04/55eee13dbb7b9a2769397ad763496176.png_720x720q80.png_-1.webp"},
+  {"id": 119, "c": "cats", "s": "tree", "en": "Book-Shaped Cardboard Scratcher", "ar": "مخدش كرتون على شكل كتاب", "p": 12, "oos": 1, "img": "2025/04/WhatsApp-Image-2024-11-12-at-12.02.02-AM.jpeg"},
+  {"id": 120, "c": "cats", "s": "carry", "en": "Cat Backpack Carrier", "ar": "حقيبة ظهر لنقل القطط", "p": 15, "o": 23, "img": "2025/04/WhatsApp-Image-2025-02-07-at-1.24.50-AM.jpeg"},
+  {"id": 121, "c": "cats", "s": "toy", "en": "4-Layer Ball Tower Toy", "ar": "برج كرات من 4 طبقات", "p": 7, "img": "2026/01/71s3aiLr2UL._AC_SL1500_.jpg"},
+  {"id": 122, "c": "cats", "s": "toy", "en": "4-Level Ball Track Toy", "ar": "لعبة مسار كرات من 4 طوابق", "p": 9, "o": 15, "img": "2025/08/WhatsApp-Image-2025-08-25-at-3.4-2.jpg"},
+  {"id": 123, "c": "cats", "s": "carry", "en": "Cat Cage with Full Equipment, 80×35×70 cm", "ar": "قفص قطط مع كامل التجهيزات، 80×35×70 سم", "p": 55, "o": 65, "oos": 1, "img": "2025/08/71cq7Sd38pL._AC_SL1500_-1.jpg"},
+  {"id": 124, "c": "cats", "s": "carry", "en": "Cat Cage with Platforms, 109×47×37 cm", "ar": "قفص قطط بطوابق ومنصّات، 109×47×37 سم", "p": 59, "o": 90, "oos": 1, "img": "2025/08/71Ha56vNwYL._AC_SL1500_-1.jpg"},
+  {"id": 125, "c": "cats", "s": "carry", "en": "Breathable Cat Carrier Bag, 32×25×41 cm", "ar": "حقيبة نقل قطط مهوّاة، 32×25×41 سم", "p": 17, "img": "2025/04/WhatsApp-Image-2025-02-07-at-12.49.05-AM.jpeg"},
+  {"id": 126, "c": "cats", "s": "bed", "en": "Donut Tunnel Cat Bed, 50×50×20 cm", "ar": "سرير نفق دائري، 50×50×20 سم", "p": 22, "o": 31, "img": "2025/12/71f7lONj6L._AC_SL1500_-1.jpg"},
+  {"id": 127, "c": "cats", "s": "tree", "en": "Cat Climbing Frame, 52×33×55 cm", "ar": "هيكل تسلّق للقطط، 52×33×55 سم", "p": 35, "oos": 1, "img": "2025/08/5109NPOU-QL._AC_SL1024_-1.jpg"},
+  {"id": 128, "c": "cats", "s": "tree", "en": "Multi-Level Cat Condo Tower, 35×35×70 cm", "ar": "برج خدش متعدد الطوابق، 35×35×70 سم", "p": 24, "img": "2026/01/IMG_2491.jpeg"},
+  {"id": 129, "c": "cats", "s": "feed", "en": "Kitten Feeding Bottle, 120 ml", "ar": "رضّاعة للقطط الصغيرة، 120 مل", "p": 5, "o": 9, "img": "2025/09/WhatsApp-Image-2025-09-23-at-3.16.19-AM-1.jpeg"},
+  {"id": 130, "c": "cats", "s": "feed", "en": "Anti-Tip Food Bowl and Water Dispenser", "ar": "وعاء طعام وموزّع مياه مانع للانقلاب", "p": 13, "o": 18, "oos": 1, "img": "2025/08/af9a7769-f8d9-417d-97f0-96fa50cd2ad8.webp"},
+  {"id": 131, "c": "cats", "s": "feed", "en": "Quiet Cat Fountain with Smart Pump, 2.5 L", "ar": "نافورة قطط هادئة بمضخة ذكية، 2.5 لتر", "p": 19, "o": 24, "oos": 1, "img": "2025/04/WhatsApp-Image-2024-11-17-at-11.19.49-AM.jpeg"},
+  {"id": 132, "c": "cats", "s": "feed", "en": "Cat Grass Planting Box", "ar": "صندوق لزراعة عشب القطط", "p": 7, "img": "2026/07/WhatsApp-Image-2026-07-17-at-13.35.35-1-1.jpeg"},
+  {"id": 133, "c": "cats", "s": "bed", "en": "Cat Hammock Lounge Bed, Beige", "ar": "سرير أرجوحة للقطط، بيج", "p": 34, "img": "2025/08/41baVUzcXUL._AC_-1.jpg"},
+  {"id": 134, "c": "cats", "s": "bed", "en": "Cat Rocking Chair Bed, 50×23 cm", "ar": "سرير كرسي هزّاز للقطط، 50×23 سم", "p": 12, "oos": 1, "img": "2025/04/WhatsApp-Image-2025-02-17-at-12.34.24-PM-3.jpeg"},
+  {"id": 135, "c": "cats", "s": "toy", "en": "Turntable Toy with Two Scratchers, 37×25×39 cm", "ar": "لعبة دوّارة مع مخدشين، 37×25×39 سم", "p": 24, "o": 33, "oos": 1, "img": "2025/04/WhatsApp-Image-2025-02-17-at-1.04.25-PM-1-2.jpeg"},
+  {"id": 136, "c": "cats", "s": "litter", "en": "Fully Covered Litter Box, 50×41×44 cm", "ar": "صندوق رمل مغطّى بالكامل، 50×41×44 سم", "p": 29, "o": 35, "img": "2025/08/WhatsApp-Image-2025-08-20-at-7.09.21-AM-1.jpeg"},
+  {"id": 137, "c": "cats", "s": "litter", "en": "Litter Box with Lid, Scoop and Double Entrance", "ar": "صندوق رمل بغطاء ومجرفة ومدخلين", "p": 32, "img": "2026/09/JhC42619999f684c0-1-1.webp"},
+  {"id": 138, "c": "cats", "s": "litter", "en": "Stainless Steel Litter Box with Scoop, 50×35×20 cm", "ar": "صندوق رمل ستانلس مع مجرفة، 50×35×20 سم", "p": 28, "oos": 1, "img": "2026/02/IMG_4322.jpeg"},
+  {"id": 139, "c": "cats", "s": "bed", "en": "Paw-Shaped Pad Mat", "ar": "سجادة على شكل كفّ قطة", "p": 6, "from": 1, "img": "2025/04/WhatsApp-Image-2024-11-11-at-11.30.15-PM.jpeg"},
+  {"id": 140, "c": "cats", "s": "tree", "en": "Wall-Mounted Sisal Scratch Board", "ar": "لوح خدش سيزال يُعلَّق على الحائط", "p": 27, "o": 32, "img": "2026/01/IMG_2500.jpeg"},
+  {"id": 141, "c": "cats", "s": "tree", "en": "3-in-1 Oval Scratcher Bed", "ar": "سرير ومخدش بيضاوي 3 في 1", "p": 19, "o": 25, "img": "2026/04/949957c2-c48c-4beb-9523-1ae61db07991.722fb4b3ac67fbbe1871989e910a7444-1.jpeg"},
+  {"id": 142, "c": "cats", "s": "tree", "en": "Scratcher Ball Bed with Toy", "ar": "سرير كروي مع مخدش ولعبة", "p": 26, "oos": 1, "img": "2025/08/WhatsApp-Image-2025-08-23-at-12.10.51-AM-4-1.jpeg"},
+  {"id": 143, "c": "cats", "s": "tree", "en": "Cat Scratching Post", "ar": "عمود خدش للقطط", "p": 13, "img": "2025/08/517dbO9I92L._AC_SX679_-1.jpg"},
+  {"id": 144, "c": "cats", "s": "tree", "en": "Coconut Tree Scratching Post with Bed, 90×32×75 cm", "ar": "عمود خدش بشكل شجرة جوز الهند مع سرير، 90×32×75 سم", "p": 59, "o": 75, "img": "2025/08/61uGVXF1FQL._SL1500_-1.jpg"},
+  {"id": 145, "c": "cats", "s": "tree", "en": "Indoor Scratching Post, 36×36×85 cm", "ar": "عمود خدش داخلي، 36×36×85 سم", "p": 35, "img": "2025/08/WhatsApp-Image-2025-08-18-at-1.21.05-PM-1.jpeg"},
+  {"id": 146, "c": "cats", "s": "tree", "en": "Scratching Post with Turntable and Feathers, 28×25×40 cm", "ar": "عمود خدش مع كرة دوّارة وريش، 28×25×40 سم", "p": 16, "o": 22, "img": "2025/04/WhatsApp-Image-2025-02-17-at-1.16.29-PM-1.jpeg"},
+  {"id": 147, "c": "cats", "s": "tree", "en": "Sisal Rope Scratching Post, 20×20×50 cm", "ar": "عمود خدش بحبل سيزال، 20×20×50 سم", "p": 9, "o": 13, "img": "2026/01/IMG_2801.jpeg"},
+  {"id": 148, "c": "cats", "s": "tree", "en": "Cat Tree with House and Hammock, 50×40×125 cm, Beige", "ar": "شجرة قطط مع بيت وأرجوحة، 50×40×125 سم، بيج", "p": 45, "o": 89, "oos": 1, "img": "2025/08/WhatsApp-Image-2025-08-15-at-8.00.44-AM-1.jpeg"},
+  {"id": 149, "c": "cats", "s": "tree", "en": "Cat Tree with House and Hammock, 50×40×125 cm, Gray", "ar": "شجرة قطط مع بيت وأرجوحة، 50×40×125 سم، رمادي", "p": 45, "o": 79, "oos": 1, "img": "2025/08/9c3026db-db85-4126-9841-d0b11fc31b83-1.jpg"},
+  {"id": 150, "c": "cats", "s": "tree", "en": "Cat Tower with Hidden Litter Box, 52×48×117 cm", "ar": "برج قطط مع صندوق رمل مخفي، 52×48×117 سم", "p": 75, "img": "2026/05/Sff77793582974864860b1a44abcb74f6w_1200x-1-1.webp"},
+  {"id": 151, "c": "cats", "s": "toy", "en": "Indoor Cat Toy Set", "ar": "مجموعة ألعاب للقطط", "p": 7, "img": "2026/01/51SKc00LIOL._AC_.jpg"},
+  {"id": 152, "c": "cats", "s": "toy", "en": "Cat Tunnel Tube", "ar": "نفق ألعاب للقطط", "p": 12, "oos": 1, "img": "2025/06/IMG_4729.webp"},
+  {"id": 153, "c": "cats", "s": "toy", "en": "Circle Ball Track Puzzle Toy", "ar": "لعبة مسار دائري بالكرات", "p": 5, "o": 7, "oos": 1, "img": "2025/08/51NoOL8QV8L._AC_SL1007_-1.jpg"},
+  {"id": 154, "c": "cats", "s": "tree", "en": "Cat Tree, 40×38×116 cm", "ar": "شجرة قطط، 40×38×116 سم", "p": 49, "img": "2026/01/brd-87992_animalnco-cat-condo-cat-tree-scratcher-import-rumah-kucing-tingkat-mt04_full01-63c5a6b6-1.webp"},
+  {"id": 155, "c": "cats", "s": "tree", "en": "Cat Tree, 48×34×138 cm", "ar": "شجرة قطط، 48×34×138 سم", "p": 55, "img": "2026/01/koteshko-drvo-v-tri-czvyata-mt05-3-1-1.jpg"},
+  {"id": 156, "c": "cats", "s": "tree", "en": "Large Cat Climbing Tree, Gray, 60×30×85 cm", "ar": "شجرة تسلّق للقطط الكبيرة، رمادي، 60×30×85 سم", "p": 53, "oos": 1, "img": "2025/11/71e4tBu18cL._AC_SL1500_-1.jpg"},
+  {"id": 157, "c": "cats", "s": "tree", "en": "Modern Cat Tower with Hammock, 38×48×125 cm", "ar": "برج قطط عصري مع أرجوحة، 38×48×125 سم", "p": 49, "o": 70, "oos": 1, "img": "2025/04/WhatsApp-Image-2025-02-17-at-8.57.20-AM.jpeg"},
+  {"id": 158, "c": "cats", "s": "tree", "en": "Multilevel Cat Tower with Condo, Beige", "ar": "برج قطط متعدد الطوابق مع بيت، بيج", "p": 69, "oos": 1, "img": "2025/08/WhatsApp-Image-2025-08-11-at-12.15.07-PM-1.jpeg"},
+  {"id": 159, "c": "cats", "s": "tree", "en": "Multilevel Cat Tower with Condo, Gray", "ar": "برج قطط متعدد الطوابق مع بيت، رمادي", "p": 69, "oos": 1, "img": "2025/08/ZephyPaws-5-Level-52-in-Cat-Tree-with-1-x-Cat-Tree-Gray-1-Pack_b9bd5e21-277d-464a-b71f-3016ddbb9917.d822a2f79f795c5daf8d678f93373f9f.webp"},
+  {"id": 160, "c": "cats", "s": "tree", "en": "Deluxe Cat Tree, 48×34×140 cm", "ar": "شجرة قطط فاخرة، 48×34×140 سم", "p": 54, "img": "2025/08/WhatsApp-Image-2025-08-20-at-6.19.18-AM-1.jpeg"},
+  {"id": 161, "c": "cats", "s": "tree", "en": "Cat Condo Tower, 50×33×53 cm", "ar": "برج خدش مع بيت، 50×33×53 سم", "p": 28, "o": 35, "oos": 1, "img": "2026/01/IMG_2781.jpeg"},
+  {"id": 162, "c": "cats", "s": "tree", "en": "Deluxe Cat Tree, 50×35×148 cm", "ar": "شجرة قطط فاخرة، 50×35×148 سم", "p": 55, "img": "2025/08/WhatsApp-Image-2025-08-15-at-8.10.45-AM-1.jpeg"},
+  {"id": 163, "c": "cats", "s": "tree", "en": "Mini Scratcher Tower with Mouse Toy, Beige", "ar": "برج خدش صغير مع لعبة فأر، بيج", "p": 8, "img": "2026/01/IMG_2494.jpeg"},
+  {"id": 164, "c": "cats", "s": "tree", "en": "Cat Tower with Condo and Scratching Post, 38×30×48 cm", "ar": "برج قطط مع بيت وعمود خدش، 38×30×48 سم", "p": 24, "o": 30, "img": "2026/01/IMG_2786.jpeg"},
+  {"id": 165, "c": "cats", "s": "tree", "en": "Cat Tree with Hanging Toy, 40×40×65 cm", "ar": "شجرة قطط مع لعبة معلّقة، 40×40×65 سم", "p": 44, "img": "2025/08/716kLtnANQL._AC_SL1500_-1.jpg"},
+  {"id": 166, "c": "cats", "s": "tree", "en": "Multi-Level Cat Tree with Top Perch, Beige, 50×35×140 cm", "ar": "شجرة قطط متعددة الطوابق مع منصّة علوية، بيج، 50×35×140 سم", "p": 55, "o": 65, "img": "2025/08/81gVzYU3KhL._AC_SL1500_-1.jpg"},
+  {"id": 167, "c": "cats", "s": "tree", "en": "Multi-Level Cat Tree with Top Perch, Gray, 50×35×135 cm", "ar": "شجرة قطط متعددة الطوابق مع منصّة علوية، رمادي، 50×35×135 سم", "p": 55, "o": 90, "oos": 1, "img": "2025/08/D_745837-MLB78142494123_082024-O__96489-1.jpg"},
+  {"id": 168, "c": "cats", "s": "tree", "en": "Small Cat Condo Tower, 38×38×47 cm", "ar": "برج قطط صغير مع بيت، 38×38×47 سم", "p": 24, "oos": 1, "img": "2025/08/81TfAdR1fL._AC_SL1500_-1.jpg"},
+  {"id": 169, "c": "cats", "s": "bed", "en": "2-in-1 Foldable Tunnel Bed with Hanging Ball", "ar": "سرير ونفق قابل للطي 2 في 1 مع كرة معلّقة", "p": 58, "img": "2025/08/WhatsApp-Image-2025-08-23-at-12.24.02-AM-2-1.jpeg"},
+  {"id": 170, "c": "cats", "s": "bed", "en": "Plush Tunnel with Cat Bed, 85×76×76 cm", "ar": "نفق مخملي مع سرير، 85×76×76 سم", "p": 29, "o": 35, "img": "2026/09/IMG_9141.jpeg"},
+  {"id": 171, "c": "cats", "s": "toy", "en": "Cooling Water Play Mat with Floating Fish", "ar": "سجادة مائية مبرّدة مع أسماك عائمة", "p": 8, "o": 12, "img": "2026/06/WhatsApp-Image-2026-06-09-at-5.26.04-PM-3-1.jpeg"},
+  {"id": 172, "c": "cats", "s": "groom", "en": "Wall Corner Brush with Catnip, 2 Pack", "ar": "فرشاة زاوية مع نعناع القطط، قطعتان", "p": 6, "o": 12, "img": "2026/01/81jVRVdPBLL._AC_SL1500_.jpg"},
+  {"id": 173, "c": "cats", "s": "groom", "en": "Chong Le Er Grooming Set", "ar": "طقم عناية Chong Le Er", "p": 5, "img": "2026/04/8A437753-55BF-4219-9083-0E76E4C7F675-2026-06-29T183659.098-1.webp"},
+  {"id": 174, "c": "cats", "s": "groom", "en": "Chong Le Er Nail Clipper and Scissors, Medium", "ar": "قصّافة أظافر ومقص Chong Le Er، وسط", "p": 6, "img": "2026/04/Kit-Cortaunas-de-11cm-y-lima-de-unas-para-mascotas-pequenas-1.webp"},
+  {"id": 175, "c": "cats", "s": "groom", "en": "Chong Le Nail Clipper Set, Pink, Large", "ar": "طقم قصّافة أظافر Chong Le، زهري، كبير", "p": 7, "img": "2026/04/w800-1.webp"},
+  {"id": 176, "c": "cats", "s": "toy", "en": "Circular Turntable Toy", "ar": "لعبة دوّارة دائرية", "p": 9, "img": "2025/08/51PGbtt8fuL.jpg"},
+  {"id": 177, "c": "cats", "s": "tree", "en": "Cozy Cat Tree with Hammock, Beige", "ar": "شجرة قطط مريحة مع أرجوحة، بيج", "p": 29, "o": 35, "img": "2025/08/41t-arKDX5L._AC_SL1024_-2.jpg"},
+  {"id": 178, "c": "cats", "s": "bed", "en": "Cute Cat Bed with Pillow", "ar": "سرير قطط لطيف مع وسادة", "p": 24, "img": "2025/04/58ae40b2-e022-4ecf-b100-0999772e8090.jpg"},
+  {"id": 179, "c": "cats", "s": "tree", "en": "Cute Cat Scratcher Post, 32×24×65 cm", "ar": "عمود خدش لطيف، 32×24×65 سم", "p": 19, "o": 34, "oos": 1, "img": "2025/04/WhatsApp-Image-2025-02-06-at-11.39.51-PM.jpeg"},
   { id: 1, c: 'dogs', en: 'Adult dry dog food, 10 kg', ar: 'طعام كلاب جاف للبالغين 10 كغ', p: 38, o: 45 },
   { id: 2, c: 'dogs', en: 'Adjustable leather collar', ar: 'طوق جلد قابل للتعديل', p: 9 },
   { id: 3, c: 'dogs', en: 'Comfy dog bed, medium', ar: 'سرير مريح للكلاب، حجم وسط', p: 32 },
   { id: 4, c: 'dogs', en: 'Rope chew toy', ar: 'لعبة حبل للمضغ', p: 5, o: 7 },
   { id: 5, c: 'dogs', en: 'Oatmeal dog shampoo', ar: 'شامبو للكلاب بالشوفان', p: 8 },
-  { id: 6, c: 'cats', en: 'Salmon dry cat food, 4 kg', ar: 'طعام قطط جاف بالسلمون 4 كغ', p: 22 },
-  { id: 7, c: 'cats', en: 'Clumping cat litter, 10 L', ar: 'رمل قطط متكتل 10 لتر', p: 11, o: 14 },
-  { id: 8, c: 'cats', en: 'Cat scratching tower', ar: 'برج خدش للقطط', p: 45 },
-  { id: 9, c: 'cats', en: 'Wet cat food, 12 cans', ar: 'وجبات رطبة للقطط، 12 علبة', p: 15 },
-  { id: 10, c: 'cats', en: 'Cat carrier bag', ar: 'حقيبة نقل للقطط', p: 27, o: 34 },
   { id: 11, c: 'birds', en: 'Medium bird cage with accessories', ar: 'قفص طيور متوسط مع إكسسوارات', p: 48 },
   { id: 12, c: 'birds', en: 'Canary seed mix, 1 kg', ar: 'خليط بذور للكناري 1 كغ', p: 6 },
   { id: 13, c: 'birds', en: 'Bird feeder and waterer', ar: 'مشرب ومعلف طيور', p: 4, o: 6 },
   { id: 14, c: 'birds', en: 'Bird swing and toys', ar: 'أرجوحة وألعاب للطيور', p: 7 },
-  { id: 15, c: 'petech', en: 'Smart automatic feeder with app', ar: 'معلف أوتوماتيك ذكي بالتطبيق', p: 69, o: 89 },
-  { id: 16, c: 'petech', en: 'Cat water fountain with filter', ar: 'نافورة مياه للقطط مع فلتر', p: 29 },
-  { id: 17, c: 'petech', en: 'GPS tracker for collars', ar: 'جهاز تتبع GPS للطوق', p: 39 },
-  { id: 18, c: 'petech', en: 'Pet monitoring camera', ar: 'كاميرا مراقبة للحيوانات الأليفة', p: 55, o: 65 },
-  { id: 19, c: 'petech', en: 'Automatic laser cat toy', ar: 'ليزر تفاعلي أوتوماتيك للقطط', p: 18 },
   { id: 20, c: 'tech', en: 'Wireless Bluetooth earbuds', ar: 'سماعات لاسلكية بلوتوث', p: 25, o: 32 },
   { id: 21, c: 'tech', en: '25W fast charger', ar: 'شاحن سريع 25 واط', p: 12 },
   { id: 22, c: 'tech', en: '20,000 mAh power bank', ar: 'باور بانك 20000 ملي أمبير', p: 24 },
@@ -396,12 +485,14 @@ const store = {
 };
 let lang = store.get('lang', 'en');   // English first; the visitor can switch to Arabic
 let cart = store.get('cart', {}), user = store.get('user', null), favs = store.get('favs', []), orders = store.get('orders', []);
-let filter = 'all', query = '', mode = 'delivery', quick = null, accTab = 'fav';
+let sub = '', filter = 'all', query = '', mode = 'delivery', quick = null, accTab = 'fav';
 const t = () => T[lang];
 const nm = o => o[lang];
 const catOf = k => CATS.find(c => c.k === k);
-const icoOf = p => ({ dogs: 'dog', cats: 'cat', birds: 'bird', petech: 'chip', tech: 'tech' })[p.c];
-const pic = p => p.img ? `<img src="${p.img}" alt="" loading="lazy">` : svg(icoOf(p), 24, 'ph');
+const icoOf = p => ({ dogs: 'dog', cats: 'cat', birds: 'bird', tech: 'tech' })[p.c];
+const thumb = f => f.replace(/\.(jpe?g|png|webp)$/i, '-600x600.$1');
+function imgErr(el) { if (el.dataset.full && el.src !== el.dataset.full) { el.src = el.dataset.full; el.removeAttribute('data-full') } else { el.outerHTML = svg(el.dataset.ico || 'all', 24, 'ph') } }
+const pic = p => p.img ? `<img src="${IMG + thumb(p.img)}" data-full="${IMG + p.img}" alt="" data-ico="${icoOf(p)}" loading="lazy" onerror="imgErr(this)">` : svg(icoOf(p), 24, 'ph');
 const money = v => { const n = Math.round(v * 100) / 100; return lang === 'ar' ? n + '$' : '$' + n };
 const pct = p => Math.round((1 - p.p / p.o) * 100);
 
@@ -421,25 +512,27 @@ function applyLang() {
 }
 
 function cardHTML(p) {
-  const sale = !!p.o, fav = favs.includes(p.id), inCart = !!cart[p.id];
-  return `<article class="card${sale ? ' onsale' : ''}">
-    <div class="thumb">${pic(p)}${sale ? `<span class="off">-${pct(p)}%</span>` : ''}
+  const sale = !!p.o, fav = favs.includes(p.id), inCart = !!cart[p.id], oos = !!p.oos;
+  return `<article class="card${sale ? ' onsale' : ''}${oos ? ' oos' : ''}">
+    <div class="thumb${p.img ? ' has-img' : ''}">${pic(p)}${sale ? `<span class="off">-${pct(p)}%</span>` : ''}${oos ? `<span class="oosb">${t().oos}</span>` : ''}
       <button class="fav" type="button" data-fav="${p.id}" aria-pressed="${fav}" aria-label="${t().fav}"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10z"/></svg></button></div>
     <div class="info"><span class="cl">${nm(catOf(p.c))}</span><h3>${nm(p)}</h3>
-      <div class="price"><b>${money(p.p)}</b>${sale ? `<s>${money(p.o)}</s>` : ''}</div>
+      <div class="price">${p.from ? `<span class="fr">${t().from}</span>` : ''}<b>${money(p.p)}</b>${sale ? `<s>${money(p.o)}</s>` : ''}</div>
       <div class="acts">
-        <button class="buy" type="button" data-buy="${p.id}">${t().orderNow}</button>
-        <button class="addc${inCart ? ' in' : ''}" type="button" data-add="${p.id}" aria-label="${t().add}"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 4h2l2.4 11.2a2 2 0 0 0 2 1.6h7.7a2 2 0 0 0 2-1.5L21 8H6.2"/><circle cx="10" cy="20" r="1.3"/><circle cx="17" cy="20" r="1.3"/><path d="M13 9.5v4M11 11.5h4"/></svg></button>
+        <button class="buy" type="button" data-buy="${p.id}"${oos ? ' disabled' : ''}>${oos ? t().oos : t().orderNow}</button>
+        <button class="addc${inCart ? ' in' : ''}" type="button" data-add="${p.id}" aria-label="${t().add}"${oos ? ' disabled' : ''}><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 4h2l2.4 11.2a2 2 0 0 0 2 1.6h7.7a2 2 0 0 0 2-1.5L21 8H6.2"/><circle cx="10" cy="20" r="1.3"/><circle cx="17" cy="20" r="1.3"/><path d="M13 9.5v4M11 11.5h4"/></svg></button>
       </div></div></article>`;
 }
 function list() {
   const q = query.trim().toLowerCase();
-  return P.filter(p => (filter === 'all' || (filter === 'sale' ? p.o : p.c === filter)) &&
+  return P.filter(p => (filter === 'all' || (filter === 'sale' ? p.o && !p.oos : p.c === filter)) && (!sub || p.s === sub) &&
     (!q || [p.en, p.ar, catOf(p.c).en, catOf(p.c).ar].some(s => s.toLowerCase().includes(q))));
 }
 function render() {
   $('catList').innerHTML = CATS.map(c => `<button class="cat${c.sale ? ' is-sale' : ''}" type="button" data-cat="${c.k}" aria-pressed="${filter === c.k}"><i>${svg(c.i, 24)}</i>${nm(c)}</button>`).join('');
-  $('saleRail').innerHTML = P.filter(p => p.o).map(cardHTML).join('');
+  $('saleRail').innerHTML = P.filter(p => p.o && !p.oos).map(cardHTML).join('');
+  const S = SUBS[filter]; $('subs').hidden = !S || !!query.trim();
+  if (S) $('subs').innerHTML = [{ k: '', en: t().allSub, ar: t().allSub }, ...S].map(x => `<button class="sub" type="button" data-sub="${x.k}" aria-pressed="${sub === x.k}">${nm(x)}</button>`).join('');
   $('sales').hidden = filter !== 'all' || !!query.trim();
   const L = list();
   $('grid').innerHTML = L.map(cardHTML).join('');
@@ -486,12 +579,13 @@ document.addEventListener('click', e => {
     else { cart[id] = (cart[id] || 0) + step; if (cart[id] <= 0) delete cart[id]; render() }
   }
   else if (d.fav) { const id = +d.fav; favs = favs.includes(id) ? favs.filter(x => x !== id) : [...favs, id]; store.set('favs', favs); render(); toast(favs.includes(id) ? t().tFav : t().tUnfav) }
-  else if (d.cat) { filter = d.cat; query = ''; $('q').value = ''; render(); $('all').scrollIntoView({ behavior: 'smooth' }) }
+  else if (d.sub !== undefined) { sub = d.sub; render() }
+  else if (d.cat) { filter = d.cat; sub = ''; query = ''; $('q').value = ''; render(); $('all').scrollIntoView({ behavior: 'smooth' }) }
   else if (b.hasAttribute('data-close')) b.closest('dialog').close();
 });
 $('langBtn').addEventListener('click', () => { lang = lang === 'en' ? 'ar' : 'en'; store.set('lang', lang); applyLang() });
 $('q').addEventListener('input', e => { query = e.target.value; render() });
-$('seeSales').addEventListener('click', () => { filter = 'sale'; render(); $('all').scrollIntoView({ behavior: 'smooth' }) });
+$('seeSales').addEventListener('click', () => { filter = 'sale'; sub = ''; render(); $('all').scrollIntoView({ behavior: 'smooth' }) });
 $('cartBtn').addEventListener('click', () => openOrder());
 $('mode').addEventListener('click', e => { const b = e.target.closest('button'); if (!b) return; mode = b.dataset.m; [...$('mode').children].forEach(x => x.setAttribute('aria-pressed', x === b)); $('addrField').hidden = mode === 'pickup' });
 $('hintAcc').addEventListener('click', () => { $('orderSheet').close(); openAcc() });
@@ -533,7 +627,6 @@ $('signUp').addEventListener('click', () => {
 $('saveInfo').addEventListener('click', () => { user = { name: $('eName').value.trim() || user.name, phone: $('ePhone').value.trim() || user.phone, addr: $('eAddr').value.trim(), mail: $('eMail').value.trim() }; store.set('user', user); renderAcc(); toast(t().tSaved) });
 $('logout').addEventListener('click', () => { user = null; orders = []; store.set('user', null); store.set('orders', []); $('cName').value = $('cPhone').value = $('cAddr').value = ''; render(); renderAcc(); toast(t().tOut) });
 
-$('waShow').textContent = '+' + WA.replace(/^(\d{3})(\d{2})(\d{3})(\d{3})$/, '$1 $2 $3 $4');
 applyLang();
 </script>
 </body>
