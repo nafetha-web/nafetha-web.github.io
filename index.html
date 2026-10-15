@@ -156,6 +156,9 @@ section.blk { padding-block: 96px }
 .plan .btn { width: 100% }
 .plan.main .btn-ghost { color: #FFFFFF; border-color: rgba(255,255,255,.6) }
 .plan .demo { font-size: 14.5px; text-align: center }
+.plan .subs { font-size: 14px; font-weight: 600; color: var(--teal); background: var(--mint-soft); border-radius: 10px; padding: 6px 12px; width: fit-content }
+.plan.main .subs { color: var(--teal-deep); background: var(--gold) }
+.ptotal { font-weight: 600; color: var(--teal); margin: -8px 0 20px }
 .plan .demo a { font-weight: 600; color: var(--teal) }
 .plan.main .demo a { color: var(--gold) }
 
@@ -278,6 +281,7 @@ footer nav { display: flex; gap: 20px }
         </div>
       </div>
       <div class="promo"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 12v9H4v-9"/><path d="M2 7h20v5H2z"/><path d="M12 22V7"/><path d="M12 7H7.5a2.5 2.5 0 1 1 0-5C11 2 12 7 12 7z"/><path d="M12 7h4.5a2.5 2.5 0 1 0 0-5C13 2 12 7 12 7z"/></svg><span data-t="promo"></span></div>
+      <p class="ptotal" id="ptotal" hidden></p>
       <div class="plans" id="plans"></div>
     </div>
   </section>
@@ -361,6 +365,7 @@ const T = {
     priceTitle: 'الأسعار', priceSub: 'اختر الباقة التي تناسب حجم عملك.',
     monthly: 'شهري', annual: 'سنوي (شهران مجانًا)', perMonth: 'شهريًا', perYear: 'سنويًا',
     promo: 'عرض الإطلاق: أول 10 زبائن بدون رسوم تأسيس.',
+    subsOnPlan: 'عدد المشتركين في هذه الباقة:', subsTotal: 'عدد الأنشطة المشتركة في نافذة:',
     popular: 'الأكثر طلبًا', start: 'ابدأ الآن', quote: 'اطلب عرض سعر', tryDemo: 'جرّب نموذجًا حيًّا',
     plans: [
       { k: 'basic', name: 'الأساسية', for: 'للمحلات الصغيرة', m: 20, y: 200, demo: 'dalieh.html',
@@ -409,6 +414,7 @@ const T = {
     priceTitle: 'Pricing', priceSub: 'Pick the plan that fits the size of your business.',
     monthly: 'Monthly', annual: 'Yearly (2 months free)', perMonth: '/ month', perYear: '/ year',
     promo: 'Launch offer: the first 10 customers pay no setup fee.',
+    subsOnPlan: 'Subscribers on this plan:', subsTotal: 'Businesses on Nafetha:',
     popular: 'Most popular', start: 'Get started', quote: 'Request a quote', tryDemo: 'Try a live demo',
     plans: [
       { k: 'basic', name: 'Basic', for: 'For small shops', m: 20, y: 200, demo: 'dalieh.html',
@@ -436,7 +442,7 @@ const T = {
     copy: '© 2026 Nafetha', terms: 'Terms and privacy' }
 };
 
-let lang = 'ar', period = 'm', demo = 'rayhan.html';
+let lang = 'ar', period = 'm', demo = 'rayhan.html', STATS = null;
 try { const s = localStorage.getItem('nafetha-lang'); if (s === 'ar' || s === 'en') lang = s } catch (e) {}
 const $ = (id) => document.getElementById(id);
 const money = (n) => '$' + n;
@@ -456,12 +462,14 @@ function render() {
 }
 function renderPlans() {
   const t = T[lang];
+  const tot = STATS ? STATS.total : 0; $('ptotal').hidden = !(tot >= 3); if (tot >= 3) $('ptotal').textContent = t.subsTotal + ' ' + tot;
   document.querySelectorAll('#period button').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.p === period)));
   $('plans').innerHTML = t.plans.map(p => {
     const price = p.price ? '<div class="price word">' + p.price + '</div>' : '<div class="price">' + money(period === 'm' ? p.m : p.y) + '<small>' + (period === 'm' ? t.perMonth : t.perYear) + '</small></div>';
     const msg = encodeURIComponent((lang === 'ar' ? 'مرحبًا نافذة، أنا مهتم بباقة ' : 'Hello Nafetha, I am interested in the ') + p.name + (lang === 'ar' ? '.' : ' plan.'));
     return '<article class="plan' + (p.main ? ' main' : '') + '">' + (p.main ? '<span class="tag">' + t.popular + '</span>' : '') +
       '<div><h3>' + p.name + '</h3><p class="for">' + p.for + '</p></div>' + price +
+      (STATS && STATS[p.k] >= 1 ? '<p class="subs">' + t.subsOnPlan + ' ' + STATS[p.k] + '</p>' : '') +
       '<ul>' + p.f.map(x => '<li>' + tick + '<span>' + x + '</span></li>').join('') + '</ul>' +
       '<a class="btn ' + (p.main ? 'btn-gold' : 'btn-ghost') + '" href="https://wa.me/' + WA + '?text=' + msg + '" target="_blank" rel="noopener">' + (p.price ? t.quote : t.start) + '</a>' +
       (p.demo ? '<p class="demo"><a href="' + p.demo + '" target="_blank" rel="noopener">' + t.tryDemo + '</a></p>' : '') + '</article>';
@@ -486,6 +494,7 @@ $('switch').addEventListener('click', (e) => { const b = e.target.closest('[data
 ['fShop', 'fKind', 'fNeed'].forEach(id => { $(id).addEventListener('input', renderForm); $(id).addEventListener('change', renderForm) });
 $('leadForm').addEventListener('submit', (e) => e.preventDefault());
 render();
+fetch('data/stats.json', { cache: 'no-store' }).then(r => r.ok ? r.json() : null).then(j => { if (j && typeof j.total === 'number') { STATS = j; renderPlans() } }).catch(() => {});
 </script>
 </body>
 </html>
