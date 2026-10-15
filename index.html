@@ -75,7 +75,7 @@ p { margin: 0 }
 .hero .lead { font-size: 19px; color: #D5E6E4; margin-top: 20px; max-width: 34em }
 .hero .cta { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 30px }
 .assure { list-style: none; padding: 0; margin: 34px 0 0; display: grid; grid-template-columns: repeat(2, minmax(0, max-content)); gap: 10px 28px; font-size: 15.5px; color: #E8F1F0 }
-@media (max-width: 520px) { .assure { grid-template-columns: 1fr } }
+@media (max-width: 520px) { .assure { grid-template-columns: minmax(0, 1fr) } }
 .assure li { display: flex; align-items: center; gap: 10px }
 .assure svg { flex: none; color: var(--gold) }
 
@@ -109,11 +109,11 @@ section.blk { padding-block: 96px }
 
 /* services: split layout, quiet list */
 .svc { display: grid; grid-template-columns: minmax(0, .8fr) minmax(0, 1.2fr); gap: 56px; align-items: start }
-@media (max-width: 860px) { .svc { grid-template-columns: 1fr; gap: 8px } }
+@media (max-width: 860px) { .svc { grid-template-columns: minmax(0, 1fr); gap: 8px } }
 .svc .head { position: sticky; top: 110px; margin: 0 }
 @media (max-width: 860px) { .svc .head { position: static; margin-bottom: 28px } }
 .feats { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 40px }
-@media (max-width: 560px) { .feats { grid-template-columns: 1fr } }
+@media (max-width: 560px) { .feats { grid-template-columns: minmax(0, 1fr) } }
 .feat { padding: 26px 0; border-top: 1px solid var(--line); display: grid; grid-template-columns: 44px 1fr; gap: 4px 16px; align-items: start }
 .feat .ic { grid-row: span 2; width: 44px; height: 44px; border-radius: 12px; background: var(--mint-soft); color: var(--teal); display: grid; place-items: center }
 .feat h3 { font-family: var(--body); font-size: 18px; font-weight: 600; color: var(--ink) }
@@ -123,7 +123,7 @@ section.blk { padding-block: 96px }
 .how { background: var(--mint-soft) }
 .steps { list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; counter-reset: s; position: relative }
 .steps::before { content: ""; position: absolute; top: 27px; inset-inline: 28px; height: 2px; background: repeating-linear-gradient(to left, var(--teal) 0 8px, transparent 8px 16px); opacity: .35 }
-@media (max-width: 800px) { .steps { grid-template-columns: 1fr; gap: 28px } .steps::before { display: none } }
+@media (max-width: 800px) { .steps { grid-template-columns: minmax(0, 1fr); gap: 28px } .steps::before { display: none } }
 .steps li { counter-increment: s; position: relative }
 .steps li::before { content: counter(s); display: grid; place-items: center; width: 56px; height: 56px; border-radius: 50%; background: var(--teal); color: #FFFFFF; font-family: var(--display); font-weight: 700; font-size: 26px; margin-bottom: 18px; position: relative; z-index: 1; box-shadow: 0 0 0 6px var(--mint-soft) }
 .steps li:last-child::before { background: var(--gold); color: var(--teal-deep) }
@@ -138,7 +138,7 @@ section.blk { padding-block: 96px }
 .period button[aria-pressed="true"] { background: var(--teal); color: #FFFFFF }
 .promo { display: flex; align-items: center; gap: 12px; background: #FBF2DE; color: #5E4410; border-radius: 14px; padding: 14px 18px; font-weight: 600; margin-bottom: 24px }
 .plans { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; align-items: stretch }
-@media (max-width: 900px) { .plans { grid-template-columns: 1fr } }
+@media (max-width: 900px) { .plans { grid-template-columns: minmax(0, 1fr) } }
 .plan { border: 1.5px solid var(--line); border-radius: 22px; padding: 30px 26px; display: flex; flex-direction: column; gap: 18px; background: var(--paper) }
 .plan.main { background: var(--teal); color: #FFFFFF; border-color: var(--teal); position: relative }
 .plan .tag { position: absolute; top: -14px; inset-inline-start: 24px; background: var(--gold); color: var(--teal-deep); font-size: 13.5px; font-weight: 700; border-radius: 999px; padding: 4px 14px }
@@ -165,7 +165,7 @@ section.blk { padding-block: 96px }
 
 /* faq */
 .faqgrid { display: grid; grid-template-columns: minmax(0, .8fr) minmax(0, 1.2fr); gap: 56px }
-@media (max-width: 860px) { .faqgrid { grid-template-columns: 1fr; gap: 0 } }
+@media (max-width: 860px) { .faqgrid { grid-template-columns: minmax(0, 1fr); gap: 0 } }
 .faq details { border-top: 1px solid var(--line) }
 .faq details:last-child { border-bottom: 1px solid var(--line) }
 .faq summary { list-style: none; cursor: pointer; padding: 20px 0; font-weight: 600; font-size: 17.5px; display: flex; justify-content: space-between; gap: 16px; align-items: center }
@@ -180,7 +180,7 @@ section.blk { padding-block: 96px }
 /* contact */
 .contact { background: var(--teal-deep); color: #FFFFFF }
 .cgrid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 56px; align-items: start }
-@media (max-width: 860px) { .cgrid { grid-template-columns: 1fr; gap: 36px } }
+@media (max-width: 860px) { .cgrid { grid-template-columns: minmax(0, 1fr); gap: 36px } }
 .contact h2 { font-size: clamp(30px, 4.4vw, 46px) }
 .contact .sub { color: #CFE2E0; font-size: 18px; margin-top: 14px; max-width: 30em }
 .reach { list-style: none; padding: 0; margin: 30px 0 0; display: flex; flex-direction: column; gap: 14px }
@@ -204,6 +204,7 @@ footer nav { display: flex; gap: 20px }
 .wafloat { position: fixed; inset-inline-start: 18px; bottom: calc(18px + env(safe-area-inset-bottom, 0px)); z-index: 40; display: inline-flex; align-items: center; gap: 10px; background: var(--wa); color: #FFFFFF; text-decoration: none; font-weight: 600; border-radius: 999px; padding: 0 20px 0 16px; min-height: 52px; box-shadow: 0 10px 24px rgba(0,0,0,.2) }
 @media (max-width: 520px) { .wafloat span { display: none } .wafloat { padding: 0; width: 56px; justify-content: center } }
 @media (prefers-reduced-motion: no-preference) { html { scroll-behavior: smooth } }
+input, select, textarea { min-width: 0; max-width: 100% }
 </style>
 </head>
 <body>
