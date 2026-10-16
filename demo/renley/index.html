@@ -1,0 +1,682 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>Renley — Microcement & Seamless Surfaces (Concept)</title>
+<meta name="theme-color" content="#0f0f0e">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Inter:wght@300;400;500;600&family=IBM+Plex+Sans+Arabic:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0f0f0e; --bg2:#161614; --card:#1c1b19; --line:#2c2a27;
+  --ink:#f3efe8; --mute:#a59f95; --stone:#c9b79c; --stone2:#e3d6c1;
+  --wa:#25d366; --r:18px;
+  --serif:'Cormorant Garamond', Georgia, serif;
+  --sans:'Inter', system-ui, sans-serif;
+}
+html[lang=ar]{ --serif:'IBM Plex Sans Arabic', sans-serif; --sans:'IBM Plex Sans Arabic', sans-serif; }
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{background:var(--bg);color:var(--ink);font-family:var(--sans);font-weight:300;line-height:1.6;overflow-x:hidden;padding-bottom:76px}
+img{display:block;max-width:100%}
+a{color:inherit;text-decoration:none}
+button,input,select,textarea{font:inherit;color:inherit;min-width:0;max-width:100%}
+.wrap{width:min(1180px,100%);margin:0 auto;padding:0 20px}
+section{padding:84px 0}
+.eyebrow{font-size:12px;letter-spacing:.22em;text-transform:uppercase;color:var(--stone)}
+html[lang=ar] .eyebrow{letter-spacing:0;font-size:13px}
+h1,h2,h3{font-family:var(--serif);font-weight:500;line-height:1.08}
+html[lang=ar] h1,html[lang=ar] h2,html[lang=ar] h3{line-height:1.35;font-weight:600}
+h2{font-size:clamp(32px,6vw,52px);margin:10px 0 14px}
+.lead{color:var(--mute);max-width:560px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border-radius:999px;padding:14px 24px;font-weight:500;font-size:15px;border:1px solid transparent;cursor:pointer;transition:transform .15s, background .2s}
+.btn:active{transform:scale(.97)}
+.btn-main{background:var(--stone2);color:#141310}
+.btn-ghost{border-color:#4a4640;color:var(--ink);background:transparent}
+.btn-wa{background:var(--wa);color:#06260f}
+.img{background:linear-gradient(135deg,#2a2723,#3b362f);background-size:cover;background-position:center}
+.img img{width:100%;height:100%;object-fit:cover}
+
+/* ribbon + header */
+.ribbon{background:var(--stone2);color:#141310;font-size:12px;text-align:center;padding:6px 12px}
+header{position:sticky;top:0;z-index:40;background:rgba(15,15,14,.82);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
+.nav{display:flex;align-items:center;justify-content:space-between;height:64px;gap:12px}
+.logo{font-family:'Cormorant Garamond',serif;font-size:26px;letter-spacing:.32em;font-weight:500}
+.links{display:flex;gap:26px;font-size:14px;color:var(--mute)}
+.links a:hover{color:var(--ink)}
+.navr{display:flex;gap:10px;align-items:center}
+.lang{border:1px solid #4a4640;border-radius:999px;padding:7px 14px;font-size:13px;background:none;cursor:pointer}
+.nav .btn{padding:10px 18px;font-size:14px}
+@media(max-width:860px){.links,.nav .btn{display:none}}
+
+/* hero */
+.hero{padding:40px 0 70px}
+.hero-grid{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,1fr);gap:44px;align-items:center}
+.hero h1{font-size:clamp(44px,8.5vw,88px);margin:14px 0 18px}
+.hero h1 em{font-style:italic;color:var(--stone2)}
+html[lang=ar] .hero h1 em{font-style:normal}
+.hero p{color:var(--mute);font-size:17px;max-width:500px}
+.cta{display:flex;flex-wrap:wrap;gap:12px;margin:28px 0 26px}
+.trust{display:flex;flex-wrap:wrap;gap:8px 18px;font-size:13px;color:var(--mute)}
+.trust span::before{content:"✓";color:var(--stone);margin-inline-end:6px}
+.hero-img{border-radius:28px;aspect-ratio:4/4.3;overflow:hidden;position:relative}
+.hero-tag{position:absolute;inset-inline-start:16px;bottom:16px;background:rgba(15,15,14,.78);backdrop-filter:blur(8px);border:1px solid var(--line);border-radius:14px;padding:12px 16px;font-size:13px}
+.hero-tag b{display:block;font-family:var(--serif);font-size:22px;font-weight:500}
+@media(max-width:860px){.hero-grid{grid-template-columns:minmax(0,1fr)}.hero-img{aspect-ratio:4/3.4;order:-1}}
+
+/* stats */
+.stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.stat{padding:28px 18px;text-align:center;border-inline-end:1px solid var(--line)}
+.stat:last-child{border:0}
+.stat b{display:block;font-family:'Cormorant Garamond',serif;font-size:44px;font-weight:500;color:var(--stone2);line-height:1}
+.stat span{font-size:13px;color:var(--mute)}
+@media(max-width:700px){.stats{grid-template-columns:repeat(2,minmax(0,1fr))}.stat:nth-child(2){border-inline-end:0}.stat:nth-child(-n+2){border-bottom:1px solid var(--line)}}
+
+/* benefits */
+.chips{display:flex;flex-wrap:wrap;gap:10px;margin-top:26px}
+.chip{border:1px solid var(--line);background:var(--bg2);border-radius:999px;padding:9px 16px;font-size:14px}
+
+/* surfaces rail */
+.rail{display:grid;grid-auto-flow:column;grid-auto-columns:24%;gap:14px;overflow-x:auto;scroll-snap-type:x mandatory;padding:6px 20px 18px;margin:28px -20px 0;scrollbar-width:none}
+.rail::-webkit-scrollbar{display:none}
+.surf{display:block;width:100%;scroll-snap-align:start;border-radius:var(--r);overflow:hidden;position:relative;aspect-ratio:3/4;cursor:pointer;border:0;text-align:start}
+.surf .img{position:absolute;inset:0}
+.surf::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 45%,rgba(0,0,0,.78))}
+.surf .t{position:absolute;inset-inline:16px;bottom:14px;z-index:2}
+.surf .t small{color:var(--stone);font-size:12px}
+.surf .t b{display:block;font-family:var(--serif);font-size:24px;font-weight:500}
+.surf .t i{font-style:normal;font-size:12.5px;color:var(--stone2)}
+@media(max-width:700px){.rail{grid-auto-columns:64%}}
+
+/* quote wizard */
+.quote{background:var(--bg2);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.qgrid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,.9fr);gap:28px;margin-top:30px;align-items:start}
+.panel{background:var(--card);border:1px solid var(--line);border-radius:22px;padding:24px}
+.step{margin-bottom:24px}
+.step:last-child{margin-bottom:0}
+.step h4{font-weight:500;font-size:14px;margin-bottom:12px;display:flex;gap:10px;align-items:center}
+.step h4 em{font-style:normal;width:24px;height:24px;border-radius:50%;background:var(--stone2);color:#141310;font-size:12px;display:grid;place-items:center;flex:none}
+.opts{display:flex;flex-wrap:wrap;gap:8px}
+.opt{border:1px solid var(--line);background:transparent;border-radius:12px;padding:9px 13px;font-size:13.5px;cursor:pointer}
+.opt.on{background:var(--stone2);color:#141310;border-color:var(--stone2);font-weight:500}
+.area{display:flex;align-items:center;gap:14px}
+.area input[type=range]{flex:1;accent-color:var(--stone2)}
+.area .num{display:flex;align-items:center;border:1px solid var(--line);border-radius:12px;padding:0 10px;background:var(--bg)}
+.area .num input{width:62px;background:none;border:0;padding:9px 4px;text-align:center;outline:none}
+.area .num span{font-size:13px;color:var(--mute)}
+.sw{display:flex;flex-wrap:wrap;gap:10px}
+.swb{width:38px;height:38px;border-radius:50%;border:2px solid transparent;cursor:pointer;box-shadow:inset 0 0 0 1px rgba(255,255,255,.12)}
+.swb.on{border-color:var(--stone2);transform:scale(1.08)}
+.swname{font-size:13px;color:var(--mute);margin-top:8px}
+select,.field{width:100%;background:var(--bg);border:1px solid var(--line);border-radius:12px;padding:12px 14px;outline:none}
+select:focus,.field:focus{border-color:var(--stone)}
+.result{position:sticky;top:84px}
+.est small{color:var(--mute);font-size:13px}
+.est .big{font-family:'Cormorant Garamond',serif;font-size:clamp(40px,7vw,54px);color:var(--stone2);line-height:1.05;margin:4px 0 2px;font-weight:500}
+.est .big.text{font-size:30px}
+.sum{list-style:none;border-top:1px solid var(--line);margin:18px 0;padding-top:14px;font-size:14px}
+.sum li{display:flex;justify-content:space-between;gap:12px;padding:5px 0}
+.sum li span:first-child{color:var(--mute)}
+.result .btn{width:100%;margin-top:10px}
+.note{font-size:12px;color:var(--mute);margin-top:14px}
+@media(max-width:860px){.qgrid{grid-template-columns:minmax(0,1fr)}.result{position:static}}
+
+/* visualizer */
+.vgrid{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr);gap:30px;align-items:center;margin-top:28px}
+.viz{position:relative;border-radius:24px;overflow:hidden;aspect-ratio:4/3}
+.viz .img{position:absolute;inset:0}
+.viz .tint{position:absolute;inset:0;mix-blend-mode:color;opacity:.62;transition:background .35s}
+.viz .lbl{position:absolute;inset-inline-start:14px;top:14px;background:rgba(15,15,14,.75);border-radius:999px;padding:6px 14px;font-size:13px}
+.rooms{display:flex;gap:8px;margin:18px 0}
+@media(max-width:860px){.vgrid{grid-template-columns:minmax(0,1fr)}}
+
+/* before after */
+.ba{position:relative;border-radius:24px;overflow:hidden;aspect-ratio:16/9;margin-top:28px;user-select:none;touch-action:pan-y}
+.ba .img{position:absolute;inset:0}
+.ba .after{clip-path:inset(0 0 0 50%)}
+.ba .bar{position:absolute;top:0;bottom:0;left:50%;width:2px;background:var(--stone2);transform:translateX(-1px)}
+.ba .knob{position:absolute;top:50%;left:50%;width:46px;height:46px;border-radius:50%;background:var(--stone2);color:#141310;display:grid;place-items:center;transform:translate(-50%,-50%);font-size:18px;box-shadow:0 6px 20px rgba(0,0,0,.4)}
+.ba .tag{position:absolute;top:14px;background:rgba(15,15,14,.75);border-radius:999px;padding:5px 12px;font-size:12px}
+.ba .tag.l{left:14px}.ba .tag.r{right:14px}
+.ba input{position:absolute;inset:0;width:100%;height:100%;opacity:0;cursor:ew-resize}
+@media(max-width:700px){.ba{aspect-ratio:4/3}}
+
+/* turnkey */
+.tk{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:34px;align-items:center}
+.trades{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin:24px 0}
+.trade{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px 16px;font-size:14.5px}
+.trade::before{content:"—";color:var(--stone);margin-inline-end:8px}
+.tk .img{border-radius:24px;aspect-ratio:5/3.6}
+@media(max-width:860px){.tk{grid-template-columns:minmax(0,1fr)}}
+
+/* projects */
+.filters{display:flex;gap:8px;overflow-x:auto;scrollbar-width:none;margin:26px -20px 22px;padding:0 20px}
+.filters::-webkit-scrollbar{display:none}
+.filters .opt{flex:none;white-space:nowrap;border-radius:999px}
+.pgrid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+.proj{border-radius:var(--r);overflow:hidden;background:var(--card);border:1px solid var(--line)}
+.proj .img{aspect-ratio:4/3}
+.proj .t{padding:14px 16px;display:flex;justify-content:space-between;align-items:center;gap:10px}
+.proj b{font-family:var(--serif);font-size:21px;font-weight:500}
+.proj small{color:var(--mute);font-size:12.5px}
+.proj .ask{font-size:12.5px;color:var(--stone2);border:1px solid var(--line);border-radius:999px;padding:6px 12px;white-space:nowrap;background:none;cursor:pointer}
+@media(max-width:860px){.pgrid{grid-template-columns:minmax(0,1fr)}}
+
+/* process */
+.steps{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:10px;margin-top:30px;counter-reset:s}
+.ps{border-top:2px solid var(--line);padding-top:14px;font-size:14px}
+.ps b{display:block;font-family:'Cormorant Garamond',serif;color:var(--stone);font-size:24px;font-weight:500}
+@media(max-width:860px){.steps{grid-template-columns:minmax(0,1fr)}.ps{display:flex;gap:14px;align-items:baseline;border-top:0;border-inline-start:2px solid var(--line);padding:4px 16px 12px}}
+
+/* reviews */
+.rgrid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;margin-top:28px}
+.rev{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:22px}
+.rev .stars{color:var(--stone2);letter-spacing:2px;font-size:14px}
+.rev p{font-family:var(--serif);font-size:20px;line-height:1.4;margin:12px 0 16px}
+html[lang=ar] .rev p{font-size:16px;line-height:1.8}
+.rev small{color:var(--mute)}
+@media(max-width:860px){.rgrid{grid-template-columns:minmax(0,1fr)}}
+
+/* faq */
+.faq{max-width:780px;margin-top:24px}
+details{border-bottom:1px solid var(--line);padding:18px 0}
+summary{cursor:pointer;list-style:none;display:flex;justify-content:space-between;gap:16px;font-size:16.5px;font-weight:400}
+summary::-webkit-details-marker{display:none}
+summary::after{content:"+";color:var(--stone);font-size:22px;line-height:1}
+details[open] summary::after{content:"–"}
+details p{color:var(--mute);margin-top:10px;font-size:15px}
+
+/* contact */
+.cgrid{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);gap:30px;margin-top:28px}
+.cards{display:grid;gap:12px}
+.ccard{display:flex;align-items:center;gap:14px;background:var(--card);border:1px solid var(--line);border-radius:16px;padding:16px 18px}
+.ccard i{font-style:normal;width:40px;height:40px;border-radius:50%;background:var(--bg);display:grid;place-items:center;flex:none;font-size:17px}
+.ccard small{display:block;color:var(--mute);font-size:12.5px}
+.form{display:grid;gap:12px}
+.form .row{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:12px}
+.slots{display:flex;flex-wrap:wrap;gap:8px}
+@media(max-width:860px){.cgrid{grid-template-columns:minmax(0,1fr)}.form .row{grid-template-columns:minmax(0,1fr)}}
+
+footer{border-top:1px solid var(--line);padding:34px 0 30px;color:var(--mute);font-size:13px}
+.foot{display:flex;flex-wrap:wrap;justify-content:space-between;gap:16px;align-items:center}
+
+/* sticky mobile bar */
+.dock{position:fixed;left:0;right:0;bottom:0;z-index:50;display:flex;gap:10px;padding:10px 14px calc(10px + env(safe-area-inset-bottom));background:rgba(15,15,14,.92);backdrop-filter:blur(12px);border-top:1px solid var(--line)}
+.dock .btn{flex:1;padding:13px 10px;font-size:14.5px}
+@media(min-width:861px){.dock{display:none}body{padding-bottom:0}}
+
+.toast{position:fixed;left:50%;bottom:96px;transform:translate(-50%,20px);opacity:0;background:var(--ink);color:#141310;border-radius:999px;padding:10px 18px;font-size:14px;transition:.25s;z-index:60;pointer-events:none;white-space:nowrap}
+.toast.on{opacity:1;transform:translate(-50%,0)}
+.reveal{opacity:0;transform:translateY(18px);transition:opacity .7s, transform .7s}
+.reveal.in{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none;transition:none}html{scroll-behavior:auto}}
+</style>
+</head>
+<body>
+
+<div class="ribbon" data-i="ribbon">Concept redesign prepared for Renley by Nafetha</div>
+
+<header>
+  <div class="wrap nav">
+    <a href="#top" class="logo">RENLEY</a>
+    <nav class="links">
+      <a href="#surfaces" data-i="nSurf">Surfaces</a>
+      <a href="#quote" data-i="nQuote">Instant quote</a>
+      <a href="#visualizer" data-i="nViz">Colour studio</a>
+      <a href="#work" data-i="nWork">Projects</a>
+      <a href="#contact" data-i="nContact">Contact</a>
+    </nav>
+    <div class="navr">
+      <button class="lang" id="langBtn">العربية</button>
+      <a href="#quote" class="btn btn-main" data-i="getQuote">Get a quote</a>
+    </div>
+  </div>
+</header>
+
+<main id="top">
+<section class="hero">
+  <div class="wrap hero-grid">
+    <div class="reveal">
+      <div class="eyebrow" data-i="heroEye">Microcement · Seamless surfaces · UAE</div>
+      <h1 data-ih="heroH">Surfaces without <em>seams.</em><br>Spaces without limits.</h1>
+      <p data-i="heroP">Premium microcement for villas, homes and commercial spaces — applied directly over existing tiles, with no demolition.</p>
+      <div class="cta">
+        <a href="#quote" class="btn btn-main" data-i="heroCta1">Price my project in 30 sec</a>
+        <a href="#work" class="btn btn-ghost" data-i="heroCta2">View projects</a>
+      </div>
+      <div class="trust"><span data-i="tr1">Free site visit</span><span data-i="tr2">Reply within 1 hour</span><span data-i="tr3">All 7 emirates</span></div>
+    </div>
+    <div class="hero-img img reveal" data-img="hero">
+      <div class="hero-tag"><b data-i="tagB">No demolition</b><span data-i="tagS">Applied over your existing tiles</span></div>
+    </div>
+  </div>
+</section>
+
+<div class="wrap">
+  <div class="stats reveal">
+    <div class="stat"><b data-count="55" data-suf="+">55+</b><span data-i="s1">Projects delivered</span></div>
+    <div class="stat"><b data-count="10">10</b><span data-i="s2">Years in UAE contracting</span></div>
+    <div class="stat"><b data-count="7">7</b><span data-i="s3">Emirates covered</span></div>
+    <div class="stat"><b data-count="100" data-suf="%">100%</b><span data-i="s4">Single accountability</span></div>
+  </div>
+</div>
+
+<section>
+  <div class="wrap reveal">
+    <div class="eyebrow" data-i="whyEye">Why microcement</div>
+    <h2 data-i="whyH">One continuous surface. Floor to wall to furniture.</h2>
+    <p class="lead" data-i="whyP">2–3 mm thin, joint-free and remarkably durable — the architectural finish of choice for modern UAE interiors.</p>
+    <div class="chips" id="benefits"></div>
+  </div>
+</section>
+
+<section id="surfaces" style="padding-top:0">
+  <div class="wrap">
+    <div class="reveal">
+      <div class="eyebrow" data-i="libEye">Surface library</div>
+      <h2 data-i="libH">Where it goes</h2>
+      <p class="lead" data-i="libP">Tap any surface to price it instantly.</p>
+    </div>
+    <div class="rail" id="rail"></div>
+  </div>
+</section>
+
+<section class="quote" id="quote">
+  <div class="wrap">
+    <div class="reveal">
+      <div class="eyebrow" data-i="qEye">Instant quote</div>
+      <h2 data-i="qH">Know your budget before the site visit</h2>
+      <p class="lead" data-i="qP">Four quick choices. Your estimate updates live, and goes straight to our team on WhatsApp — no forms, no waiting.</p>
+    </div>
+    <div class="qgrid">
+      <div class="panel">
+        <div class="step"><h4><em>1</em><span data-i="q1">What are we finishing?</span></h4><div class="opts" id="qSurf"></div></div>
+        <div class="step"><h4><em>2</em><span data-i="q2">Approximate area</span></h4>
+          <div class="area"><input type="range" id="qRange" min="5" max="500" value="50"><div class="num"><input id="qArea" inputmode="numeric" value="50"><span>m²</span></div></div>
+        </div>
+        <div class="step"><h4><em>3</em><span data-i="q3">Colour</span></h4><div class="sw" id="qSw"></div><div class="swname" id="qSwName"></div></div>
+        <div class="step"><h4><em>4</em><span data-i="q4">Where is the project?</span></h4><select id="qEm"></select></div>
+      </div>
+      <div class="panel result">
+        <div class="est"><small data-i="estL">Estimated investment</small><div class="big" id="estBig">—</div><small id="estPer"></small></div>
+        <ul class="sum" id="sum"></ul>
+        <button class="btn btn-wa" id="sendQuote"><span>💬</span><span data-i="sendWa">Send to Renley on WhatsApp</span></button>
+        <a href="#contact" class="btn btn-ghost" id="bookFromQuote" data-i="bookVisit">Book a free site visit</a>
+        <p class="note" data-i="estNote">Indicative pricing. The final quotation is confirmed after a free site visit.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="visualizer">
+  <div class="wrap vgrid">
+    <div class="viz reveal">
+      <div class="img" id="vizImg"></div>
+      <div class="tint" id="vizTint"></div>
+      <div class="lbl" id="vizLbl"></div>
+    </div>
+    <div class="reveal">
+      <div class="eyebrow" data-i="vEye">Colour studio</div>
+      <h2 data-i="vH">See it in your colour</h2>
+      <p class="lead" data-i="vP">Pick a room, then try our ten signature tones. Your choice carries into your quote automatically.</p>
+      <div class="rooms opts" id="vRooms"></div>
+      <div class="sw" id="vSw"></div>
+      <div class="swname" id="vSwName"></div>
+      <div style="margin-top:22px"><a href="#quote" class="btn btn-main" data-i="vCta">Quote this colour</a></div>
+    </div>
+  </div>
+</section>
+
+<section style="padding-top:0">
+  <div class="wrap">
+    <div class="reveal">
+      <div class="eyebrow" data-i="baEye">Transformation</div>
+      <h2 data-i="baH">Same bathroom. No demolition.</h2>
+      <p class="lead" data-i="baP">Drag to compare. Applied directly over the old tiles in days, not weeks.</p>
+    </div>
+    <div class="ba reveal" id="ba" dir="ltr">
+      <div class="img" data-img="before"></div>
+      <div class="img after" data-img="after" id="baAfter"></div>
+      <div class="bar" id="baBar"></div><div class="knob" id="baKnob">⇆</div>
+      <span class="tag l" data-i="before">Before</span><span class="tag r" data-i="after">After</span>
+      <input type="range" min="0" max="100" value="50" id="baRange" aria-label="Compare before and after">
+    </div>
+  </div>
+</section>
+
+<section class="quote">
+  <div class="wrap tk">
+    <div class="reveal">
+      <div class="eyebrow" data-i="tkEye">Turnkey fit-out</div>
+      <h2 data-i="tkH">One team. Every trade.</h2>
+      <p class="lead" data-i="tkP">From shell to handover, we coordinate every trade under a single contract — one point of contact, one schedule, one guarantee.</p>
+      <div class="trades" id="trades"></div>
+      <a href="#quote" class="btn btn-main" id="tkBtn" data-i="tkCta">Plan a full fit-out</a>
+    </div>
+    <div class="img reveal" data-img="turnkey"></div>
+  </div>
+</section>
+
+<section id="work">
+  <div class="wrap">
+    <div class="reveal">
+      <div class="eyebrow" data-i="wEye">Selected work</div>
+      <h2 data-i="wH">Recent projects</h2>
+    </div>
+    <div class="filters" id="pf"></div>
+    <div class="pgrid" id="pg"></div>
+  </div>
+</section>
+
+<section style="padding-top:0">
+  <div class="wrap">
+    <div class="reveal">
+      <div class="eyebrow" data-i="prEye">Process</div>
+      <h2 data-i="prH">From first call to final polish</h2>
+    </div>
+    <div class="steps" id="steps"></div>
+  </div>
+</section>
+
+<section class="quote">
+  <div class="wrap">
+    <div class="reveal">
+      <div class="eyebrow" data-i="rvEye">Client stories</div>
+      <h2 data-i="rvH">Trusted across Dubai</h2>
+    </div>
+    <div class="rgrid" id="revs"></div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="reveal">
+      <div class="eyebrow">FAQ</div>
+      <h2 data-i="fqH">Good questions</h2>
+    </div>
+    <div class="faq" id="faq"></div>
+  </div>
+</section>
+
+<section id="contact" class="quote">
+  <div class="wrap">
+    <div class="reveal">
+      <div class="eyebrow" data-i="cEye">Contact</div>
+      <h2 data-i="cH">Book your free site visit</h2>
+      <p class="lead" data-i="cP">Choose a day and time — we confirm on WhatsApp within the hour.</p>
+    </div>
+    <div class="cgrid">
+      <div class="cards">
+        <a class="ccard" href="https://wa.me/971547969048" target="_blank" rel="noopener"><i>💬</i><div><small>WhatsApp</small>+971 54 796 9048</div></a>
+        <a class="ccard" href="tel:+971547969048"><i>📞</i><div><small data-i="call">Call</small>+971 54 796 9048</div></a>
+        <a class="ccard" href="mailto:sales@renley.ae"><i>✉️</i><div><small data-i="email">Email</small>sales@renley.ae</div></a>
+        <a class="ccard" href="https://instagram.com/renley.ae" target="_blank" rel="noopener"><i>◎</i><div><small>Instagram</small>@renley.ae</div></a>
+      </div>
+      <div class="panel form">
+        <div class="row"><input class="field" id="fName" data-ph="phName" placeholder="Your name"><input class="field" id="fPhone" inputmode="tel" data-ph="phPhone" placeholder="Phone"></div>
+        <div class="row"><select id="fType"></select><select id="fEm"></select></div>
+        <div><div class="note" style="margin:0 0 8px" data-i="pickDay">Preferred day</div><div class="slots" id="days"></div></div>
+        <div><div class="note" style="margin:0 0 8px" data-i="pickTime">Preferred time</div><div class="slots" id="times"></div></div>
+        <textarea class="field" id="fMsg" rows="3" data-ph="phMsg" placeholder="Tell us about your space (optional)"></textarea>
+        <button class="btn btn-wa" id="sendVisit"><span>💬</span><span data-i="sendVisit">Request visit on WhatsApp</span></button>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap foot">
+    <div class="logo" style="font-size:20px">RENLEY</div>
+    <div data-i="foot">© 2026 Renley · Dubai, United Arab Emirates</div>
+  </div>
+</footer>
+
+<div class="dock">
+  <a href="#quote" class="btn btn-main" data-i="dockQ">Instant quote</a>
+  <a href="https://wa.me/971547969048" class="btn btn-wa" target="_blank" rel="noopener">💬 WhatsApp</a>
+</div>
+<div class="toast" id="toast"></div>
+
+<script>
+const WA = '971547969048';
+const M = 'https://media.base44.com/images/public/6a7626b03e28b6b6a78ab85e/';
+const im = (id,w,h) => `${M}${id}.png/v1/fill/w_${w},h_${h},al_c,q_90,usm_0.66_1.00_0.01,enc_webp,quality_auto/${id}.webp`;
+const IMG = {
+  hero: im('76d2a015d_generated_image',800,651),
+  turnkey: im('f7757724a_generated_image',760,460),
+  before: im('fd5252989_generated_aef53a97',760,428),
+  after: im('98e1efcce_generated_042277f4',760,428)
+};
+
+/* surfaces: key, image id, en, ar, rate AED/m² (0 = on site visit) */
+const SURF = [
+  ['floors','4a997237d_generated_957c7097','Floors','الأرضيات',180],
+  ['walls','363d8b6c5_generated_6e69a68e','Walls','الجدران',160],
+  ['bath','37ffbbd0b_generated_365c23ca','Bathrooms','الحمامات',220],
+  ['kitchen','1a7589675_generated_32a5d40a','Kitchens','المطابخ',220],
+  ['stairs','d7ef33782_generated_7855e3bc','Staircases','الأدراج',240],
+  ['pool','5a18e94db_generated_81054c05','Swimming pools','المسابح',260],
+  ['commercial','a67fa2f50_generated_efcb1b4b','Commercial spaces','المساحات التجارية',170],
+  ['resto','fe2aa8c62_generated_a2cd9785','Restaurants & cafés','المطاعم والمقاهي',190],
+  ['furniture','dc4a45510_generated_58861cc5','Furniture','الأثاث',300],
+  ['counter','f7c34229e_generated_b5ab4b79','Countertops','أسطح المطابخ',300],
+  ['outdoor','f8f144264_generated_f7ce033a','Outdoor areas','المساحات الخارجية',200],
+  ['feature','2db507131_generated_898eec62','Feature walls','جدران مميّزة',190],
+  ['epoxy','45920ec83_generated_image','Epoxy flooring','أرضيات إيبوكسي',120],
+  ['terrazzo','f7330e3be_generated_image','Terrazzo','تيرازو',280],
+  ['stone','43b35f4dc_generated_image','Stone carpet','ستون كاربت',150],
+  ['fitout','f7757724a_generated_image','Full fit-out','تشطيب كامل',0]
+];
+const COLORS = [
+  ['Ivory Mist','ضباب عاجي','#ece6db'],['Limestone','حجر جيري','#d8cfbf'],['Desert Sand','رمل الصحراء','#cdb594'],
+  ['Warm Taupe','بيج دافئ','#a69483'],['Ash Grey','رمادي رمادي','#a5a39e'],['Urban Stone','حجر المدينة','#87847d'],
+  ['Earth Clay','طين الأرض','#9b7a5f'],['Graphite','غرافيت','#4d4c4a'],['Obsidian','أوبسيديان','#262421']
+];
+COLORS[4][1]='رمادي الرماد';
+const EMS = [['Dubai','دبي'],['Abu Dhabi','أبوظبي'],['Sharjah','الشارقة'],['Ajman','عجمان'],['Ras Al Khaimah','رأس الخيمة'],['Fujairah','الفجيرة'],['Umm Al Quwain','أم القيوين']];
+const BEN = [['Waterproof','مقاوم للماء'],['No demolition','بدون تكسير'],['Joint-free','بدون فواصل'],['UV resistant','مقاوم للشمس'],['Anti-crack system','نظام ضد التشقق'],['Indoor & outdoor','داخلي وخارجي'],['Easy to clean','سهل التنظيف'],['Non-slip options','خيارات مانعة للانزلاق'],['Fast installation','تركيب سريع'],['Custom colours','ألوان حسب الطلب']];
+const TRADES = [['Microcement','مايكروسمنت'],['Painting','دهان'],['Gypsum board','جبس بورد'],['MEP','كهرباء وصحية وتكييف'],['Landscaping','تنسيق حدائق'],['Pool building','بناء مسابح']];
+const PROJ = [
+  ['ed3ec8f7d_generated_67a3a29a','Palm Residence','Palm Jumeirah','نخلة جميرا','res','floors'],
+  ['d036871f6_generated_a11c05be','Skyline Penthouse','Downtown Dubai','وسط دبي','res','walls'],
+  ['65b64404b_generated_084e4370','Ivory Retreat','Jumeirah','جميرا','bath','bath'],
+  ['44a509415_generated_3b093cb2','Graphite Gallery','Al Quoz','القوز','com','commercial'],
+  ['283205e39_generated_3798d76a','Desert Horizon','Al Barari','البراري','pool','pool'],
+  ['b3ad3b858_generated_f882256c','Monolith Console','Dubai Hills','دبي هيلز','furn','furniture']
+];
+const PF = [['all','All','الكل'],['res','Residential','سكني'],['com','Commercial','تجاري'],['bath','Bathrooms','حمامات'],['pool','Pools','مسابح'],['furn','Furniture','أثاث']];
+const STEPS = [['Free consultation','استشارة مجانية'],['Site visit','زيارة الموقع'],['Colour selection','اختيار اللون'],['Surface preparation','تحضير السطح'],['Microcement application','تطبيق المايكروسمنت'],['Protective sealing','طبقة الحماية'],['Final inspection','الفحص النهائي']];
+const REVS = [
+  ['N.A.','Palm Jumeirah villa','فيلا نخلة جميرا','The finish transformed the entire villa. Renley’s team was exacting, clean and genuinely attentive to every detail.','اللمسة النهائية غيّرت الفيلا بالكامل. فريق رينلي دقيق ونظيف ومهتم فعلاً بكل تفصيل.'],
+  ['Omar H.','Jumeirah residence','منزل في جميرا','We applied directly over dated tiles and the result feels completely architectural. Impeccable from sample to handover.','طبّقناه مباشرة فوق البلاط القديم والنتيجة معمارية بالكامل. ممتاز من العيّنة حتى التسليم.'],
+  ['Maya R.','Dubai hospitality group','مجموعة ضيافة في دبي','A rare combination of design understanding and technical craft. Our restaurant was delivered beautifully and on schedule.','مزيج نادر من فهم التصميم والحرفية التقنية. تمّ تسليم مطعمنا بشكل رائع وفي الموعد.']
+];
+const FAQ = [
+  ['What is microcement?','ما هو المايكروسمنت؟','A thin, high-performance cement-based decorative coating that creates one continuous, joint-free finish across floors, walls and furniture.','طلاء زخرفي رقيق وعالي الأداء أساسه الإسمنت، يعطي سطحاً واحداً متصلاً بدون فواصل على الأرضيات والجدران والأثاث.'],
+  ['Can it be applied over existing tiles?','هل يمكن تطبيقه فوق البلاط الموجود؟','Yes. In most cases we apply it directly over sound tiles — no demolition, no debris, and far less downtime.','نعم. في أغلب الحالات نطبّقه مباشرة فوق البلاط السليم، بدون تكسير ولا ردم وبوقت أقل بكثير.'],
+  ['Is it waterproof?','هل هو مقاوم للماء؟','With the right primer and sealing system it is fully suitable for showers, bathrooms and pools.','مع البرايمر ونظام الحماية المناسبين، يصلح تماماً للدوش والحمامات والمسابح.'],
+  ['How long does installation take?','كم يستغرق التركيب؟','A typical bathroom takes 4–6 days including curing; larger areas are scheduled after the site visit.','الحمام العادي يأخذ 4 إلى 6 أيام مع وقت الجفاف، والمساحات الأكبر تُحدَّد بعد زيارة الموقع.'],
+  ['Does it crack?','هل يتشقّق؟','Our multi-layer system with reinforcing mesh is designed to resist cracking on properly prepared substrates.','نظامنا متعدد الطبقات مع شبك التقوية مصمَّم لمقاومة التشقّق على الأسطح المحضّرة جيداً.'],
+  ['How do I clean it?','كيف أنظّفه؟','Warm water and a pH-neutral cleaner. Avoid bleach and abrasive products to protect the sealer.','ماء دافئ ومنظّف متعادل. تجنّب الكلور والمواد الكاشطة للحفاظ على طبقة الحماية.'],
+  ['Can it be used outdoors?','هل يُستخدم في الخارج؟','Yes — our UV-resistant outdoor system is made for terraces, pool decks and façades in the UAE climate.','نعم، نظامنا الخارجي المقاوم للشمس مصمَّم للتراسات وحواف المسابح والواجهات في مناخ الإمارات.']
+];
+const ROOMS = [['bath','after'],['floors',null],['kitchen',null],['walls',null]];
+const DAYN = {en:['Sun','Mon','Tue','Wed','Thu','Fri','Sat'],ar:['الأحد','الإثنين','الثلاثاء','الأربعاء','الخميس','الجمعة','السبت']};
+const TIMES = [['Morning','الصباح','9–12'],['Afternoon','بعد الظهر','12–4'],['Evening','المساء','4–7']];
+
+const T = {
+ en:{ribbon:'Concept redesign prepared for Renley by Nafetha',nSurf:'Surfaces',nQuote:'Instant quote',nViz:'Colour studio',nWork:'Projects',nContact:'Contact',getQuote:'Get a quote',
+  heroEye:'Microcement · Seamless surfaces · UAE',heroH:'Surfaces without <em>seams.</em><br>Spaces without limits.',heroP:'Premium microcement for villas, homes and commercial spaces — applied directly over existing tiles, with no demolition.',
+  heroCta1:'Price my project in 30 sec',heroCta2:'View projects',tr1:'Free site visit',tr2:'Reply within 1 hour',tr3:'All 7 emirates',tagB:'No demolition',tagS:'Applied over your existing tiles',
+  s1:'Projects delivered',s2:'Years in UAE contracting',s3:'Emirates covered',s4:'Single accountability',
+  whyEye:'Why microcement',whyH:'One continuous surface. Floor to wall to furniture.',whyP:'2–3 mm thin, joint-free and remarkably durable — the architectural finish of choice for modern UAE interiors.',
+  libEye:'Surface library',libH:'Where it goes',libP:'Tap any surface to price it instantly.',from:'From',perm:'AED / m²',onVisit:'Priced on site visit',
+  qEye:'Instant quote',qH:'Know your budget before the site visit',qP:'Four quick choices. Your estimate updates live, and goes straight to our team on WhatsApp — no forms, no waiting.',
+  q1:'What are we finishing?',q2:'Approximate area',q3:'Colour',q4:'Where is the project?',estL:'Estimated investment',
+  sendWa:'Send to Renley on WhatsApp',bookVisit:'Book a free site visit',estNote:'Indicative pricing. The final quotation is confirmed after a free site visit.',
+  sSurf:'Surface',sArea:'Area',sColor:'Colour',sEm:'Location',aed:'AED',perLine:'≈ {r} AED per m²',fitText:'Custom quote',fitPer:'Full fit-outs are priced after a free site visit',
+  vEye:'Colour studio',vH:'See it in your colour',vP:'Pick a room, then try our ten signature tones. Your choice carries into your quote automatically.',vCta:'Quote this colour',
+  baEye:'Transformation',baH:'Same bathroom. No demolition.',baP:'Drag to compare. Applied directly over the old tiles in days, not weeks.',before:'Before',after:'After',
+  tkEye:'Turnkey fit-out',tkH:'One team. Every trade.',tkP:'From shell to handover, we coordinate every trade under a single contract — one point of contact, one schedule, one guarantee.',tkCta:'Plan a full fit-out',
+  wEye:'Selected work',wH:'Recent projects',ask:'Get this look',prEye:'Process',prH:'From first call to final polish',rvEye:'Client stories',rvH:'Trusted across Dubai',fqH:'Good questions',
+  cEye:'Contact',cH:'Book your free site visit',cP:'Choose a day and time — we confirm on WhatsApp within the hour.',call:'Call',email:'Email',
+  phName:'Your name',phPhone:'Phone',phMsg:'Tell us about your space (optional)',pickDay:'Preferred day',pickTime:'Preferred time',sendVisit:'Request visit on WhatsApp',
+  foot:'© 2026 Renley · Dubai, United Arab Emirates',dockQ:'Instant quote',today:'Today',tomorrow:'Tomorrow',
+  needName:'Please add your name and phone',copied:'Opening WhatsApp…',selected:'Selected for your quote',
+  waQ:'Hello Renley 👋\nI used the instant quote on your website:\n\n• Surface: {s}\n• Area: {a} m²\n• Colour: {c}\n• Location: {e}\n• Estimate: {p}\n\nI’d like to book a free site visit.',
+  waV:'Hello Renley 👋\nI’d like to book a free site visit.\n\n• Name: {n}\n• Phone: {ph}\n• Project: {t}\n• Location: {e}\n• Preferred: {d}, {tm}{m}'},
+ ar:{ribbon:'تصميم مقترح لموقع رينلي من إعداد نافذة',nSurf:'الأسطح',nQuote:'تسعير فوري',nViz:'استوديو الألوان',nWork:'المشاريع',nContact:'تواصل',getQuote:'اطلب تسعيرة',
+  heroEye:'مايكروسمنت · أسطح بلا فواصل · الإمارات',heroH:'أسطح بلا <em>فواصل.</em><br>ومساحات بلا حدود.',heroP:'مايكروسمنت فاخر للفلل والمنازل والمساحات التجارية — يُطبَّق مباشرة فوق البلاط الموجود، بدون تكسير.',
+  heroCta1:'احسب سعر مشروعك خلال 30 ثانية',heroCta2:'شاهد المشاريع',tr1:'زيارة موقع مجانية',tr2:'رد خلال ساعة',tr3:'جميع الإمارات السبع',tagB:'بدون تكسير',tagS:'يُطبَّق فوق بلاطك الحالي',
+  s1:'مشروع منجز',s2:'سنوات مقاولات في الإمارات',s3:'إمارات نغطيها',s4:'جهة مسؤولة واحدة',
+  whyEye:'لماذا المايكروسمنت',whyH:'سطح واحد متصل، من الأرض إلى الجدار إلى الأثاث.',whyP:'بسماكة 2–3 مم، بدون فواصل ومتين جداً — الخيار المعماري الأول للديكورات الحديثة في الإمارات.',
+  libEye:'مكتبة الأسطح',libH:'أين يُستخدم',libP:'اضغط على أي سطح لتعرف سعره فوراً.',from:'يبدأ من',perm:'درهم / م²',onVisit:'السعر بعد زيارة الموقع',
+  qEye:'تسعير فوري',qH:'اعرف ميزانيتك قبل زيارة الموقع',qP:'أربعة اختيارات سريعة. التقدير يتحدّث مباشرة ويصل لفريقنا على واتساب — بدون فورمات وبدون انتظار.',
+  q1:'ماذا نشطّب؟',q2:'المساحة التقريبية',q3:'اللون',q4:'أين المشروع؟',estL:'الميزانية التقديرية',
+  sendWa:'أرسل إلى رينلي على واتساب',bookVisit:'احجز زيارة موقع مجانية',estNote:'الأسعار تقديرية، والتسعيرة النهائية تُؤكَّد بعد زيارة الموقع المجانية.',
+  sSurf:'السطح',sArea:'المساحة',sColor:'اللون',sEm:'الموقع',aed:'درهم',perLine:'≈ {r} درهم للمتر المربع',fitText:'تسعيرة خاصة',fitPer:'مشاريع التشطيب الكامل تُسعَّر بعد زيارة الموقع',
+  vEye:'استوديو الألوان',vH:'شاهده بلونك',vP:'اختر الغرفة وجرّب ألواننا التسعة. اللون الذي تختاره ينتقل تلقائياً إلى تسعيرتك.',vCta:'سعّر هذا اللون',
+  baEye:'قبل وبعد',baH:'نفس الحمام. بدون تكسير.',baP:'اسحب للمقارنة. طُبِّق مباشرة فوق البلاط القديم خلال أيام، وليس أسابيع.',before:'قبل',after:'بعد',
+  tkEye:'تشطيب متكامل',tkH:'فريق واحد. لكل الأعمال.',tkP:'من الهيكل حتى التسليم، ننسّق كل الأعمال بعقد واحد — جهة تواصل واحدة، جدول واحد، وضمان واحد.',tkCta:'خطّط لتشطيب كامل',
+  wEye:'أعمال مختارة',wH:'مشاريع حديثة',ask:'أريد هذا الشكل',prEye:'مراحل العمل',prH:'من أول اتصال حتى اللمسة الأخيرة',rvEye:'آراء العملاء',rvH:'موثوقون في دبي',fqH:'أسئلة شائعة',
+  cEye:'تواصل',cH:'احجز زيارة موقع مجانية',cP:'اختر اليوم والوقت، ونؤكّد على واتساب خلال ساعة.',call:'اتصال',email:'البريد',
+  phName:'الاسم',phPhone:'رقم الهاتف',phMsg:'أخبرنا عن المساحة (اختياري)',pickDay:'اليوم المفضّل',pickTime:'الوقت المفضّل',sendVisit:'اطلب الزيارة على واتساب',
+  foot:'© 2026 رينلي · دبي، الإمارات العربية المتحدة',dockQ:'تسعير فوري',today:'اليوم',tomorrow:'غداً',
+  needName:'يرجى إضافة الاسم ورقم الهاتف',copied:'جارٍ فتح واتساب…',selected:'تمّ اختياره لتسعيرتك',
+  waQ:'مرحباً رينلي 👋\nاستخدمت التسعير الفوري على موقعكم:\n\n• السطح: {s}\n• المساحة: {a} م²\n• اللون: {c}\n• الموقع: {e}\n• التقدير: {p}\n\nأرغب بحجز زيارة موقع مجانية.',
+  waV:'مرحباً رينلي 👋\nأرغب بحجز زيارة موقع مجانية.\n\n• الاسم: {n}\n• الهاتف: {ph}\n• المشروع: {t}\n• الموقع: {e}\n• الموعد المفضّل: {d}، {tm}{m}'}
+};
+
+let lang = 'en';
+try{ lang = localStorage.getItem('renley-lang') || 'en'; }catch(e){}
+const st = {surf:'floors', area:50, color:2, em:0, room:0, day:0, time:0, pf:'all'};
+const $ = s => document.querySelector(s);
+const t = k => T[lang][k];
+const L = (en,ar) => lang==='ar' ? ar : en;
+const fmt = n => n.toLocaleString(lang==='ar'?'ar-AE':'en-US');
+const surfOf = k => SURF.find(s=>s[0]===k);
+
+function setImg(el,url){
+  const i = new Image(); i.alt=''; i.loading='lazy'; i.decoding='async';
+  i.onerror = () => i.remove();
+  i.src = url; el.prepend(i);
+}
+function toast(m){ const el=$('#toast'); el.textContent=m; el.classList.add('on'); clearTimeout(toast.h); toast.h=setTimeout(()=>el.classList.remove('on'),1800); }
+
+function renderStatic(){
+  document.querySelectorAll('[data-i]').forEach(el=>{ const v=t(el.dataset.i); if(v!=null) el.textContent=v; });
+  document.querySelectorAll('[data-ih]').forEach(el=>{ el.innerHTML=t(el.dataset.ih); });
+  document.querySelectorAll('[data-ph]').forEach(el=>{ el.placeholder=t(el.dataset.ph); });
+  $('#benefits').innerHTML = BEN.map(b=>`<span class="chip">${L(...b)}</span>`).join('');
+  $('#trades').innerHTML = TRADES.map(b=>`<div class="trade">${L(...b)}</div>`).join('');
+  $('#steps').innerHTML = STEPS.map((s,i)=>`<div class="ps"><b>0${i+1}</b>${L(...s)}</div>`).join('');
+  $('#revs').innerHTML = REVS.map(r=>`<div class="rev"><div class="stars">★★★★★</div><p>“${L(r[3],r[4])}”</p><small>${r[0]} · ${L(r[1],r[2])}</small></div>`).join('');
+  $('#faq').innerHTML = FAQ.map(f=>`<details><summary>${L(f[0],f[1])}</summary><p>${L(f[2],f[3])}</p></details>`).join('');
+  $('#rail').innerHTML = SURF.filter(s=>s[0]!=='fitout').map((s,i)=>`<button class="surf" data-s="${s[0]}"><div class="img" data-src="${im(s[1],360,480)}"></div><div class="t"><small>${String(i+1).padStart(2,'0')}</small><b>${L(s[2],s[3])}</b><i>${t('from')} ${s[4]} ${t('perm')}</i></div></button>`).join('');
+  $('#qSurf').innerHTML = SURF.map(s=>`<button class="opt" data-s="${s[0]}">${L(s[2],s[3])}</button>`).join('');
+  const sw = COLORS.map((c,i)=>`<button class="swb" data-c="${i}" style="background:${c[2]}" aria-label="${L(c[0],c[1])}"></button>`).join('');
+  $('#qSw').innerHTML = sw; $('#vSw').innerHTML = sw;
+  const ems = EMS.map((e,i)=>`<option value="${i}">${L(...e)}</option>`).join('');
+  $('#qEm').innerHTML = ems; $('#fEm').innerHTML = ems;
+  $('#fType').innerHTML = SURF.map(s=>`<option value="${s[0]}">${L(s[2],s[3])}</option>`).join('');
+  $('#vRooms').innerHTML = ROOMS.map((r,i)=>`<button class="opt" data-r="${i}">${L(...surfOf(r[0]).slice(2,4))}</button>`).join('');
+  $('#pf').innerHTML = PF.map(f=>`<button class="opt" data-f="${f[0]}">${L(f[1],f[2])}</button>`).join('');
+  const now = new Date();
+  $('#days').innerHTML = [...Array(7)].map((_,i)=>{ const d=new Date(now); d.setDate(now.getDate()+i+1);
+    const lab = i===0 ? t('tomorrow') : DAYN[lang][d.getDay()]; return `<button class="opt" data-d="${i}">${lab} ${d.getDate()}/${d.getMonth()+1}</button>`; }).join('');
+  $('#times').innerHTML = TIMES.map((x,i)=>`<button class="opt" data-t="${i}">${L(x[0],x[1])} · ${x[2]}</button>`).join('');
+  document.querySelectorAll('[data-src]').forEach(el=>setImg(el, el.dataset.src));
+  ['hero','turnkey','before','after'].forEach(k=>document.querySelectorAll(`[data-img="${k}"]`).forEach(el=>{ el.querySelector(':scope > img')?.remove(); setImg(el, IMG[k]); }));
+  $('#langBtn').textContent = lang==='ar' ? 'English' : 'العربية';
+  $('#qEm').value = st.em; $('#fEm').value = st.em;
+  renderProjects(); update(); renderViz(); marks();
+}
+
+function renderProjects(){
+  $('#pg').innerHTML = PROJ.filter(p=>st.pf==='all'||p[4]===st.pf).map(p=>`<div class="proj"><div class="img" data-src="${im(p[0],370,p[0].startsWith('d036')||p[0].startsWith('2832')?463:278)}"></div><div class="t"><div><b>${p[1]}</b><br><small>${L(p[2],p[3])}</small></div><button class="ask" data-ps="${p[5]}">${t('ask')} →</button></div></div>`).join('');
+  $('#pg').querySelectorAll('[data-src]').forEach(el=>setImg(el, el.dataset.src));
+  document.querySelectorAll('#pf .opt').forEach(b=>b.classList.toggle('on', b.dataset.f===st.pf));
+}
+
+function estimate(){
+  const s = surfOf(st.surf), r = s[4];
+  if(!r) return {txt:t('fitText'), per:t('fitPer'), short:t('fitText')};
+  const lo = Math.round(r*st.area/100)*100, hi = Math.round(r*1.25*st.area/100)*100;
+  return {txt:`${fmt(lo)} – ${fmt(hi)}`, per:t('perLine').replace('{r}',fmt(r)), short:`${t('aed')} ${fmt(lo)} – ${fmt(hi)}`};
+}
+function update(){
+  const s = surfOf(st.surf), e = estimate();
+  $('#estBig').textContent = s[4] ? `${t('aed')} ${e.txt}` : e.txt;
+  $('#estBig').classList.toggle('text', !s[4]);
+  $('#estPer').textContent = e.per;
+  $('#qRange').value = Math.min(st.area,500); $('#qArea').value = st.area;
+  $('#sum').innerHTML = [[t('sSurf'),L(s[2],s[3])],[t('sArea'),`${fmt(st.area)} m²`],[t('sColor'),L(COLORS[st.color][0],COLORS[st.color][1])],[t('sEm'),L(...EMS[st.em])]].map(x=>`<li><span>${x[0]}</span><span>${x[1]}</span></li>`).join('');
+  $('#qSwName').textContent = L(COLORS[st.color][0],COLORS[st.color][1]);
+  $('#fType').value = st.surf;
+  marks();
+}
+function renderViz(){
+  const r = ROOMS[st.room], s = surfOf(r[0]);
+  const el = $('#vizImg'); el.innerHTML=''; setImg(el, r[1] ? IMG[r[1]] : im(s[1],360,480));
+  $('#vizTint').style.background = COLORS[st.color][2];
+  $('#vizLbl').textContent = `${L(s[2],s[3])} · ${L(COLORS[st.color][0],COLORS[st.color][1])}`;
+  $('#vSwName').textContent = L(COLORS[st.color][0],COLORS[st.color][1]);
+}
+function marks(){
+  document.querySelectorAll('#qSurf .opt').forEach(b=>b.classList.toggle('on', b.dataset.s===st.surf));
+  document.querySelectorAll('.swb').forEach(b=>b.classList.toggle('on', +b.dataset.c===st.color));
+  document.querySelectorAll('#vRooms .opt').forEach(b=>b.classList.toggle('on', +b.dataset.r===st.room));
+  document.querySelectorAll('#days .opt').forEach(b=>b.classList.toggle('on', +b.dataset.d===st.day));
+  document.querySelectorAll('#times .opt').forEach(b=>b.classList.toggle('on', +b.dataset.t===st.time));
+}
+function openWA(msg){ toast(t('copied')); window.open(`https://wa.me/${WA}?text=${encodeURIComponent(msg)}`,'_blank'); }
+
+function applyLang(){
+  document.documentElement.lang = lang; document.documentElement.dir = lang==='ar'?'rtl':'ltr';
+  try{ localStorage.setItem('renley-lang',lang); }catch(e){}
+  renderStatic();
+}
+
+document.addEventListener('click', e=>{
+  const b = e.target.closest('button'); if(!b) return;
+  if(b.id==='langBtn'){ lang = lang==='ar'?'en':'ar'; applyLang(); return; }
+  if(b.dataset.s && (b.classList.contains('surf') || b.closest('#qSurf'))){ st.surf=b.dataset.s; update(); if(b.classList.contains('surf')) $('#quote').scrollIntoView(); return; }
+  if(b.dataset.ps){ st.surf=b.dataset.ps; update(); $('#quote').scrollIntoView(); return; }
+  if(b.dataset.c!=null){ st.color=+b.dataset.c; update(); renderViz(); if(b.closest('#vSw')) toast(t('selected')); return; }
+  if(b.dataset.r!=null){ st.room=+b.dataset.r; renderViz(); marks(); return; }
+  if(b.dataset.f){ st.pf=b.dataset.f; renderProjects(); return; }
+  if(b.dataset.d!=null){ st.day=+b.dataset.d; marks(); return; }
+  if(b.dataset.t!=null){ st.time=+b.dataset.t; marks(); return; }
+  if(b.id==='sendQuote'){ const s=surfOf(st.surf);
+    openWA(t('waQ').replace('{s}',L(s[2],s[3])).replace('{a}',st.area).replace('{c}',L(COLORS[st.color][0],COLORS[st.color][1])).replace('{e}',L(...EMS[st.em])).replace('{p}',estimate().short)); return; }
+  if(b.id==='sendVisit'){
+    const n=$('#fName').value.trim(), ph=$('#fPhone').value.trim();
+    if(!n||!ph){ toast(t('needName')); (n?$('#fPhone'):$('#fName')).focus(); return; }
+    const s=surfOf($('#fType').value), m=$('#fMsg').value.trim();
+    const dayBtn = document.querySelector(`#days [data-d="${st.day}"]`).textContent;
+    openWA(t('waV').replace('{n}',n).replace('{ph}',ph).replace('{t}',L(s[2],s[3])).replace('{e}',L(...EMS[+$('#fEm').value])).replace('{d}',dayBtn).replace('{tm}',L(...TIMES[st.time].slice(0,2))+' '+TIMES[st.time][2]).replace('{m}', m?`\n• ${lang==='ar'?'ملاحظة':'Note'}: ${m}`:''));
+  }
+});
+$('#tkBtn').addEventListener('click',()=>{ st.surf='fitout'; update(); });
+$('#qRange').addEventListener('input',e=>{ st.area=+e.target.value; update(); });
+$('#qArea').addEventListener('input',e=>{ const v=parseInt(e.target.value.replace(/\D/g,''))||0; st.area=Math.max(1,Math.min(5000,v)); const c=e.target.selectionStart; update(); e.target.value = v||''; try{e.target.setSelectionRange(c,c)}catch(_){} });
+$('#qEm').addEventListener('change',e=>{ st.em=+e.target.value; $('#fEm').value=st.em; update(); });
+$('#baRange').addEventListener('input',e=>{ const v=e.target.value; const rtlv = v;
+  $('#baAfter').style.clipPath=`inset(0 0 0 ${rtlv}%)`; $('#baBar').style.left=rtlv+'%'; $('#baKnob').style.left=rtlv+'%'; });
+
+/* counters + reveal */
+const io = new IntersectionObserver(es=>es.forEach(en=>{ if(!en.isIntersecting) return; en.target.classList.add('in');
+  en.target.querySelectorAll('[data-count]').forEach(c=>{ const to=+c.dataset.count, suf=c.dataset.suf||''; let s=null;
+    const step=ts=>{ s=s||ts; const p=Math.min(1,(ts-s)/1200); c.textContent=Math.round(to*(1-Math.pow(1-p,3)))+suf; if(p<1) requestAnimationFrame(step); };
+    if(!matchMedia('(prefers-reduced-motion: reduce)').matches) requestAnimationFrame(step); });
+  io.unobserve(en.target); }),{threshold:.15});
+document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+
+applyLang();
+</script>
+</body>
+</html>
