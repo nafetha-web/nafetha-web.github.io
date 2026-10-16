@@ -1,0 +1,437 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#0F0C0B">
+<title>FlameZ | نموذج من نافذة</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=El+Messiri:wght@600;700&family=IBM+Plex+Sans+Arabic:wght@400;600;700&display=swap">
+<link rel="preload" as="image" href="img/hero.jpg">
+<style>
+:root {
+  --bg: #0F0C0B;
+  --surface: #1A1513;
+  --surface-2: #231C19;
+  --fg: #F7F0EA;
+  --muted: #B8ABA2;
+  --line: #2F2623;
+  --fire: #F2541B;
+  --fire-2: #E0301E;
+  --gold: #FFB627;
+  --gold-soft: #33240F;
+  --wa: #22A35A;
+  --display: 'El Messiri', 'IBM Plex Sans Arabic', serif;
+  --body: 'IBM Plex Sans Arabic', 'Segoe UI', Tahoma, Arial, sans-serif;
+  --latin: 'Bebas Neue', 'El Messiri', sans-serif;
+  color-scheme: dark;
+}
+* { box-sizing: border-box }
+html { -webkit-text-size-adjust: 100%; scroll-padding-top: 120px }
+body { background: var(--bg); color: var(--fg); font-family: var(--body); font-size: 16px; line-height: 1.6; margin: 0 }
+a { color: inherit }
+img { display: block; max-width: 100% }
+button, input, select, textarea { font-family: inherit; font-size: 16px }
+:focus-visible { outline: 3px solid var(--gold); outline-offset: 2px }
+h1, h2, h3 { text-wrap: balance }
+.ltr { direction: ltr; unicode-bidi: isolate }
+.wrap { max-width: 1040px; margin: 0 auto; padding-inline: 16px }
+
+.demo { background: var(--gold); color: #1B1206; font-size: 13px; text-align: center; padding: 7px 16px; line-height: 1.5; font-weight: 600 }
+.demo a { color: #1B1206; font-weight: 700 }
+
+.top { position: sticky; top: 0; z-index: 20; background: rgba(15,12,11,.9); border-bottom: 1px solid var(--line) }
+@supports (backdrop-filter: blur(8px)) { .top { background: rgba(15,12,11,.72); backdrop-filter: blur(12px) } }
+.bar { display: flex; justify-content: space-between; align-items: center; gap: 12px; min-height: 62px }
+.logo { display: flex; align-items: center; gap: 8px; text-decoration: none; direction: ltr }
+.logo b { font-family: var(--latin); font-weight: 400; font-size: 31px; letter-spacing: .04em; line-height: 1; background: linear-gradient(180deg, #FFD15C, var(--fire) 70%); -webkit-background-clip: text; background-clip: text; color: transparent }
+.logo small { display: block; font-size: 9.5px; letter-spacing: .28em; color: var(--muted); font-weight: 600; margin-top: 1px }
+.nav { display: flex; gap: 4px 18px; align-items: center; font-size: 15px }
+.nav a { text-decoration: none; color: var(--muted) }
+.nav a:hover { color: var(--fg) }
+@media (max-width: 560px) { .nav a { display: none } }
+.lang { background: transparent; color: var(--fg); border: 1.5px solid var(--line); border-radius: 999px; padding: 4px 14px; min-height: 40px; font-weight: 600; cursor: pointer }
+
+.hero { position: relative; overflow: hidden; background: #000 }
+.hero img.bg { position: absolute; inset: -20px; width: calc(100% + 40px); height: calc(100% + 40px); object-fit: cover; opacity: .8 }
+.hero::after { content: ""; position: absolute; inset: 0; background: linear-gradient(to top, var(--bg) 4%, rgba(15,12,11,.7) 45%, rgba(15,12,11,.15)), radial-gradient(70% 60% at 50% 100%, rgba(242,84,27,.35), transparent 70%) }
+.hero .wrap { position: relative; z-index: 1; min-height: min(78vh, 600px); display: flex; flex-direction: column; justify-content: flex-end; padding-block: 56px 30px; gap: 10px }
+.pill { display: inline-flex; align-items: center; gap: 8px; background: rgba(255,255,255,.1); border: 1px solid rgba(255,255,255,.16); border-radius: 999px; padding: 4px 14px; font-size: 14px; width: fit-content }
+.pill i { width: 8px; height: 8px; border-radius: 50%; background: var(--fire); box-shadow: 0 0 0 4px rgba(242,84,27,.3) }
+.hero h1 { font-family: var(--display); font-weight: 700; font-size: clamp(44px, 11vw, 74px); line-height: 1.2; margin: 6px 0 0 }
+.hero h1 em { font-style: normal; background: linear-gradient(180deg, #FFD15C, var(--fire) 75%); -webkit-background-clip: text; background-clip: text; color: transparent }
+.hero p { margin: 0; font-size: 17px; color: #E8DDD5; max-width: 32em }
+.cta { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 14px }
+.btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 50px; padding: 0 22px; border-radius: 14px; font-weight: 700; font-size: 16px; text-decoration: none; border: 0; cursor: pointer; white-space: nowrap }
+.btn-fire { background: linear-gradient(135deg, var(--gold), var(--fire) 60%, var(--fire-2)); color: #1B0B04; box-shadow: 0 10px 26px -10px rgba(242,84,27,.8) }
+.btn-ghost { background: rgba(255,255,255,.08); color: #FFFFFF; border: 1.5px solid rgba(255,255,255,.35) }
+.facts { display: flex; flex-wrap: wrap; gap: 6px 18px; font-size: 14px; color: var(--muted); margin-top: 12px }
+.facts span::before { content: "🔥"; margin-inline-end: 6px; font-size: 12px }
+
+section.block { padding-block: 40px 4px; display: flex; flex-direction: column; gap: 14px }
+.eyebrow { font-size: 13px; font-weight: 700; letter-spacing: .04em; color: var(--gold); margin: 0 }
+.block h2 { font-family: var(--display); font-size: 34px; margin: 0; line-height: 1.3 }
+
+/* offers */
+.offers { display: grid; grid-auto-flow: column; grid-auto-columns: minmax(270px, 82%); gap: 12px; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; margin-inline: -16px; padding: 4px 16px 8px }
+.offers::-webkit-scrollbar { display: none }
+@media (min-width: 820px) { .offers { grid-auto-flow: row; grid-template-columns: repeat(3, minmax(0, 1fr)); overflow: visible; margin: 0; padding: 0 } }
+.offer { scroll-snap-align: start; position: relative; border-radius: 22px; overflow: hidden; background: var(--surface); border: 1px solid var(--line); display: flex; flex-direction: column; min-width: 0 }
+.offer .ph { height: 168px }
+.offer .badge { position: absolute; z-index: 2; top: 12px; inset-inline-start: 12px; background: var(--fire); color: #FFF; font-weight: 700; font-size: 12.5px; border-radius: 999px; padding: 3px 12px }
+.offer .ob { padding: 14px 16px 16px; display: flex; flex-direction: column; gap: 6px; flex: 1 }
+.offer h3 { margin: 0; font-family: var(--display); font-size: 22px; line-height: 1.35 }
+.offer ul { margin: 0; padding: 0; list-style: none; display: flex; flex-wrap: wrap; gap: 6px }
+.offer li { font-size: 12.5px; background: var(--surface-2); border: 1px solid var(--line); border-radius: 999px; padding: 2px 10px; color: var(--muted) }
+.offer .row { margin-top: auto; padding-top: 10px; display: flex; align-items: center; justify-content: space-between; gap: 10px }
+.offer .big { font-family: var(--display); font-weight: 700; font-size: 26px; color: var(--gold); line-height: 1.2; font-variant-numeric: tabular-nums }
+.offer .big small { display: block; font-family: var(--body); font-size: 12px; color: var(--muted); font-weight: 600 }
+.offer .btn { min-height: 44px; padding: 0 16px; font-size: 15px }
+
+.ph { position: relative; overflow: hidden; background: var(--surface-2) }
+.ph img { position: relative; z-index: 1; width: 100%; height: 100%; object-fit: cover }
+.ph .fb { position: absolute; inset: 0; display: grid; place-items: center; font-family: var(--display); font-size: 30px; color: var(--gold); opacity: .5 }
+
+.tabs { display: flex; gap: 8px; overflow-x: auto; scrollbar-width: none; position: sticky; top: 62px; z-index: 10; background: var(--bg); padding-block: 10px; margin-inline: -16px; padding-inline: 16px }
+.tabs::-webkit-scrollbar { display: none }
+.tab { flex: none; border: 1.5px solid var(--line); background: var(--surface); color: var(--fg); border-radius: 999px; padding: 0 16px; min-height: 42px; font-weight: 600; cursor: pointer }
+.tab[aria-pressed="true"] { background: var(--fire); border-color: var(--fire); color: #1B0B04 }
+.cat { scroll-margin-top: 128px; padding-top: 6px }
+.cat h3.ch { font-family: var(--display); font-size: 26px; margin: 8px 0 10px; display: flex; align-items: baseline; gap: 8px }
+.cat h3.ch small { font-family: var(--body); font-size: 13px; color: var(--muted); font-weight: 400 }
+.list { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px }
+@media (min-width: 720px) { .list { grid-template-columns: repeat(4, minmax(0, 1fr)) } }
+.dish { display: flex; flex-direction: column; background: var(--surface); border: 1px solid var(--line); border-radius: 18px; overflow: hidden; min-width: 0 }
+.dish .ph { width: 100%; height: 118px; flex: none }
+.dish .ph.empty { background: radial-gradient(80% 90% at 50% 100%, rgba(242,84,27,.25), transparent 70%), var(--surface-2) }
+.dish .tag { position: absolute; z-index: 2; inset-inline-start: 8px; top: 8px; background: var(--gold); color: #1B1206; font-size: 11px; font-weight: 700; border-radius: 999px; padding: 1px 9px }
+.dish .body { flex: 1; min-width: 0; padding: 10px 11px 11px; display: flex; flex-direction: column; gap: 2px }
+.dish h4 { margin: 0; font-size: 15px; line-height: 1.4 }
+.dish p { margin: 0; color: var(--muted); font-size: 12.5px; line-height: 1.5; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden }
+.dish .row { margin-top: auto; padding-top: 8px; display: flex; justify-content: space-between; align-items: center; gap: 6px; flex-wrap: wrap }
+.price { font-weight: 700; color: var(--gold); font-variant-numeric: tabular-nums; white-space: nowrap; font-size: 15px }
+.qty { display: flex; align-items: center; gap: 6px }
+.qbtn { width: 36px; height: 36px; border-radius: 11px; border: 1.5px solid var(--fire); background: transparent; color: var(--fg); font-size: 19px; font-weight: 700; line-height: 1; cursor: pointer; display: grid; place-items: center; padding: 0 }
+.qbtn.add { background: var(--fire); color: #1B0B04 }
+.qn { min-width: 18px; text-align: center; font-weight: 700; font-variant-numeric: tabular-nums }
+.note { color: var(--muted); font-size: 13px; margin: 6px 0 0 }
+
+.gallery { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px }
+@media (min-width: 720px) { .gallery { grid-template-columns: repeat(4, 1fr) } }
+.gallery figure { margin: 0; border-radius: 18px; aspect-ratio: 1 }
+.gallery figcaption { position: absolute; z-index: 2; inset-inline: 0; bottom: 0; padding: 8px 10px; font-size: 13px; font-weight: 600; color: #FFFFFF; background: linear-gradient(transparent, rgba(0,0,0,.7)) }
+
+.why { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 10px }
+.why div { background: var(--surface); border: 1px solid var(--line); border-radius: 18px; padding: 16px; display: flex; flex-direction: column; gap: 4px }
+.why b { font-size: 16px }
+.why span { color: var(--muted); font-size: 14px }
+.why i { font-style: normal; font-size: 22px }
+
+.info { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 10px }
+.card { background: var(--gold-soft); border: 1px solid #4A3415; border-radius: 18px; padding: 16px; display: flex; flex-direction: column; gap: 6px; min-width: 0 }
+.card b { font-size: 14px; color: var(--gold) }
+.card a { font-weight: 600 }
+.contacts { display: grid; grid-template-columns: auto 1fr; gap: 4px 14px }
+.contacts a { text-decoration: none }
+.foot { color: var(--muted); font-size: 13px; text-align: center; padding-block: 28px 130px }
+.foot a { color: var(--gold); font-weight: 700 }
+
+.order { position: fixed; inset-inline: 0; bottom: 0; padding: 10px 16px calc(10px + env(safe-area-inset-bottom, 0px)); background: rgba(26,21,19,.96); border-top: 1px solid var(--line); box-shadow: 0 -10px 30px rgba(0,0,0,.4); z-index: 30 }
+.order .wrap { padding-inline: 0; display: flex; align-items: center; gap: 12px }
+.order .sum { flex: 1; min-width: 0; font-size: 14px; color: var(--muted) }
+.order .sum strong { display: block; color: var(--fg); font-size: 19px; font-variant-numeric: tabular-nums }
+.wa { background: var(--wa); color: #FFFFFF }
+.wa[aria-disabled="true"] { opacity: .45; pointer-events: none }
+.sheet { border: 0; padding: 0; margin: auto auto 0; width: 100%; max-width: 560px; max-height: 88vh; border-radius: 22px 22px 0 0; background: var(--surface); color: var(--fg) }
+.sheet::backdrop { background: rgba(0,0,0,.6) }
+.sheet-in { padding: 18px 16px calc(18px + env(safe-area-inset-bottom, 0px)); display: flex; flex-direction: column; gap: 12px }
+.sheet-head { display: flex; justify-content: space-between; align-items: center }
+.sheet-head h2 { margin: 0; font-family: var(--display); font-size: 28px }
+.x { width: 40px; height: 40px; border-radius: 50%; border: 1px solid var(--line); background: var(--bg); color: var(--fg); font-size: 22px; cursor: pointer }
+.revlist { display: flex; flex-direction: column; gap: 8px; overflow-y: auto; max-height: 40vh }
+.rev { display: flex; align-items: center; gap: 10px; border: 1px solid var(--line); border-radius: 14px; padding: 8px }
+.rev .ph { width: 52px; height: 52px; border-radius: 10px; flex: none }
+.rev .ph .fb { font-size: 20px }
+.rev .nm { flex: 1; min-width: 0; font-weight: 600; font-size: 15px; line-height: 1.4 }
+.rev .nm small { display: block; color: var(--gold); font-weight: 700 }
+.revtotal { display: flex; justify-content: space-between; align-items: baseline; border-top: 1px dashed var(--line); padding-top: 10px; font-size: 16px }
+.revtotal strong { font-size: 22px; font-variant-numeric: tabular-nums }
+.field { display: flex; flex-direction: column; gap: 6px }
+.field label { font-size: 14px; font-weight: 600 }
+.field input, .field select, .field textarea { border: 1.5px solid var(--line); background: var(--bg); color: var(--fg); border-radius: 12px; padding: 10px 12px; min-height: 46px; width: 100% }
+.back { background: transparent; color: var(--fg); border: 1.5px solid var(--line) }
+@media (prefers-reduced-motion: no-preference) {
+  html { scroll-behavior: smooth }
+  .hero img.bg { animation: flicker 6s ease-in-out infinite alternate }
+}
+@keyframes flicker { 0% { transform: scale(1); filter: brightness(.95) } 50% { filter: brightness(1.1) } 100% { transform: scale(1.06); filter: brightness(1) } }
+</style>
+</head>
+<body>
+
+<div class="demo" id="demoBar"></div>
+
+<header class="top">
+  <div class="wrap bar">
+    <a class="logo" href="#" aria-label="FlameZ">
+      <svg width="30" height="34" viewBox="0 0 30 34" aria-hidden="true"><defs><linearGradient id="fl" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFD15C"/><stop offset=".6" stop-color="#F2541B"/><stop offset="1" stop-color="#E0301E"/></linearGradient></defs><path d="M15 1c2 6 9 9 9 18a9 9 0 0 1-18 0c0-4 2-7 4-9 0 3 1 5 3 6-1-6 0-11 2-15z" fill="url(#fl)"/><path d="M15 18c1 3 4 4 4 8a4 4 0 0 1-8 0c0-2 1-3 2-4 0 1 .5 2 1.3 2.4-.3-2.6.2-4.6.7-6.4z" fill="#FFD15C"/></svg>
+      <span><b>FLAMEZ</b><small>BAKERY &amp; GRILL</small></span>
+    </a>
+    <nav class="nav" aria-label="Sections">
+      <a href="#offers" id="navOffers"></a><a href="#menu" id="navMenu"></a><a href="#visit" id="navVisit"></a>
+      <button class="lang" id="langBtn" type="button"></button>
+    </nav>
+  </div>
+</header>
+
+<section class="hero">
+  <img class="bg" src="img/hero.jpg" alt="" fetchpriority="high">
+  <div class="wrap">
+    <span class="pill"><i></i><span id="pill"></span></span>
+    <h1 id="heroTitle"></h1>
+    <p id="heroText"></p>
+    <div class="cta">
+      <a class="btn btn-fire" href="#menu" id="ctaMenu"></a>
+      <a class="btn btn-ghost" href="#offers" id="ctaOffers"></a>
+    </div>
+    <div class="facts" id="facts"></div>
+  </div>
+</section>
+
+<main class="wrap">
+  <section class="block" id="offers">
+    <p class="eyebrow" id="offEyebrow"></p>
+    <h2 id="offTitle"></h2>
+    <div class="offers" id="offList"></div>
+  </section>
+
+  <section class="block" id="menu">
+    <h2 id="menuTitle"></h2>
+    <nav class="tabs" id="tabs" aria-label="Menu sections"></nav>
+    <div id="cats"></div>
+    <p class="note" id="priceNote"></p>
+  </section>
+
+  <section class="block" id="gallery">
+    <p class="eyebrow" id="galEyebrow"></p>
+    <h2 id="galTitle"></h2>
+    <div class="gallery" id="gal"></div>
+  </section>
+
+  <section class="block">
+    <h2 id="whyTitle"></h2>
+    <div class="why" id="why"></div>
+  </section>
+
+  <section class="block" id="visit">
+    <h2 id="visitTitle"></h2>
+    <div class="info">
+      <div class="card"><b id="lblAddr"></b><span id="addr"></span><a id="mapLink" target="_blank" rel="noopener"></a></div>
+      <div class="card"><b id="lblPhone"></b><div class="contacts" id="contacts"></div></div>
+    </div>
+  </section>
+  <p class="foot" id="foot"></p>
+</main>
+
+<div class="order">
+  <div class="wrap">
+    <div class="sum" id="sum"></div>
+    <button class="btn wa" id="goBtn" type="button"></button>
+  </div>
+</div>
+
+<dialog class="sheet" id="review" aria-labelledby="revTitle">
+  <div class="sheet-in">
+    <div class="sheet-head"><h2 id="revTitle"></h2><button type="button" class="x" id="revClose" aria-label="close">×</button></div>
+    <div class="revlist" id="revList"></div>
+    <div class="revtotal"><span id="revTotalLbl"></span><strong id="revTotal"></strong></div>
+    <div class="field"><label for="revWhere" id="revWhereLbl"></label><select id="revWhere"></select></div>
+    <div class="field"><label for="revNote" id="revNoteLbl"></label><textarea id="revNote" rows="2"></textarea></div>
+    <a class="btn wa" id="revSend" target="_blank" rel="noopener"></a>
+    <button type="button" class="btn back" id="revBack"></button>
+  </div>
+</dialog>
+
+<script>
+const WA = '96181910105';
+const IG = 'https://www.instagram.com/flamez_bakery_grill';
+const img = (k) => 'img/' + k + '.jpg';
+
+const OFFERS = [
+  { id: 'kaak', ph: 'kaak', ar: 'عرض الكعكة المميزة', en: 'Signature ka\'ak deal', badge: { ar: 'عرض', en: 'Deal' },
+    inc: { ar: ['3 كعكات على ذوقك'], en: ['Any 3 ka\'ak of your choice'] }, price: '$15' },
+  { id: 'double', ph: 'cheeseburger', ar: 'ضاعف الطعمة', en: 'Double the flavor', badge: { ar: 'عرضان', en: '2 deals' },
+    inc: { ar: ['برغر: 2 برغر + بطاطا صغيرة', 'بيتزا: 2 بيتزا'], en: ['Burger: 2 burgers + small fries', 'Pizza: 2 pizzas'] }, price: '1,000,000', sub: { ar: 'ل.ل للبرغر · 1,200,000 للبيتزا', en: 'LBP burger · 1,200,000 pizza' } },
+  { id: 'match', ph: 'burger', ar: 'عرض ليالي المباريات', en: 'Match night offer', badge: { ar: 'للمجموعات', en: 'For groups' },
+    inc: { ar: ['3 برغر', '5 قطع دجاج كرسبي', '3 كرات جبنة', '3 أصابع موزاريلا', 'بطاطا', 'بيبسي 1.25 ل'], en: ['3 burgers', '5 crispy chicken pieces', '3 cheese balls', '3 mozzarella sticks', 'Fries', 'Pepsi 1.25 L'] }, price: '$37' }
+];
+
+const MENU = [
+  { id: 'man', ar: 'مناقيش وكعك', en: 'Manakish & ka\'ak', items: [
+    { id: 'zaatar', ar: 'منقوشة زعتر', en: 'Zaatar manousheh', dar: 'زعتر بلدي وزيت زيتون، طازجة من الفرن.', den: 'Local zaatar and olive oil, fresh from the oven.', p: 1.5, ph: 'zaatar', pop: 1 },
+    { id: 'jebne', ar: 'منقوشة جبنة', en: 'Cheese manousheh', dar: 'جبنة عكاوي وموزاريلا ذايبة.', den: 'Melted akkawi and mozzarella.', p: 3, ph: 'cheese' },
+    { id: 'sicilian', ar: 'منقوشة جبنة سيسيليان', en: 'Sicilian cheese manousheh', dar: 'صنف جديد بالجبنة والخضار.', den: 'New: cheese with vegetables.', p: 3.5, isNew: 1 },
+    { id: 'lahm', ar: 'لحم بعجين', en: 'Lahm bi ajeen', dar: 'لحم متبّل مع البندورة والبصل.', den: 'Spiced meat with tomato and onion.', p: 2.5, ph: 'lahm' },
+    { id: 'kaak', ar: 'كعكة جبنة', en: 'Cheese ka\'ak', dar: 'كعكة بالسمسم محشية جبنة.', den: 'Sesame ka\'ak filled with cheese.', p: 5, ph: 'kaak', pop: 1 },
+    { id: 'cocktail', ar: 'كوكتيل زعتر وجبنة', en: 'Zaatar & cheese mix', dar: 'نصّ زعتر ونصّ جبنة.', den: 'Half zaatar, half cheese.', p: 2.5 } ] },
+  { id: 'pizza', ar: 'بيتزا', en: 'Pizza', items: [
+    { id: 'pepperoni', ar: 'بيتزا بيبروني', en: 'Pepperoni pizza', dar: 'بيبروني وموزاريلا وصلصة البندورة.', den: 'Pepperoni, mozzarella and tomato sauce.', p: 10, ph: 'pepperoni', pop: 1 },
+    { id: 'veggie', ar: 'بيتزا خضار', en: 'Veggie pizza', dar: 'فليفلة، فطر، زيتون وبندورة.', den: 'Peppers, mushroom, olives and tomato.', p: 9, ph: 'slice' },
+    { id: 'stromboli', ar: 'سترومبولي بيبروني وحبش', en: 'Pepperoni & turkey stromboli', dar: 'محشية جبنة حقيقية، صنف جديد.', den: 'Loaded with real cheese. New.', p: 8, isNew: 1 },
+    { id: 'margherita', ar: 'بيتزا مارغريتا', en: 'Margherita pizza', dar: 'موزاريلا وصلصة البندورة والحبق.', den: 'Mozzarella, tomato and basil.', p: 8 } ] },
+  { id: 'burger', ar: 'برغر', en: 'Burgers', items: [
+    { id: 'classic', ar: 'برغر لحم', en: 'Beef burger', dar: 'لحم مشوي على النار مع الخضار والصلصة.', den: 'Flame-grilled beef with veggies and sauce.', p: 6, ph: 'burger', pop: 1 },
+    { id: 'double', ar: 'دبل تشيز برغر', en: 'Double cheeseburger', dar: 'قطعتين لحم مع جبنة شيدر ذايبة.', den: 'Two patties with melted cheddar.', p: 8, ph: 'cheeseburger' },
+    { id: 'crispy', ar: 'برغر دجاج كرسبي', en: 'Crispy chicken burger', dar: 'صدر دجاج مقرمش مع الخسّ والمايونيز.', den: 'Crispy chicken breast, lettuce and mayo.', p: 5.5 } ] },
+  { id: 'sand', ar: 'سندويشات', en: 'Sandwiches', items: [
+    { id: 'beef', ar: 'سندويش لحم سبيشال', en: 'Special beef sandwich', dar: 'لحم مشوي مع البندورة والبصل والبقدونس.', den: 'Grilled beef with tomato, onion and parsley.', p: 6, ph: 'beef', isNew: 1 },
+    { id: 'mushroom', ar: 'سندويش دجاج بالفطر', en: 'Chicken & mushroom sub', dar: 'دجاج مع الفطر والكريما.', den: 'Chicken with creamy mushroom.', p: 5.5, ph: 'mushroom' },
+    { id: 'fajita', ar: 'فاهيتا دجاج', en: 'Chicken fajita', dar: 'دجاج متبّل مع الفليفلة والجبنة.', den: 'Seasoned chicken with peppers and cheese.', p: 5 } ] },
+  { id: 'drinks', ar: 'مشروبات', en: 'Drinks', items: [
+    { id: 'pepsi', ar: 'بيبسي', en: 'Pepsi', dar: '', den: '', p: 1 },
+    { id: 'water', ar: 'مياه', en: 'Water', dar: '', den: '', p: .5 } ] }
+];
+const GALLERY = [{ ar: 'من الفرن مباشرة', en: 'Straight from the oven', ph: 'flames' }, { ar: 'بيتزا القلب', en: 'Heart pizza', ph: 'heart' }, { ar: 'جبنة ذايبة', en: 'Melted cheese', ph: 'cheese' }, { ar: 'بيتزا طازجة', en: 'Fresh pizza', ph: 'slice' }];
+
+const T = {
+  ar: { dir: 'rtl', lang: 'English',
+    demo: 'نموذج مقترح من <a href="https://nafetha-web.github.io" target="_blank" rel="noopener">نافذة</a> لموقع FlameZ، وليس الموقع الرسمي.',
+    navOffers: 'العروض', navMenu: 'القائمة', navVisit: 'تواصل',
+    pill: 'فرن وغريل · عرمون',
+    heroTitle: 'من <em>النار</em><br>لباب بيتك.',
+    heroText: 'مناقيش، بيتزا، برغر وسندويشات طازجة من الفرن كل يوم. اختر من القائمة وأرسل طلبك عبر واتساب بضغطة.',
+    ctaMenu: 'اطلب الآن', ctaOffers: 'شاهد العروض', facts: ['مناقيش طازجة يوميًا', 'طلب سريع عبر واتساب', 'توصيل أو استلام'],
+    offEyebrow: 'عروض FlameZ', offTitle: 'عروض تستاهل', orderOffer: 'اطلب العرض', offerMsg: (o) => 'مرحبًا FlameZ، أريد طلب: ' + o,
+    menuTitle: 'القائمة', priceNote: 'الأسعار في هذا النموذج تقريبية للعرض فقط، ونعدّلها حسب قائمتكم.', count: (n) => n === 1 ? 'صنف واحد' : n === 2 ? 'صنفان' : n <= 10 ? n + ' أصناف' : n + ' صنفًا',
+    pop: 'الأكثر طلبًا', isNew: 'جديد',
+    galEyebrow: 'من إنستغرام', galTitle: 'من فرن FlameZ',
+    whyTitle: 'ليش FlameZ؟',
+    why: [['🔥', 'على النار مباشرة', 'كل شي بينخبز وبينشوى طازة عند الطلب.'], ['📲', 'طلبك بضغطة', 'اختار، راجع، وابعت عالواتساب بدون تطبيقات.'], ['🧀', 'جبنة حقيقية', 'جبنة ذايبة بكل لقمة، من المنقوشة للسترومبولي.']],
+    visitTitle: 'تفضّلوا لعنّا', lblAddr: 'العنوان', addr: 'عرمون، الطريق العام، بجانب صيدلية يمن', map: 'عرض الموقع على الخريطة',
+    lblPhone: 'للطلبات والتواصل',
+    contacts: [['واتساب', '81 910 105', 'https://wa.me/96181910105'], ['هاتف', '78 833 725', 'tel:+96178833725'], ['إنستغرام', '@flamez_bakery_grill', IG]],
+    foot: '© 2026 FlameZ Bakery &amp; Grill · نموذج من تصميم <a href="https://nafetha-web.github.io" target="_blank" rel="noopener">نافذة</a>',
+    items: (n) => n === 1 ? 'صنف واحد' : n === 2 ? 'صنفان' : (n >= 3 && n <= 10) ? n + ' أصناف' : n + (n === 0 ? ' أصناف' : ' صنفًا'), go: 'اطلب عبر واتساب',
+    add: 'أضف', remove: 'احذف', money: (n) => '$' + (Math.round(n * 100) / 100),
+    revTitle: 'مراجعة الطلب', revNote: 'ملاحظة (اختياري)', revNoteShort: 'ملاحظة', revSend: 'تأكيد وإرسال عبر واتساب', revBack: 'متابعة الاختيار',
+    lblWhere: 'طريقة الاستلام', where: ['توصيل', 'استلام من الفرن'],
+    hello: 'مرحبًا FlameZ، أودّ أن أطلب:', total: 'المجموع' },
+  en: { dir: 'ltr', lang: 'عربي',
+    demo: 'A proposed site for FlameZ by <a href="https://nafetha-web.github.io" target="_blank" rel="noopener">Nafetha</a>, not the official site.',
+    navOffers: 'Offers', navMenu: 'Menu', navVisit: 'Contact',
+    pill: 'Bakery & grill · Aramoun',
+    heroTitle: 'From the <em>fire</em><br>to your door.',
+    heroText: 'Manakish, pizza, burgers and sandwiches, fresh from the oven every day. Pick from the menu and send your order on WhatsApp in one tap.',
+    ctaMenu: 'Order now', ctaOffers: 'See the offers', facts: ['Fresh manakish daily', 'Quick WhatsApp ordering', 'Delivery or pick-up'],
+    offEyebrow: 'FlameZ deals', offTitle: 'Deals worth it', orderOffer: 'Order this deal', offerMsg: (o) => 'Hello FlameZ, I would like to order: ' + o,
+    menuTitle: 'Menu', priceNote: 'Prices in this demo are indicative only; we update them from your menu.', count: (n) => n + (n === 1 ? ' item' : ' items'),
+    pop: 'Popular', isNew: 'New',
+    galEyebrow: 'From Instagram', galTitle: 'From the FlameZ oven',
+    whyTitle: 'Why FlameZ?',
+    why: [['🔥', 'Straight from the fire', 'Everything is baked and grilled fresh to order.'], ['📲', 'Order in one tap', 'Pick, review and send on WhatsApp. No apps.'], ['🧀', 'Real cheese', 'Melted cheese in every bite, from manousheh to stromboli.']],
+    visitTitle: 'Visit us', lblAddr: 'Address', addr: 'Aramoun, Main Road, beside Yamen\'s Pharmacy', map: 'Open in Maps',
+    lblPhone: 'Orders and contact',
+    contacts: [['WhatsApp', '81 910 105', 'https://wa.me/96181910105'], ['Phone', '78 833 725', 'tel:+96178833725'], ['Instagram', '@flamez_bakery_grill', IG]],
+    foot: '© 2026 FlameZ Bakery &amp; Grill · Demo designed by <a href="https://nafetha-web.github.io" target="_blank" rel="noopener">Nafetha</a>',
+    items: (n) => n + (n === 1 ? ' item' : ' items'), go: 'Order on WhatsApp',
+    add: 'Add', remove: 'Remove', money: (n) => '$' + (Math.round(n * 100) / 100),
+    revTitle: 'Review your order', revNote: 'Note (optional)', revNoteShort: 'Note', revSend: 'Confirm and send on WhatsApp', revBack: 'Keep browsing',
+    lblWhere: 'How would you like it?', where: ['Delivery', 'Pick up'],
+    hello: 'Hello FlameZ, I would like to order:', total: 'Total' }
+};
+
+let lang = 'ar', activeCat = MENU[0].id;
+const cart = {};
+const ALL = MENU.flatMap(c => c.items);
+try { const s = localStorage.getItem('flamez-lang'); if (s === 'en' || s === 'ar') lang = s } catch (e) {}
+const $ = (id) => document.getElementById(id);
+
+function photo(k, alt) { return '<span class="fb" aria-hidden="true">' + alt.charAt(0) + '</span><img src="' + img(k) + '" alt="' + alt + '" loading="lazy" decoding="async" onerror="this.remove()">' }
+function qtyHTML(i) {
+  const t = T[lang], q = cart[i.id] || 0;
+  return '<div class="qty">' + (q ? '<button type="button" class="qbtn" data-dec="' + i.id + '" aria-label="' + t.remove + ' ' + i[lang] + '">−</button><span class="qn">' + q + '</span>' : '') +
+    '<button type="button" class="qbtn add" data-inc="' + i.id + '" aria-label="' + t.add + ' ' + i[lang] + '">+</button></div>';
+}
+function setTabs() {
+  let on = null; document.querySelectorAll('.tab').forEach(x => { const a = x.dataset.cat === activeCat; x.setAttribute('aria-pressed', String(a)); if (a) on = x });
+  const bar = $('tabs'); if (on && bar) { const bl = bar.getBoundingClientRect(), r = on.getBoundingClientRect(); if (r.left < bl.left || r.right > bl.right) bar.scrollLeft += (r.left + r.width / 2) - (bl.left + bl.width / 2) }
+}
+
+function renderStatic() {
+  const t = T[lang];
+  document.documentElement.lang = lang; document.documentElement.dir = t.dir; document.title = 'FlameZ | ' + (lang === 'ar' ? 'نموذج من نافذة' : 'Nafetha demo');
+  $('demoBar').innerHTML = t.demo; $('langBtn').textContent = t.lang;
+  $('heroTitle').innerHTML = t.heroTitle;
+  ['navOffers','navMenu','navVisit','pill','heroText','ctaMenu','ctaOffers','offEyebrow','offTitle','menuTitle','priceNote','galEyebrow','galTitle','whyTitle','visitTitle','lblAddr','addr','lblPhone'].forEach(k => { $(k).textContent = t[k] });
+  $('facts').innerHTML = t.facts.map(f => '<span>' + f + '</span>').join('');
+  $('offList').innerHTML = OFFERS.map(o => '<article class="offer"><div class="ph">' + photo(o.ph, o[lang]) + '</div><span class="badge">' + o.badge[lang] + '</span><div class="ob"><h3>' + o[lang] + '</h3><ul>' + o.inc[lang].map(x => '<li>' + x + '</li>').join('') + '</ul><div class="row"><span class="big ltr">' + o.price + (o.sub ? '<small>' + o.sub[lang] + '</small>' : '') + '</span><a class="btn btn-fire" target="_blank" rel="noopener" href="https://wa.me/' + WA + '?text=' + encodeURIComponent(t.offerMsg(o[lang])) + '">' + t.orderOffer + '</a></div></div></article>').join('');
+  $('gal').innerHTML = GALLERY.map(g => '<figure class="ph">' + photo(g.ph, g[lang]) + '<figcaption>' + g[lang] + '</figcaption></figure>').join('');
+  $('why').innerHTML = t.why.map(w => '<div><i aria-hidden="true">' + w[0] + '</i><b>' + w[1] + '</b><span>' + w[2] + '</span></div>').join('');
+  $('contacts').innerHTML = t.contacts.map(c => '<span>' + c[0] + '</span><a class="ltr" href="' + c[2] + '" target="_blank" rel="noopener">' + c[1] + '</a>').join('');
+  $('mapLink').textContent = t.map; $('mapLink').href = 'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent('FlameZ Bakery & Grill Aramoun');
+  $('foot').innerHTML = t.foot;
+}
+
+let io = null;
+function renderMenu() {
+  const t = T[lang];
+  $('tabs').innerHTML = MENU.map(c => '<button type="button" class="tab" data-cat="' + c.id + '" aria-pressed="' + (c.id === activeCat) + '">' + c[lang] + '</button>').join('');
+  $('cats').innerHTML = MENU.map(c => '<div class="cat" id="cat-' + c.id + '"><h3 class="ch">' + c[lang] + ' <small>' + t.count(c.items.length) + '</small></h3><div class="list">' +
+    c.items.map(i => {
+      const d = i['d' + lang], tag = i.isNew ? t.isNew : i.pop ? t.pop : '';
+      return '<article class="dish">' + (i.ph ? '<div class="ph">' + photo(i.ph, i[lang]) + (tag ? '<span class="tag">' + tag + '</span>' : '') + '</div>' : '<div class="ph empty"><span class="fb" aria-hidden="true">' + i[lang].charAt(0) + '</span>' + (tag ? '<span class="tag">' + tag + '</span>' : '') + '</div>') +
+        '<div class="body"><h4>' + i[lang] + '</h4>' + (d ? '<p>' + d + '</p>' : '') + '<div class="row"><span class="price ltr">' + t.money(i.p) + '</span>' + qtyHTML(i) + '</div></div></article>';
+    }).join('') + '</div></div>').join('');
+  if ('IntersectionObserver' in window) {
+    if (io) io.disconnect();
+    io = new IntersectionObserver((ents) => { ents.forEach(en => { if (en.isIntersecting) { activeCat = en.target.id.slice(4); setTabs() } }) }, { rootMargin: '-140px 0px -60% 0px' });
+    document.querySelectorAll('.cat').forEach(c => io.observe(c));
+  }
+}
+
+function renderOrder() {
+  const t = T[lang];
+  const lines = ALL.filter(i => cart[i.id]);
+  const count = lines.reduce((a, i) => a + cart[i.id], 0), total = lines.reduce((a, i) => a + cart[i.id] * i.p, 0);
+  $('sum').innerHTML = t.items(count) + '<strong class="ltr">' + t.money(total) + '</strong>';
+  const go = $('goBtn'); go.textContent = t.go;
+  if (count) go.removeAttribute('aria-disabled'); else go.setAttribute('aria-disabled', 'true');
+  if ($('review').open) renderReview();
+}
+function renderReview() {
+  const t = T[lang];
+  const lines = ALL.filter(i => cart[i.id]);
+  if (!lines.length) { closeReview(); return }
+  const total = lines.reduce((a, i) => a + cart[i.id] * i.p, 0);
+  $('revTitle').textContent = t.revTitle; $('revTotalLbl').textContent = t.total; $('revTotal').textContent = t.money(total);
+  $('revWhereLbl').textContent = t.lblWhere; const w = $('revWhere').selectedIndex; $('revWhere').innerHTML = t.where.map(x => '<option>' + x + '</option>').join(''); $('revWhere').selectedIndex = Math.max(0, w);
+  $('revNoteLbl').textContent = t.revNote; $('revBack').textContent = t.revBack; $('revSend').textContent = t.revSend;
+  $('revList').innerHTML = lines.map(i => '<div class="rev">' + (i.ph ? '<div class="ph">' + photo(i.ph, i[lang]) + '</div>' : '') + '<div class="nm">' + i[lang] + '<small class="ltr">' + t.money(cart[i.id] * i.p) + '</small></div>' + qtyHTML(i) + '</div>').join('');
+  const note = $('revNote').value.trim();
+  const msg = t.hello + '\n' + lines.map(i => '- ' + cart[i.id] + ' × ' + i[lang] + ' (' + t.money(cart[i.id] * i.p) + ')').join('\n') + '\n' + t.total + ': ' + t.money(total) + '\n' + t.lblWhere + ': ' + t.where[$('revWhere').selectedIndex] + (note ? '\n' + t.revNoteShort + ': ' + note : '');
+  $('revSend').href = 'https://wa.me/' + WA + '?text=' + encodeURIComponent(msg);
+}
+function openReview() { if (!ALL.some(i => cart[i.id])) return; renderReview(); const d = $('review'); if (d.showModal) d.showModal(); else d.setAttribute('open', '') }
+function closeReview() { const d = $('review'); if (d.open) { if (d.close) d.close(); else d.removeAttribute('open') } }
+function renderAll() { renderStatic(); renderMenu(); renderOrder() }
+
+function bump(e) {
+  const inc = e.target.closest('[data-inc]'), dec = e.target.closest('[data-dec]'); if (!inc && !dec) return false;
+  const id = inc ? inc.dataset.inc : dec.dataset.dec;
+  if (inc) cart[id] = (cart[id] || 0) + 1; else { cart[id] = Math.max(0, (cart[id] || 0) - 1); if (!cart[id]) delete cart[id] }
+  const y = window.scrollY; renderMenu(); renderOrder(); window.scrollTo(0, y); return true;
+}
+$('langBtn').addEventListener('click', () => { lang = lang === 'ar' ? 'en' : 'ar'; try { localStorage.setItem('flamez-lang', lang) } catch (e) {} renderAll() });
+$('tabs').addEventListener('click', (e) => { const b = e.target.closest('[data-cat]'); if (!b) return; activeCat = b.dataset.cat; setTabs(); const el = $('cat-' + activeCat); if (el) el.scrollIntoView({ block: 'start' }) });
+$('cats').addEventListener('click', bump);
+$('revList').addEventListener('click', bump);
+$('goBtn').addEventListener('click', openReview);
+$('revNote').addEventListener('input', renderReview); $('revWhere').addEventListener('change', renderReview);
+$('revClose').addEventListener('click', closeReview); $('revBack').addEventListener('click', closeReview);
+$('review').addEventListener('click', (e) => { if (e.target === $('review')) closeReview() });
+renderAll();
+</script>
+</body>
+</html>
