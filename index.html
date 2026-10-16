@@ -5,13 +5,24 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>نافذة | مواقع للمطاعم والمحلات والشركات</title>
 <meta name="description" content="نافذة تصمّم وتستضيف مواقع للمطاعم والمحلات والشركات، بالعربية والإنجليزية، باشتراك شهري. نموذج مجاني قبل الدفع.">
-<meta property="og:title" content="نافذة | Nafetha">
-<meta property="og:description" content="مواقع للمطاعم والمحلات والشركات، بالعربية والإنجليزية، باشتراك شهري.">
+<link rel="canonical" href="https://nafetha-web.github.io/">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://nafetha-web.github.io/">
+<meta property="og:site_name" content="Nafetha | نافذة">
+<meta property="og:title" content="نافذة | مواقع تبيع عنك على مدار الساعة">
+<meta property="og:description" content="مواقع للمطاعم والمتاجر والشركات، بالعربية والإنجليزية، باشتراك شهري. نموذج مجاني باسمك قبل أي دفع.">
+<meta property="og:image" content="https://nafetha-web.github.io/media/og.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
 <meta name="theme-color" content="#0E4D4A">
+<link rel="apple-touch-icon" href="media/icon-180.png">
+<link rel="preload" as="image" href="media/work/baron.webp" type="image/webp">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"ProfessionalService","name":"Nafetha | نافذة","url":"https://nafetha-web.github.io/","image":"https://nafetha-web.github.io/media/og.jpg","email":"nafetha.web@gmail.com","telephone":"+96171163991","description":"Websites for restaurants, shops and companies in Arabic and English, on a monthly plan.","priceRange":"$20 - $40 / month","sameAs":["https://www.instagram.com/nafetha.web"]}</script>
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='22' fill='%230E4D4A'/%3E%3Cpolygon points='31,16 8,24 8,74 31,82' fill='%23F7F5F0'/%3E%3Cpolygon points='69,16 92,24 92,74 69,82' fill='%23F7F5F0'/%3E%3Crect x='34' y='16' width='32' height='66' rx='4' fill='%23E2B04A'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=El+Messiri:wght@600;700&family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=El+Messiri:wght@600;700&family=IBM+Plex+Sans+Arabic:wght@400;600;700&display=swap">
 <style>
 :root {
   --teal: #0E4D4A;
@@ -62,7 +73,11 @@ p { margin: 0 }
 .top .actions { display: flex; align-items: center; gap: 10px }
 .lang { background: transparent; color: var(--teal); border: 1.5px solid var(--line); border-radius: 999px; padding: 0 14px; min-height: 42px; font-weight: 600; cursor: pointer }
 .top .btn { min-height: 42px; padding: 0 18px; font-size: 15px; border-radius: 999px }
-@media (max-width: 900px) { .nav { display: none } }
+@media (max-width: 900px) {
+  .top .wrap { flex-wrap: wrap; row-gap: 0 }
+  .nav { order: 3; width: 100%; overflow-x: auto; scrollbar-width: none; gap: 22px; padding: 0 0 10px; font-size: 14.5px; white-space: nowrap }
+  .nav::-webkit-scrollbar { display: none }
+}
 @media (max-width: 420px) { .top .btn { display: none } }
 
 /* hero */
@@ -90,9 +105,63 @@ p { margin: 0 }
 @media (max-width: 400px) { .shutter { width: 22px; height: 260px } }
 .phone { position: relative; width: 300px; height: 610px; background: var(--teal-deep); border-radius: 44px; padding: 11px; box-shadow: 0 30px 60px -20px rgba(0,0,0,.45), 0 0 0 1px rgba(255,255,255,.08) inset; flex: none }
 @media (max-width: 520px) { .phone { width: 262px; height: 540px; border-radius: 40px } }
-.phone .screen { position: relative; width: 100%; height: 100%; border-radius: 34px; overflow: hidden; background: #FFFFFF }
-.phone iframe { position: absolute; top: 0; left: 0; width: 375px; height: 793px; border: 0; transform: scale(.7413); transform-origin: 0 0; background: #FFFFFF; display: block; max-width: none }
-@media (max-width: 520px) { .phone .screen { border-radius: 30px } .phone iframe { height: 809px; transform: scale(.64) } }
+.phone .screen { position: relative; width: 100%; height: 100%; border-radius: 34px; overflow: hidden; background: #FFFFFF; isolation: isolate }
+@media (max-width: 520px) { .phone .screen { border-radius: 30px } }
+.slide { position: absolute; inset: 0; opacity: 0; transition: opacity .6s ease; overflow: hidden }
+.slide.on { opacity: 1; z-index: 1 }
+.slide img { position: absolute; top: 0; left: 0; width: 100%; height: auto; display: block; max-width: none; will-change: transform }
+.slide.swap img { height: 100%; object-fit: cover; object-position: top; opacity: 0; transition: opacity .45s ease }
+.slide.swap img.on { opacity: 1 }
+.eyebrow { display: inline-flex; align-items: center; gap: 8px; background: rgba(255,255,255,.1); border: 1px solid rgba(255,255,255,.18); color: #F3E3BD; font-size: 14.5px; font-weight: 600; border-radius: 999px; padding: 6px 14px; margin-bottom: 18px }
+.eyebrow i { width: 8px; height: 8px; border-radius: 50%; background: var(--gold); box-shadow: 0 0 0 4px rgba(226,176,74,.25) }
+.hero h1 em { font-style: normal; color: var(--gold) }
+.switch { flex-wrap: wrap; justify-content: center }
+.wcap .go { color: #FFFFFF; font-weight: 600; text-decoration: underline; text-underline-offset: 3px }
+
+/* work gallery */
+.work { background: var(--paper) }
+.work .whead { display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 16px; margin-bottom: 36px }
+.work .whead .head { margin: 0 }
+.arrows { display: flex; gap: 8px }
+.arrows button { width: 46px; height: 46px; border-radius: 50%; border: 1.5px solid var(--line); background: #FFFFFF; color: var(--teal); cursor: pointer; display: grid; place-items: center }
+.arrows button:hover { border-color: var(--teal) }
+[dir="rtl"] .arrows svg { transform: scaleX(-1) }
+@media (max-width: 700px) { .arrows { display: none } }
+.feature { display: grid; grid-template-columns: minmax(0, .9fr) minmax(0, 1.1fr); gap: 0; background: var(--teal-deep); color: #FFFFFF; border-radius: 28px; overflow: hidden; margin-bottom: 22px }
+@media (max-width: 760px) { .feature { grid-template-columns: minmax(0, 1fr) } }
+.feature .media { position: relative; min-height: 420px; background: #11100E }
+.feature video, .feature .media img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; max-width: none }
+.feature .strip { position: absolute; inset-inline-end: 16px; bottom: 16px; display: flex; gap: 8px }
+.feature .strip img { position: static; width: 64px; height: 120px; border-radius: 12px; object-fit: cover; object-position: top; border: 2px solid rgba(255,255,255,.7); box-shadow: 0 8px 20px rgba(0,0,0,.35) }
+@media (max-width: 760px) { .feature .media { min-height: 0; aspect-ratio: 4 / 5 } }
+.feature .fb { padding: 40px 36px; display: flex; flex-direction: column; gap: 16px; justify-content: center }
+@media (max-width: 760px) { .feature .fb { padding: 28px 22px 30px } }
+.feature h3 { font-size: clamp(26px, 3.4vw, 36px) }
+.feature p { color: #CFE2E0 }
+.wtag { display: inline-block; width: fit-content; font-size: 13.5px; font-weight: 700; color: var(--gold-ink); background: #FBF2DE; border-radius: 999px; padding: 3px 12px }
+.feature .wtag { background: rgba(226,176,74,.16); color: var(--gold) }
+.chips { display: flex; flex-wrap: wrap; gap: 8px; list-style: none; padding: 0; margin: 0 }
+.chips li { font-size: 14px; border: 1px solid rgba(255,255,255,.22); border-radius: 999px; padding: 4px 12px; color: #E8F1F0 }
+.feature .btn { width: fit-content; margin-top: 6px }
+.rail { display: grid; grid-auto-flow: column; grid-auto-columns: minmax(260px, calc((100% - 44px) / 3)); gap: 22px; overflow-x: auto; scroll-snap-type: x mandatory; padding-bottom: 14px; scrollbar-width: thin; scrollbar-color: var(--mint) transparent; overscroll-behavior-x: contain }
+@media (max-width: 900px) { .rail { grid-auto-columns: minmax(250px, 72%); margin-inline: -20px; padding-inline: 20px; scroll-padding-inline: 20px } }
+.wk { scroll-snap-align: start; border: 1.5px solid var(--line); border-radius: 22px; overflow: hidden; display: flex; flex-direction: column; background: #FFFFFF }
+.thumb { position: relative; aspect-ratio: 4 / 5; overflow: hidden; background: var(--mint-soft); container-type: size; border-bottom: 1px solid var(--line) }
+.thumb img { position: absolute; top: 0; left: 0; width: 100%; height: auto; max-width: none; transition: transform 7s cubic-bezier(.45, 0, .55, 1) }
+@media (hover: hover) { .wk:hover .thumb img { transform: translateY(calc(-100% + 100cqh)) } }
+@media (hover: none) and (prefers-reduced-motion: no-preference) { .wk.in .thumb img { transform: translateY(calc(-100% + 100cqh)) } }
+.wb { padding: 20px 20px 22px; display: flex; flex-direction: column; gap: 8px; flex: 1 }
+.wb h3 { font-family: var(--body); font-weight: 700; font-size: 19px; color: var(--ink) }
+.wb p { color: var(--muted); font-size: 15px; flex: 1 }
+.wl { display: inline-flex; align-items: center; gap: 6px; margin-top: 8px; font-weight: 600; color: var(--teal); text-decoration: none; font-size: 15.5px }
+.wl.wa { color: var(--wa) }
+.wl:hover { text-decoration: underline; text-underline-offset: 3px }
+
+/* reveal */
+@media (prefers-reduced-motion: no-preference) {
+  html.js .rv { opacity: 0; transform: translateY(18px); transition: opacity .7s ease, transform .7s cubic-bezier(.2, .7, .2, 1) }
+  html.js .rv.in { opacity: 1; transform: none }
+}
 .sill { width: min(520px, 100%); height: 12px; border-radius: 6px; background: var(--gold); margin-top: 18px }
 .switch { display: inline-flex; margin-top: 22px; background: rgba(255,255,255,.1); border-radius: 999px; padding: 4px }
 .switch button { border: 0; background: transparent; color: #E8F1F0; font-weight: 600; font-size: 15px; min-height: 40px; padding: 0 18px; border-radius: 999px; cursor: pointer }
@@ -228,6 +297,7 @@ input, select, textarea { min-width: 0; max-width: 100% }
       <b data-t="brand"></b>
     </a>
     <nav class="nav" aria-label="Sections">
+      <a href="#work" data-t="navWork"></a>
       <a href="#services" data-t="navServices"></a>
       <a href="#how" data-t="navHow"></a>
       <a href="#pricing" data-t="navPricing"></a>
@@ -244,27 +314,48 @@ input, select, textarea { min-width: 0; max-width: 100% }
   <section class="hero">
     <div class="wrap">
       <div>
-        <h1 data-t="heroTitle"></h1>
+        <span class="eyebrow"><i aria-hidden="true"></i><span data-t="eyebrow"></span></span>
+        <h1 id="heroTitle"></h1>
         <p class="lead" data-t="heroText"></p>
         <div class="cta">
           <a class="btn btn-gold" href="#contact" data-t="cta1"></a>
-          <a class="btn btn-line" href="#pricing" data-t="cta2"></a>
+          <a class="btn btn-line" href="#work" data-t="cta2"></a>
         </div>
         <ul class="assure" id="assure"></ul>
       </div>
       <div class="window">
         <div class="frame">
           <svg class="shutter l" viewBox="0 0 92 470" aria-hidden="true" preserveAspectRatio="none"><polygon points="92,20 4,52 4,418 92,450" fill="currentColor"/><g stroke="#0A3836" stroke-width="3" opacity=".55"><line x1="10" y1="110" x2="88" y2="92"/><line x1="10" y1="170" x2="88" y2="160"/><line x1="10" y1="230" x2="88" y2="228"/><line x1="10" y1="290" x2="88" y2="296"/><line x1="10" y1="350" x2="88" y2="364"/></g></svg>
-          <div class="phone"><div class="screen"><iframe id="demoFrame" src="rayhan.html" title="نموذج حي" loading="eager"></iframe></div></div>
+          <div class="phone"><div class="screen" id="screen" aria-live="polite"></div></div>
           <svg class="shutter r" viewBox="0 0 92 470" aria-hidden="true" preserveAspectRatio="none"><polygon points="92,20 4,52 4,418 92,450" fill="currentColor"/><g stroke="#0A3836" stroke-width="3" opacity=".55"><line x1="10" y1="110" x2="88" y2="92"/><line x1="10" y1="170" x2="88" y2="160"/><line x1="10" y1="230" x2="88" y2="228"/><line x1="10" y1="290" x2="88" y2="296"/><line x1="10" y1="350" x2="88" y2="364"/></g></svg>
         </div>
         <div class="sill" aria-hidden="true"></div>
-        <div class="switch" role="group" id="switch">
-          <button type="button" data-demo="rayhan.html" aria-pressed="true" data-t="demoRest"></button>
-          <button type="button" data-demo="dalieh.html" aria-pressed="false" data-t="demoBasic"></button>
-        </div>
+        <div class="switch" role="group" id="switch"></div>
         <p class="wcap" id="wcap"></p>
       </div>
+    </div>
+  </section>
+
+  <section class="blk work" id="work">
+    <div class="wrap">
+      <div class="whead">
+        <div class="head rv"><h2 data-t="workTitle"></h2><p data-t="workSub"></p></div>
+        <div class="arrows"><button type="button" id="prevW" aria-label="Previous"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 6l-6 6 6 6"/></svg></button><button type="button" id="nextW" aria-label="Next"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></button></div>
+      </div>
+      <article class="feature rv">
+        <div class="media">
+          <video id="featVid" src="demo/renley/img/hero-v.mp4" poster="demo/renley/img/hero-v.jpg" muted loop playsinline preload="none" aria-hidden="true"></video>
+          <div class="strip" aria-hidden="true"><img src="media/work/seam-0.webp" alt="" loading="lazy" width="64" height="120"><img src="media/work/seam-5.webp" alt="" loading="lazy" width="64" height="120"></div>
+        </div>
+        <div class="fb">
+          <span class="wtag" data-t="fTag"></span>
+          <h3 data-t="fTitle"></h3>
+          <p data-t="fText"></p>
+          <ul class="chips" id="fChips"></ul>
+          <a class="btn btn-gold" id="fCta" target="_blank" rel="noopener"></a>
+        </div>
+      </article>
+      <div class="rail" id="rail"></div>
     </div>
   </section>
 
@@ -358,10 +449,25 @@ const tick = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke
 
 const T = {
   ar: { dir: 'rtl', langBtn: 'English', brand: 'نافذة',
-    navServices: 'الخدمات', navHow: 'طريقة العمل', navPricing: 'الأسعار', navFaq: 'الأسئلة', navContact: 'تواصل معنا',
-    heroTitle: 'موقع يعرّف بعملك ويستقبل طلباتك',
-    heroText: 'نصمّم مواقع للمطاعم والمحلات والشركات، بالعربية والإنجليزية، ونستضيفها ونحدّثها لك باشتراك شهري. أنت تتابع عملك، ونحن نهتم بالباقي.',
-    cta1: 'اطلب نموذجًا مجانيًا', cta2: 'اطّلع على الأسعار',
+    navWork: 'أعمالنا', navServices: 'الخدمات', navHow: 'طريقة العمل', navPricing: 'الأسعار', navFaq: 'الأسئلة', navContact: 'تواصل معنا',
+    eyebrow: 'نموذج مجاني باسمك قبل أي دفع',
+    heroTitle: 'موقع <em>يبيع عنك</em> على مدار الساعة',
+    heroText: 'نصمّم مواقع للمطاعم والمتاجر والشركات، بالعربية والإنجليزية: قوائم وطلبات عبر واتساب، ومتاجر كاملة، وتجارب تفاعلية تُقنع زبونك من النظرة الأولى. ونستضيفها ونحدّثها لك باشتراك شهري.',
+    cta1: 'اطلب نموذجًا مجانيًا', cta2: 'شاهد أعمالنا',
+    slides: { rest: ['مطعم', 'مطعم: قائمة بالصور وسلة طلب تُرسَل إلى واتساب.'], shop: ['متجر', 'متجر إلكتروني: 455 منتجًا بأقسام وبحث وعروض.'], estate: ['عقارات', 'مكتب عقاري: بحث بالفلاتر وعقارات مختارة.'], biz: ['شركات', 'شركة تشطيبات: يختار الزبون لون غرفته ويرى النتيجة فورًا.'] },
+    seeAll: 'شاهد كل الأعمال',
+    workTitle: 'أعمالنا', workSub: 'نماذج صمّمناها لأنواع مختلفة من الأعمال. مرّر لتراها، وجرّب بعضها مباشرة.',
+    fTag: 'شركة تشطيبات وديكور', fTitle: 'استوديو ألوان ثلاثي الأبعاد',
+    fText: 'يختار الزبون الغرفة واللون ويرى النتيجة فورًا، ويقارن قبل وبعد، ثم يحصل على سعر تقديري ويرسل طلبه عبر واتساب.',
+    fChips: ['صور 3D واقعية', 'تسعير فوري', 'قبل وبعد', 'عربي وإنجليزي'], fName: 'استوديو الألوان',
+    works: [
+      { img: 'baron', tag: 'مطعم', t: 'قائمة طعام بالصور', d: 'أقسام تتبع التمرير، وسلة طلب تُرسَل إلى واتساب، وحجز طاولة.' },
+      { img: 'famesto', tag: 'متجر إلكتروني', t: 'متجر بـ455 منتجًا', d: 'أقسام فرعية وبحث وعروض وحساب للزبون، والطلب عبر واتساب.' },
+      { img: 'prime', tag: 'عقارات', t: 'موقع مكتب عقاري', d: 'بحث حسب نوع العقار والعرض والميزانية، وعقارات مختارة للبيع والإيجار.', href: 'prime-estate/' },
+      { img: 'rayhan', tag: 'باقة المطاعم', t: 'مطعم مع طلب وحجز', d: 'تصفّح القائمة، وأضف أطباقًا، وراجع طلبك قبل إرساله.', href: 'rayhan.html' },
+      { img: 'dalieh', tag: 'الباقة الأساسية', t: 'قائمة بسيطة وسريعة', d: 'صفحة واحدة بالأصناف والأسعار وزر طلب عبر واتساب.', href: 'dalieh.html' }],
+    tryLive: 'جرّب النموذج', likeThis: 'أريد موقعًا مثله',
+    waLike: (x) => 'مرحبًا نافذة، أعجبني نموذج «' + x + '» وأريد موقعًا مثله لنشاطي.',
     assure: ['نموذج مجاني قبل أي دفع', 'جاهز خلال 3 إلى 5 أيام عمل', 'بدون عقود طويلة', 'نردّ خلال ساعة'],
     demoRest: 'باقة المطعم', demoBasic: 'الباقة الأساسية',
     wcap: { 'rayhan.html': 'نموذج يعمل فعلًا: تصفّح القائمة، وأضف أطباقًا، وراجع طلبك.', 'dalieh.html': 'نموذج على الباقة الأساسية: قائمة بالأسعار وطلب عبر واتساب.' },
@@ -408,10 +514,25 @@ const T = {
     waFloat: 'راسلنا', waHello: 'مرحبًا نافذة، لديّ سؤال عن موقع لنشاطي.',
     copy: '© 2026 نافذة', terms: 'الشروط والخصوصية' },
   en: { dir: 'ltr', langBtn: 'عربي', brand: 'Nafetha',
-    navServices: 'Services', navHow: 'How it works', navPricing: 'Pricing', navFaq: 'FAQ', navContact: 'Contact us',
-    heroTitle: 'A website that presents your business and takes your orders',
-    heroText: 'We design websites for restaurants, shops and companies, in Arabic and English, and host and update them for you on a monthly plan. You run your business; we handle the rest.',
-    cta1: 'Get a free demo', cta2: 'See pricing',
+    navWork: 'Our work', navServices: 'Services', navHow: 'How it works', navPricing: 'Pricing', navFaq: 'FAQ', navContact: 'Contact us',
+    eyebrow: 'A free demo with your name before you pay',
+    heroTitle: 'A website that <em>sells for you</em> around the clock',
+    heroText: 'We design websites for restaurants, shops and companies, in Arabic and English: menus and WhatsApp orders, full online stores, and interactive experiences that win customers at first look. We host and update them for you on a monthly plan.',
+    cta1: 'Get a free demo', cta2: 'See our work',
+    slides: { rest: ['Restaurant', 'Restaurant: photo menu and a cart sent to WhatsApp.'], shop: ['Store', 'Online store: 455 products with categories, search and offers.'], estate: ['Real estate', 'Real estate office: filtered search and featured listings.'], biz: ['Companies', 'Finishing company: customers pick a colour and see their room instantly.'] },
+    seeAll: 'See all our work',
+    workTitle: 'Our work', workSub: 'Sites we designed for different kinds of business. Swipe through them and try some live.',
+    fTag: 'Finishing and interiors company', fTitle: '3D colour studio',
+    fText: 'Customers pick a room and a colour and see the result instantly, compare before and after, then get an estimate and send their request on WhatsApp.',
+    fChips: ['Realistic 3D renders', 'Instant pricing', 'Before and after', 'Arabic and English'], fName: 'Colour studio',
+    works: [
+      { img: 'baron', tag: 'Restaurant', t: 'Photo menu', d: 'Sections that follow your scroll, a cart sent to WhatsApp, and table booking.' },
+      { img: 'famesto', tag: 'Online store', t: 'A 455-product store', d: 'Sub-categories, search, offers, customer accounts and WhatsApp ordering.' },
+      { img: 'prime', tag: 'Real estate', t: 'Real estate office site', d: 'Search by property type, deal and budget, plus featured listings for sale and rent.', href: 'prime-estate/' },
+      { img: 'rayhan', tag: 'Restaurant plan', t: 'Ordering and booking', d: 'Browse the menu, add dishes and review your order before sending.', href: 'rayhan.html' },
+      { img: 'dalieh', tag: 'Basic plan', t: 'Simple, fast menu', d: 'One page with items, prices and a WhatsApp order button.', href: 'dalieh.html' }],
+    tryLive: 'Try it live', likeThis: 'I want one like this',
+    waLike: (x) => 'Hello Nafetha, I liked the "' + x + '" demo and would like a site like it for my business.',
     assure: ['Free demo before you pay', 'Ready in 3 to 5 working days', 'No long contracts', 'We reply within an hour'],
     demoRest: 'Restaurant plan', demoBasic: 'Basic plan',
     wcap: { 'rayhan.html': 'A working demo: browse the menu, add dishes and review your order.', 'dalieh.html': 'A Basic plan demo: menu with prices and WhatsApp ordering.' },
@@ -459,7 +580,8 @@ const T = {
     copy: '© 2026 Nafetha', terms: 'Terms and privacy' }
 };
 
-let lang = 'ar', period = 'm', demo = 'rayhan.html', STATS = null;
+document.documentElement.classList.add('js');
+let lang = 'ar', period = 'm', STATS = null;
 try { const s = localStorage.getItem('nafetha-lang'); if (s === 'ar' || s === 'en') lang = s } catch (e) {}
 const $ = (id) => document.getElementById(id);
 const money = (n) => '$' + n;
@@ -474,7 +596,10 @@ function render() {
   $('steps').innerHTML = t.steps.map(s => '<li><h3>' + s[0] + '</h3><p>' + s[1] + '</p></li>').join('');
   $('faqList').innerHTML = t.faq.map(q => '<details><summary>' + q[0] + '</summary><p>' + q[1] + '</p></details>').join('');
   $('fKind').innerHTML = t.kinds.map(k => '<option>' + k + '</option>').join('');
-  renderPlans(); renderDemo(); renderForm();
+  $('heroTitle').innerHTML = t.heroTitle;
+  $('fChips').innerHTML = t.fChips.map(c => '<li>' + c + '</li>').join('');
+  $('fCta').textContent = t.likeThis; $('fCta').href = 'https://wa.me/' + WA + '?text=' + encodeURIComponent(t.waLike(t.fName));
+  renderPlans(); renderSlides(); renderWork(); renderForm();
   $('waFloat').href = 'https://wa.me/' + WA + '?text=' + encodeURIComponent(t.waHello);
 }
 function renderPlans() {
@@ -492,12 +617,60 @@ function renderPlans() {
       (p.demo ? '<p class="demo"><a href="' + p.demo + '" target="_blank" rel="noopener">' + t.tryDemo + '</a></p>' : '') + '</article>';
   }).join('');
 }
-function renderDemo() {
-  const t = T[lang];
-  document.querySelectorAll('#switch button').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.demo === demo)));
-  $('wcap').innerHTML = t.wcap[demo] + ' <a href="' + demo + '" target="_blank" rel="noopener">' + t.openFull + '</a>';
-  $('demoFrame').title = demo === 'rayhan.html' ? t.demoRest : t.demoBasic;
+/* hero phone: screens of our sites, scrolling or switching colours */
+const RM = matchMedia('(prefers-reduced-motion: reduce)').matches;
+const SL = [{ k: 'rest', img: 'baron' }, { k: 'shop', img: 'famesto' }, { k: 'estate', img: 'prime' }, { k: 'biz', swap: ['seam-0', 'seam-1', 'seam-2', 'seam-3', 'seam-4'] }];
+const src = (n) => 'media/work/' + n + '.webp';
+let cur = 0, timer = 0, swapT = 0, heroOn = true;
+SL.forEach((s, i) => {
+  const d = document.createElement('div'); d.className = 'slide' + (s.swap ? ' swap' : '');
+  d.innerHTML = s.swap ? s.swap.map(n => '<img alt="" data-src="' + src(n) + '">').join('') : '<img alt="" data-src="' + src(s.img) + '">';
+  $('screen').appendChild(d); s.el = d;
+});
+function loadSlide(i) { SL[i].el.querySelectorAll('img[data-src]').forEach(im => { im.src = im.dataset.src; im.removeAttribute('data-src') }) }
+function motion(i) {
+  const s = SL[i]; clearInterval(swapT);
+  if (s.swap) {
+    const ims = [...s.el.querySelectorAll('img')]; let j = 0;
+    ims.forEach((im, n) => im.classList.toggle('on', n === 0));
+    if (!RM) swapT = setInterval(() => { ims[j].classList.remove('on'); j = (j + 1) % ims.length; ims[j].classList.add('on') }, 1100);
+    return;
+  }
+  const im = s.el.querySelector('img');
+  const go = () => {
+    im.getAnimations().forEach(a => a.cancel());
+    const d = im.offsetHeight - $('screen').clientHeight;
+    if (!RM && d > 0) im.animate([{ transform: 'translateY(0)' }, { transform: 'translateY(' + (-Math.min(d, im.offsetWidth * 3.2)) + 'px)' }], { duration: 5600, delay: 600, easing: 'cubic-bezier(.45,0,.55,1)', fill: 'forwards' });
+  };
+  im.complete && im.naturalHeight ? go() : im.addEventListener('load', go, { once: true });
 }
+function show(i) {
+  cur = i; loadSlide(i); loadSlide((i + 1) % SL.length);
+  SL.forEach((s, n) => s.el.classList.toggle('on', n === i));
+  renderSlides(); motion(i); clearTimeout(timer);
+  if (heroOn) timer = setTimeout(() => show((cur + 1) % SL.length), SL[i].swap ? 6200 : 7000);
+}
+function renderSlides() {
+  const t = T[lang];
+  $('switch').innerHTML = SL.map((s, n) => '<button type="button" data-i="' + n + '" aria-pressed="' + (n === cur) + '">' + t.slides[s.k][0] + '</button>').join('');
+  $('wcap').innerHTML = t.slides[SL[cur].k][1] + ' <a class="go" href="#work">' + t.seeAll + '</a>';
+}
+$('switch').addEventListener('click', (e) => { const b = e.target.closest('[data-i]'); if (b) show(+b.dataset.i) });
+new IntersectionObserver(([e]) => { heroOn = e.isIntersecting; clearTimeout(timer); clearInterval(swapT); if (heroOn) show(cur) }).observe($('screen'));
+
+/* work gallery */
+function renderWork() {
+  const t = T[lang];
+  $('rail').innerHTML = t.works.map(w => '<article class="wk"><div class="thumb"><img src="' + src(w.img) + '" alt="" loading="lazy" width="600"></div><div class="wb"><span class="wtag">' + w.tag + '</span><h3>' + w.t + '</h3><p>' + w.d + '</p>' +
+    (w.href ? '<a class="wl" href="' + w.href + '" target="_blank" rel="noopener">' + t.tryLive + ' ↗</a>'
+      : '<a class="wl wa" href="https://wa.me/' + WA + '?text=' + encodeURIComponent(t.waLike(w.t)) + '" target="_blank" rel="noopener">' + t.likeThis + '</a>') + '</div></article>').join('');
+  document.querySelectorAll('.wk').forEach(el => io.observe(el));
+}
+const io = new IntersectionObserver((es) => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target) } }), { threshold: .35 });
+document.querySelectorAll('.rv, section.blk .head, .about').forEach(el => { el.classList.add('rv'); io.observe(el) });
+const arrow = (dir) => { const r = $('rail'), w = r.querySelector('.wk'); if (!w) return; r.scrollBy({ left: dir * (lang === 'ar' ? -1 : 1) * (w.offsetWidth + 22), behavior: 'smooth' }) };
+$('prevW').addEventListener('click', () => arrow(-1)); $('nextW').addEventListener('click', () => arrow(1));
+new IntersectionObserver(([e]) => { const v = $('featVid'); if (e.isIntersecting && !RM) { v.preload = 'auto'; v.play().catch(() => {}) } else v.pause() }, { threshold: .3 }).observe($('featVid'));
 function renderForm() {
   const t = T[lang], shop = $('fShop').value.trim(), btn = $('fSend');
   if (!shop) { btn.textContent = t.fillShop; btn.removeAttribute('href'); btn.setAttribute('aria-disabled', 'true'); btn.style.opacity = '.6'; return }
@@ -507,7 +680,6 @@ function renderForm() {
 
 $('langBtn').addEventListener('click', () => { lang = lang === 'ar' ? 'en' : 'ar'; try { localStorage.setItem('nafetha-lang', lang) } catch (e) {} render() });
 $('period').addEventListener('click', (e) => { const b = e.target.closest('[data-p]'); if (!b) return; period = b.dataset.p; renderPlans() });
-$('switch').addEventListener('click', (e) => { const b = e.target.closest('[data-demo]'); if (!b || b.dataset.demo === demo) return; demo = b.dataset.demo; $('demoFrame').src = demo; renderDemo() });
 ['fShop', 'fKind', 'fNeed'].forEach(id => { $(id).addEventListener('input', renderForm); $(id).addEventListener('change', renderForm) });
 $('leadForm').addEventListener('submit', (e) => e.preventDefault());
 render();
