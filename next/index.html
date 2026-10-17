@@ -344,6 +344,16 @@ input, select, textarea { min-width: 0; max-width: 100% }
 @media (max-width: 900px) { .stage3 { order: -1 } .hero3 .phone { width: 236px; height: 372px } .sill3 { margin-inline: -44px } .hero3 .switch, .hero3 .wcap { display: none } .h3wrap { padding-top: 28px } }
 @media (prefers-reduced-motion: reduce) { .sh, .win3, .beam { transition: none } }
 
+
+/* logo window (2D SVG, smooth) */
+.win3 { --rx: 0deg; --ry: 0deg; position: relative; width: min(88vw, 360px); aspect-ratio: 360 / 340; transform: rotateX(var(--rx)) rotateY(var(--ry)); transition: transform .25s ease-out }
+@media (min-width: 901px) { .win3 { width: 430px } }
+.wsvg { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible }
+.wscreen { position: absolute; left: 26.667%; width: 46.667%; top: 11.176%; height: 74.706%; border-radius: 4px; overflow: hidden; background: #FFFFFF; box-shadow: inset 0 0 0 1px rgba(0,0,0,.08) }
+.wscreen .screen { position: relative; width: 100%; height: 100%; overflow: hidden; clip-path: inset(0 round 4px) }
+#knobs { transition: opacity .6s }
+.beam { position: absolute; inset: -12% -18%; border-radius: 50%; background: radial-gradient(50% 50% at 50% 48%, rgba(255,226,150,.45), rgba(226,176,74,.1) 45%, transparent 70%); opacity: 0; pointer-events: none }
+
 /* ===== live builder ===== */
 .try { position: relative; background: linear-gradient(180deg, #062625, #0A3836); color: #FFFFFF; padding-block: 90px; overflow: hidden }
 .try::before { content: ""; position: absolute; inset: 0; background-image: linear-gradient(rgba(226,176,74,.08) 1px, transparent 1px), linear-gradient(90deg, rgba(226,176,74,.08) 1px, transparent 1px); background-size: 40px 40px; -webkit-mask-image: radial-gradient(70% 70% at 50% 40%, #000, transparent); mask-image: radial-gradient(70% 70% at 50% 40%, #000, transparent); pointer-events: none }
@@ -450,14 +460,16 @@ input, select, textarea { min-width: 0; max-width: 100% }
         <ul class="assure" id="assure"></ul>
       </div>
       <div class="stage3" id="stage3">
-        <div class="win3" id="win3">
+        <div class="win3" id="win3" role="img" aria-label="Nafetha">
           <div class="beam" aria-hidden="true"></div>
-          <div class="wframe">
-            <div class="phone"><div class="screen" id="screen" aria-live="polite"></div></div>
-            <div class="sh sh-l" aria-hidden="true"><span class="face"></span><span class="back"></span></div>
-            <div class="sh sh-r" aria-hidden="true"><span class="face"></span><span class="back"></span></div>
-          </div>
-          <div class="sill3" aria-hidden="true"></div>
+          <svg class="wsvg" viewBox="0 0 360 340" aria-hidden="true"><defs><linearGradient id="gg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#F2C866"/><stop offset=".5" stop-color="#E2B04A"/><stop offset="1" stop-color="#B9862A"/></linearGradient></defs><rect x="88" y="30" width="184" height="270" rx="8" fill="url(#gg)"/></svg>
+          <div class="wscreen"><div class="screen" id="screen" aria-live="polite"></div></div>
+          <svg class="wsvg" viewBox="0 0 360 340" aria-hidden="true">
+            <polygon id="shL" fill="#F7F5F0"/><polygon id="shR" fill="#F7F5F0"/>
+            <g id="slL" stroke="#0E4D4A" stroke-width="2" stroke-linecap="round"></g><g id="slR" stroke="#0E4D4A" stroke-width="2" stroke-linecap="round"></g>
+            <g id="knobs"><rect x="168" y="150" width="5" height="30" rx="2.5" fill="#E2B04A"/><rect x="187" y="150" width="5" height="30" rx="2.5" fill="#E2B04A"/></g>
+            <rect x="8" y="312" width="344" height="14" rx="7" fill="#F7F5F0"/>
+          </svg>
         </div>
         <div class="switch" role="group" id="switch"></div>
         <p class="wcap" id="wcap"></p>
@@ -828,23 +840,40 @@ new IntersectionObserver(([e]) => { heroOn = e.isIntersecting; clearTimeout(time
 /* 3D window: open on load, tilt with scroll, pointer and phone motion */
 (function () {
   const w = $('win3'); if (!w) return;
-  const L = w.querySelector('.sh-l'), R = w.querySelector('.sh-r'), B = w.querySelector('.beam');
+  const B = w.querySelector('.beam'), SL = $('shL'), SR = $('shR'), GL = $('slL'), GR = $('slR'), KN = $('knobs');
+  const HL = 84, HR = 276, T = 30, BOT = 300;
   const eio = (x) => x < .5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2;
+  const lerp = (a, b, t) => a + (b - a) * t;
+  // p: 0 closed -> 1 open (like the logo). free edge travels from the middle to the outside and gets shorter.
+  function draw(p, wig) {
+    const fxL = lerp(180, 12, p) - wig, fxR = lerp(180, 348, p) + wig, ft = lerp(T, 46, p), fb = lerp(BOT, 284, p);
+    SL.setAttribute('points', HL + ',' + T + ' ' + fxL + ',' + ft + ' ' + fxL + ',' + fb + ' ' + HL + ',' + BOT);
+    SR.setAttribute('points', HR + ',' + T + ' ' + fxR + ',' + ft + ' ' + fxR + ',' + fb + ' ' + HR + ',' + BOT);
+    const edge = Math.abs(fxL - HL) / 96, shade = Math.round(247 - (1 - Math.min(1, edge)) * 40);
+    const c = 'rgb(' + shade + ',' + (shade - 2) + ',' + (shade - 7) + ')'; SL.setAttribute('fill', c); SR.setAttribute('fill', c);
+    let l = '', r = ''; const n = 7;
+    for (let i = 1; i <= n; i++) { const k = i / (n + 1), yh = lerp(T, BOT, k), yf = lerp(ft, fb, k);
+      l += '<line x1="' + (HL + 4) + '" y1="' + yh + '" x2="' + (fxL + (fxL < HL ? 4 : -4)) + '" y2="' + yf + '" opacity=".22"/>';
+      r += '<line x1="' + (HR - 4) + '" y1="' + yh + '" x2="' + (fxR + (fxR > HR ? -4 : 4)) + '" y2="' + yf + '" opacity=".22"/>' }
+    GL.innerHTML = l; GR.innerHTML = r;
+    KN.style.opacity = p > .05 ? 0 : 1;
+    B.style.opacity = p.toFixed(3);
+  }
+  draw(0, 0);
   let started = false;
   const go = () => {
-    if (started) return; started = true; w.classList.add('knock');
-    const KN = 1000, OP = 3200, t0 = performance.now();
+    if (started) return; started = true;
+    const K = 900, O = 3000, t0 = performance.now();
     const step = (now) => {
-      const e = now - t0; let a = 0, glow = 0;
-      if (e < KN) { const q = e / KN; a = 6 * Math.sin(q * Math.PI * 2) * (1 - q) + 2 * Math.sin(q * Math.PI); }
-      else { const r = Math.min(1, (e - KN) / OP); a = 68 * eio(r); glow = eio(r); }
-      L.style.transform = 'rotateY(' + (-a).toFixed(2) + 'deg)'; R.style.transform = 'rotateY(' + a.toFixed(2) + 'deg)'; B.style.opacity = glow.toFixed(3);
-      if (e < KN + OP) requestAnimationFrame(step); else { w.classList.remove('knock'); w.classList.add('open') }
+      const e = now - t0;
+      if (e < K) { const q = e / K; draw(0, -2.5 * Math.sin(q * Math.PI * 3) * (1 - q)) }
+      else draw(eio(Math.min(1, (e - K) / O)), 0);
+      if (e < K + O) requestAnimationFrame(step); else w.classList.add('open');
     };
     requestAnimationFrame(step);
   };
-  if (RM || !('IntersectionObserver' in window)) { w.classList.add('open'); B.style.opacity = 1 }
-  else { const o = new IntersectionObserver(([e]) => { if (e.isIntersecting) { setTimeout(go, 700); o.disconnect() } }, { threshold: .6 }); o.observe(w); w.addEventListener('click', go) }
+  if (RM || !('IntersectionObserver' in window)) { draw(1, 0); w.classList.add('open') }
+  else { const o = new IntersectionObserver(([e]) => { if (e.isIntersecting) { setTimeout(go, 600); o.disconnect() } }, { threshold: .6 }); o.observe(w); w.addEventListener('click', go) }
   if (RM) return;
   let px = 0, py = 0, sy = 0, raf = 0;
   const apply = () => { raf = 0; w.style.setProperty('--rx', (Math.min(sy, 400) / 400 * 10 + py * 6).toFixed(2) + 'deg'); w.style.setProperty('--ry', (px * 10).toFixed(2) + 'deg') };
