@@ -465,10 +465,11 @@ input, select, textarea { min-width: 0; max-width: 100% }
           <svg class="wsvg" viewBox="0 0 360 340" aria-hidden="true"><defs><linearGradient id="gg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#F2C866"/><stop offset=".5" stop-color="#E2B04A"/><stop offset="1" stop-color="#B9862A"/></linearGradient></defs><rect x="88" y="30" width="184" height="270" rx="8" fill="url(#gg)"/></svg>
           <div class="wscreen"><div class="screen" id="screen" aria-live="polite"></div></div>
           <svg class="wsvg" viewBox="0 0 360 340" aria-hidden="true">
-            <polygon id="shL" fill="#F7F5F0"/><polygon id="shR" fill="#F7F5F0"/>
+            <defs><linearGradient id="gb" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#F6CF73"/><stop offset="1" stop-color="#C9922E"/></linearGradient><filter id="shd" x="-30%" y="-30%" width="160%" height="160%"><feDropShadow dx="0" dy="6" stdDeviation="6" flood-color="#000" flood-opacity=".35"/></filter></defs>
+            <polygon id="shL" fill="#F7F5F0" filter="url(#shd)"/><polygon id="shR" fill="#F7F5F0" filter="url(#shd)"/>
             <g id="slL" stroke="#0E4D4A" stroke-width="2" stroke-linecap="round"></g><g id="slR" stroke="#0E4D4A" stroke-width="2" stroke-linecap="round"></g>
             <g id="knobs"><rect x="168" y="150" width="5" height="30" rx="2.5" fill="#E2B04A"/><rect x="187" y="150" width="5" height="30" rx="2.5" fill="#E2B04A"/></g>
-            <rect x="8" y="312" width="344" height="14" rx="7" fill="#F7F5F0"/>
+            <rect x="8" y="312" width="344" height="14" rx="7" fill="url(#gb)"/>
           </svg>
         </div>
         <div class="switch" role="group" id="switch"></div>
@@ -798,7 +799,7 @@ function renderPlans() {
 }
 /* hero phone: screens of our sites, scrolling or switching colours */
 const RM = matchMedia('(prefers-reduced-motion: reduce)').matches;
-const SL = [{ k: 'rest', img: 'baron' }, { k: 'shop', img: 'famesto' }, { k: 'estate', img: 'prime' }, { k: 'biz', swap: ['seam-0', 'seam-1', 'seam-2', 'seam-3', 'seam-4'] }];
+const SL = [{ k: 'rest', img: 'h-baron' }, { k: 'shop', img: 'h-famesto' }, { k: 'estate', img: 'h-prime' }, { k: 'biz', swap: ['h-seam0', 'h-seam1', 'h-seam2', 'h-seam3', 'h-seam4'] }];
 const src = (n) => '../media/work/' + n + '.webp';
 let cur = 0, timer = 0, swapT = 0, heroOn = true;
 SL.forEach((s, i) => {
@@ -845,28 +846,35 @@ new IntersectionObserver(([e]) => { heroOn = e.isIntersecting; clearTimeout(time
   const eio = (x) => x < .5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2;
   const lerp = (a, b, t) => a + (b - a) * t;
   // p: 0 closed -> 1 open (like the logo). free edge travels from the middle to the outside and gets shorter.
+  // outward swing: angle 0 (closed) -> 180 (flat against the wall, like the logo).
+  // While swinging toward the viewer the free edge grows taller (perspective), then settles to the logo shape.
   function draw(p, wig) {
-    const fxL = lerp(180, 12, p) - wig, fxR = lerp(180, 348, p) + wig, ft = lerp(T, 46, p), fb = lerp(BOT, 284, p);
+    const th = p * Math.PI, cos = Math.cos(th), sin = Math.sin(th);
+    const wid = lerp(96, 72, Math.max(0, (p - .5) * 2));
+    const fxL = HL + wid * cos - wig, fxR = HR - wid * cos + wig;
+    const mid = (T + BOT) / 2, half = (BOT - T) / 2;
+    const k = (1 + .28 * sin) * lerp(1, 238 / 270, Math.max(0, (p - .6) / .4));
+    const ft = mid - half * k, fb = mid + half * k;
     SL.setAttribute('points', HL + ',' + T + ' ' + fxL + ',' + ft + ' ' + fxL + ',' + fb + ' ' + HL + ',' + BOT);
     SR.setAttribute('points', HR + ',' + T + ' ' + fxR + ',' + ft + ' ' + fxR + ',' + fb + ' ' + HR + ',' + BOT);
-    const edge = Math.abs(fxL - HL) / 96, shade = Math.round(247 - (1 - Math.min(1, edge)) * 40);
-    const c = 'rgb(' + shade + ',' + (shade - 2) + ',' + (shade - 7) + ')'; SL.setAttribute('fill', c); SR.setAttribute('fill', c);
+    const facing = Math.abs(cos), back = cos < 0, v = Math.round(lerp(196, back ? 240 : 247, facing));
+    const c = 'rgb(' + v + ',' + (v - 3) + ',' + (v - 9) + ')'; SL.setAttribute('fill', c); SR.setAttribute('fill', c);
     let l = '', r = ''; const n = 7;
-    for (let i = 1; i <= n; i++) { const k = i / (n + 1), yh = lerp(T, BOT, k), yf = lerp(ft, fb, k);
-      l += '<line x1="' + (HL + 4) + '" y1="' + yh + '" x2="' + (fxL + (fxL < HL ? 4 : -4)) + '" y2="' + yf + '" opacity=".22"/>';
-      r += '<line x1="' + (HR - 4) + '" y1="' + yh + '" x2="' + (fxR + (fxR > HR ? -4 : 4)) + '" y2="' + yf + '" opacity=".22"/>' }
+    for (let i = 1; i <= n; i++) { const q = i / (n + 1), yh = lerp(T, BOT, q), yf = lerp(ft, fb, q);
+      l += '<line x1="' + HL + '" y1="' + yh + '" x2="' + fxL + '" y2="' + yf + '" opacity="' + (.22 * facing).toFixed(2) + '"/>';
+      r += '<line x1="' + HR + '" y1="' + yh + '" x2="' + fxR + '" y2="' + yf + '" opacity="' + (.22 * facing).toFixed(2) + '"/>' }
     GL.innerHTML = l; GR.innerHTML = r;
-    KN.style.opacity = p > .05 ? 0 : 1;
-    B.style.opacity = p.toFixed(3);
+    KN.style.opacity = p > .04 ? 0 : 1;
+    B.style.opacity = Math.min(1, p * 1.4).toFixed(3);
   }
   draw(0, 0);
   let started = false;
   const go = () => {
     if (started) return; started = true;
-    const K = 900, O = 3000, t0 = performance.now();
+    const K = 800, O = 3200, t0 = performance.now();
     const step = (now) => {
       const e = now - t0;
-      if (e < K) { const q = e / K; draw(0, -2.5 * Math.sin(q * Math.PI * 3) * (1 - q)) }
+      if (e < K) { const q = e / K; draw(.025 * Math.sin(q * Math.PI * 2) * (1 - q), 0) }
       else draw(eio(Math.min(1, (e - K) / O)), 0);
       if (e < K + O) requestAnimationFrame(step); else w.classList.add('open');
     };
