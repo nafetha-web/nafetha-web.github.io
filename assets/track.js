@@ -1,7 +1,7 @@
 /* Nafetha — visitor measurement (Meta Pixel).
    Stays completely off until PIXEL_ID is filled in. */
 (function () {
-  var PIXEL_ID = ''; // ← رقم الـ Pixel من Meta Events Manager
+  var PIXEL_ID = '2726027257851947'; // ← رقم الـ Pixel من Meta Events Manager
 
   var sent = {};
   window.nfTrack = function (ev, params, custom) {
