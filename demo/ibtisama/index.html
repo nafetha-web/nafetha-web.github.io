@@ -1,0 +1,663 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>عيادة ابتسامة لطب الأسنان</title>
+<meta name="description" content="عيادة أسنان عائلية: فحص وتنظيف، تبييض، تقويم شفاف وزراعة. احجز موعدك أونلاين خلال دقيقة.">
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Readex+Pro:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cpath d='M32 10c-6-5-20-6-22 8-1 9 4 14 6 24 1 7 3 14 7 14 5 0 4-12 9-12s4 12 9 12c4 0 6-7 7-14 2-10 7-15 6-24-2-14-16-13-22-8z' fill='%230F6E5C'/%3E%3C/svg%3E">
+<style>
+:root{
+  --ink:#12232E; --ink2:#3E5361; --por:#F5F8F7; --white:#FFFFFF;
+  --mint:#0F6E5C; --mint2:#16876F; --wash:#DDEFE8; --blush:#EE7A84; --line:#E1E8E5;
+  --r-l:28px; --r-m:18px; --r-s:12px;
+  --wrap:1180px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important;animation:none!important}}
+body{font-family:'Readex Pro',system-ui,sans-serif;font-weight:400;color:var(--ink);background:var(--por);line-height:1.65;font-size:17px}
+img{display:block;max-width:100%}
+button{font:inherit;cursor:pointer;border:0;background:none;color:inherit}
+a{color:inherit;text-decoration:none}
+:focus-visible{outline:3px solid var(--blush);outline-offset:3px;border-radius:6px}
+.wrap{max-width:var(--wrap);margin:0 auto;padding:0 24px}
+h1,h2,h3{font-weight:600;line-height:1.2;letter-spacing:-.01em}
+h2{font-size:clamp(30px,4vw,44px)}
+.lead{color:var(--ink2);font-size:18px;max-width:58ch}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;height:54px;padding:0 26px;border-radius:999px;font-weight:600;font-size:17px;transition:transform .15s,background .15s}
+.btn:active{transform:scale(.97)}
+.btn-main{background:var(--mint);color:#fff}.btn-main:hover{background:var(--mint2)}
+.btn-ghost{border:2px solid var(--ink);color:var(--ink)}.btn-ghost:hover{background:var(--ink);color:#fff}
+.ltr{direction:ltr;unicode-bidi:isolate;display:inline-block}
+
+/* ribbon + header */
+.ribbon{background:var(--ink);color:#DCE8E4;font-size:13px;text-align:center;padding:8px 16px}
+.ribbon a{color:#fff;text-decoration:underline;text-underline-offset:3px}
+header{position:sticky;top:0;z-index:40;background:rgba(245,248,247,.92);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.nav{display:flex;align-items:center;justify-content:space-between;height:72px;gap:20px}
+.brand{display:flex;align-items:center;gap:10px;font-weight:700;font-size:21px}
+.brand small{display:block;font-weight:400;font-size:12px;color:var(--ink2);margin-top:-4px}
+.links{display:flex;gap:26px;font-size:15px;color:var(--ink2)}
+.links a:hover{color:var(--ink)}
+.nav-end{display:flex;align-items:center;gap:12px}
+.lang{height:40px;padding:0 14px;border-radius:999px;border:1px solid var(--line);font-size:14px;background:#fff}
+.nav .btn{height:44px;padding:0 20px;font-size:15px}
+@media (max-width:900px){.links{display:none}.nav .btn{display:none}}
+
+/* hero */
+.hero{padding:56px 0 72px}
+.hero-grid{display:grid;grid-template-columns:1.05fr 1fr;gap:56px;align-items:center}
+.hero h1{font-size:clamp(38px,5.4vw,66px);font-weight:600;letter-spacing:-.02em;line-height:1.12}
+.hero h1 em{font-style:normal;color:var(--mint)}
+.hero .lead{margin:22px 0 32px}
+.hero-ctas{display:flex;gap:12px;flex-wrap:wrap}
+.facts{display:flex;gap:34px;margin-top:40px;padding-top:28px;border-top:1px solid var(--line)}
+.facts b{display:block;font-size:26px;font-weight:600}
+.facts span{font-size:14px;color:var(--ink2)}
+.photo{position:relative}
+.photo img{width:100%;height:auto;aspect-ratio:4/4.4;object-fit:cover;object-position:62% 50%;border-radius:220px 220px var(--r-l) var(--r-l)}
+.slot{position:absolute;inset-inline-start:-28px;bottom:36px;background:#fff;border-radius:var(--r-m);padding:18px 20px;box-shadow:0 18px 50px rgba(18,35,46,.16);min-width:250px}
+.slot p{font-size:13px;color:var(--ink2);display:flex;align-items:center;gap:8px}
+.slot p i{width:9px;height:9px;border-radius:50%;background:#2DB37A;box-shadow:0 0 0 5px rgba(45,179,122,.18)}
+.slot b{display:block;font-size:22px;font-weight:600;margin:4px 0 12px}
+.slot button{font-size:14px;font-weight:600;color:var(--mint);text-decoration:underline;text-underline-offset:4px}
+.open{position:absolute;top:22px;inset-inline-end:22px;background:rgba(18,35,46,.78);color:#fff;font-size:13px;border-radius:999px;padding:7px 14px;backdrop-filter:blur(6px)}
+@media (max-width:900px){
+  .hero{padding:28px 0 56px}
+  .hero-grid{grid-template-columns:1fr;gap:34px}
+  .photo{order:-1}
+  .photo img{aspect-ratio:4/3.6;border-radius:160px 160px var(--r-l) var(--r-l)}
+  .slot{inset-inline-start:14px;bottom:-26px;min-width:0;width:calc(100% - 28px);display:flex;align-items:center;justify-content:space-between;gap:12px}
+  .slot b{margin:2px 0 0;font-size:19px}
+  .facts{gap:22px}.facts b{font-size:22px}
+}
+
+/* sections */
+section{scroll-margin-top:80px}
+.sec{padding:96px 0}
+.sec-head{display:flex;justify-content:space-between;align-items:flex-end;gap:30px;margin-bottom:44px;flex-wrap:wrap}
+.sec-head .lead{margin-top:12px}
+@media (max-width:700px){.sec{padding:68px 0}}
+
+/* services */
+.svc{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line);border:1px solid var(--line);border-radius:var(--r-l);overflow:hidden}
+.svc button{background:#fff;text-align:start;padding:28px 24px;display:flex;flex-direction:column;gap:10px;min-height:220px;transition:background .15s}
+.svc button:hover{background:var(--wash)}
+.svc .ic{width:46px;height:46px;border-radius:14px;background:var(--wash);display:grid;place-items:center;color:var(--mint)}
+.svc button:hover .ic{background:#fff}
+.svc h3{font-size:19px}
+.svc p{font-size:14px;color:var(--ink2);flex:1}
+.svc .meta{display:flex;justify-content:space-between;font-size:14px;color:var(--ink2);padding-top:10px;border-top:1px dashed var(--line)}
+.svc .meta b{color:var(--ink);font-weight:600}
+@media (max-width:1000px){.svc{grid-template-columns:repeat(2,1fr)}}
+@media (max-width:560px){.svc button{min-height:0;padding:18px 16px;gap:8px}.svc p{display:none}.svc h3{font-size:16px}.svc .meta{flex-direction:column;gap:2px;font-size:13px}}
+
+/* booking */
+#book{background:var(--ink);color:#EAF2EF;border-radius:44px 44px 0 0;margin-top:-1px}
+#book .lead{color:#A9BDB7}
+.bk{display:grid;grid-template-columns:280px minmax(0,1fr);gap:40px;align-items:start}
+.bk>*{min-width:0}
+.steps{list-style:none;display:flex;flex-direction:column;gap:6px;position:sticky;top:100px}
+.steps li{display:flex;align-items:center;gap:14px;padding:14px 16px;border-radius:var(--r-m);color:#8FA6A0;font-size:15px}
+.steps li b{width:34px;height:34px;border-radius:50%;border:2px solid #3A5160;display:grid;place-items:center;font-weight:600;font-size:15px;flex:none}
+.steps li span small{display:block;font-size:13px;color:#C7D8D3;margin-top:2px;max-width:180px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.steps li.on{background:#1B3341;color:#fff}
+.steps li.on b{background:var(--mint2);border-color:var(--mint2);color:#fff}
+.steps li.done{color:#DDEBE6;cursor:pointer}
+.steps li.done b{background:#fff;border-color:#fff;color:var(--ink)}
+.panel{background:#1A2F3C;border-radius:var(--r-l);padding:32px;min-height:440px}
+.panel h3{font-size:22px;margin-bottom:6px}
+.panel .hint{color:#9FB5AF;font-size:15px;margin-bottom:22px}
+.pane{display:none}.pane.on{display:block;animation:in .3s ease}
+@keyframes in{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+.choices{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+.choice{display:flex;gap:14px;align-items:center;text-align:start;background:#223C4B;border:2px solid transparent;border-radius:var(--r-m);padding:16px;color:#fff;transition:border-color .15s,background .15s}
+.choice:hover{border-color:#3F6170}
+.choice[aria-pressed=true]{border-color:var(--wash);background:#2A4A59}
+.choice .ic{width:42px;height:42px;border-radius:12px;background:#2E4F5E;display:grid;place-items:center;color:var(--wash);flex:none}
+.choice img{width:58px;height:58px;border-radius:14px;object-fit:cover;object-position:50% 20%;flex:none}
+.choice b{display:block;font-weight:500;font-size:16px}
+.choice small{color:#A9BDB7;font-size:13px}
+.days{display:flex;gap:10px;overflow-x:auto;padding-bottom:10px;scrollbar-width:thin;scrollbar-color:#3A5160 transparent}
+.day{flex:none;width:76px;padding:12px 0;border-radius:var(--r-m);background:#223C4B;text-align:center;border:2px solid transparent;color:#fff}
+.day small{display:block;font-size:12px;color:#A9BDB7}
+.day b{font-size:22px;font-weight:600;display:block;line-height:1.3}
+.day[disabled]{opacity:.35;cursor:not-allowed}
+.day[aria-pressed=true]{border-color:var(--wash);background:#2A4A59}
+.times{display:grid;grid-template-columns:repeat(auto-fill,minmax(92px,1fr));gap:10px;margin-top:20px}
+.time{height:46px;border-radius:12px;background:#223C4B;color:#fff;font-size:15px;border:2px solid transparent;direction:ltr}
+.time[disabled]{background:transparent;color:#5C7480;text-decoration:line-through;border:1px dashed #33505E;cursor:not-allowed}
+.time[aria-pressed=true]{background:var(--wash);color:var(--ink);font-weight:600}
+.empty{color:#A9BDB7;font-size:15px;margin-top:18px}
+.form{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.form label{display:flex;flex-direction:column;gap:6px;font-size:14px;color:#C7D8D3}
+.form label.full{grid-column:1/-1}
+.form input,.form textarea{font:inherit;font-size:16px;background:#223C4B;border:2px solid #2E4F5E;border-radius:12px;color:#fff;padding:12px 14px}
+.form input:focus,.form textarea:focus{outline:none;border-color:var(--wash)}
+.form textarea{min-height:84px;resize:vertical}
+.sum{margin:22px 0;padding:18px 20px;border-radius:var(--r-m);background:#14262F;display:grid;grid-template-columns:auto 1fr;gap:6px 18px;font-size:15px}
+.sum dt{color:#9FB5AF}.sum dd{color:#fff}
+.nav-b{display:flex;justify-content:space-between;align-items:center;margin-top:26px;gap:12px}
+.back{color:#A9BDB7;font-size:15px;text-decoration:underline;text-underline-offset:4px}
+.back[hidden]{visibility:hidden;display:inline}
+.btn-wa{background:#25D366;color:#073B22}
+.btn-light{background:var(--wash);color:var(--ink)}
+.btn[disabled]{opacity:.4;cursor:not-allowed}
+.err{color:#FFB3B8;font-size:14px;margin-top:10px;min-height:20px}
+@media (max-width:900px){
+  .bk{grid-template-columns:minmax(0,1fr);gap:20px}
+  .steps{position:static;flex-direction:row;overflow-x:auto;gap:4px}
+  .steps li{padding:10px;flex:none}
+  .steps li span{display:none}
+  .steps li.on span{display:block}
+  .steps li span small{display:none}
+  .panel{padding:22px 18px;min-height:0}
+  .choices{grid-template-columns:1fr}
+  .form{grid-template-columns:1fr}
+  .nav-b{flex-direction:column-reverse;align-items:stretch}
+  .nav-b .btn{width:100%;height:auto;min-height:54px;padding:12px 20px}
+  .back{align-self:center}
+}
+
+/* before after */
+.ba-grid{display:grid;grid-template-columns:1fr 1.25fr;gap:56px;align-items:center}
+.ba{position:relative;border-radius:var(--r-l);overflow:hidden;aspect-ratio:3/2;user-select:none;touch-action:pan-y;cursor:ew-resize;background:#ddd}
+.ba img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.ba .before{filter:sepia(.75) saturate(1.7) hue-rotate(-6deg) brightness(.9) contrast(.92);clip-path:inset(0 calc(100% - var(--x,50%)) 0 0)}
+[dir=rtl] .ba .before{clip-path:inset(0 calc(100% - var(--x,50%)) 0 0)}
+.ba .bar{position:absolute;top:0;bottom:0;left:var(--x,50%);width:3px;margin-left:-1.5px;background:#fff}
+.ba .knob{position:absolute;top:50%;left:var(--x,50%);width:54px;height:54px;margin:-27px 0 0 -27px;border-radius:50%;background:#fff;display:grid;place-items:center;box-shadow:0 8px 24px rgba(0,0,0,.25);color:var(--ink)}
+.ba .tag{position:absolute;bottom:16px;font-size:13px;background:rgba(18,35,46,.75);color:#fff;padding:6px 12px;border-radius:999px}
+.ba .t1{left:16px}.ba .t2{right:16px}
+.ba-note{font-size:13px;color:var(--ink2);margin-top:12px}
+.checks{list-style:none;margin-top:26px;display:flex;flex-direction:column;gap:14px}
+.checks li{display:flex;gap:12px;align-items:flex-start}
+.checks svg{flex:none;margin-top:4px;color:var(--mint)}
+@media (max-width:900px){.ba-grid{grid-template-columns:1fr;gap:30px}}
+
+/* doctors */
+.docs{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+.doc{background:#fff;border-radius:var(--r-l);overflow:hidden;border:1px solid var(--line);display:flex;flex-direction:column}
+.doc img{aspect-ratio:4/4.3;object-fit:cover;object-position:50% 18%;width:100%}
+.doc div{padding:22px 24px 24px;display:flex;flex-direction:column;gap:6px;flex:1}
+.doc h3{font-size:20px}
+.doc p{color:var(--ink2);font-size:15px;flex:1}
+.doc .langs{font-size:13px;color:var(--ink2)}
+.doc button{margin-top:12px;align-self:flex-start;font-weight:600;color:var(--mint);font-size:15px;text-decoration:underline;text-underline-offset:4px}
+@media (max-width:900px){.docs{grid-template-columns:1fr 1fr}}
+@media (max-width:600px){.docs{grid-template-columns:1fr}}
+
+/* tour */
+.tour{display:grid;grid-template-columns:2fr 1fr 1fr;grid-template-rows:240px 240px;gap:16px}
+.tour figure{position:relative;border-radius:var(--r-l);overflow:hidden}
+.tour figure:first-child{grid-row:1/3}
+.tour img{width:100%;height:100%;object-fit:cover}
+.tour figcaption{position:absolute;bottom:14px;inset-inline-start:14px;background:rgba(255,255,255,.92);font-size:14px;padding:6px 12px;border-radius:999px}
+@media (max-width:800px){.tour{grid-template-columns:1fr 1fr;grid-template-rows:220px 160px 160px}.tour figure:first-child{grid-column:1/3;grid-row:auto}}
+
+/* info */
+.info{display:grid;grid-template-columns:1fr 1fr 1fr;gap:24px}
+.card{background:#fff;border:1px solid var(--line);border-radius:var(--r-l);padding:28px}
+.card h3{font-size:19px;margin-bottom:14px;display:flex;align-items:center;gap:10px}
+.hours{width:100%;border-collapse:collapse;font-size:15px}
+.hours td{padding:8px 0;border-bottom:1px dashed var(--line)}
+.hours td:last-child{text-align:end;color:var(--ink2)}
+.hours tr.today td{font-weight:600;color:var(--ink)}
+.status{display:inline-flex;align-items:center;gap:8px;font-size:14px;margin-bottom:12px;padding:6px 12px;border-radius:999px;background:var(--wash);color:var(--mint)}
+.status.closed{background:#FBE3E5;color:#B23A47}
+.status i{width:8px;height:8px;border-radius:50%;background:currentColor}
+.card ul{list-style:none;display:flex;flex-direction:column;gap:10px;font-size:15px;color:var(--ink2)}
+.card .row{display:flex;gap:10px;align-items:flex-start}
+.card .row svg{flex:none;margin-top:3px;color:var(--mint)}
+.card a.u{color:var(--mint);font-weight:600;text-decoration:underline;text-underline-offset:4px}
+@media (max-width:900px){.info{grid-template-columns:1fr}}
+
+/* faq */
+.faq{max-width:820px}
+.faq details{border-bottom:1px solid var(--line)}
+.faq summary{list-style:none;cursor:pointer;padding:22px 0;font-weight:500;font-size:18px;display:flex;justify-content:space-between;gap:20px}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:'+';font-size:26px;line-height:1;color:var(--mint);transition:transform .2s}
+.faq details[open] summary::after{transform:rotate(45deg)}
+.faq p{padding:0 0 22px;color:var(--ink2);max-width:68ch}
+
+/* cta + footer */
+.cta{background:var(--wash);border-radius:var(--r-l);padding:56px;display:flex;justify-content:space-between;align-items:center;gap:30px;flex-wrap:wrap}
+.cta h2{font-size:clamp(26px,3.4vw,38px);max-width:20ch}
+footer{padding:44px 0 110px;color:var(--ink2);font-size:14px}
+.foot{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;border-top:1px solid var(--line);padding-top:26px}
+.mbar{display:none}
+@media (max-width:700px){
+  .cta{padding:32px 24px}
+  .mbar{display:flex;position:fixed;bottom:0;left:0;right:0;z-index:50;gap:10px;padding:10px 14px calc(10px + env(safe-area-inset-bottom));background:rgba(245,248,247,.96);backdrop-filter:blur(10px);border-top:1px solid var(--line)}
+  .mbar .btn{flex:1;height:50px}
+  .mbar .btn-ghost{flex:0 0 54px;padding:0}
+}
+</style>
+</head>
+<body>
+<div class="ribbon"><span data-i="ribbon"></span> <a href="https://nafetha-web.github.io" data-i="ribbonLink"></a></div>
+
+<header>
+  <div class="wrap nav">
+    <a class="brand" href="#top" aria-label="Ibtisama">
+      <svg width="38" height="38" viewBox="0 0 64 64" aria-hidden="true"><path d="M32 10c-6-5-20-6-22 8-1 9 4 14 6 24 1 7 3 14 7 14 5 0 4-12 9-12s4 12 9 12c4 0 6-7 7-14 2-10 7-15 6-24-2-14-16-13-22-8z" fill="#0F6E5C"/><path d="M21 26c3 5 8 7 11 7s8-2 11-7" stroke="#DDEFE8" stroke-width="4" fill="none" stroke-linecap="round"/></svg>
+      <span><span data-i="brand"></span><small data-i="brandSub"></small></span>
+    </a>
+    <nav class="links" aria-label="Main">
+      <a href="#services" data-i="nServices"></a><a href="#book" data-i="nBook"></a><a href="#doctors" data-i="nDoctors"></a><a href="#visit" data-i="nVisit"></a><a href="#faq" data-i="nFaq"></a>
+    </nav>
+    <div class="nav-end">
+      <button class="lang" id="langBtn" type="button"></button>
+      <a class="btn btn-main" href="#book" data-i="bookNow"></a>
+    </div>
+  </div>
+</header>
+
+<main id="top">
+<section class="hero">
+  <div class="wrap hero-grid">
+    <div>
+      <h1 data-i="heroH" data-html></h1>
+      <p class="lead" data-i="heroP"></p>
+      <div class="hero-ctas">
+        <a class="btn btn-main" href="#book" data-i="bookNow"></a>
+        <a class="btn btn-ghost" href="tel:+96170000000" data-i="callUs"></a>
+      </div>
+      <div class="facts">
+        <div><b class="ltr">15+</b><span data-i="f1"></span></div>
+        <div><b>3</b><span data-i="f2"></span></div>
+        <div><b class="ltr">6/7</b><span data-i="f3"></span></div>
+      </div>
+    </div>
+    <div class="photo">
+      <img src="img/hero.webp" alt="" width="1600" height="1067" fetchpriority="high">
+      <span class="open" id="openChip"></span>
+      <div class="slot">
+        <div><p><i></i><span data-i="nextSlot"></span></p><b id="nextSlot"></b></div>
+        <button type="button" id="takeSlot" data-i="takeSlot"></button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="services" style="padding-top:40px">
+  <div class="wrap">
+    <div class="sec-head"><div><h2 data-i="svcH"></h2><p class="lead" data-i="svcP"></p></div></div>
+    <div class="svc" id="svcGrid"></div>
+  </div>
+</section>
+
+<section class="sec" id="book">
+  <div class="wrap">
+    <div class="sec-head"><div><h2 data-i="bookH"></h2><p class="lead" data-i="bookP"></p></div></div>
+    <div class="bk">
+      <ol class="steps" id="steps"></ol>
+      <div class="panel">
+        <div class="pane on" data-step="0"><h3 data-i="s1H"></h3><p class="hint" data-i="s1P"></p><div class="choices" id="bkSvc"></div></div>
+        <div class="pane" data-step="1"><h3 data-i="s2H"></h3><p class="hint" data-i="s2P"></p><div class="choices" id="bkDoc"></div></div>
+        <div class="pane" data-step="2"><h3 data-i="s3H"></h3><p class="hint" data-i="s3P"></p><div class="days" id="bkDays"></div><div class="times" id="bkTimes"></div><p class="empty" id="bkEmpty" hidden></p></div>
+        <div class="pane" data-step="3"><h3 data-i="s4H"></h3><p class="hint" data-i="s4P"></p>
+          <div class="form">
+            <label><span data-i="fName"></span><input id="fName" autocomplete="name" required></label>
+            <label><span data-i="fPhone"></span><input id="fPhone" type="tel" inputmode="tel" autocomplete="tel" dir="ltr"></label>
+            <label class="full"><span data-i="fNote"></span><textarea id="fNote"></textarea></label>
+          </div>
+          <dl class="sum" id="sum"></dl>
+          <p class="err" id="err" role="alert"></p>
+        </div>
+        <div class="nav-b">
+          <button type="button" class="back" id="bBack" hidden data-i="back"></button>
+          <button type="button" class="btn btn-light" id="bNext" disabled data-i="next"></button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="results">
+  <div class="wrap ba-grid">
+    <div>
+      <h2 data-i="baH"></h2>
+      <p class="lead" style="margin-top:12px" data-i="baP"></p>
+      <ul class="checks" id="baList"></ul>
+    </div>
+    <div>
+      <div class="ba" id="ba" role="slider" tabindex="0" aria-valuemin="0" aria-valuemax="100" aria-valuenow="50" data-ia="baAria">
+        <img src="img/smile.webp" alt="" loading="lazy">
+        <img class="before" src="img/smile.webp" alt="" loading="lazy">
+        <span class="bar"></span>
+        <span class="knob" aria-hidden="true"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M9 6l-6 6 6 6M15 6l6 6-6 6"/></svg></span>
+        <span class="tag t1" data-i="before"></span><span class="tag t2" data-i="after"></span>
+      </div>
+      <p class="ba-note" data-i="baNote"></p>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="doctors" style="background:#fff">
+  <div class="wrap">
+    <div class="sec-head"><div><h2 data-i="docH"></h2><p class="lead" data-i="docP"></p></div></div>
+    <div class="docs" id="docGrid"></div>
+  </div>
+</section>
+
+<section class="sec" id="tour">
+  <div class="wrap">
+    <div class="sec-head"><div><h2 data-i="tourH"></h2><p class="lead" data-i="tourP"></p></div></div>
+    <div class="tour">
+      <figure><img src="img/room.webp" alt="" loading="lazy"><figcaption data-i="t1"></figcaption></figure>
+      <figure><img src="img/reception.webp" alt="" loading="lazy"><figcaption data-i="t2"></figcaption></figure>
+      <figure><img src="img/xray.webp" alt="" loading="lazy" style="object-position:50% 30%"><figcaption data-i="t3"></figcaption></figure>
+      <figure><img src="img/consult.webp" alt="" loading="lazy"><figcaption data-i="t4"></figcaption></figure>
+      <figure><img src="img/kids.webp" alt="" loading="lazy"><figcaption data-i="t5"></figcaption></figure>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="visit" style="background:#fff">
+  <div class="wrap">
+    <div class="sec-head"><div><h2 data-i="visitH"></h2></div></div>
+    <div class="info">
+      <div class="card">
+        <h3 data-i="hoursH"></h3>
+        <span class="status" id="status"><i></i><span></span></span>
+        <table class="hours" id="hours"></table>
+      </div>
+      <div class="card">
+        <h3 data-i="payH"></h3>
+        <ul id="payList"></ul>
+      </div>
+      <div class="card">
+        <h3 data-i="whereH"></h3>
+        <ul>
+          <li class="row"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s7-6.2 7-12a7 7 0 1 0-14 0c0 5.8 7 12 7 12z"/><circle cx="12" cy="10" r="2.5"/></svg><span data-i="addr"></span></li>
+          <li class="row"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2"/></svg><span class="ltr">+961 70 000 000</span></li>
+          <li class="row"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 11l9-7 9 7v9a1 1 0 0 1-1 1h-5v-6h-6v6H4a1 1 0 0 1-1-1z"/></svg><span data-i="parking"></span></li>
+          <li><a class="u" href="https://maps.google.com/?q=dental+clinic" target="_blank" rel="noopener" data-i="mapLink"></a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="faq">
+  <div class="wrap">
+    <div class="sec-head"><div><h2 data-i="faqH"></h2></div></div>
+    <div class="faq" id="faqList"></div>
+  </div>
+</section>
+
+<section class="sec" style="padding-top:0">
+  <div class="wrap">
+    <div class="cta"><h2 data-i="ctaH"></h2><a class="btn btn-main" href="#book" data-i="bookNow"></a></div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap foot">
+    <span data-i="foot"></span>
+    <span><span data-i="madeBy"></span> <a href="https://nafetha-web.github.io" style="text-decoration:underline">Nafetha</a></span>
+  </div>
+</footer>
+
+<div class="mbar">
+  <a class="btn btn-ghost" href="tel:+96170000000" aria-label="Call"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2"/></svg></a>
+  <a class="btn btn-main" href="#book" data-i="bookNow"></a>
+</div>
+
+<script>
+const WA='96171163991';
+const IC={
+ check:'<path d="M5 13l4 4L19 7"/>',
+ clean:'<path d="M12 3c-3-2-8-2-8 4 0 4 2 6 3 10 .5 2 1.5 4 2.5 4 2 0 1.5-5 2.5-5s.5 5 2.5 5c1 0 2-2 2.5-4 1-4 3-6 3-10 0-6-5-6-8-4z"/>',
+ sparkle:'<path d="M12 3l1.8 5.2L19 10l-5.2 1.8L12 17l-1.8-5.2L5 10l5.2-1.8z"/><path d="M19 15l.8 2.2L22 18l-2.2.8L19 21l-.8-2.2L16 18l2.2-.8z"/>',
+ align:'<path d="M4 9h16M4 15h16"/><circle cx="8" cy="9" r="1.5"/><circle cx="16" cy="9" r="1.5"/><circle cx="8" cy="15" r="1.5"/><circle cx="16" cy="15" r="1.5"/>',
+ implant:'<path d="M8 3h8l-1 5H9z"/><path d="M10 8v3h4V8M9.5 11h5M10 14h4M10.5 17h3M11 20h2"/>',
+ fill:'<circle cx="12" cy="12" r="8"/><path d="M12 8v8M8 12h8"/>',
+ kids:'<circle cx="12" cy="8" r="4"/><path d="M5 21c0-4 3-7 7-7s7 3 7 7"/>',
+ root:'<path d="M7 4c3-1 7-1 10 0 1 5-1 7-2 10l-1 7-2-5-2 5-1-7c-1-3-3-5-2-10z"/>',
+ veneer:'<rect x="5" y="4" width="14" height="16" rx="7"/><path d="M9 10h6"/>',
+ any:'<circle cx="9" cy="8" r="3"/><circle cx="17" cy="9" r="2.5"/><path d="M3 20c0-3.5 2.7-6 6-6s6 2.5 6 6M15 14.5c3 0 6 2 6 5.5"/>'
+};
+const svg=(k,s=22)=>`<svg width="${s}" height="${s}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${IC[k]}</svg>`;
+
+const SVC=[
+ {id:'check',ic:'clean',min:45,price:40,docs:['reem','karim','samer']},
+ {id:'white',ic:'sparkle',min:60,price:180,docs:['reem']},
+ {id:'align',ic:'align',min:45,price:1500,docs:['samer']},
+ {id:'implant',ic:'implant',min:90,price:650,docs:['karim']},
+ {id:'fill',ic:'fill',min:45,price:60,docs:['reem','karim']},
+ {id:'kids',ic:'kids',min:30,price:30,docs:['samer']},
+ {id:'root',ic:'root',min:60,price:150,docs:['karim']},
+ {id:'veneer',ic:'veneer',min:60,price:250,docs:['reem']}
+];
+const DOCS=[{id:'reem',img:'dr-reem'},{id:'karim',img:'dr-karim'},{id:'samer',img:'dr-samer'}];
+// hours: 0=Sun..6=Sat  [open, close] in minutes
+const HOURS={0:null,1:[540,1140],2:[540,1140],3:[540,1140],4:[540,1140],5:[540,1140],6:[540,840]};
+
+const T={
+ar:{
+ dir:'rtl',lang:'English',ribbon:'هذا نموذج موقع تجريبي لعيادة غير حقيقية، من تصميم نافذة.',ribbonLink:'اطلب موقعًا مثله',
+ brand:'ابتسامة',brandSub:'عيادة طب الأسنان',nServices:'الخدمات',nBook:'احجز موعدًا',nDoctors:'الأطباء',nVisit:'الزيارة',nFaq:'الأسئلة',
+ bookNow:'احجز موعدك',callUs:'اتصل بنا',
+ heroH:'عناية بأسنانك<br><em>بلا انتظار ولا قلق.</em>',
+ heroP:'عيادة أسنان عائلية للفحص والتجميل والتقويم والزراعة. اختر الخدمة والطبيب والوقت المناسب لك، واحجز خلال دقيقة.',
+ f1:'سنة خبرة',f2:'أطباء مختصون',f3:'أيام عمل في الأسبوع',
+ nextSlot:'أقرب موعد متاح',takeSlot:'احجزه',openNow:'مفتوح الآن',closedNow:'مغلق الآن',
+ today:'اليوم',tomorrow:'غدًا',
+ svcH:'خدماتنا',svcP:'أسعار تبدأ من المذكور، والسعر النهائي يتحدد بعد الفحص. اضغط على أي خدمة لتبدأ الحجز بها.',
+ from:'من',min:'دقيقة',
+ svc:{check:['فحص وتنظيف','فحص شامل مع تنظيف الجير وتلميع الأسنان.'],white:['تبييض الأسنان','تبييض داخل العيادة بنتيجة تظهر من الجلسة الأولى.'],align:['تقويم شفاف','مصففات شفافة لا تكاد تُرى، مع خطة علاج واضحة.'],implant:['زراعة الأسنان','تعويض السن المفقود بزرعة ثابتة تدوم طويلًا.'],fill:['حشوات تجميلية','حشوات بلون السن الطبيعي، بلا معدن.'],kids:['أسنان الأطفال','زيارة هادئة ولطيفة تجعل طفلك يحب طبيب الأسنان.'],root:['علاج العصب','علاج دقيق ومريح للعصب مع تخدير كامل.'],veneer:['قشور الفينير','قشور خزفية رقيقة لابتسامة متناسقة.']},
+ bookH:'احجز موعدك بأربع خطوات',bookP:'اختر ما يناسبك، وسيصلنا طلبك على واتساب لنؤكد الموعد خلال دقائق.',
+ stepNames:['الخدمة','الطبيب','اليوم والوقت','بياناتك'],
+ s1H:'ما الذي تحتاجه؟',s1P:'اختر خدمة واحدة. يمكنك إضافة ملاحظات في الخطوة الأخيرة.',
+ s2H:'اختر الطبيب',s2P:'نعرض الأطباء المختصين بالخدمة التي اخترتها.',anyDoc:'أي طبيب متاح',anyDocSub:'نختار لك أقرب موعد',
+ s3H:'اختر اليوم والوقت',s3P:'الأوقات المشطوبة محجوزة. يوم الأحد العيادة مغلقة.',noTimes:'لا توجد أوقات متاحة في هذا اليوم. جرّب يومًا آخر.',
+ s4H:'بياناتك',s4P:'نحتاج اسمك فقط، والباقي اختياري.',fName:'الاسم',fPhone:'رقم الهاتف (اختياري)',fNote:'ملاحظات (اختياري)',
+ sumSvc:'الخدمة',sumDoc:'الطبيب',sumWhen:'الموعد',sumDur:'المدة التقريبية',
+ next:'التالي',back:'رجوع',send:'أرسل طلب الحجز عبر واتساب',needName:'اكتب اسمك لنعرف باسم من نحجز الموعد.',
+ waHead:'مرحبًا، أريد حجز موعد في عيادة ابتسامة:',waName:'الاسم',waPhone:'الهاتف',waNote:'ملاحظات',waFoot:'(طلب من نموذج موقع عيادة ابتسامة)',
+ days:['الأحد','الإثنين','الثلاثاء','الأربعاء','الخميس','الجمعة','السبت'],
+ months:['كانون الثاني','شباط','آذار','نيسان','أيار','حزيران','تموز','آب','أيلول','تشرين الأول','تشرين الثاني','كانون الأول'],
+ baH:'نتيجة تراها من الجلسة الأولى',baP:'التبييض داخل العيادة يستغرق ساعة تقريبًا، ويفتح لون الأسنان عدة درجات بأمان.',
+ baList:['جلسة واحدة لمدة ساعة','لا يسبب حساسية مزعجة مع التحضير الصحيح','نصائح مكتوبة للحفاظ على النتيجة'],
+ before:'قبل',after:'بعد',baNote:'اسحب الخط لترى الفرق. الصورة توضيحية.',baAria:'مقارنة قبل وبعد التبييض',
+ docH:'أطباء تعرفهم بالاسم',docP:'فريق صغير يعرف مرضاه، ويتابع حالتك من أول زيارة حتى آخرها.',
+ doc:{reem:['د. ريم حدّاد','تجميل الأسنان والتبييض والفينير','العربية، الإنكليزية، الفرنسية'],karim:['د. كريم نصّار','زراعة الأسنان وجراحة الفم وعلاج العصب','العربية، الإنكليزية'],samer:['د. سامر خليل','التقويم الشفاف وأسنان الأطفال','العربية، الإنكليزية']},
+ langs:'اللغات:',bookWith:'احجز مع الطبيب',
+ tourH:'جولة في العيادة',tourP:'غرف معقمة، أجهزة حديثة، وصالة انتظار هادئة.',
+ t1:'غرفة العلاج',t2:'الاستقبال',t3:'الأشعة الرقمية',t4:'الاستشارة',t5:'ركن الأطفال',
+ visitH:'زيارتك',hoursH:'ساعات العمل',payH:'الدفع والتأمين',whereH:'العنوان',
+ pay:['نقدًا أو بالبطاقة','تقسيط علاج التقويم والزراعة على 6 أشهر','نتعامل مع معظم شركات التأمين، اسألنا عن شركتك','خطة علاج مكتوبة وسعر واضح قبل البدء'],
+ closed:'مغلق',addr:'شارع الرئيسي، بناية النخيل، الطابق الأول',parking:'موقف سيارات مجاني أمام البناية',mapLink:'افتح الموقع على الخريطة',
+ faqH:'أسئلة شائعة',
+ faq:[['هل الفحص الأول مدفوع؟','نعم، الفحص مع التنظيف بـ40 دولارًا، ويشمل خطة علاج مكتوبة إذا احتجت لأي علاج.'],['هل يمكنني الحجز لطفلي؟','بالتأكيد. اختر خدمة «أسنان الأطفال» واكتب عمر الطفل في الملاحظات.'],['ماذا لو تأخرت عن موعدي؟','نحتفظ بالموعد 15 دقيقة. إذا تأخرت أكثر، راسلنا لنجد لك وقتًا آخر.'],['هل التبييض مؤذٍ للأسنان؟','لا، عندما يتم داخل العيادة وتحت إشراف الطبيب وبعد فحص الأسنان.'],['كيف أعرف أن الموعد تأكد؟','نرد على طلبك عبر واتساب برسالة تأكيد، ونذكّرك قبل الموعد بيوم.']],
+ ctaH:'ابتسامتك تستحق موعدًا اليوم.',foot:'© 2026 عيادة ابتسامة لطب الأسنان. نموذج تجريبي.',madeBy:'تصميم وتطوير'
+},
+en:{
+ dir:'ltr',lang:'عربي',ribbon:'This is a demo website for a fictional clinic, designed by Nafetha.',ribbonLink:'Get a site like this',
+ brand:'Ibtisama',brandSub:'Dental clinic',nServices:'Services',nBook:'Book',nDoctors:'Doctors',nVisit:'Visit',nFaq:'FAQ',
+ bookNow:'Book an appointment',callUs:'Call us',
+ heroH:'Dental care<br><em>without the wait or the worry.</em>',
+ heroP:'A family dental clinic for check-ups, cosmetic work, aligners and implants. Choose the treatment, the doctor and a time that suits you, and book in a minute.',
+ f1:'years of experience',f2:'specialist doctors',f3:'days a week',
+ nextSlot:'Next available',takeSlot:'Book it',openNow:'Open now',closedNow:'Closed now',
+ today:'Today',tomorrow:'Tomorrow',
+ svcH:'Our services',svcP:'Prices are starting points; the final price is set after your exam. Tap any service to start booking it.',
+ from:'from',min:'min',
+ svc:{check:['Check-up & cleaning','A full exam with scaling and polishing.'],white:['Teeth whitening','In-clinic whitening with results from the first visit.'],align:['Clear aligners','Near-invisible aligners with a clear treatment plan.'],implant:['Dental implants','Replace a missing tooth with a fixed, long-lasting implant.'],fill:['Tooth-coloured fillings','Natural-looking fillings, no metal.'],kids:['Children\'s dentistry','A calm, gentle visit that helps kids like the dentist.'],root:['Root canal','Careful, comfortable treatment under full anaesthesia.'],veneer:['Porcelain veneers','Thin porcelain shells for an even smile.']},
+ bookH:'Book in four steps',bookP:'Pick what suits you and your request reaches us on WhatsApp. We confirm within minutes.',
+ stepNames:['Service','Doctor','Day & time','Your details'],
+ s1H:'What do you need?',s1P:'Choose one service. You can add notes in the last step.',
+ s2H:'Choose a doctor',s2P:'We only show doctors who provide the service you chose.',anyDoc:'Any available doctor',anyDocSub:'We pick the earliest slot',
+ s3H:'Choose a day and time',s3P:'Crossed-out times are taken. The clinic is closed on Sundays.',noTimes:'No free times on this day. Try another day.',
+ s4H:'Your details',s4P:'We only need your name; the rest is optional.',fName:'Name',fPhone:'Phone (optional)',fNote:'Notes (optional)',
+ sumSvc:'Service',sumDoc:'Doctor',sumWhen:'Appointment',sumDur:'Approx. length',
+ next:'Next',back:'Back',send:'Send booking request on WhatsApp',needName:'Add your name so we know who the booking is for.',
+ waHead:'Hello, I would like to book at Ibtisama clinic:',waName:'Name',waPhone:'Phone',waNote:'Notes',waFoot:'(Request from the Ibtisama demo website)',
+ days:['Sun','Mon','Tue','Wed','Thu','Fri','Sat'],
+ months:['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'],
+ baH:'Results you see after one visit',baP:'In-clinic whitening takes about an hour and safely lifts your shade by several tones.',
+ baList:['One session of about an hour','No uncomfortable sensitivity with the right preparation','Written tips to keep the result'],
+ before:'Before',after:'After',baNote:'Drag the line to compare. Illustrative image.',baAria:'Before and after whitening comparison',
+ docH:'Doctors who know you by name',docP:'A small team that knows its patients and follows your case from the first visit to the last.',
+ doc:{reem:['Dr. Reem Haddad','Cosmetic dentistry, whitening and veneers','Arabic, English, French'],karim:['Dr. Karim Nassar','Implants, oral surgery and root canals','Arabic, English'],samer:['Dr. Samer Khalil','Clear aligners and children\'s dentistry','Arabic, English']},
+ langs:'Languages:',bookWith:'Book with this doctor',
+ tourH:'Inside the clinic',tourP:'Sterile rooms, modern equipment and a quiet waiting area.',
+ t1:'Treatment room',t2:'Reception',t3:'Digital X-ray',t4:'Consultation',t5:'Kids corner',
+ visitH:'Your visit',hoursH:'Opening hours',payH:'Payment & insurance',whereH:'Address',
+ pay:['Cash or card','Aligners and implants in 6 monthly instalments','We work with most insurers; ask us about yours','A written plan and a clear price before we start'],
+ closed:'Closed',addr:'Main Street, Al Nakheel building, 1st floor',parking:'Free parking in front of the building',mapLink:'Open in maps',
+ faqH:'Questions',
+ faq:[['Is the first exam paid?','Yes. The exam with cleaning is $40 and includes a written treatment plan if you need any treatment.'],['Can I book for my child?','Of course. Choose "Children\'s dentistry" and add your child\'s age in the notes.'],['What if I am late?','We hold your slot for 15 minutes. If you will be later, message us and we will find another time.'],['Is whitening bad for teeth?','No, not when it is done in the clinic, after an exam and under a dentist\'s supervision.'],['How do I know my booking is confirmed?','We reply to your request on WhatsApp with a confirmation and remind you the day before.']],
+ ctaH:'Your smile deserves an appointment today.',foot:'© 2026 Ibtisama Dental Clinic. Demo website.',madeBy:'Design and development by'
+}};
+
+let lang='ar';
+const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
+const t=k=>T[lang][k];
+const pad=n=>String(n).padStart(2,'0');
+const fmtTime=m=>{const h=Math.floor(m/60),mm=m%60; if(lang==='en'){const h12=((h+11)%12)+1;return `${h12}:${pad(mm)} ${h<12?'AM':'PM'}`} return `${h}:${pad(mm)}`};
+const dayStart=d=>{const x=new Date(d);x.setHours(0,0,0,0);return x};
+const nowMin=()=>{const n=new Date();return n.getHours()*60+n.getMinutes()};
+
+// deterministic "taken" slots
+function hash(s){let h=2166136261;for(const c of s){h^=c.charCodeAt(0);h=Math.imul(h,16777619)}return h>>>0}
+function slotsFor(date,doc){
+  const hrs=HOURS[date.getDay()]; if(!hrs) return [];
+  const isToday=dayStart(date).getTime()===dayStart(new Date()).getTime();
+  const out=[];
+  for(let m=hrs[0];m<=hrs[1]-30;m+=30){
+    const key=date.toDateString()+m+(doc||'any');
+    const taken=(hash(key)%100)<(doc?38:22);
+    const past=isToday && m<=nowMin()+30;
+    out.push({m,ok:!taken&&!past});
+  }
+  return out;
+}
+function nextFree(doc){
+  const d=dayStart(new Date());
+  for(let i=0;i<21;i++){const x=new Date(d);x.setDate(d.getDate()+i);const s=slotsFor(x,doc).find(s=>s.ok);if(s) return {date:x,m:s.m,i}}
+  return null;
+}
+function dayLabel(date,i){ if(i===0) return t('today'); if(i===1) return t('tomorrow'); return t('days')[date.getDay()] }
+function dateText(date){ return lang==='ar'? `${t('days')[date.getDay()]} ${date.getDate()} ${t('months')[date.getMonth()]}` : `${t('days')[date.getDay()]}, ${t('months')[date.getMonth()]} ${date.getDate()}` }
+
+// booking state
+const B={step:0,svc:null,doc:null,date:null,m:null};
+
+function renderStatic(){
+  document.documentElement.lang=lang; document.documentElement.dir=t('dir');
+  document.title= lang==='ar'?'عيادة ابتسامة لطب الأسنان':'Ibtisama Dental Clinic';
+  $$('[data-i]').forEach(el=>{const v=t(el.dataset.i); if(typeof v!=='string') return; if(el.hasAttribute('data-html')) el.innerHTML=v; else el.textContent=v});
+  $$('[data-ia]').forEach(el=>el.setAttribute('aria-label',t(el.dataset.ia)));
+  $('#langBtn').textContent=t('lang');
+  // services grid
+  $('#svcGrid').innerHTML=SVC.map(s=>{const [n,d]=t('svc')[s.id];return `<button type="button" data-svc="${s.id}"><span class="ic">${svg(s.ic)}</span><h3>${n}</h3><p>${d}</p><span class="meta"><span>${t('from')} <b class="ltr">$${s.price.toLocaleString('en')}</b></span><span><span class="ltr">${s.min}</span> ${t('min')}</span></span></button>`}).join('');
+  $$('#svcGrid [data-svc]').forEach(b=>b.onclick=()=>{B.svc=b.dataset.svc;B.doc=null;B.date=null;B.m=null;go(1);$('#book').scrollIntoView()});
+  // doctors
+  $('#docGrid').innerHTML=DOCS.map(d=>{const [n,s,l]=t('doc')[d.id];return `<article class="doc"><img src="img/${d.img}.webp" alt="${n}" loading="lazy"><div><h3>${n}</h3><p>${s}</p><span class="langs">${t('langs')} ${l}</span><button type="button" data-doc="${d.id}">${t('bookWith')}</button></div></article>`}).join('');
+  $$('#docGrid [data-doc]').forEach(b=>b.onclick=()=>{const id=b.dataset.doc;B.doc=id;if(!B.svc||!SVC.find(s=>s.id===B.svc).docs.includes(id)) B.svc=SVC.find(s=>s.docs.includes(id)).id;B.date=null;B.m=null;go(2);$('#book').scrollIntoView()});
+  $('#baList').innerHTML=t('baList').map(x=>`<li>${svg('check',20)}<span>${x}</span></li>`).join('');
+  $('#payList').innerHTML=t('pay').map(x=>`<li class="row">${svg('check',18)}<span>${x}</span></li>`).join('');
+  $('#faqList').innerHTML=t('faq').map(([q,a],i)=>`<details${i===0?' open':''}><summary>${q}</summary><p>${a}</p></details>`).join('');
+  renderHours(); renderNext(); renderBooking();
+}
+function renderHours(){
+  const today=new Date().getDay(), order=[1,2,3,4,5,6,0];
+  $('#hours').innerHTML=order.map(d=>{const h=HOURS[d];return `<tr class="${d===today?'today':''}"><td>${t('days')[d]}</td><td><span class="ltr">${h?fmtTime(h[0])+' – '+fmtTime(h[1]):''}</span>${h?'':t('closed')}</td></tr>`}).join('');
+  const h=HOURS[today], n=nowMin(), open=!!h && n>=h[0] && n<h[1];
+  const st=$('#status'); st.classList.toggle('closed',!open); st.querySelector('span').textContent=open?t('openNow'):t('closedNow');
+  $('#openChip').textContent=open?t('openNow'):t('closedNow');
+}
+function renderNext(){
+  const nf=nextFree(null); if(!nf) return;
+  $('#nextSlot').textContent=`${dayLabel(nf.date,nf.i)} · ${fmtTime(nf.m)}`.replace(' · ',lang==='ar'?'، ':', ');
+  $('#takeSlot').onclick=()=>{B.svc=B.svc||'check';B.doc=null;B.date=nf.date;B.m=nf.m;go(3);$('#book').scrollIntoView()};
+}
+
+function renderBooking(){
+  // steps list
+  const names=t('stepNames');
+  const val=[B.svc&&t('svc')[B.svc][0], B.step>1||B.date? (B.doc?t('doc')[B.doc][0]:t('anyDoc')) : '', B.date&&B.m!=null? dateText(B.date)+' '+fmtTime(B.m):'', ''];
+  $('#steps').innerHTML=names.map((n,i)=>`<li class="${i===B.step?'on':i<B.step?'done':''}" ${i<B.step?`data-go="${i}" tabindex="0" role="button"`:''}><b>${i<B.step?'✓':i+1}</b><span>${n}${i<B.step&&val[i]?`<small>${val[i]}</small>`:''}</span></li>`).join('');
+  $$('#steps [data-go]').forEach(li=>{li.onclick=()=>go(+li.dataset.go);li.onkeydown=e=>{if(e.key==='Enter')go(+li.dataset.go)}});
+  $$('.pane').forEach(p=>p.classList.toggle('on',+p.dataset.step===B.step));
+  // step 1
+  $('#bkSvc').innerHTML=SVC.map(s=>{const [n]=t('svc')[s.id];return `<button type="button" class="choice" data-v="${s.id}" aria-pressed="${B.svc===s.id}"><span class="ic">${svg(s.ic)}</span><span><b>${n}</b><small>${t('from')} <span class="ltr">$${s.price.toLocaleString('en')}</span> · <span class="ltr">${s.min}</span> ${t('min')}</small></span></button>`}).join('');
+  $$('#bkSvc .choice').forEach(b=>b.onclick=()=>{if(B.svc!==b.dataset.v){B.doc=null;B._any=false;B.date=null;B.m=null}B.svc=b.dataset.v;go(1)});
+  // step 2
+  const allowed=B.svc?SVC.find(s=>s.id===B.svc).docs:[];
+  $('#bkDoc').innerHTML=(allowed.length>1?`<button type="button" class="choice" data-v="" aria-pressed="${B._any===true}"><span class="ic">${svg('any')}</span><span><b>${t('anyDoc')}</b><small>${t('anyDocSub')}</small></span></button>`:'')+
+    allowed.map(id=>{const [n,s]=t('doc')[id];return `<button type="button" class="choice" data-v="${id}" aria-pressed="${B.doc===id}"><img src="img/dr-${id}.webp" alt=""><span><b>${n}</b><small>${s}</small></span></button>`}).join('');
+  $$('#bkDoc .choice').forEach(b=>b.onclick=()=>{B.doc=b.dataset.v||null;B._any=!b.dataset.v;B.date=null;B.m=null;go(2)});
+  // step 3
+  renderDays();
+  // step 4
+  renderSum();
+  // nav
+  $('#bBack').hidden=B.step===0;
+  const nb=$('#bNext');
+  if(B.step===3){nb.textContent=t('send');nb.className='btn btn-wa';nb.disabled=false}
+  else{nb.textContent=t('next');nb.className='btn btn-light';nb.disabled=!canNext()}
+}
+function canNext(){return B.step===0?!!B.svc : B.step===1?(B.doc!==null||B._any===true) : B.step===2?(B.date&&B.m!=null):true}
+function renderDays(){
+  const base=dayStart(new Date()); let html='';
+  for(let i=0;i<14;i++){const d=new Date(base);d.setDate(base.getDate()+i);const free=slotsFor(d,B.doc).some(s=>s.ok);
+    const sel=B.date&&dayStart(B.date).getTime()===d.getTime();
+    html+=`<button type="button" class="day" data-i="${i}" ${free?'':'disabled'} aria-pressed="${!!sel}"><small>${dayLabel(d,i)}</small><b>${d.getDate()}</b><small>${t('months')[d.getMonth()]}</small></button>`}
+  $('#bkDays').innerHTML=html;
+  $$('#bkDays .day').forEach(b=>b.onclick=()=>{const d=new Date(base);d.setDate(base.getDate()+(+b.dataset.i));B.date=d;B.m=null;renderBooking()});
+  const tm=$('#bkTimes'), em=$('#bkEmpty');
+  if(!B.date){tm.innerHTML='';em.hidden=true;return}
+  const sl=slotsFor(B.date,B.doc);
+  em.hidden=sl.some(s=>s.ok); em.textContent=t('noTimes');
+  tm.innerHTML=sl.map(s=>`<button type="button" class="time" data-m="${s.m}" ${s.ok?'':'disabled'} aria-pressed="${B.m===s.m}">${fmtTime(s.m)}</button>`).join('');
+  $$('#bkTimes .time').forEach(b=>b.onclick=()=>{B.m=+b.dataset.m;renderBooking()});
+}
+function renderSum(){
+  if(!B.svc){$('#sum').innerHTML='';return}
+  const s=SVC.find(x=>x.id===B.svc);
+  $('#sum').innerHTML=`<dt>${t('sumSvc')}</dt><dd>${t('svc')[B.svc][0]}</dd><dt>${t('sumDoc')}</dt><dd>${B.doc?t('doc')[B.doc][0]:t('anyDoc')}</dd>`+
+   (B.date&&B.m!=null?`<dt>${t('sumWhen')}</dt><dd>${dateText(B.date)}، <span class="ltr">${fmtTime(B.m)}</span></dd>`:'')+
+   `<dt>${t('sumDur')}</dt><dd><span class="ltr">${s.min}</span> ${t('min')}</dd>`;
+  if(lang==='en') $('#sum').innerHTML=$('#sum').innerHTML.replace('، ',', ');
+}
+function go(i){ if(i===1&&B.svc){const a=SVC.find(s=>s.id===B.svc).docs; if(a.length===1){B.doc=a[0]}} B.step=i; $('#err').textContent=''; renderBooking(); const p=document.querySelector('.panel').getBoundingClientRect(); if(p.top<70||p.top>innerHeight*.6) scrollTo({top:scrollY+p.top-(innerWidth<900?150:110),behavior:'smooth'}); }
+$('#bBack').onclick=()=>go(Math.max(0,B.step-1));
+$('#bNext').onclick=()=>{
+  if(B.step<3){ if(canNext()) go(B.step+1); return }
+  const name=$('#fName').value.trim(); if(!name){$('#err').textContent=t('needName');$('#fName').focus();return}
+  const phone=$('#fPhone').value.trim(), note=$('#fNote').value.trim();
+  const lines=[t('waHead'),'',`• ${t('sumSvc')}: ${t('svc')[B.svc][0]}`,`• ${t('sumDoc')}: ${B.doc?t('doc')[B.doc][0]:t('anyDoc')}`,`• ${t('sumWhen')}: ${dateText(B.date)} - ${fmtTime(B.m)}`,`• ${t('waName')}: ${name}`];
+  if(phone) lines.push(`• ${t('waPhone')}: ${phone}`); if(note) lines.push(`• ${t('waNote')}: ${note}`);
+  lines.push('',t('waFoot'));
+  window.open(`https://wa.me/${WA}?text=${encodeURIComponent(lines.join('\n'))}`,'_blank','noopener');
+};
+$('#langBtn').onclick=()=>{lang=lang==='ar'?'en':'ar';try{localStorage.setItem('ibt-lang',lang)}catch(e){};renderStatic()};
+try{const s=localStorage.getItem('ibt-lang');if(s==='en'||s==='ar')lang=s}catch(e){}
+
+// before/after slider
+(function(){
+  const el=$('#ba'); let drag=false;
+  const set=x=>{x=Math.max(0,Math.min(100,x));el.style.setProperty('--x',x+'%');el.setAttribute('aria-valuenow',Math.round(x))};
+  const pos=e=>{const r=el.getBoundingClientRect();return ((e.clientX-r.left)/r.width)*100};
+  el.addEventListener('pointerdown',e=>{drag=true;el.setPointerCapture(e.pointerId);set(pos(e))});
+  el.addEventListener('pointermove',e=>{if(drag)set(pos(e))});
+  el.addEventListener('pointerup',()=>drag=false);
+  el.addEventListener('keydown',e=>{const v=+el.getAttribute('aria-valuenow');if(e.key==='ArrowLeft')set(v-5);if(e.key==='ArrowRight')set(v+5)});
+  set(50);
+})();
+renderStatic();
+setInterval(()=>{renderHours();renderNext()},60000);
+</script>
+</body>
+</html>
