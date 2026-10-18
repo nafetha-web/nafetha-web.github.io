@@ -1,0 +1,882 @@
+<!doctype html>
+<html lang="ar" dir="rtl" data-mood="all">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Artisan Workshop | تزيين مناسبات وهدايا</title>
+<meta name="description" content="Artisan Workshop — تزيين أعراس وخطوبات وأعياد ميلاد وحفلات، وهدايا مغلّفة بحب. صمّم مناسبتك أونلاين واحجز عالواتساب.">
+<meta name="robots" content="noindex">
+<link rel="icon" href="img/butterfly.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=El+Messiri:wght@400;500;600;700&family=Tajawal:wght@400;500;700;800&family=Playfair+Display:ital,wght@0,500;0,700;1,500&family=Great+Vibes&family=Aref+Ruqaa:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#FCFAF6; --paper:#FFFFFF; --ink:#1B1917; --mute:#6E6760; --line:#ECE5DA;
+  --w1:#4F7BE8; --w2:#8E5BD8; --w3:#EE6FA5; --w4:#F49A3C;
+  --acc:#8E5BD8; --acc2:#EE6FA5; --soft:#F4ECFA;
+  --grad:linear-gradient(100deg,var(--w1),var(--w2) 35%,var(--w3) 65%,var(--w4));
+  --r:22px; --sh:0 18px 50px -24px rgba(40,25,60,.35);
+  --fd:'El Messiri','Playfair Display',serif; --fb:'Tajawal',system-ui,sans-serif;
+}
+html[lang=en]{--fd:'Playfair Display','El Messiri',serif}
+html[data-mood=wedding]{--acc:#B08D57;--acc2:#D9BF8F;--soft:#F6EFE3;--grad:linear-gradient(100deg,#9C7A45,#D9BF8F 50%,#B08D57)}
+html[data-mood=engage]{--acc:#C25E80;--acc2:#E9A9BC;--soft:#FBEAF0;--grad:linear-gradient(100deg,#B04A6E,#E9A9BC 55%,#D4A373)}
+html[data-mood=bday]{--acc:#6C4DF5;--acc2:#FF7EA8;--soft:#F1EDFF;--grad:linear-gradient(100deg,#4F7BE8,#8E5BD8 30%,#FF7EA8 60%,#FFB547)}
+html[data-mood=baby]{--acc:#5B8FD0;--acc2:#B79FD8;--soft:#EEF4FB;--grad:linear-gradient(100deg,#7FB2E5,#B79FD8 55%,#F2A7C3)}
+html[data-mood=gift]{--acc:#E06A2C;--acc2:#F2A65A;--soft:#FDF0E6;--grad:linear-gradient(100deg,#E06A2C,#F2A65A 50%,#EE6FA5)}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{font-family:var(--fb);background:var(--bg);color:var(--ink);line-height:1.7;overflow-x:hidden;transition:background .6s}
+img{max-width:100%;display:block}
+button,input,textarea,select{font:inherit;color:inherit}
+button{cursor:pointer;border:0;background:none}
+a{color:inherit;text-decoration:none}
+.wrap{width:min(1180px,100% - 32px);margin-inline:auto}
+.gt{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+.eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:.82rem;font-weight:700;letter-spacing:.04em;color:var(--acc);background:var(--soft);padding:6px 14px;border-radius:99px;transition:.5s}
+.eyebrow img{width:18px}
+h1,h2,h3{font-family:var(--fd);line-height:1.25;font-weight:700}
+h2{font-size:clamp(1.8rem,4.2vw,2.9rem);margin:12px 0 10px}
+.lead{color:var(--mute);font-size:1.05rem;max-width:620px}
+.sec{padding:96px 0;position:relative}
+.sec-h{text-align:center;display:flex;flex-direction:column;align-items:center;margin-bottom:44px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;padding:14px 26px;border-radius:99px;font-weight:700;transition:transform .25s,box-shadow .25s,background .4s;white-space:nowrap}
+.btn-p{background:var(--ink);color:#fff;box-shadow:0 12px 30px -14px rgba(0,0,0,.6)}
+.btn-p:hover{transform:translateY(-2px)}
+.btn-g{background:var(--grad);color:#fff;box-shadow:0 14px 30px -14px var(--acc)}
+.btn-g:hover{transform:translateY(-2px)}
+.btn-o{border:1.5px solid var(--ink);background:transparent}
+.btn-o:hover{background:var(--ink);color:#fff}
+.btn svg{width:20px;height:20px}
+.btn:disabled{opacity:.4;cursor:not-allowed;transform:none}
+
+/* header */
+.hdr{position:fixed;inset:0 0 auto;z-index:50;transition:background .3s,box-shadow .3s}
+.hdr.s{background:rgba(252,250,246,.88);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);box-shadow:0 1px 0 var(--line)}
+.hdr .wrap{display:flex;align-items:center;justify-content:space-between;height:74px;gap:16px}
+.brand{display:flex;align-items:center;gap:10px}
+.brand img{width:44px}
+.brand b{font-family:'Playfair Display',serif;font-size:1.25rem;line-height:1;letter-spacing:.01em;direction:ltr}
+.brand small{display:block;font-family:var(--fb);font-size:.66rem;color:var(--mute);letter-spacing:.18em;margin-top:3px;font-weight:700}
+.nav{display:flex;gap:26px;font-weight:500;font-size:.95rem}
+.nav a{position:relative;opacity:.8}
+.nav a:hover{opacity:1}
+.nav a::after{content:"";position:absolute;inset:auto 0 -4px;height:2px;background:var(--grad);transform:scaleX(0);transition:.3s}
+.nav a:hover::after{transform:none}
+.hx{display:flex;gap:8px;align-items:center}
+.lang{width:42px;height:42px;border-radius:50%;border:1px solid var(--line);font-weight:700;font-size:.85rem;background:var(--paper)}
+.hdr .btn{padding:10px 18px;font-size:.9rem}
+@media(max-width:900px){.nav{display:none}.hdr .btn span{display:none}.hdr .btn{padding:0;width:42px;height:42px}}
+
+/* hero */
+.hero{min-height:100vh;min-height:100svh;display:flex;align-items:center;padding:110px 0 70px;position:relative;overflow:hidden}
+.blobs{position:absolute;inset:0;pointer-events:none;z-index:0}
+.blob{position:absolute;border-radius:50%;filter:blur(60px);opacity:.42;animation:drift 18s ease-in-out infinite alternate}
+.b1{width:420px;height:420px;background:var(--w1);top:-120px;inset-inline-end:-80px}
+.b2{width:360px;height:360px;background:var(--w3);bottom:-120px;inset-inline-start:-60px;animation-delay:-6s}
+.b3{width:300px;height:300px;background:var(--w4);top:40%;inset-inline-start:35%;opacity:.25;animation-delay:-11s}
+.b4{width:260px;height:260px;background:var(--w2);top:10%;inset-inline-start:8%;opacity:.25;animation-delay:-3s}
+@keyframes drift{to{transform:translate(40px,30px) scale(1.12)}}
+.hero .wrap{position:relative;z-index:1;display:grid;grid-template-columns:1.05fr .95fr;gap:56px;align-items:center}
+.hero h1{font-size:clamp(2.3rem,5.6vw,4.3rem);margin:18px 0 18px;letter-spacing:-.01em}
+.hero h1 .gt{display:inline-block;position:relative}
+.hero h1 .gt::after{content:"";position:absolute;inset:auto 0 -2px;height:10px;background:var(--grad);opacity:.18;border-radius:6px}
+.hero p.lead{font-size:1.12rem}
+.cta{display:flex;gap:12px;flex-wrap:wrap;margin-top:28px}
+.occ{display:flex;flex-wrap:wrap;gap:8px;margin-top:30px}
+.occ button{padding:8px 16px;border-radius:99px;border:1px solid var(--line);background:rgba(255,255,255,.75);font-size:.9rem;font-weight:500;transition:.3s;display:inline-flex;gap:6px;align-items:center}
+.occ button.on{background:var(--ink);color:#fff;border-color:var(--ink)}
+.occ-l{font-size:.8rem;color:var(--mute);margin-top:22px;font-weight:700}
+.collage{position:relative;height:560px}
+.ph{position:absolute;overflow:hidden;box-shadow:var(--sh);background:var(--soft);transition:transform .8s cubic-bezier(.2,.8,.2,1)}
+.ph img{width:100%;height:100%;object-fit:cover;transition:opacity .6s,transform 6s}
+.ph img.out{opacity:0}
+.ph1{width:62%;height:78%;top:0;inset-inline-start:0;border-radius:200px 200px 26px 26px}
+.ph2{width:44%;height:44%;bottom:0;inset-inline-end:0;border-radius:26px;border:6px solid #fff}
+.ph3{width:34%;height:30%;top:6%;inset-inline-end:2%;border-radius:50%;border:6px solid #fff}
+.fly{position:absolute;width:120px;z-index:3;top:46%;inset-inline-end:40%;animation:fly 7s ease-in-out infinite;filter:drop-shadow(0 10px 14px rgba(60,30,90,.25))}
+.fly img{animation:flap 1.6s ease-in-out infinite;transform-origin:50% 50%}
+@keyframes fly{0%,100%{transform:translate(0,0) rotate(-6deg)}33%{transform:translate(-26px,-30px) rotate(4deg)}66%{transform:translate(14px,-12px) rotate(-2deg)}}
+@keyframes flap{0%,100%{transform:scaleX(1)}50%{transform:scaleX(.82)}}
+.badge{position:absolute;bottom:13%;inset-inline-start:-4%;z-index:4;background:#fff;border-radius:18px;padding:12px 16px;box-shadow:var(--sh);display:flex;gap:12px;align-items:center;font-size:.85rem;max-width:250px}
+.badge i{width:42px;height:42px;border-radius:12px;background:var(--grad);display:grid;place-items:center;flex:none;color:#fff;font-style:normal;font-size:1.2rem}
+.badge b{display:block;font-size:.95rem}
+@media(max-width:900px){
+  .hero{padding-top:96px}
+  .hero .wrap{grid-template-columns:minmax(0,1fr);gap:34px}
+  .collage{height:420px}
+  .badge{inset-inline-start:0}
+}
+@media(max-width:480px){.collage{height:360px}.fly{width:86px}}
+
+/* marquee */
+.mq{background:var(--ink);color:#fff;overflow:hidden;padding:16px 0;font-family:var(--fd);font-size:1.2rem}
+.mq-t{display:flex;gap:42px;width:max-content;animation:mq 34s linear infinite}
+.mq-t span{display:flex;gap:42px;align-items:center;white-space:nowrap}
+.mq-t img{width:26px;filter:brightness(1.3)}
+@keyframes mq{to{transform:translateX(50%)}}
+html[dir=ltr] .mq-t{animation-name:mql}
+@keyframes mql{to{transform:translateX(-50%)}}
+
+/* builder */
+.bld{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.08fr);gap:28px;align-items:start}
+.panel{background:var(--paper);border:1px solid var(--line);border-radius:var(--r);padding:26px;box-shadow:0 2px 0 rgba(0,0,0,.02)}
+.step{padding:18px 0;border-bottom:1px dashed var(--line)}
+.step:first-child{padding-top:0}
+.step:last-child{border:0;padding-bottom:0}
+.step h4{font-family:var(--fd);font-size:1.08rem;display:flex;gap:10px;align-items:center;margin-bottom:12px}
+.step h4 em{font-style:normal;width:26px;height:26px;border-radius:50%;background:var(--soft);color:var(--acc);display:grid;place-items:center;font-size:.8rem;font-family:var(--fb);font-weight:800;transition:.5s}
+.step h4 small{font-family:var(--fb);font-weight:500;color:var(--mute);font-size:.8rem;margin-inline-start:auto}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{padding:9px 15px;border-radius:14px;border:1.5px solid var(--line);font-size:.9rem;font-weight:500;transition:.25s;background:#fff;display:inline-flex;gap:7px;align-items:center}
+.chip:hover{border-color:var(--acc2)}
+.chip.on{border-color:var(--acc);background:var(--soft);color:var(--ink);box-shadow:inset 0 0 0 1px var(--acc)}
+.chip .p{font-size:.75rem;color:var(--mute);font-weight:700}
+.pals{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px}
+.pal{border:1.5px solid var(--line);border-radius:14px;padding:8px;background:#fff;text-align:center;font-size:.74rem;font-weight:500;transition:.25s}
+.pal.on{border-color:var(--acc);box-shadow:inset 0 0 0 1px var(--acc)}
+.pal .sw{display:flex;height:26px;border-radius:8px;overflow:hidden;margin-bottom:6px;box-shadow:inset 0 0 0 1px rgba(0,0,0,.06)}
+.pal .sw i{flex:1}
+.inp{width:100%;border:1.5px solid var(--line);border-radius:14px;padding:12px 14px;background:#fff;outline:none;transition:.25s}
+.inp:focus{border-color:var(--acc)}
+.rng{display:flex;align-items:center;gap:14px}
+.rng input{flex:1;accent-color:var(--acc)}
+.rng b{min-width:64px;text-align:center;background:var(--soft);border-radius:10px;padding:4px 8px;font-size:.9rem}
+.stage{position:sticky;top:90px}
+.scene{border-radius:var(--r);overflow:hidden;background:#F3EEE7;box-shadow:var(--sh);position:relative;aspect-ratio:600/430}
+.scene svg{width:100%;height:100%;display:block}
+.scene .tag{position:absolute;top:12px;inset-inline-start:12px;background:rgba(255,255,255,.85);backdrop-filter:blur(6px);border-radius:99px;padding:5px 12px;font-size:.75rem;font-weight:700;display:flex;gap:6px;align-items:center}
+.scene .tag i{width:8px;height:8px;border-radius:50%;background:#2fbf71;box-shadow:0 0 0 3px rgba(47,191,113,.2)}
+.sum{margin-top:16px;background:var(--ink);color:#fff;border-radius:var(--r);padding:20px 22px;display:grid;grid-template-columns:minmax(0,1fr) auto;gap:14px;align-items:center}
+.sum small{opacity:.65;font-size:.78rem;display:block}
+.sum .tot{font-family:'Playfair Display',serif;font-size:2rem;line-height:1.1}
+.sum .ln{font-size:.82rem;opacity:.8;margin-top:4px}
+.sum .btn{background:#25D366;color:#073d1c}
+.g line,.g circle.bl{transition:fill .5s}
+.bob{animation:bob 4s ease-in-out infinite}
+@keyframes bob{50%{transform:translateY(-4px)}}
+.flk{animation:flk 2.4s ease-in-out infinite}
+@keyframes flk{50%{opacity:.45}}
+@media(max-width:900px){
+  .bld{grid-template-columns:minmax(0,1fr)}
+  .stage{position:sticky;top:76px;z-index:5;order:-1}
+  .stage .sum{display:none}
+  .scene{aspect-ratio:600/360}
+  .panel{padding:20px}
+  .msum{display:grid!important}
+}
+.msum{display:none;position:sticky;bottom:12px;z-index:6;margin-top:18px}
+@media(max-width:900px){body.inb .fab{opacity:0;pointer-events:none}}
+
+/* calendar */
+.cal{border:1.5px solid var(--line);border-radius:16px;padding:14px;background:#fff}
+.cal-h{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;font-weight:700}
+.cal-h button{width:34px;height:34px;border-radius:50%;border:1px solid var(--line);display:grid;place-items:center}
+.cal-h button:disabled{opacity:.3}
+.cal-g{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:4px;text-align:center}
+.cal-g .dn{font-size:.7rem;color:var(--mute);font-weight:700;padding-bottom:4px}
+.cal-g button{aspect-ratio:1;border-radius:10px;font-size:.88rem;font-weight:500;position:relative;transition:.2s}
+.cal-g button:hover:not(:disabled){background:var(--soft)}
+.cal-g button:disabled{color:#c9c2b8}
+.cal-g button.bk{text-decoration:line-through;color:#c9c2b8}
+.cal-g button.lm::after{content:"";position:absolute;bottom:4px;left:50%;width:5px;height:5px;margin-left:-2.5px;border-radius:50%;background:var(--w4)}
+.cal-g button.on{background:var(--ink)!important;color:#fff}
+.cal-k{display:flex;gap:14px;font-size:.74rem;color:var(--mute);margin-top:10px;flex-wrap:wrap}
+.cal-k i{display:inline-block;width:8px;height:8px;border-radius:50%;margin-inline-end:5px;vertical-align:middle}
+
+/* gift */
+.gift{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,1fr);gap:28px;align-items:start}
+.gstage{position:sticky;top:90px;display:flex;flex-direction:column;gap:14px}
+.gbox{background:radial-gradient(circle at 50% 40%,#fff,var(--soft));border-radius:var(--r);aspect-ratio:1/0.82;box-shadow:var(--sh);overflow:hidden;position:relative}
+.gbox svg{width:100%;height:100%}
+.card{background:#FFFDF8;border-radius:16px;padding:18px 20px;box-shadow:0 10px 30px -18px rgba(0,0,0,.35);border:1px solid var(--line);position:relative;min-height:110px}
+.card::before{content:"";position:absolute;top:10px;inset-inline-end:14px;width:28px;height:28px;background:url(img/butterfly.png) center/contain no-repeat;opacity:.9}
+.card .to{font-size:.78rem;color:var(--mute);font-weight:700}
+.card .msg{font-family:'Aref Ruqaa','Great Vibes',serif;font-size:1.35rem;line-height:1.6;margin-top:4px;word-wrap:break-word;color:#2b2622}
+html[lang=en] .card .msg{font-family:'Great Vibes',cursive;font-size:1.6rem}
+.sws{display:flex;gap:10px;flex-wrap:wrap}
+.swb{width:38px;height:38px;border-radius:50%;box-shadow:inset 0 0 0 1px rgba(0,0,0,.12);position:relative;transition:.2s}
+.swb.on{box-shadow:0 0 0 3px #fff,0 0 0 5px var(--ink)}
+.adds{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px}
+.add{border:1.5px solid var(--line);border-radius:14px;padding:10px 6px;text-align:center;background:#fff;font-size:.78rem;font-weight:500;transition:.25s}
+.add span{display:block;font-size:1.5rem;line-height:1.3}
+.add .p{display:block;color:var(--mute);font-size:.72rem;font-weight:700}
+.add.on{border-color:var(--acc);background:var(--soft);box-shadow:inset 0 0 0 1px var(--acc)}
+.two{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:10px}
+@media(max-width:900px){.gift{grid-template-columns:minmax(0,1fr)}.gstage{position:static}.gbox{aspect-ratio:1/.7}}
+@media(max-width:480px){.adds{grid-template-columns:repeat(3,minmax(0,1fr))}.pals{grid-template-columns:repeat(2,minmax(0,1fr))}}
+
+/* gallery */
+.flt{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;margin-bottom:30px}
+.flt button{padding:9px 18px;border-radius:99px;border:1px solid var(--line);background:#fff;font-weight:500;transition:.25s}
+.flt button.on{background:var(--ink);color:#fff;border-color:var(--ink)}
+.gal{columns:3 280px;column-gap:16px}
+.gi{break-inside:avoid;margin-bottom:16px;border-radius:18px;overflow:hidden;position:relative;cursor:zoom-in;background:var(--soft);animation:pop .5s both}
+@keyframes pop{from{opacity:0;transform:scale(.96)}}
+.gi img{width:100%;height:auto;transition:transform .8s}
+.gi:hover img{transform:scale(1.05)}
+.gi .ov{position:absolute;inset:auto 0 0;padding:40px 16px 14px;background:linear-gradient(transparent,rgba(20,14,10,.75));color:#fff;display:flex;justify-content:space-between;align-items:end;gap:10px}
+.gi .ov b{font-family:var(--fd);font-size:1.05rem;line-height:1.3}
+.gi .ov small{display:block;opacity:.75;font-size:.75rem}
+.gi .lk{background:#fff;color:var(--ink);border-radius:99px;padding:7px 13px;font-size:.78rem;font-weight:700;white-space:nowrap;flex:none}
+.lb{position:fixed;inset:0;z-index:90;background:rgba(15,10,8,.92);display:none;align-items:center;justify-content:center;padding:20px;flex-direction:column;gap:16px}
+.lb.on{display:flex}
+.lb img{max-height:76vh;max-width:100%;border-radius:14px}
+.lb .x{position:absolute;top:16px;inset-inline-end:16px;width:44px;height:44px;border-radius:50%;background:rgba(255,255,255,.15);color:#fff;font-size:1.4rem}
+.lb .nv{position:absolute;top:50%;width:46px;height:46px;border-radius:50%;background:rgba(255,255,255,.15);color:#fff;font-size:1.3rem;transform:translateY(-50%)}
+.lb .pv{inset-inline-start:14px}.lb .nx{inset-inline-end:14px}
+.lb .cap{color:#fff;display:flex;gap:14px;align-items:center;flex-wrap:wrap;justify-content:center;font-family:var(--fd);font-size:1.1rem}
+
+/* packages */
+.pk{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px;align-items:stretch}
+.pkc{background:#fff;border:1px solid var(--line);border-radius:26px;padding:30px 26px;display:flex;flex-direction:column;position:relative;transition:transform .35s,box-shadow .35s}
+.pkc:hover{transform:translateY(-6px);box-shadow:var(--sh)}
+.pkc .ic{width:54px;height:54px;border-radius:16px;display:grid;place-items:center;font-size:1.6rem;margin-bottom:16px}
+.pkc h3{font-size:1.5rem}
+.pkc .fr{color:var(--mute);font-size:.85rem;margin-top:12px}
+.pkc .pr{font-family:'Playfair Display',serif;font-size:2.4rem;line-height:1.1}
+.pkc ul{list-style:none;margin:18px 0 24px;display:grid;gap:9px;font-size:.93rem;flex:1}
+.pkc li{display:flex;gap:10px;align-items:flex-start}
+.pkc li::before{content:"";flex:none;width:18px;height:18px;margin-top:4px;border-radius:50%;background:var(--soft) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%231B1917' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 12l5 5 9-10'/%3E%3C/svg%3E") center/11px no-repeat}
+.pkc.hot{background:var(--ink);color:#fff;border-color:var(--ink)}
+.pkc.hot .fr{color:rgba(255,255,255,.6)}
+.pkc.hot li::before{background-color:rgba(255,255,255,.9)}
+.pkc.hot .btn{background:var(--grad);color:#fff}
+.pkc .rib{position:absolute;top:-13px;inset-inline-start:26px;background:var(--grad);color:#fff;font-size:.75rem;font-weight:800;padding:5px 14px;border-radius:99px}
+.note{text-align:center;color:var(--mute);font-size:.85rem;margin-top:22px}
+@media(max-width:900px){.pk{grid-template-columns:minmax(0,1fr);max-width:460px;margin-inline:auto}}
+
+/* steps */
+.how{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:18px;counter-reset:s}
+.hw{padding:26px 22px;border-radius:22px;background:#fff;border:1px solid var(--line);position:relative}
+.hw .n{font-family:'Playfair Display',serif;font-size:3rem;line-height:1;opacity:.9}
+.hw h3{font-size:1.2rem;margin:12px 0 6px}
+.hw p{color:var(--mute);font-size:.92rem}
+@media(max-width:900px){.how{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:520px){.how{grid-template-columns:minmax(0,1fr)}}
+
+/* about */
+.ab{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);gap:56px;align-items:center}
+.ab-v{position:relative;aspect-ratio:4/5;border-radius:220px 220px 30px 30px;overflow:hidden;box-shadow:var(--sh)}
+.ab-v img{width:100%;height:100%;object-fit:cover}
+.ab-v .lg{position:absolute;inset:auto 18px 18px;background:rgba(255,255,255,.92);backdrop-filter:blur(8px);border-radius:20px;padding:14px;display:flex;align-items:center;gap:12px}
+.ab-v .lg img{width:64px;height:auto}
+.ab-v .lg b{font-family:'Playfair Display',serif;font-size:1.1rem;display:block;direction:ltr;text-align:start}
+.quote{font-family:var(--fd);font-size:clamp(1.3rem,2.6vw,1.75rem);line-height:1.6;margin:18px 0}
+.sig{display:flex;align-items:center;gap:14px;margin-top:22px}
+.sig .av{width:54px;height:54px;border-radius:50%;background:var(--grad);display:grid;place-items:center;color:#fff;font-family:var(--fd);font-size:1.4rem}
+.sig b{display:block;font-family:var(--fd);font-size:1.15rem}
+.sig small{color:var(--mute)}
+.vals{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-top:28px}
+.vals div{background:#fff;border:1px solid var(--line);border-radius:18px;padding:14px;font-size:.88rem}
+.vals b{display:block;font-family:var(--fd);font-size:1rem;margin-bottom:2px}
+@media(max-width:900px){.ab{grid-template-columns:minmax(0,1fr);gap:34px}.ab-v{max-width:420px;margin-inline:auto;width:100%}.vals{grid-template-columns:minmax(0,1fr)}}
+
+/* faq */
+.faq{max-width:780px;margin-inline:auto;display:grid;gap:10px}
+.fq{background:#fff;border:1px solid var(--line);border-radius:18px;overflow:hidden}
+.fq button{width:100%;display:flex;justify-content:space-between;align-items:center;gap:12px;padding:18px 20px;font-weight:700;text-align:start}
+.fq button i{width:28px;height:28px;border-radius:50%;background:var(--soft);display:grid;place-items:center;font-style:normal;transition:.3s;flex:none}
+.fq.on button i{transform:rotate(45deg)}
+.fq .a{max-height:0;overflow:hidden;transition:max-height .4s;color:var(--mute)}
+.fq .a p{padding:0 20px 18px}
+
+/* contact */
+.ct{background:var(--ink);color:#fff;border-radius:34px;padding:64px 40px;text-align:center;position:relative;overflow:hidden}
+.ct .blob{opacity:.35}
+.ct>*{position:relative}
+.ct h2{font-size:clamp(1.9rem,4.5vw,3.2rem)}
+.ct p{opacity:.75;max-width:560px;margin:0 auto 28px}
+.ct .cta{justify-content:center}
+.ct .btn-o{border-color:rgba(255,255,255,.5);color:#fff}
+.ct .ph-n{direction:ltr;display:inline-block;font-family:'Playfair Display',serif;font-size:1.5rem;margin-top:24px;letter-spacing:.03em}
+.ft{padding:40px 0 30px;text-align:center;color:var(--mute);font-size:.85rem}
+.ft img{width:150px;margin:0 auto 10px}
+.ft a{color:var(--ink);font-weight:700}
+
+/* whatsapp fab + modal */
+.fab{position:fixed;bottom:18px;inset-inline-end:18px;z-index:40;width:58px;height:58px;border-radius:50%;background:#25D366;display:grid;place-items:center;box-shadow:0 12px 26px -10px rgba(37,211,102,.8);transition:transform .3s}
+.fab:hover{transform:scale(1.08)}
+.fab svg{width:30px;fill:#fff}
+.ok{position:fixed;inset:0;z-index:95;background:rgba(20,14,10,.6);backdrop-filter:blur(6px);display:none;align-items:center;justify-content:center;padding:18px}
+.ok.on{display:flex}
+.okc{background:#fff;border-radius:28px;max-width:430px;width:100%;padding:34px 26px 26px;text-align:center;position:relative;animation:pop .4s both}
+.okc img.bf{width:76px;margin:0 auto 6px;animation:flap 1.6s ease-in-out infinite}
+.okc h3{font-size:1.6rem}
+.okc p{color:var(--mute);font-size:.95rem}
+.cd{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;margin:20px 0}
+.cd div{background:var(--soft);border-radius:14px;padding:10px 4px}
+.cd b{display:block;font-family:'Playfair Display',serif;font-size:1.7rem;line-height:1.1}
+.cd small{font-size:.72rem;color:var(--mute);font-weight:700}
+.okc .x{position:absolute;top:12px;inset-inline-end:12px;width:36px;height:36px;border-radius:50%;background:var(--soft)}
+#cf{position:fixed;inset:0;pointer-events:none;z-index:96}
+.rv{opacity:0;transform:translateY(26px);transition:opacity .9s,transform .9s}
+.rv.in{opacity:1;transform:none}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.rv{opacity:1;transform:none}}
+</style>
+</head>
+<body>
+
+<header class="hdr" id="hdr">
+  <div class="wrap">
+    <a href="#top" class="brand"><img src="img/butterfly.png" alt=""><div><b>Artisan Workshop</b><small data-i="brandSub">EVENTS · GIFTS</small></div></a>
+    <nav class="nav">
+      <a href="#design" data-i="n1">صمّم مناسبتك</a>
+      <a href="#gifts" data-i="n2">الهدايا</a>
+      <a href="#work" data-i="n3">أعمالنا</a>
+      <a href="#packages" data-i="n4">الباقات</a>
+      <a href="#about" data-i="n5">من نحن</a>
+    </nav>
+    <div class="hx">
+      <button class="lang" id="langBtn">EN</button>
+      <a class="btn btn-p wa" data-msg="hi" href="#"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.5 14.4c-.3-.1-1.8-.9-2-1-.3-.1-.5-.1-.7.1-.2.3-.8 1-.9 1.2-.2.2-.3.2-.6.1-.3-.1-1.3-.5-2.4-1.5-.9-.8-1.5-1.8-1.7-2.1-.2-.3 0-.5.1-.6l.4-.5c.2-.2.2-.3.3-.5.1-.2 0-.4 0-.5l-.9-2.2c-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.5s1.1 2.9 1.2 3.1c.1.2 2.1 3.2 5.1 4.5.7.3 1.3.5 1.7.6.7.2 1.4.2 1.9.1.6-.1 1.8-.7 2-1.4.2-.7.2-1.3.2-1.4-.1-.2-.3-.3-.6-.4zM12 21.8c-1.8 0-3.5-.5-5-1.4l-.4-.2-3.7 1 1-3.6-.2-.4c-1-1.6-1.5-3.4-1.5-5.2C2.2 6.6 6.6 2.2 12 2.2c2.6 0 5.1 1 7 2.9 1.8 1.9 2.9 4.3 2.9 7 0 5.4-4.5 9.7-9.9 9.7zM20.4 3.6C18.2 1.3 15.2.1 12 .1 5.5.1.1 5.4.1 12c0 2.1.6 4.1 1.6 5.9L0 24l6.3-1.7c1.7.9 3.7 1.4 5.7 1.4 6.6 0 11.9-5.3 11.9-11.9 0-3.2-1.2-6.2-3.5-8.2z"/></svg><span data-i="hCta">احجز عالواتساب</span></a>
+    </div>
+  </div>
+</header>
+
+<section class="hero" id="top">
+  <div class="blobs"><i class="blob b1"></i><i class="blob b2"></i><i class="blob b3"></i><i class="blob b4"></i></div>
+  <div class="wrap">
+    <div>
+      <span class="eyebrow"><img src="img/butterfly.png" alt=""><span data-i="hEy">تزيين مناسبات · هدايا · حفلات</span></span>
+      <h1><span data-i="h1a">تفاصيل صغيرة..</span><br><span data-i="h1b">بتعمل</span> <span class="gt" data-i="h1c">فرحة كبيرة..</span></h1>
+      <p class="lead" data-i="hLead">من أوّل بالون لآخر شريطة، منصمّم مناسبتك متل ما بتحلم فيها: أعراس، خطوبات، أعياد ميلاد، حفلات، وهدايا مغلّفة بحب.</p>
+      <div class="cta">
+        <a href="#design" class="btn btn-g" data-i="hB1">صمّم مناسبتك الآن ✨</a>
+        <a href="#gifts" class="btn btn-o" data-i="hB2">جهّز هدية</a>
+      </div>
+      <div class="occ-l" data-i="hOccL">شو مناسبتك؟</div>
+      <div class="occ" id="heroOcc"></div>
+    </div>
+    <div class="collage" id="collage">
+      <div class="ph ph1"><img alt="" src="img/g10651684.webp"></div>
+      <div class="ph ph3"><img alt="" src="img/g31884814.webp"></div>
+      <div class="ph ph2"><img alt="" src="img/g14515158.webp"></div>
+      <div class="fly"><img src="img/butterfly.png" alt=""></div>
+      <div class="badge"><i>🦋</i><div><b data-i="bdgT">تصميم قبل التنفيذ</b><span data-i="bdgD">بتشوف فكرتك قبل ما نبلّش</span></div></div>
+    </div>
+  </div>
+</section>
+
+<div class="mq"><div class="mq-t" id="mq"></div></div>
+
+<!-- BUILDER -->
+<section class="sec" id="design">
+  <div class="wrap">
+    <div class="sec-h rv">
+      <span class="eyebrow" data-i="dEy">صمّم مناسبتك</span>
+      <h2><span data-i="dT1">شوف مناسبتك</span> <span class="gt" data-i="dT2">قبل ما تصير</span></h2>
+      <p class="lead" data-i="dLead">اختار المناسبة والألوان والتفاصيل، واكتب الاسم يلي بدك ياه عالنيون.. والتصميم بيتغيّر قدّامك مباشرة.</p>
+    </div>
+    <div class="bld">
+      <div class="panel rv">
+        <div class="step"><h4><em>1</em><span data-i="s1">المناسبة</span></h4><div class="chips" id="bOcc"></div></div>
+        <div class="step"><h4><em>2</em><span data-i="s2">الألوان</span></h4><div class="pals" id="bPal"></div></div>
+        <div class="step"><h4><em>3</em><span data-i="s3">التفاصيل</span><small data-i="s3s">اختار يلي بدك ياه</small></h4><div class="chips" id="bEl"></div></div>
+        <div class="step"><h4><em>4</em><span data-i="s4">الاسم عالنيون</span></h4><input class="inp" id="bName" maxlength="18" data-ip="s4p" placeholder="مثلاً: سارة & علي"></div>
+        <div class="step"><h4><em>5</em><span data-i="s5">عدد الضيوف</span></h4><div class="rng"><input type="range" id="bG" min="10" max="400" step="10" value="60"><b id="bGv">60</b></div></div>
+        <div class="step"><h4><em>6</em><span data-i="s6">تاريخ المناسبة</span></h4>
+          <div class="cal">
+            <div class="cal-h"><button id="cPrev" aria-label="prev">‹</button><span id="cTitle"></span><button id="cNext" aria-label="next">›</button></div>
+            <div class="cal-g" id="cGrid"></div>
+            <div class="cal-k"><span><i style="background:#c9c2b8"></i><span data-i="kB">محجوز</span></span><span><i style="background:var(--w4)"></i><span data-i="kL">آخر حجز متوفّر</span></span></div>
+          </div>
+        </div>
+        <div class="sum msum" id="mSum"><div><small data-i="est">تقدير تقريبي</small><div class="tot" id="mTot">$0</div></div><button class="btn sendE" data-i="send">ابعت عالواتساب</button></div>
+      </div>
+      <div class="stage">
+        <div class="scene" id="scene"><span class="tag"><i></i><span data-i="live">معاينة مباشرة</span></span><svg id="sv" viewBox="0 0 600 430" preserveAspectRatio="xMidYMid slice"></svg></div>
+        <div class="sum"><div><small data-i="est">تقدير تقريبي</small><div class="tot" id="tot">$0</div><div class="ln" id="sumLn"></div></div><button class="btn sendE" data-i="send">ابعت عالواتساب</button></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- GIFTS -->
+<section class="sec" id="gifts" style="background:linear-gradient(180deg,transparent,var(--soft) 30%,var(--soft) 70%,transparent)">
+  <div class="wrap">
+    <div class="sec-h rv">
+      <span class="eyebrow" data-i="gEy">صندوق الهدايا</span>
+      <h2><span data-i="gT1">جهّز هديتك</span> <span class="gt" data-i="gT2">بإيدك</span></h2>
+      <p class="lead" data-i="gLead">اختار حجم العلبة واللون والشريطة والإضافات، واكتب كرتك.. ونحنا منغلّفها ومنوصّلها بالوقت يلي بدك ياه.</p>
+    </div>
+    <div class="gift">
+      <div class="panel rv">
+        <div class="step"><h4><em>1</em><span data-i="g1">حجم العلبة</span></h4><div class="chips" id="gSize"></div></div>
+        <div class="step"><h4><em>2</em><span data-i="g2">لون التغليف</span></h4><div class="sws" id="gWrap"></div></div>
+        <div class="step"><h4><em>3</em><span data-i="g3">لون الشريطة</span></h4><div class="sws" id="gRib"></div></div>
+        <div class="step"><h4><em>4</em><span data-i="g4">الإضافات</span></h4><div class="adds" id="gAdd"></div></div>
+        <div class="step"><h4><em>5</em><span data-i="g5">الكرت</span></h4>
+          <div style="display:grid;gap:10px"><input class="inp" id="gTo" maxlength="22" data-ip="g5a" placeholder="لمين الهدية؟"><textarea class="inp" id="gMsg" rows="3" maxlength="140" data-ip="g5b" placeholder="اكتب رسالتك..."></textarea></div>
+        </div>
+        <div class="step"><h4><em>6</em><span data-i="g6">التوصيل</span></h4>
+          <div class="two"><input class="inp" type="date" id="gDate"><select class="inp" id="gTime"></select></div>
+        </div>
+      </div>
+      <div class="gstage">
+        <div class="gbox"><svg id="gsv" viewBox="0 0 500 410"></svg></div>
+        <div class="card"><div class="to" id="cTo"></div><div class="msg" id="cMsg"></div></div>
+        <div class="sum"><div><small data-i="gTot">سعر الهدية</small><div class="tot" id="gTotV">$0</div><div class="ln" id="gLn"></div></div><button class="btn" id="sendG" data-i="gSend">اطلبها عالواتساب</button></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- GALLERY -->
+<section class="sec" id="work">
+  <div class="wrap">
+    <div class="sec-h rv">
+      <span class="eyebrow" data-i="wEy">من شغلنا</span>
+      <h2><span data-i="wT1">كل مناسبة</span> <span class="gt" data-i="wT2">إلها قصة</span></h2>
+      <p class="lead" data-i="wLead">عجبتك فكرة؟ كبّس «بدي متلها» ومنعملك ياها بألوانك وتفاصيلك.</p>
+    </div>
+    <div class="flt" id="flt"></div>
+    <div class="gal" id="gal"></div>
+  </div>
+</section>
+
+<!-- PACKAGES -->
+<section class="sec" id="packages" style="padding-top:40px">
+  <div class="wrap">
+    <div class="sec-h rv">
+      <span class="eyebrow" data-i="pEy">الباقات</span>
+      <h2><span data-i="pT1">اختار الباقة</span> <span class="gt" data-i="pT2">يلي بتشبهك</span></h2>
+    </div>
+    <div class="pk" id="pk"></div>
+    <p class="note" data-i="pNote">الأسعار تقريبية وبتتغيّر حسب المكان والتفاصيل.. احكينا ومنعطيك سعر دقيق.</p>
+  </div>
+</section>
+
+<!-- HOW -->
+<section class="sec" style="padding-top:40px">
+  <div class="wrap">
+    <div class="sec-h rv">
+      <span class="eyebrow" data-i="hwEy">كيف منشتغل</span>
+      <h2><span data-i="hwT1">من الفكرة</span> <span class="gt" data-i="hwT2">للفرحة</span></h2>
+    </div>
+    <div class="how" id="how"></div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="sec" id="about">
+  <div class="wrap ab">
+    <div class="ab-v rv"><img src="img/g37803981.webp" alt="" loading="lazy" style="object-position:40% 50%"><div class="lg"><img src="img/butterfly.png" alt=""><div><b>Artisan Workshop</b><small data-i="abTag">تفاصيل صغيرة..بتعمل فرحة كبيرة..</small></div></div></div>
+    <div class="rv">
+      <span class="eyebrow" data-i="abEy">من نحن</span>
+      <p class="quote" data-i="abQ">«ما في مناسبة صغيرة.. في تفاصيل بتنعمل بحب، وفرحة بتضل بالصور وبالقلب.»</p>
+      <p class="lead" data-i="abP">بـ Artisan Workshop منآمن إنو كل مناسبة إلها شخصيتها. منسمع منك، منرسم الفكرة، ومنهتمّ بكل تفصيل من الألوان للشرايط للورود، لحتى يطلع يومك متل ما تخيّلته وأحلى.</p>
+      <div class="sig"><div class="av">ج</div><div><b data-i="abN">جنان الفردوس</b><small data-i="abR">الإدارة والإشراف على التصميم</small></div></div>
+      <div class="vals">
+        <div><b data-i="v1">تصميم خاص</b><span data-i="v1d">ولا مناسبة بتشبه التانية</span></div>
+        <div><b data-i="v2">تفاصيل يدوية</b><span data-i="v2d">تغليف وتنسيق بإيدينا</span></div>
+        <div><b data-i="v3">بالوقت</b><span data-i="v3d">منخلّص قبل ما يوصلوا الضيوف</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="sec" style="padding-top:20px">
+  <div class="wrap">
+    <div class="sec-h rv"><span class="eyebrow" data-i="fEy">أسئلة بتتكرّر</span><h2 data-i="fT">قبل ما تسأل..</h2></div>
+    <div class="faq" id="faq"></div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="sec" id="contact" style="padding-top:20px">
+  <div class="wrap">
+    <div class="ct rv">
+      <i class="blob b1" style="top:-160px"></i><i class="blob b2"></i>
+      <img src="img/butterfly.png" alt="" style="width:80px;margin:0 auto 6px">
+      <h2><span data-i="cT1">خلّينا نعمل</span> <span class="gt" data-i="cT2">فرحتك سوا</span></h2>
+      <p data-i="cP">احكينا عن مناسبتك أو هديتك، ومنرجعلك بفكرة وتصميم وسعر.</p>
+      <div class="cta">
+        <a class="btn btn-g wa" data-msg="hi" href="#" data-i="cB1">راسلنا عالواتساب</a>
+        <a class="btn btn-o" href="tel:+96176998727" data-i="cB2">اتصل فينا</a>
+      </div>
+      <a class="ph-n" href="tel:+96176998727">+961 76 998 727</a>
+    </div>
+  </div>
+</section>
+
+<footer class="ft">
+  <img src="img/logo.png" alt="Artisan Workshop">
+  <div data-i="ftM">بإدارة جنان الفردوس</div>
+  <div style="margin-top:8px">© <span id="yr"></span> Artisan Workshop · <span data-i="ftBy">تصميم وتطوير</span> <a href="https://nafetha-web.github.io/" target="_blank" rel="noopener" data-i="naf">نافذة</a></div>
+</footer>
+
+<a class="fab wa" data-msg="hi" href="#" aria-label="WhatsApp"><svg viewBox="0 0 24 24"><path d="M17.5 14.4c-.3-.1-1.8-.9-2-1-.3-.1-.5-.1-.7.1-.2.3-.8 1-.9 1.2-.2.2-.3.2-.6.1-.3-.1-1.3-.5-2.4-1.5-.9-.8-1.5-1.8-1.7-2.1-.2-.3 0-.5.1-.6l.4-.5c.2-.2.2-.3.3-.5.1-.2 0-.4 0-.5l-.9-2.2c-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.5s1.1 2.9 1.2 3.1c.1.2 2.1 3.2 5.1 4.5.7.3 1.3.5 1.7.6.7.2 1.4.2 1.9.1.6-.1 1.8-.7 2-1.4.2-.7.2-1.3.2-1.4-.1-.2-.3-.3-.6-.4zM12 21.8c-1.8 0-3.5-.5-5-1.4l-.4-.2-3.7 1 1-3.6-.2-.4c-1-1.6-1.5-3.4-1.5-5.2C2.2 6.6 6.6 2.2 12 2.2c2.6 0 5.1 1 7 2.9 1.8 1.9 2.9 4.3 2.9 7 0 5.4-4.5 9.7-9.9 9.7zM20.4 3.6C18.2 1.3 15.2.1 12 .1 5.5.1.1 5.4.1 12c0 2.1.6 4.1 1.6 5.9L0 24l6.3-1.7c1.7.9 3.7 1.4 5.7 1.4 6.6 0 11.9-5.3 11.9-11.9 0-3.2-1.2-6.2-3.5-8.2z"/></svg></a>
+
+<div class="lb" id="lb"><button class="x" id="lbX">×</button><button class="nv pv" id="lbP">‹</button><img id="lbI" alt=""><button class="nv nx" id="lbN">›</button><div class="cap"><span id="lbC"></span><a class="btn btn-g" id="lbW" href="#" target="_blank" rel="noopener" data-i="like">بدي متلها</a></div></div>
+
+<div class="ok" id="ok"><div class="okc"><button class="x" id="okX">×</button><img class="bf" src="img/butterfly.png" alt=""><h3 data-i="okT">وصلتنا فكرتك! 🎉</h3><p id="okP"></p><div class="cd" id="cd"></div><p data-i="okS" style="font-size:.85rem">كمّل المحادثة عالواتساب لنثبّت الحجز.</p></div></div>
+<canvas id="cf"></canvas>
+
+<script>
+const WA='96176998727';
+const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
+let lang='ar'; try{lang=localStorage.getItem('aw_lang')||'ar'}catch(e){}
+const T={
+ brandSub:['EVENTS · GIFTS','EVENTS · GIFTS'],n1:['صمّم مناسبتك','Design yours'],n2:['الهدايا','Gifts'],n3:['أعمالنا','Our work'],n4:['الباقات','Packages'],n5:['من نحن','About'],hCta:['احجز عالواتساب','Book on WhatsApp'],
+ hEy:['تزيين مناسبات · هدايا · حفلات','Event décor · Gifts · Parties'],h1a:['تفاصيل صغيرة..','Small details..'],h1b:['بتعمل','make'],h1c:['فرحة كبيرة..','big joy..'],
+ hLead:['من أوّل بالون لآخر شريطة، منصمّم مناسبتك متل ما بتحلم فيها: أعراس، خطوبات، أعياد ميلاد، حفلات، وهدايا مغلّفة بحب.','From the first balloon to the last ribbon, we design your occasion just the way you dream it: weddings, engagements, birthdays, parties, and gifts wrapped with love.'],
+ hB1:['صمّم مناسبتك الآن ✨','Design your event ✨'],hB2:['جهّز هدية','Build a gift'],hOccL:['شو مناسبتك؟','What are you celebrating?'],bdgT:['تصميم قبل التنفيذ','See it before we build'],bdgD:['بتشوف فكرتك قبل ما نبلّش','Your idea, visualised first'],
+ dEy:['صمّم مناسبتك','Design your occasion'],dT1:['شوف مناسبتك','See your event'],dT2:['قبل ما تصير','before it happens'],dLead:['اختار المناسبة والألوان والتفاصيل، واكتب الاسم يلي بدك ياه عالنيون.. والتصميم بيتغيّر قدّامك مباشرة.','Pick the occasion, colours and details, type the name for the neon sign.. and watch the design change live.'],
+ s1:['المناسبة','Occasion'],s2:['الألوان','Colours'],s3:['التفاصيل','Details'],s3s:['اختار يلي بدك ياه','pick what you like'],s4:['الاسم عالنيون','Neon name'],s4p:['مثلاً: سارة & علي','e.g. Sara & Ali'],s5:['عدد الضيوف','Guests'],s6:['تاريخ المناسبة','Event date'],kB:['محجوز','Booked'],kL:['آخر حجز متوفّر','Last spot left'],
+ est:['تقدير تقريبي','Estimate'],send:['ابعت عالواتساب','Send on WhatsApp'],live:['معاينة مباشرة','Live preview'],
+ gEy:['صندوق الهدايا','Gift box'],gT1:['جهّز هديتك','Build your gift'],gT2:['بإيدك','yourself'],gLead:['اختار حجم العلبة واللون والشريطة والإضافات، واكتب كرتك.. ونحنا منغلّفها ومنوصّلها بالوقت يلي بدك ياه.','Choose the box, wrap, ribbon and extras, write your card.. we wrap it and deliver it right on time.'],
+ g1:['حجم العلبة','Box size'],g2:['لون التغليف','Wrap colour'],g3:['لون الشريطة','Ribbon'],g4:['الإضافات','Extras'],g5:['الكرت','Card'],g5a:['لمين الهدية؟','Who is it for?'],g5b:['اكتب رسالتك...','Write your message...'],g6:['التوصيل','Delivery'],gTot:['سعر الهدية','Gift price'],gSend:['اطلبها عالواتساب','Order on WhatsApp'],
+ wEy:['من شغلنا','Our work'],wT1:['كل مناسبة','Every occasion'],wT2:['إلها قصة','has a story'],wLead:['عجبتك فكرة؟ كبّس «بدي متلها» ومنعملك ياها بألوانك وتفاصيلك.','Love an idea? Tap “I want this” and we’ll make it in your colours.'],like:['بدي متلها','I want this'],
+ pEy:['الباقات','Packages'],pT1:['اختار الباقة','Pick the package'],pT2:['يلي بتشبهك','that feels like you'],pNote:['الأسعار تقريبية وبتتغيّر حسب المكان والتفاصيل.. احكينا ومنعطيك سعر دقيق.','Prices are indicative and depend on venue and details.. message us for an exact quote.'],
+ hwEy:['كيف منشتغل','How we work'],hwT1:['من الفكرة','From idea'],hwT2:['للفرحة','to joy'],
+ abEy:['من نحن','About us'],abTag:['تفاصيل صغيرة..بتعمل فرحة كبيرة..','Small details.. big joy..'],abQ:['«ما في مناسبة صغيرة.. في تفاصيل بتنعمل بحب، وفرحة بتضل بالصور وبالقلب.»','“No occasion is small.. there are details made with love, and joy that lives on in photos and hearts.”'],
+ abP:['بـ Artisan Workshop منآمن إنو كل مناسبة إلها شخصيتها. منسمع منك، منرسم الفكرة، ومنهتمّ بكل تفصيل من الألوان للشرايط للورود، لحتى يطلع يومك متل ما تخيّلته وأحلى.','At Artisan Workshop we believe every occasion has its own personality. We listen, sketch the idea, and care for every detail — colours, ribbons, flowers — so your day turns out just as you imagined, only better.'],
+ abN:['جنان الفردوس','Jinan Al Firdaws'],abR:['الإدارة والإشراف على التصميم','Founder & design lead'],v1:['تصميم خاص','Made for you'],v1d:['ولا مناسبة بتشبه التانية','No two events alike'],v2:['تفاصيل يدوية','Handmade touches'],v2d:['تغليف وتنسيق بإيدينا','Wrapped and styled by hand'],v3:['بالوقت','On time'],v3d:['منخلّص قبل ما يوصلوا الضيوف','Ready before guests arrive'],
+ fEy:['أسئلة بتتكرّر','FAQ'],fT:['قبل ما تسأل..','Before you ask..'],
+ cT1:['خلّينا نعمل','Let’s create'],cT2:['فرحتك سوا','your joy together'],cP:['احكينا عن مناسبتك أو هديتك، ومنرجعلك بفكرة وتصميم وسعر.','Tell us about your event or gift and we’ll come back with an idea, a design and a price.'],cB1:['راسلنا عالواتساب','Message us on WhatsApp'],cB2:['اتصل فينا','Call us'],
+ ftM:['بإدارة جنان الفردوس','Managed by Jinan Al Firdaws'],ftBy:['تصميم وتطوير','Designed & built by'],naf:['نافذة','Nafetha'],
+ okT:['وصلتنا فكرتك! 🎉','We’ve got your idea! 🎉'],okS:['كمّل المحادثة عالواتساب لنثبّت الحجز.','Continue on WhatsApp to confirm your booking.']
+};
+const L=(a,e)=>lang==='ar'?a:e;
+const OCC=[
+ {k:'wedding',ar:'عرس',en:'Wedding',ic:'💍',base:350,imgs:['g16120244','g35985211','g39193816']},
+ {k:'engage',ar:'خطوبة',en:'Engagement',ic:'💐',base:220,imgs:['g37382220','g10651684','g38258846']},
+ {k:'bday',ar:'عيد ميلاد',en:'Birthday',ic:'🎂',base:120,imgs:['g14515158','g36704177','g34260120']},
+ {k:'baby',ar:'استقبال مولود',en:'Baby shower',ic:'🍼',base:130,imgs:['g11883322','g36231146','g37803981']},
+ {k:'party',ar:'حفلة وتخرّج',en:'Party & grad',ic:'🎉',base:150,imgs:['g36352341','g14457430','g20362906']}
+];
+const PALS={
+ wedding:[['#F4EFE6','#E6D5B8','#C2A06A','عاجي وذهبي','Ivory & gold'],['#FFFFFF','#DCE5D6','#8FA68A','أبيض ومريمية','White & sage'],['#F7E9E8','#EBC6C3','#B9737D','بودرة وروز','Blush & rose'],['#22304D','#EFE6D6','#C2A06A','كحلي وذهبي','Navy & gold']],
+ engage:[['#FBEAF0','#F2C1CF','#D4A373','زهري وذهبي','Pink & gold'],['#EEE8F7','#CDBEE8','#B8B8C8','ليلكي وفضّي','Lilac & silver'],['#FDF1E7','#F7CDB0','#E59A72','خوخي','Peach'],['#5E1F2E','#E9D8C8','#C2A06A','نبيذي وذهبي','Wine & gold']],
+ bday:[['#FFE5EC','#A8DAF5','#FFD978','باستيل','Pastel'],['#F1EDFF','#8E6CFF','#FF7EA8','بنفسجي وزهري','Violet & pink'],['#E8FBF8','#2EC4B6','#FF9F5A','تركواز وبرتقالي','Teal & orange'],['#1C1C1C','#D4AF37','#FFFFFF','أسود وذهبي','Black & gold']],
+ baby:[['#EAF3FC','#A9CBEE','#FFFFFF','سماوي','Sky blue'],['#FDEEF3','#F4B9CD','#FFFFFF','زهري ناعم','Soft pink'],['#F2F6EA','#C9DDB2','#F3E3C3','أخضر وبيج','Sage & beige'],['#F3EEFB','#CDB8EC','#FFFFFF','ليلكي','Lilac']],
+ party:[['#1C1C1C','#D4AF37','#F4F4F4','أسود وذهبي','Black & gold'],['#FFF5E6','#FF5A7A','#FFD166','ألوان مرحة','Fun brights'],['#EAF0FB','#24324F','#C0C7D6','كحلي وفضّي','Navy & silver'],['#F6F0FF','#7B5CFF','#2EC4B6','نيون','Neon pop']]
+};
+const ELS=[
+ {k:'arch',ar:'قوس بالونات',en:'Balloon arch',ic:'🎈',p:120},
+ {k:'back',ar:'خلفية مزيّنة',en:'Styled backdrop',ic:'🖼️',p:90},
+ {k:'neon',ar:'اسم نيون',en:'Neon name',ic:'✨',p:60},
+ {k:'cake',ar:'طاولة الكيك',en:'Cake table',ic:'🎂',p:70},
+ {k:'flow',ar:'ورود',en:'Florals',ic:'🌸',p:80},
+ {k:'light',ar:'إضاءة',en:'Fairy lights',ic:'💡',p:50},
+ {k:'sign',ar:'لوحة ترحيب',en:'Welcome sign',ic:'🪧',p:40},
+ {k:'cent',ar:'تنسيق طاولات الضيوف',en:'Guest centrepieces',ic:'🕯️',p:0}
+];
+const S={occ:'bday',pal:1,els:new Set(['arch','back','neon','cake','flow']),name:'',guests:60,date:null};
+let mood='all';
+
+function i18n(){
+ document.documentElement.lang=lang;document.documentElement.dir=lang==='ar'?'rtl':'ltr';
+ $$('[data-i]').forEach(e=>{const v=T[e.dataset.i];if(v)e.textContent=v[lang==='ar'?0:1]});
+ $$('[data-ip]').forEach(e=>{const v=T[e.dataset.ip];if(v)e.placeholder=v[lang==='ar'?0:1]});
+ $('#langBtn').textContent=lang==='ar'?'EN':'ع';
+ document.title=L('Artisan Workshop | تزيين مناسبات وهدايا','Artisan Workshop | Event décor & gifts');
+ buildStatic();renderAll();
+}
+$('#langBtn').onclick=()=>{lang=lang==='ar'?'en':'ar';try{localStorage.setItem('aw_lang',lang)}catch(e){}i18n()};
+
+function waLink(t){return 'https://wa.me/'+WA+'?text='+encodeURIComponent(t)}
+document.addEventListener('click',e=>{const a=e.target.closest('.wa');if(!a)return;e.preventDefault();window.open(waLink(L('مرحبا Artisan Workshop 🦋 بدي استفسر عن','Hi Artisan Workshop 🦋 I’d like to ask about')+' '+L('تزيين مناسبة / هدية','an event / a gift')),'_blank')});
+
+/* mood + hero */
+function setMood(m,scroll){
+ mood=m;document.documentElement.dataset.mood=m;
+ $$('#heroOcc button').forEach(b=>b.classList.toggle('on',b.dataset.m===m));
+ const imgs=m==='gift'?['g31884814','g34972176','g27291954']:(OCC.find(o=>o.k===m)||{imgs:['g10651684','g14515158','g31884814']}).imgs;
+ ['.ph1','.ph3','.ph2'].forEach((s,i)=>{const im=$('#collage '+s+' img');if(im.getAttribute('src')==='img/'+imgs[i]+'.webp')return;im.classList.add('out');setTimeout(()=>{im.src='img/'+imgs[i]+'.webp';im.onload=()=>im.classList.remove('out')},300)});
+}
+function buildStatic(){
+ const ho=$('#heroOcc');ho.innerHTML='';
+ [...OCC.map(o=>({k:o.k,t:L(o.ar,o.en),ic:o.ic})),{k:'gift',t:L('هدية','Gift'),ic:'🎁'}].forEach(o=>{const b=document.createElement('button');b.dataset.m=o.k;b.innerHTML=`<span>${o.ic}</span>${o.t}`;b.onclick=()=>{setMood(o.k);if(o.k==='gift'){location.hash='#gifts'}else{S.occ=o.k;S.pal=0;renderAll();setTimeout(()=>$('#design').scrollIntoView({behavior:'smooth'}),350)}};ho.appendChild(b)});
+ $$('#heroOcc button').forEach(b=>b.classList.toggle('on',b.dataset.m===mood));
+ const words=lang==='ar'?['أعراس','خطوبات','أعياد ميلاد','استقبال مولود','تخرّج','هدايا مغلّفة بحب','قوس بالونات','أسماء نيون','طاولات كيك','تنسيق ورود']:['Weddings','Engagements','Birthdays','Baby showers','Graduations','Gifts wrapped with love','Balloon arches','Neon names','Cake tables','Florals'];
+ const seg='<span>'+words.map(w=>`${w}<img src="img/butterfly.png" alt="">`).join('')+'</span>';$('#mq').innerHTML=seg+seg;
+ // packages
+ const P=[
+  {ic:'🤍',bg:'#F2F2F2',n:L('فضّي','Silver'),p:150,d:L('لعيد ميلاد أو جمعة صغيرة','For a birthday or small gathering'),f:L(['جنينة بالونات بألوانك','خلفية بسيطة','تنسيق طاولة الكيك','تركيب وفكّ'],['Balloon garland in your colours','Simple backdrop','Cake table styling','Setup & teardown'])},
+  {ic:'✨',n:L('ذهبي','Gold'),p:350,hot:1,d:L('الأكتر طلباً للخطوبات والحفلات','Most loved for engagements & parties'),f:L(['قوس بالونات كامل','خلفية مزيّنة + اسم نيون','طاولة كيك مع ورود','إضاءة ناعمة','لوحة ترحيب'],['Full balloon arch','Styled backdrop + neon name','Cake table with florals','Soft fairy lights','Welcome sign'])},
+  {ic:'👑',bg:'#F6EFE3',n:L('ملكي','Royal'),p:800,d:L('للأعراس والمناسبات الكبيرة','For weddings & grand events'),f:L(['تصميم كامل للمكان','مدخل وكوشة','تنسيق طاولات الضيوف','ركن تصوير','ورود طبيعية','منسّقة بيوم المناسبة'],['Full venue design','Entrance & stage','Guest table centrepieces','Photo corner','Fresh florals','On-the-day coordinator'])}
+ ];
+ $('#pk').innerHTML=P.map(p=>`<div class="pkc rv ${p.hot?'hot':''}">${p.hot?`<span class="rib">${L('الأكتر طلباً','Most popular')}</span>`:''}<div class="ic" style="background:${p.bg||'rgba(255,255,255,.12)'}">${p.ic}</div><h3>${p.n}</h3><p style="opacity:.75;font-size:.9rem">${p.d}</p><div class="fr">${L('يبدأ من','From')}</div><div class="pr">$${p.p}</div><ul>${p.f.map(x=>`<li>${x}</li>`).join('')}</ul><a class="btn ${p.hot?'':'btn-o'}" href="${waLink(L('مرحبا Artisan Workshop 🦋 بدي استفسر عن باقة ','Hi Artisan Workshop 🦋 I’d like to ask about the ')+p.n+L('',' package'))}" target="_blank" rel="noopener">${L('اختار هالباقة','Choose this')}</a></div>`).join('');
+ const H=L([['الفكرة','بتخبرنا عن مناسبتك وذوقك، أو بتصمّمها هون عالموقع.'],['التصميم','منبعتلك تصوّر وألوان وسعر واضح قبل أي شي.'],['التحضير','منجهّز كل تفصيل بإيدينا: بالونات، ورود، تغليف ولوحات.'],['الفرحة','منركّب كل شي قبل الضيوف.. وإنت بس انبسط.']],[['The idea','Tell us about your event and taste, or design it right here.'],['The design','We send a concept, colours and a clear price first.'],['The making','We prepare every detail by hand: balloons, florals, wraps, signs.'],['The joy','We set everything up before guests arrive.. you just enjoy.']]);
+ $('#how').innerHTML=H.map((h,i)=>`<div class="hw rv"><div class="n gt">0${i+1}</div><h3>${h[0]}</h3><p>${h[1]}</p></div>`).join('');
+ const F=L([['قديش لازم احجز قبل؟','كل ما حجزت أبكر كل ما كان في خيارات أكتر، خصوصاً بمواسم الأعراس. بس دايماً جرّب احكينا حتى لو الوقت قريب.'],['فيني جيب فكرة من عندي؟','أكيد! ابعتلنا صورة أو فكرة، ومنشتغلها بألوانك وبميزانيتك.'],['بتزيّنوا بالبيت أو بالصالة؟','بالبيت، بالصالة، بالمطعم أو بالجنينة.. وين ما كانت فرحتك.'],['بتوصّلوا الهدايا؟','إيه، منوصّل الهدية مغلّفة مع الكرت بالوقت يلي بتختاره.']],[['How early should I book?','The earlier the better, especially in wedding season. But always reach out, even on short notice.'],['Can I bring my own idea?','Of course! Send us a photo or an idea and we’ll make it in your colours and budget.'],['Do you decorate homes or venues?','Homes, halls, restaurants or gardens.. wherever your celebration is.'],['Do you deliver gifts?','Yes — wrapped, with your card, at the time you choose.']]);
+ $('#faq').innerHTML=F.map(f=>`<div class="fq"><button><span>${f[0]}</span><i>+</i></button><div class="a"><p>${f[1]}</p></div></div>`).join('');
+ $$('.fq button').forEach(b=>b.onclick=()=>{const q=b.parentNode,on=!q.classList.contains('on');$$('.fq').forEach(x=>{x.classList.remove('on');x.querySelector('.a').style.maxHeight=0});if(on){q.classList.add('on');q.querySelector('.a').style.maxHeight=q.querySelector('.a').scrollHeight+'px'}});
+ buildGallery();obs();
+}
+
+/* ---------- event builder ---------- */
+function rnd(seed){let s=seed;return()=>{s=(s*9301+49297)%233280;return s/233280}}
+function price(){
+ const o=OCC.find(x=>x.k===S.occ);let p=o.base;
+ ELS.forEach(e=>{if(S.els.has(e.k))p+=e.p});
+ if(S.els.has('cent'))p+=Math.ceil(S.guests/10)*18;
+ p+=Math.max(0,S.guests-50)*.6;
+ return Math.round(p/5)*5;
+}
+function renderBuilder(){
+ $('#bOcc').innerHTML=OCC.map(o=>`<button class="chip ${o.k===S.occ?'on':''}" data-k="${o.k}">${o.ic} ${L(o.ar,o.en)}</button>`).join('');
+ $$('#bOcc .chip').forEach(b=>b.onclick=()=>{S.occ=b.dataset.k;S.pal=0;setMood(S.occ);renderBuilder()});
+ $('#bPal').innerHTML=PALS[S.occ].map((p,i)=>`<button class="pal ${i===S.pal?'on':''}" data-i="${i}"><div class="sw"><i style="background:${p[0]}"></i><i style="background:${p[1]}"></i><i style="background:${p[2]}"></i></div>${L(p[3],p[4])}</button>`).join('');
+ $$('#bPal .pal').forEach(b=>b.onclick=()=>{S.pal=+b.dataset.i;renderBuilder()});
+ $('#bEl').innerHTML=ELS.map(e=>`<button class="chip ${S.els.has(e.k)?'on':''}" data-k="${e.k}">${e.ic} ${L(e.ar,e.en)}</button>`).join('');
+ $$('#bEl .chip').forEach(b=>b.onclick=()=>{const k=b.dataset.k;S.els.has(k)?S.els.delete(k):S.els.add(k);renderBuilder()});
+ $('#bGv').textContent=S.guests;
+ drawScene();renderCal();
+ const p='$'+price();$('#tot').textContent=p;$('#mTot').textContent=p;
+ const o=OCC.find(x=>x.k===S.occ);
+ $('#sumLn').textContent=`${L(o.ar,o.en)} · ${S.guests} ${L('ضيف','guests')}${S.date?' · '+fmtD(S.date):''}`;
+}
+$('#bName').oninput=e=>{S.name=e.target.value;drawScene()};
+$('#bG').oninput=e=>{S.guests=+e.target.value;renderBuilder()};
+
+function drawScene(){
+ const [c0,c1,c2]=PALS[S.occ][S.pal];const has=k=>S.els.has(k);
+ const dark=['#22304D','#1C1C1C','#5E1F2E','#24324F'].includes(c0);
+ const wall=dark?c0:mix(c0,'#ffffff',.25), floor=dark?'#2a2622':mix(c1,'#d9cfc2',.55);
+ const R=rnd(S.occ.length*97+S.pal*13+7);
+ let s=`<defs>
+ <radialGradient id="bg1" cx="50%" cy="38%" r="70%"><stop offset="0" stop-color="${mix(wall,'#ffffff',.35)}"/><stop offset="1" stop-color="${wall}"/></radialGradient>
+ <linearGradient id="fl" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${floor}"/><stop offset="1" stop-color="${mix(floor,'#000000',.18)}"/></linearGradient>
+ <filter id="glow" x="-30%" y="-60%" width="160%" height="220%"><feGaussianBlur stdDeviation="3.2" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+ <filter id="sh" x="-20%" y="-20%" width="140%" height="160%"><feDropShadow dx="0" dy="6" stdDeviation="6" flood-opacity=".18"/></filter>
+ <radialGradient id="bal" cx="35%" cy="30%" r="70%"><stop offset="0" stop-color="#fff" stop-opacity=".75"/><stop offset=".35" stop-color="#fff" stop-opacity="0"/></radialGradient>
+ </defs>
+ <rect width="600" height="430" fill="url(#bg1)"/>
+ <rect y="335" width="600" height="95" fill="url(#fl)"/>
+ <ellipse cx="300" cy="350" rx="240" ry="18" fill="#000" opacity=".07"/>`;
+ // fairy lights curtain
+ if(has('light')){
+  for(let j=0;j<14;j++){const x=40+j*40;s+=`<line x1="${x}" y1="0" x2="${x}" y2="${120+((j*37)%60)}" stroke="#d8cfc0" stroke-width=".6" opacity=".6"/>`;for(let y=14;y<120+((j*37)%60);y+=18)s+=`<circle cx="${x}" cy="${y}" r="2.2" fill="#FFE7A3" filter="url(#glow)" class="flk" style="animation-delay:${((j*7+y)%24)/10}s"/>`}
+ }
+ // backdrop
+ const archFill=dark?mix(c1,'#000000',.05):c1;
+ if(has('back')){
+  s+=`<g filter="url(#sh)"><circle cx="170" cy="215" r="88" fill="${mix(c2,'#ffffff',.3)}"/><rect x="380" y="150" width="120" height="188" rx="60" fill="${mix(c0,c1,.4)}"/>
+  <path d="M215 338 V150 a85 85 0 0 1 170 0 V338 Z" fill="${archFill}"/></g>
+  <path d="M232 338 V152 a68 68 0 0 1 136 0 V338" fill="none" stroke="${mix(archFill,'#ffffff',.35)}" stroke-width="2" opacity=".7"/>`;
+ }
+ // neon name
+ const nm=(S.name||'').trim()||(S.occ==='bday'?L('عيد ميلاد سعيد','Happy Birthday'):S.occ==='baby'?L('أهلا بالقمر','Welcome baby'):S.occ==='party'?L('سهرة حلوة','Let’s party'):L('سارة & علي','Sara & Ali'));
+ if(has('neon')){
+  const ar=/[؀-ۿ]/.test(nm);const fs=Math.max(15,Math.min(34,300/Math.max(6,nm.length)*(ar?1.15:1.35)));
+  const behind=has('back')?archFill:wall;const lum=h=>{const v=[1,3,5].map(i=>parseInt(h.slice(i,i+2),16));return (v[0]*.3+v[1]*.59+v[2]*.11)/255};
+  const darkBg=lum(behind)<.45;const nc=darkBg?'#FFE7A3':(S.occ==='wedding'||S.occ==='engage'?'#E0567F':'#FF3D8B');
+  const cy=has('back')?175:150, wide=has('back')?150:260;
+  s+=`<text x="300" y="${cy}" text-anchor="middle" font-family="${ar?"'Aref Ruqaa',serif":"'Great Vibes',cursive"}" font-size="${fs}" fill="${darkBg?'#fff':nc}" stroke="${darkBg?nc:'#ffffff'}" stroke-width="${darkBg?1.2:.8}" filter="url(#glow)" textLength="${nm.length>9?wide:''}" lengthAdjust="spacingAndGlyphs" style="paint-order:stroke">${esc(nm)}</text>`.replace('textLength=""','');
+ }
+ // balloon arch
+ if(has('arch')){
+  const cols=[c0,c1,c2,mix(c1,'#ffffff',.4),mix(c2,c1,.5)];
+  let g='<g class="bob">';const pts=[];
+  for(let t=0;t<=1.0001;t+=0.022){const a=Math.PI*(1-t);pts.push([300+Math.cos(a)*150, 330-Math.sin(a)*235*(.85+.15*Math.sin(a))])}
+  const arr=[];pts.forEach(([x,y],i)=>{const n=i%3===0?3:2;for(let k=0;k<n;k++){const r=8+R()*15;arr.push([x+(R()-.5)*34,y+(R()-.5)*30,r,cols[Math.floor(R()*cols.length)]])}});
+  // grow less at middle-top for asymmetric organic look
+  arr.sort((a,b)=>b[2]-a[2]).forEach(([x,y,r,c])=>{if(y>335)return;g+=`<circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="${r.toFixed(1)}" fill="${c}" stroke="rgba(0,0,0,.06)"/><circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="${r.toFixed(1)}" fill="url(#bal)"/>`});
+  s+=g+'</g>';
+ }
+ // flowers at arch base
+ if(has('flow')){
+  const fc=[mix(c2,'#ffffff',.2),'#ffffff',mix(c1,c2,.5),'#F2B8C6'];
+  [[200,330,1],[405,330,.8]].forEach(([fx,fy,sc])=>{let g=`<g transform="translate(${fx} ${fy}) scale(${sc})">`;for(let i=0;i<9;i++){const a=R()*Math.PI,d=R()*30;g+=`<ellipse cx="${(Math.cos(a)*d*1.6).toFixed(1)}" cy="${(-Math.sin(a)*d*.6-6).toFixed(1)}" rx="11" ry="5" fill="#7FA36B" transform="rotate(${(R()*80-40).toFixed(0)})"/>`}for(let i=0;i<11;i++){const a=R()*Math.PI,d=R()*28,x=Math.cos(a)*d*1.5,y=-Math.sin(a)*d*.7-10,r=7+R()*6,c=fc[i%fc.length];g+=`<circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="${r.toFixed(1)}" fill="${c}"/><circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="${(r*.45).toFixed(1)}" fill="${mix(c,'#000000',.12)}"/>`}s+=g+'</g>'});
+ }
+ // cake table
+ if(has('cake')){
+  const tc=dark?c1:'#ffffff';
+  s+=`<g filter="url(#sh)"><rect x="236" y="285" width="128" height="52" rx="6" fill="${tc}"/><path d="M236 291 q16 12 32 0 q16 12 32 0 q16 12 32 0 q16 12 32 0" fill="none" stroke="${c2}" stroke-width="2"/>
+  <rect x="268" y="244" width="64" height="40" rx="5" fill="${mix(c0,'#ffffff',.5)}"/><rect x="278" y="214" width="44" height="31" rx="5" fill="${mix(c1,'#ffffff',.25)}"/><rect x="287" y="192" width="26" height="23" rx="4" fill="${mix(c0,'#ffffff',.6)}"/>
+  <path d="M268 252 h64" stroke="${c2}" stroke-width="3"/><path d="M278 222 h44" stroke="${c2}" stroke-width="2.5"/>
+  <circle cx="300" cy="186" r="5" fill="${c2}"/><rect x="250" y="262" width="12" height="22" rx="3" fill="${c2}" opacity=".8"/><rect x="338" y="268" width="12" height="16" rx="3" fill="${c1}"/><circle cx="344" cy="264" r="6" fill="#F2B8C6"/></g>`;
+ }
+ // welcome sign
+ if(has('sign')){
+  const sm=S.occ==='bday'?L('أهلا فيكن','Welcome'):S.occ==='baby'?L('أهلا يا قمر','Hello baby'):L('أهلا وسهلا','Welcome');
+  s+=`<g filter="url(#sh)"><path d="M70 345 l18 -120 M128 345 l-18 -120 M99 345 v-110" stroke="#9b7b55" stroke-width="3.5"/><rect x="52" y="200" width="94" height="112" rx="8" fill="${dark?c1:'#ffffff'}"/><rect x="58" y="206" width="82" height="100" rx="5" fill="none" stroke="${c2}" stroke-width="1.5"/>
+  <text x="99" y="252" text-anchor="middle" font-family="'Great Vibes','Aref Ruqaa',serif" font-size="17" fill="${dark?'#fff':'#3b332c'}">${esc(sm)}</text><text x="99" y="278" text-anchor="middle" font-size="9" letter-spacing="1.5" font-family="'Tajawal',sans-serif" fill="${c2}">${esc((S.name||'').slice(0,14))}</text></g>`;
+ }
+ // guest tables
+ if(has('cent')){
+  const n=Math.min(6,Math.max(2,Math.round(S.guests/60)+1));
+  for(let i=0;i<n;i++){const x=i%2?500+((i>>1)%2)*44:40+((i>>1)%2)*50;const y=372+((i>>1))*18;if(y>420)continue;
+   s+=`<g><ellipse cx="${x}" cy="${y}" rx="34" ry="9" fill="#fff" stroke="rgba(0,0,0,.08)"/><rect x="${x-34}" y="${y}" width="68" height="20" fill="#fff"/><circle cx="${x-5}" cy="${y-7}" r="5" fill="${c2}"/><circle cx="${x+5}" cy="${y-8}" r="5" fill="${mix(c1,'#ffffff',.2)}"/><circle cx="${x}" cy="${y-13}" r="5" fill="#F2B8C6"/></g>`}
+ }
+ $('#sv').innerHTML=s;
+}
+function esc(t){return t.replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]))}
+function mix(a,b,t){const p=h=>[1,3,5].map(i=>parseInt(h.slice(i,i+2),16)),A=p(a),B=p(b);return '#'+A.map((v,i)=>Math.round(v+(B[i]-v)*t).toString(16).padStart(2,'0')).join('')}
+
+/* calendar */
+const MAR=['كانون الثاني','شباط','آذار','نيسان','أيار','حزيران','تموز','آب','أيلول','تشرين الأول','تشرين الثاني','كانون الأول'],MEN=['January','February','March','April','May','June','July','August','September','October','November','December'];
+const DAR=['أحد','اثنين','ثلاثاء','أربعاء','خميس','جمعة','سبت'],DEN=['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+const today=new Date();today.setHours(0,0,0,0);
+let cm=new Date(today.getFullYear(),today.getMonth(),1);
+const hsh=(y,m,d)=>{let h=(y*372+m*31+d)*2654435761%4294967296;h^=h>>>13;return h%100};
+function dayState(d){if(d<=today)return 'past';const h=hsh(d.getFullYear(),d.getMonth(),d.getDate()),w=d.getDay();if(h<(w===6||w===0?42:16))return 'bk';if(h<(w===6||w===0?62:28))return 'lm';return 'ok'}
+function fmtD(d){return lang==='ar'?`${(lang==='ar'?DAR:DEN)[d.getDay()]} ${d.getDate()} ${MAR[d.getMonth()]}`:`${DEN[d.getDay()]} ${d.getDate()} ${MEN[d.getMonth()]}`}
+function renderCal(){
+ $('#cTitle').textContent=(lang==='ar'?MAR:MEN)[cm.getMonth()]+' '+cm.getFullYear();
+ $('#cPrev').disabled=cm<=new Date(today.getFullYear(),today.getMonth(),1);
+ $('#cNext').disabled=cm>=new Date(today.getFullYear(),today.getMonth()+8,1);
+ let h=(lang==='ar'?DAR:DEN).map(d=>`<div class="dn">${lang==='ar'?d.slice(0,3):d.slice(0,2)}</div>`).join('');
+ const first=cm.getDay(),days=new Date(cm.getFullYear(),cm.getMonth()+1,0).getDate();
+ for(let i=0;i<first;i++)h+='<span></span>';
+ for(let d=1;d<=days;d++){const dt=new Date(cm.getFullYear(),cm.getMonth(),d),st=dayState(dt),on=S.date&&+S.date===+dt;
+  h+=`<button data-d="${d}" class="${st==='bk'?'bk':st==='lm'?'lm':''} ${on?'on':''}" ${st==='past'||st==='bk'?'disabled':''}>${d}</button>`}
+ $('#cGrid').innerHTML=h;
+ $$('#cGrid button').forEach(b=>b.onclick=()=>{S.date=new Date(cm.getFullYear(),cm.getMonth(),+b.dataset.d);renderBuilder()});
+}
+$('#cPrev').onclick=()=>{cm=new Date(cm.getFullYear(),cm.getMonth()-1,1);renderCal()};
+$('#cNext').onclick=()=>{cm=new Date(cm.getFullYear(),cm.getMonth()+1,1);renderCal()};
+
+$$('.sendE').forEach(b=>b.onclick=()=>{
+ if(!S.date){$('.cal').scrollIntoView({behavior:'smooth',block:'center'});$('.cal').animate([{boxShadow:'0 0 0 0 var(--acc)'},{boxShadow:'0 0 0 6px var(--soft)'},{boxShadow:'0 0 0 0 transparent'}],{duration:900,iterations:2});return}
+ const o=OCC.find(x=>x.k===S.occ),p=PALS[S.occ][S.pal];
+ const els=ELS.filter(e=>S.els.has(e.k)).map(e=>L(e.ar,e.en)).join('، ');
+ const msg=[L('مرحبا Artisan Workshop 🦋','Hi Artisan Workshop 🦋'),L('صمّمت مناسبتي عالموقع وبدي احجز:','I designed my event on your website and would like to book:'),
+  `• ${L('المناسبة','Occasion')}: ${L(o.ar,o.en)}`,`• ${L('الألوان','Colours')}: ${L(p[3],p[4])}`,`• ${L('التفاصيل','Details')}: ${els||'-'}`,
+  S.els.has('neon')?`• ${L('الاسم عالنيون','Neon name')}: ${S.name||'-'}`:null,`• ${L('عدد الضيوف','Guests')}: ${S.guests}`,`• ${L('التاريخ','Date')}: ${fmtD(S.date)} ${S.date.getFullYear()}`,`• ${L('التقدير','Estimate')}: $${price()}`].filter(Boolean).join('\n');
+ window.open(waLink(msg),'_blank');celebrate(S.date,L(o.ar,o.en));
+});
+
+/* countdown + confetti */
+let cdT;
+function celebrate(d,what){
+ $('#okP').textContent=L(`${what} يوم ${fmtD(d)} — العدّ التنازلي بلّش!`,`${what} on ${fmtD(d)} — the countdown has begun!`);
+ $('#ok').classList.add('on');clearInterval(cdT);
+ const tick=()=>{let ms=Math.max(0,d-new Date());const D=Math.floor(ms/864e5),H=Math.floor(ms/36e5)%24,M=Math.floor(ms/6e4)%60,Sx=Math.floor(ms/1e3)%60;
+  $('#cd').innerHTML=[[D,L('يوم','days')],[H,L('ساعة','hrs')],[M,L('دقيقة','min')],[Sx,L('ثانية','sec')]].map(([v,l])=>`<div><b>${v}</b><small>${l}</small></div>`).join('')};
+ tick();cdT=setInterval(tick,1000);confetti();
+}
+$('#okX').onclick=()=>{$('#ok').classList.remove('on');clearInterval(cdT)};
+$('#ok').onclick=e=>{if(e.target.id==='ok')$('#okX').click()};
+function confetti(){
+ const c=$('#cf'),x=c.getContext('2d');c.width=innerWidth;c.height=innerHeight;
+ const cols=['#4F7BE8','#8E5BD8','#EE6FA5','#F49A3C','#FFD166','#ffffff'];
+ const P=Array.from({length:160},()=>({x:c.width/2+(Math.random()-.5)*80,y:c.height*.45,vx:(Math.random()-.5)*14,vy:-Math.random()*15-4,r:Math.random()*6+3,c:cols[Math.random()*cols.length|0],a:Math.random()*6,s:Math.random()>.5}));
+ let f=0;(function loop(){x.clearRect(0,0,c.width,c.height);P.forEach(p=>{p.vy+=.35;p.vx*=.99;p.x+=p.vx;p.y+=p.vy;p.a+=.15;x.save();x.translate(p.x,p.y);x.rotate(p.a);x.fillStyle=p.c;if(p.s)x.fillRect(-p.r/2,-p.r/4,p.r,p.r/2);else{x.beginPath();x.arc(0,0,p.r/2,0,7);x.fill()}x.restore()});if(++f<170)requestAnimationFrame(loop);else x.clearRect(0,0,c.width,c.height)})();
+}
+
+/* ---------- gift builder ---------- */
+const G={size:1,wrap:2,rib:0,add:new Set(['flowers','choco']),to:'',msg:'',date:'',time:''};
+const SIZES=[{ar:'صغيرة',en:'Small',p:25,s:.78},{ar:'وسط',en:'Medium',p:40,s:.9},{ar:'كبيرة',en:'Large',p:60,s:1}];
+const WRAPS=['#C9A27A','#F4EFE6','#F3C6CF','#CDB8E8','#24324F','#1C1C1C','#A9CBEE'];
+const RIBS=['#C9A46A','#FFFFFF','#C8102E','#EE6FA5','#8E5BD8','#2B2B2B'];
+const ADDS=[{k:'flowers',ar:'ورد',en:'Flowers',ic:'💐',p:15},{k:'choco',ar:'شوكولا',en:'Chocolate',ic:'🍫',p:12},{k:'candle',ar:'شمعة',en:'Candle',ic:'🕯️',p:10},{k:'perfume',ar:'عطر',en:'Perfume',ic:'🧴',p:35},{k:'balloon',ar:'بالون',en:'Balloon',ic:'🎈',p:8},{k:'teddy',ar:'دبدوب',en:'Teddy',ic:'🧸',p:18},{k:'photo',ar:'صور مطبوعة',en:'Photo prints',ic:'📸',p:10},{k:'name',ar:'اسم محفور',en:'Engraved name',ic:'✍️',p:12}];
+function gPrice(){return SIZES[G.size].p+ADDS.filter(a=>G.add.has(a.k)).reduce((s,a)=>s+a.p,0)}
+function renderGift(){
+ $('#gSize').innerHTML=SIZES.map((s,i)=>`<button class="chip ${i===G.size?'on':''}" data-i="${i}">${L(s.ar,s.en)} <span class="p">$${s.p}</span></button>`).join('');
+ $$('#gSize .chip').forEach(b=>b.onclick=()=>{G.size=+b.dataset.i;renderGift()});
+ $('#gWrap').innerHTML=WRAPS.map((c,i)=>`<button class="swb ${i===G.wrap?'on':''}" data-i="${i}" style="background:${c}" aria-label="wrap ${i+1}"></button>`).join('');
+ $$('#gWrap .swb').forEach(b=>b.onclick=()=>{G.wrap=+b.dataset.i;renderGift()});
+ $('#gRib').innerHTML=RIBS.map((c,i)=>`<button class="swb ${i===G.rib?'on':''}" data-i="${i}" style="background:${c}" aria-label="ribbon ${i+1}"></button>`).join('');
+ $$('#gRib .swb').forEach(b=>b.onclick=()=>{G.rib=+b.dataset.i;renderGift()});
+ $('#gAdd').innerHTML=ADDS.map(a=>`<button class="add ${G.add.has(a.k)?'on':''}" data-k="${a.k}"><span>${a.ic}</span>${L(a.ar,a.en)}<b class="p">+$${a.p}</b></button>`).join('');
+ $$('#gAdd .add').forEach(b=>b.onclick=()=>{const k=b.dataset.k;G.add.has(k)?G.add.delete(k):G.add.add(k);renderGift()});
+ const ts=lang==='ar'?['الصبح (10 - 12)','الضهر (12 - 3)','العصر (3 - 6)','المسا (6 - 9)']:['Morning (10–12)','Midday (12–3)','Afternoon (3–6)','Evening (6–9)'];
+ const sel=$('#gTime'),cur=sel.selectedIndex;sel.innerHTML=ts.map(t=>`<option>${t}</option>`).join('');sel.selectedIndex=Math.max(0,cur);
+ drawGift();
+ $('#gTotV').textContent='$'+gPrice();
+ $('#gLn').textContent=`${L('علبة','Box')} ${L(SIZES[G.size].ar,SIZES[G.size].en)} · ${G.add.size} ${L('إضافات','extras')}`;
+ $('#cTo').textContent=L('إلى: ','To: ')+(G.to||L('أغلى إنسان','someone special'));
+ $('#cMsg').textContent=G.msg||L('كل سنة وإنت الفرحة بحياتي 🤍','Every year, you are my joy 🤍');
+}
+$('#gTo').oninput=e=>{G.to=e.target.value;renderGift()};
+$('#gMsg').oninput=e=>{G.msg=e.target.value;$('#cMsg').textContent=G.msg||L('كل سنة وإنت الفرحة بحياتي 🤍','Every year, you are my joy 🤍')};
+{const d=new Date(Date.now()+2*864e5);$('#gDate').min=new Date(Date.now()+864e5).toISOString().slice(0,10);$('#gDate').value=d.toISOString().slice(0,10)}
+function drawGift(){
+ const w=WRAPS[G.wrap],r=RIBS[G.rib],sc=SIZES[G.size].s,has=k=>G.add.has(k);
+ const dk=mix(w,'#000000',.16),lt=mix(w,'#ffffff',.18),rd=mix(r,'#000000',.18);
+ let s=`<defs><filter id="gs" x="-20%" y="-20%" width="140%" height="150%"><feDropShadow dx="0" dy="10" stdDeviation="10" flood-opacity=".2"/></filter>
+ <pattern id="dots" width="16" height="16" patternUnits="userSpaceOnUse"><circle cx="8" cy="8" r="1.6" fill="${mix(w,'#ffffff',.45)}" opacity=".7"/></pattern></defs>
+ <ellipse cx="250" cy="372" rx="${170*sc}" ry="16" fill="#000" opacity=".1"/>`;
+ // balloon behind
+ if(has('balloon'))s+=`<g class="bob"><path d="M372 120 q-10 80 -40 180" stroke="#999" stroke-width="1.2" fill="none"/><ellipse cx="372" cy="88" rx="38" ry="46" fill="${r==='#FFFFFF'?'#EE6FA5':r}"/><ellipse cx="358" cy="72" rx="9" ry="14" fill="#fff" opacity=".45"/><path d="M366 133 l6 -8 l6 8z" fill="${rd}"/></g>`;
+ // flowers behind left
+ if(has('flowers')){const fc=['#F2B8C6','#ffffff','#E38AA6','#F7D9C4'];let g='<g>';for(let i=0;i<7;i++)g+=`<path d="M${150+i*6} 250 q${-20+i*4} -60 ${-30+i*9} -${95+(i%3)*14}" stroke="#7FA36B" stroke-width="3" fill="none"/>`;
+  [[118,150],[140,128],[168,140],[130,176],[160,170],[105,190],[185,165]].forEach(([x,y],i)=>{const c=fc[i%4];g+=`<g transform="translate(${x} ${y})">${[0,72,144,216,288].map(a=>`<ellipse rx="11" ry="7" cx="9" fill="${c}" transform="rotate(${a+i*11})"/>`).join('')}<circle r="5" fill="${mix(c,'#C9A46A',.5)}"/></g>`});s+=g+'</g>'}
+ // teddy right
+ if(has('teddy'))s+=`<g transform="translate(${250+150*sc} 250)"><circle cx="-18" cy="-62" r="11" fill="#B07D52"/><circle cx="18" cy="-62" r="11" fill="#B07D52"/><circle cy="-44" r="28" fill="#C48E5E"/><ellipse cy="-36" rx="12" ry="9" fill="#E8C9A6"/><circle cx="-9" cy="-48" r="3" fill="#2b1d12"/><circle cx="9" cy="-48" r="3" fill="#2b1d12"/><circle cy="-38" r="3.5" fill="#2b1d12"/><ellipse cy="10" rx="32" ry="38" fill="#C48E5E"/><ellipse cy="14" rx="18" ry="22" fill="#E8C9A6"/></g>`;
+ // box
+ const bw=260*sc,bh=170*sc,x0=250-bw/2,y0=360-bh;
+ s+=`<g filter="url(#gs)"><rect x="${x0}" y="${y0}" width="${bw}" height="${bh}" rx="6" fill="${w}"/><rect x="${x0}" y="${y0}" width="${bw}" height="${bh}" rx="6" fill="url(#dots)"/>
+ <rect x="${x0}" y="${y0}" width="${bw*.08}" height="${bh}" fill="${dk}" opacity=".25"/>
+ <rect x="${x0-12}" y="${y0-44*sc}" width="${bw+24}" height="${46*sc}" rx="7" fill="${lt}"/><rect x="${x0-12}" y="${y0+2-6}" width="${bw+24}" height="6" fill="${dk}" opacity=".35"/>
+ <rect x="${250-14*sc}" y="${y0-44*sc}" width="${28*sc}" height="${bh+44*sc}" fill="${r}" stroke="${rd}" stroke-width=".6"/>
+ <rect x="${x0}" y="${y0+bh*.45}" width="${bw}" height="${22*sc}" fill="${r}" stroke="${rd}" stroke-width=".6"/></g>`;
+ // bow
+ const by=y0-44*sc;
+ s+=`<g transform="translate(250 ${by}) scale(${sc})"><path d="M0 0 C-30 -50 -85 -40 -70 -8 C-60 12 -20 6 0 0Z" fill="${r}" stroke="${rd}"/><path d="M0 0 C30 -50 85 -40 70 -8 C60 12 20 6 0 0Z" fill="${r}" stroke="${rd}"/><path d="M-6 4 L-34 52 L-20 48 L-12 60 L4 6Z" fill="${r}" stroke="${rd}"/><path d="M6 4 L34 52 L20 48 L12 60 L-4 6Z" fill="${r}" stroke="${rd}"/><ellipse rx="13" ry="10" fill="${rd}"/><ellipse rx="9" ry="6" fill="${r}"/></g>`;
+ // extras in front
+ if(has('choco'))s+=`<g transform="translate(${x0-6} 352)"><rect x="-58" y="-34" width="70" height="34" rx="5" fill="#5A3A26"/>${[0,1,2].map(i=>`<circle cx="${-46+i*22}" cy="-17" r="8" fill="#7A4E33"/><circle cx="${-48+i*22}" cy="-19" r="3" fill="#A3714F"/>`).join('')}<rect x="-58" y="-34" width="70" height="7" rx="3" fill="${r}"/></g>`;
+ if(has('candle'))s+=`<g transform="translate(${x0+bw+28} 360)"><rect x="-18" y="-52" width="36" height="52" rx="6" fill="#F8F3EA" stroke="#e3d9c8"/><rect x="-18" y="-30" width="36" height="12" fill="${mix(w,'#ffffff',.2)}"/><path d="M0 -52 v-8" stroke="#333" stroke-width="1.5"/><path d="M0 -76 q8 10 0 16 q-8 -6 0 -16z" fill="#FFB547" class="flk"/></g>`;
+ if(has('perfume'))s+=`<g transform="translate(${x0+bw+(has('candle')?70:30)} 360)"><rect x="-20" y="-58" width="40" height="58" rx="10" fill="#E9D8F4" stroke="#cbb6e0" opacity=".95"/><rect x="-8" y="-72" width="16" height="15" rx="3" fill="#C9A46A"/><rect x="-12" y="-40" width="24" height="16" rx="3" fill="#fff" opacity=".7"/></g>`;
+ if(has('photo'))s+=`<g transform="translate(${x0+30} ${y0-6}) rotate(-12)"><rect x="-26" y="-60" width="52" height="60" fill="#fff" stroke="#ddd"/><rect x="-21" y="-55" width="42" height="40" fill="${mix(r,'#8EC5FF',.5)}"/><circle cx="-6" cy="-38" r="6" fill="#FFE7A3"/></g>`;
+ // tag
+ const tg=(G.to||L('أغلى إنسان','for you')).slice(0,14);
+ s+=`<g transform="translate(${250+bw/2-18} ${y0+bh*.45+40*sc}) rotate(8)"><path d="M0 0 l-30 -12" stroke="${r}" stroke-width="1.5"/><path d="M0 -14 h70 l14 14 l-14 14 h-70z" fill="#FFFDF8" stroke="#d9cdb8"/><circle cx="8" cy="0" r="3" fill="#d9cdb8"/><text x="44" y="5" text-anchor="middle" font-size="12" font-family="'Aref Ruqaa','Great Vibes',serif" fill="#3b332c">${esc(tg)}</text></g>`;
+ if(has('name'))s+=`<text x="250" y="${y0+bh*.8}" text-anchor="middle" font-family="'Great Vibes','Aref Ruqaa',serif" font-size="${22*sc}" fill="${['#24324F','#1C1C1C'].includes(w)?'#C9A46A':'#3b332c'}">${esc((G.to||'Your Name').slice(0,14))}</text>`;
+ $('#gsv').innerHTML=s;
+}
+$('#sendG').onclick=()=>{
+ const a=ADDS.filter(x=>G.add.has(x.k)).map(x=>L(x.ar,x.en)).join('، ');
+ const msg=[L('مرحبا Artisan Workshop 🦋','Hi Artisan Workshop 🦋'),L('بدي اطلب هدية:','I’d like to order a gift:'),`• ${L('العلبة','Box')}: ${L(SIZES[G.size].ar,SIZES[G.size].en)}`,`• ${L('الإضافات','Extras')}: ${a||'-'}`,`• ${L('لـ','For')}: ${G.to||'-'}`,`• ${L('الكرت','Card')}: ${G.msg||'-'}`,`• ${L('التوصيل','Delivery')}: ${$('#gDate').value} — ${$('#gTime').value}`,`• ${L('السعر','Price')}: $${gPrice()}`,L('(لون التغليف والشريطة متل ما اخترت عالموقع)','(wrap & ribbon colours as chosen on the website)')].join('\n');
+ window.open(waLink(msg),'_blank');confetti();
+};
+
+/* ---------- gallery ---------- */
+const GAL=[
+ {i:'g16120244',c:'wedding',ar:'سهرة عرس بالأحمر والأبيض',en:'Red & white wedding night'},
+ {i:'g36704177',c:'bday',ar:'عيد ميلاد العشرين',en:'Twentieth birthday'},
+ {i:'g37382220',c:'engage',ar:'جدار بالونات ذهبي',en:'Golden balloon wall'},
+ {i:'g31884814',c:'gift',ar:'هدايا بشرايط حمرا',en:'Red-ribbon gifts'},
+ {i:'g39193816',c:'wedding',ar:'طاولات بيضا وأوركيد',en:'White tables & orchids'},
+ {i:'g34260120',c:'bday',ar:'عيد الميلاد الأول',en:'First birthday'},
+ {i:'g10651684',c:'engage',ar:'أخضر ناعم وخوخي',en:'Sage & peach'},
+ {i:'g18579833',c:'gift',ar:'علبة ماكارون مع ورد',en:'Macaron box with flowers'},
+ {i:'g35985211',c:'wedding',ar:'طاولة طويلة بين الشجر',en:'Long garden table'},
+ {i:'g11883322',c:'party',ar:'استقبال مولودة',en:'Baby girl shower'},
+ {i:'g14515158',c:'bday',ar:'باستيل وذهبي',en:'Pastel & gold'},
+ {i:'g27291954',c:'gift',ar:'هدية خطوبة',en:'Engagement gift'},
+ {i:'g36352341',c:'party',ar:'خمسين سنة بالأسود والذهبي',en:'Black & gold fiftieth'},
+ {i:'g10633534',c:'wedding',ar:'كوشة ورود وشموع',en:'Floral stage & candles'},
+ {i:'g38258846',c:'engage',ar:'كيك وتفاصيل بيج',en:'Cake & beige details'},
+ {i:'g34972176',c:'gift',ar:'تغليف ذهبي بسيط',en:'Simple golden wrap'},
+ {i:'g14457430',c:'bday',ar:'فضّي وزهري',en:'Silver & pink'},
+ {i:'g36231146',c:'party',ar:'ركن أطفال بالأضواء',en:'Kids’ corner with lights'},
+ {i:'g37803981',c:'party',ar:'طاولة بالونات شفّافة',en:'Clear balloon table'},
+ {i:'g12303223',c:'gift',ar:'بوكس ورد وشوكولا',en:'Flowers & chocolate box'}
+];
+const CATS=[['all','الكل','All'],['wedding','أعراس','Weddings'],['engage','خطوبة','Engagements'],['bday','أعياد ميلاد','Birthdays'],['party','حفلات','Parties'],['gift','هدايا','Gifts']];
+let gc='all',lbList=[],lbI=0;
+function buildGallery(){
+ $('#flt').innerHTML=CATS.map(c=>`<button data-c="${c[0]}" class="${c[0]===gc?'on':''}">${L(c[1],c[2])}</button>`).join('');
+ $$('#flt button').forEach(b=>b.onclick=()=>{gc=b.dataset.c;buildGallery()});
+ lbList=GAL.filter(g=>gc==='all'||g.c===gc);
+ $('#gal').innerHTML=lbList.map((g,i)=>`<figure class="gi" data-n="${i}" style="animation-delay:${i*40}ms"><img src="img/${g.i}.webp" alt="${L(g.ar,g.en)}" loading="lazy"><figcaption class="ov"><div><small>${L(CATS.find(c=>c[0]===g.c)[1],CATS.find(c=>c[0]===g.c)[2])}</small><b>${L(g.ar,g.en)}</b></div><a class="lk" target="_blank" rel="noopener" href="${likeLink(g)}">${T.like[lang==='ar'?0:1]}</a></figcaption></figure>`).join('');
+ $$('#gal .gi').forEach(f=>f.onclick=e=>{if(e.target.closest('.lk'))return;openLb(+f.dataset.n)});
+}
+function likeLink(g){return waLink(L('مرحبا Artisan Workshop 🦋 عجبتني هالفكرة من موقعكن وبدي متلها: ','Hi Artisan Workshop 🦋 I loved this idea on your website and want something like it: ')+L(g.ar,g.en)+' ('+location.href.split('#')[0]+'img/'+g.i+'.webp)')}
+function openLb(i){lbI=(i+lbList.length)%lbList.length;const g=lbList[lbI];$('#lbI').src='img/'+g.i+'.webp';$('#lbC').textContent=L(g.ar,g.en);$('#lbW').href=likeLink(g);$('#lb').classList.add('on')}
+$('#lbX').onclick=()=>$('#lb').classList.remove('on');
+$('#lbP').onclick=()=>openLb(lbI+(lang==='ar'?1:-1));$('#lbN').onclick=()=>openLb(lbI+(lang==='ar'?-1:1));
+$('#lb').onclick=e=>{if(e.target.id==='lb')$('#lbX').click()};
+document.addEventListener('keydown',e=>{if(e.key==='Escape'){$('#lb').classList.remove('on');$('#okX').click()}});
+
+/* misc */
+function renderAll(){renderBuilder();renderGift()}
+let io;function obs(){io=io||new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{threshold:.12});$$('.rv:not(.in)').forEach(e=>io.observe(e))}
+addEventListener('scroll',()=>$('#hdr').classList.toggle('s',scrollY>20),{passive:true});
+new IntersectionObserver(es=>es.forEach(e=>document.body.classList.toggle('inb',e.isIntersecting))).observe($('#design .panel'));
+$('#yr').textContent=new Date().getFullYear();
+// cycle hero moods gently until user picks
+let auto=['wedding','bday','gift','engage','all'],ai=0,autoOn=true;
+$('#heroOcc').addEventListener('click',()=>autoOn=false,true);
+setInterval(()=>{if(!autoOn||scrollY>400)return;setMood(auto[ai++%auto.length])},4500);
+i18n();
+</script>
+</body>
+</html>
