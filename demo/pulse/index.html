@@ -1,0 +1,412 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Pulse | نادي رياضي</title>
+<meta name="description" content="نادي رياضي: جدول حصص أسبوعي، حجز مكانك بكبسة، اشتراكات واضحة، ويوم تجربة مجاني.">
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lalezar&family=Cairo:wght@400;600;700;800&display=swap" rel="stylesheet">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23FF5A1F'/%3E%3Cpath d='M8 34h12l5-12 8 22 6-14 4 4h13' stroke='%23fff' stroke-width='5' fill='none' stroke-linejoin='round' stroke-linecap='round'/%3E%3C/svg%3E">
+<style>
+:root{--ink:#121417;--ink2:#4B5058;--con:#E9E8E4;--paper:#F7F7F5;--sig:#FF5A1F;--sig2:#E24A12;--line:#D6D5D0;--wrap:1220px}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important;animation:none!important}}
+body{font-family:'Cairo',system-ui,sans-serif;color:var(--ink);background:var(--paper);font-size:17px;line-height:1.65}
+img{display:block;max-width:100%}
+button,input{font:inherit;color:inherit}
+button{background:none;border:0;cursor:pointer}
+a{color:inherit;text-decoration:none}
+:focus-visible{outline:3px solid var(--sig);outline-offset:3px;border-radius:4px}
+.wrap{max-width:var(--wrap);margin:0 auto;padding:0 24px}
+.disp{font-family:'Lalezar','Cairo',sans-serif;font-weight:400;line-height:1.05;letter-spacing:0}
+h2.disp{font-size:clamp(44px,6.5vw,84px)}
+.lead{color:var(--ink2);font-size:18px;max-width:54ch}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;height:54px;padding:0 26px;border-radius:4px;font-weight:800;font-size:17px;transition:background .15s,transform .15s}
+.btn:active{transform:scale(.97)}
+.b-sig{background:var(--sig);color:#fff}.b-sig:hover{background:var(--sig2)}
+.b-ink{background:var(--ink);color:#fff}
+.b-ghost{border:2px solid currentColor}
+.b-wa{background:#25D366;color:#073B22}
+.ltr{direction:ltr;unicode-bidi:isolate;display:inline-block}
+section{scroll-margin-top:70px}
+.sec{padding:100px 0}
+@media (max-width:700px){.sec{padding:68px 0}}
+.ribbon{background:#000;color:#CFCFCF;font-size:13px;text-align:center;padding:8px 16px}
+.ribbon a{color:#fff;text-decoration:underline;text-underline-offset:3px}
+header{position:sticky;top:0;z-index:40;background:rgba(18,20,23,.95);backdrop-filter:blur(8px);color:#fff}
+.nav{display:flex;align-items:center;justify-content:space-between;height:66px;gap:16px}
+.logo{display:flex;align-items:center;gap:10px;font-family:'Lalezar',sans-serif;font-size:30px;letter-spacing:.02em}
+.links{display:flex;gap:24px;font-size:15px;font-weight:600;color:#C8C9CC}.links a:hover{color:#fff}
+.nav-end{display:flex;gap:10px;align-items:center}
+.lang{height:40px;padding:0 14px;border-radius:4px;border:1px solid #3A3E44;font-size:14px;font-weight:600}
+.nav .btn{height:42px;padding:0 18px;font-size:15px}
+@media (max-width:920px){.links{display:none}.nav .btn{display:none}}
+
+/* hero */
+.hero{background:var(--ink);color:#fff;position:relative;overflow:hidden}
+.hero-grid{display:grid;grid-template-columns:1.2fr 1fr;align-items:stretch;min-height:calc(100svh - 100px);max-height:880px}
+.hero-txt{padding:70px 24px 60px;display:flex;flex-direction:column;justify-content:center;max-width:720px;margin-inline-start:auto;width:100%}
+.hero h1{font-size:clamp(64px,10vw,150px);line-height:.95}
+.hero h1 .o{color:var(--sig)}
+.pulse-line{width:100%;max-width:520px;height:60px;margin:18px 0 8px;color:var(--sig)}
+.pulse-line path{stroke-dasharray:900;stroke-dashoffset:900;animation:draw 1.6s .2s ease forwards}
+@keyframes draw{to{stroke-dashoffset:0}}
+.hero p{color:#BDBFC3;font-size:19px;max-width:46ch;margin-bottom:30px}
+.hero-ctas{display:flex;gap:12px;flex-wrap:wrap}
+.hero .b-ghost{color:#fff}
+.now{display:flex;gap:10px;align-items:center;margin-top:34px;font-size:15px;color:#BDBFC3}
+.now b{color:#fff}
+.now i{width:10px;height:10px;border-radius:50%;background:var(--sig);box-shadow:0 0 0 0 rgba(255,90,31,.6);animation:pl 1.6s infinite}
+@keyframes pl{70%{box-shadow:0 0 0 12px rgba(255,90,31,0)}100%{box-shadow:0 0 0 0 rgba(255,90,31,0)}}
+.hero-img{position:relative;min-height:340px}
+.hero-img img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 35%}
+@media (max-width:900px){.hero-grid{grid-template-columns:1fr;min-height:0;max-height:none}.hero-img{order:-1;height:56vw}.hero-txt{padding:30px 24px 56px}}
+
+/* schedule */
+.sched-top{display:flex;justify-content:space-between;align-items:flex-end;gap:24px;flex-wrap:wrap}
+.days{display:flex;gap:6px;overflow-x:auto;margin-top:36px;padding-bottom:4px;border-bottom:2px solid var(--ink)}
+.day{flex:none;padding:12px 18px 10px;font-weight:800;font-size:16px;color:var(--ink2);border-radius:4px 4px 0 0;line-height:1.2;text-align:center}
+.day small{display:block;font-weight:600;font-size:12px}
+.day[aria-selected=true]{background:var(--ink);color:#fff}
+.filters{display:flex;gap:8px;flex-wrap:wrap;margin:22px 0 26px}
+.fchip{height:40px;padding:0 16px;border-radius:999px;border:1.5px solid var(--line);font-weight:700;font-size:14px;background:#fff;display:flex;align-items:center;gap:8px}
+.fchip i{width:10px;height:10px;border-radius:50%}
+.fchip[aria-pressed=true]{background:var(--ink);color:#fff;border-color:var(--ink)}
+.classes{display:flex;flex-direction:column;gap:10px}
+.cls{display:grid;grid-template-columns:110px 80px minmax(0,1fr) 180px auto;gap:20px;align-items:center;background:#fff;border:1px solid var(--line);border-radius:6px;padding:14px 18px 14px 14px}
+[dir=rtl] .cls{padding:14px 14px 14px 18px}
+.cls .tm{font-family:'Lalezar',sans-serif;font-size:30px;line-height:1;direction:ltr}
+.cls .tm small{display:block;font-family:'Cairo';font-size:13px;color:var(--ink2);font-weight:600;margin-top:4px}
+.cls img{width:80px;height:64px;object-fit:cover;border-radius:4px}
+.cls h3{font-size:19px;font-weight:800;display:flex;align-items:center;gap:8px}
+.cls h3 i{width:10px;height:10px;border-radius:50%;flex:none}
+.cls p{font-size:14px;color:var(--ink2)}
+.spots{font-size:13px;color:var(--ink2);font-weight:600}
+.meter{height:6px;background:var(--con);border-radius:3px;margin-top:6px;overflow:hidden}
+.meter i{display:block;height:100%;background:var(--ink)}
+.meter i.hot{background:var(--sig)}
+.cls .btn{height:44px;padding:0 18px;font-size:15px;white-space:nowrap}
+@media (max-width:820px){.cls .btn{padding:0 12px;font-size:14px}}
+.cls .btn[disabled]{background:var(--con);color:var(--ink2);cursor:not-allowed}
+.cls.past{opacity:.45}
+.empty{padding:40px;text-align:center;color:var(--ink2);background:#fff;border:1px dashed var(--line);border-radius:6px}
+@media (max-width:820px){
+  .cls{grid-template-columns:70px minmax(0,1fr) auto;gap:12px;row-gap:10px}
+  .cls img{display:none}
+  .cls .tm{font-size:24px}
+  .cls .sp{grid-column:2/4;order:5}
+  .cls .btn{grid-row:1}
+}
+
+/* classes types */
+.types{display:grid;grid-template-columns:repeat(6,1fr);gap:10px;margin-top:40px}
+.type{position:relative;border-radius:6px;overflow:hidden;aspect-ratio:3/4;color:#fff}
+.type img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.type::after{content:'';position:absolute;inset:0;background:linear-gradient(0deg,rgba(0,0,0,.8),rgba(0,0,0,0) 55%)}
+.type div{position:absolute;bottom:12px;inset-inline:14px;z-index:1}
+.type b{font-family:'Lalezar',sans-serif;font-size:28px;font-weight:400;display:block;line-height:1.1}
+.type span{font-size:13px;color:#DDD}
+@media (max-width:1000px){.types{grid-template-columns:repeat(3,1fr)}}
+@media (max-width:560px){.types{grid-template-columns:repeat(2,1fr)}}
+
+/* plans */
+#plans{background:var(--ink);color:#fff}
+#plans .lead{color:#BDBFC3}
+.toggle{display:inline-flex;background:#23262B;border-radius:999px;padding:4px;margin-top:26px}
+.toggle button{height:42px;padding:0 20px;border-radius:999px;font-weight:700;font-size:15px;color:#BDBFC3}
+.toggle button[aria-pressed=true]{background:#fff;color:var(--ink)}
+.toggle small{color:var(--sig);font-weight:800;margin-inline-start:6px}
+.plans{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:34px}
+.plan{border:1.5px solid #33373D;border-radius:8px;padding:30px;display:flex;flex-direction:column;gap:16px}
+.plan.hot{background:var(--sig);border-color:var(--sig)}
+.plan h3{font-size:22px;font-weight:800}
+.plan .pr{font-family:'Lalezar',sans-serif;font-size:66px;line-height:1;direction:ltr;text-align:start}
+[dir=rtl] .plan .pr{text-align:right}
+.plan .pr small{font-family:'Cairo';font-size:16px;font-weight:600;opacity:.8}
+.plan ul{list-style:none;display:flex;flex-direction:column;gap:8px;flex:1;font-size:15px}
+.plan li::before{content:'—';margin-inline-end:8px;opacity:.6}
+.plan .btn{width:100%}
+.plan.hot .btn{background:#fff;color:var(--ink)}
+.plan .note{font-size:13px;opacity:.75;min-height:20px}
+@media (max-width:900px){.plans{grid-template-columns:1fr}}
+
+/* coaches */
+.coaches{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:40px}
+.coach{position:relative;border-radius:6px;overflow:hidden;background:#000}
+.coach img{width:100%;aspect-ratio:4/5;object-fit:cover;object-position:50% 20%}
+.coach div{position:absolute;inset-inline:0;bottom:0;padding:60px 20px 20px;background:linear-gradient(0deg,rgba(0,0,0,.9),transparent);color:#fff}
+.coach b{font-family:'Lalezar',sans-serif;font-weight:400;font-size:34px;display:block;line-height:1}
+.coach span{font-size:14px;color:#DDD}
+@media (max-width:800px){.coaches{grid-template-columns:1fr 1fr}.coach:last-child{grid-column:1/3}.coach:last-child img{aspect-ratio:16/10}}
+
+/* trial pass */
+#trial{background:var(--con)}
+.trial{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:56px;align-items:center;margin-top:30px}
+.pass{background:var(--ink);color:#fff;border-radius:16px;overflow:hidden;box-shadow:0 30px 60px rgba(0,0,0,.25);max-width:460px;width:100%;justify-self:center}
+.pass .top{background:var(--sig);padding:22px 26px;display:flex;justify-content:space-between;align-items:center}
+.pass .top b{font-family:'Lalezar',sans-serif;font-weight:400;font-size:38px;line-height:1}
+.pass .top span{font-weight:800;font-size:14px}
+.pass .mid{padding:26px;display:grid;grid-template-columns:1fr 1fr;gap:16px 20px;border-bottom:2px dashed #33373D}
+.pass .mid small{display:block;color:#9A9DA2;font-size:12px;font-weight:700}
+.pass .mid b{font-size:18px;font-weight:800;display:block;min-height:27px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.pass .bar{padding:20px 26px 24px;background:#fff;color:var(--ink);text-align:center}
+.pass .bar svg{width:100%;height:70px;display:block}
+.pass .bar span{font-weight:800;letter-spacing:.2em;font-size:15px;direction:ltr;display:block;margin-top:6px}
+.tform .fld{display:flex;flex-direction:column;gap:6px;margin-top:14px;font-weight:700;font-size:14px}
+.tform input{height:52px;border-radius:4px;border:1.5px solid var(--line);background:#fff;padding:0 14px;font-size:16px}
+.tform input:focus{outline:none;border-color:var(--ink)}
+.tform .acts{display:flex;gap:10px;flex-wrap:wrap;margin-top:22px}
+.tform .err{color:#B3261E;font-size:14px;min-height:20px;margin-top:8px}
+@media (max-width:900px){.trial{grid-template-columns:1fr;gap:34px}}
+
+/* space + info */
+.space{display:grid;grid-template-columns:2fr 1fr;grid-template-rows:220px 220px;gap:10px;margin-top:40px}
+.space img{width:100%;height:100%;object-fit:cover;border-radius:6px}
+.space img:first-child{grid-row:1/3}
+.info{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:16px}
+.info div{background:#fff;border:1px solid var(--line);border-radius:6px;padding:22px}
+.info h3{font-size:16px;font-weight:800;margin-bottom:6px}
+.info p{color:var(--ink2);font-size:15px}
+.info a{color:var(--sig2);font-weight:800;text-decoration:underline;text-underline-offset:4px}
+@media (max-width:800px){.space{grid-template-columns:1fr 1fr;grid-template-rows:200px 140px}.space img:first-child{grid-column:1/3;grid-row:auto}.info{grid-template-columns:1fr}}
+footer{background:#000;color:#9A9DA2;font-size:14px;padding:30px 0 40px}
+.foot{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;align-items:center}
+
+/* sheet */
+.sheet{position:fixed;inset:0;z-index:60;display:none;align-items:flex-end;justify-content:center}
+.sheet.open{display:flex}
+.sheet .bg{position:absolute;inset:0;background:rgba(0,0,0,.55)}
+.sheet .box{position:relative;background:#fff;border-radius:14px 14px 0 0;padding:26px;width:min(520px,100%);animation:up .25s ease}
+@media (min-width:700px){.sheet{align-items:center}.sheet .box{border-radius:12px}}
+@keyframes up{from{transform:translateY(40px);opacity:0}to{transform:none;opacity:1}}
+.box h3{font-family:'Lalezar',sans-serif;font-weight:400;font-size:38px;line-height:1.1}
+.box p{color:var(--ink2);margin:6px 0 10px}
+.box .fld{display:flex;flex-direction:column;gap:6px;margin-top:12px;font-weight:700;font-size:14px}
+.box input{height:50px;border-radius:4px;border:1.5px solid var(--line);padding:0 14px;font-size:16px}
+.box .err{color:#B3261E;font-size:14px;min-height:20px;margin:8px 0}
+.box .btn{width:100%}
+.box .x{position:absolute;top:14px;inset-inline-end:14px;width:40px;height:40px;border-radius:50%;background:var(--con);font-size:20px}
+</style>
+</head>
+<body>
+<div class="ribbon"><span data-i="ribbon"></span> <a href="https://nafetha-web.github.io" data-i="ribbonLink"></a></div>
+<header><div class="wrap nav">
+  <a class="logo" href="#top"><svg width="34" height="34" viewBox="0 0 64 64" aria-hidden="true"><rect width="64" height="64" rx="12" fill="#FF5A1F"/><path d="M8 34h12l5-12 8 22 6-14 4 4h13" stroke="#fff" stroke-width="5" fill="none" stroke-linejoin="round" stroke-linecap="round"/></svg>PULSE</a>
+  <nav class="links"><a href="#schedule" data-i="nSched"></a><a href="#types" data-i="nClasses"></a><a href="#plans" data-i="nPlans"></a><a href="#coaches" data-i="nCoaches"></a><a href="#trial" data-i="nTrial"></a></nav>
+  <div class="nav-end"><button class="lang" id="langBtn" type="button"></button><a class="btn b-sig" href="#trial" data-i="ctaTrial"></a></div>
+</div></header>
+
+<main id="top">
+<section class="hero">
+  <div class="hero-grid">
+    <div class="hero-txt">
+      <h1 class="disp"><span data-i="h1a"></span><br><span class="o" data-i="h1b"></span></h1>
+      <svg class="pulse-line" viewBox="0 0 520 60" aria-hidden="true"><path d="M0 34h150l18-26 26 48 20-36 12 14h294" fill="none" stroke="currentColor" stroke-width="5" stroke-linejoin="round" stroke-linecap="round"/></svg>
+      <p data-i="heroP"></p>
+      <div class="hero-ctas"><a class="btn b-sig" href="#trial" data-i="ctaTrial"></a><a class="btn b-ghost" href="#schedule" data-i="ctaSched"></a></div>
+      <div class="now"><i></i><span id="nowTxt"></span></div>
+    </div>
+    <div class="hero-img"><img src="img/hero.webp" alt="" fetchpriority="high"></div>
+  </div>
+</section>
+
+<section class="sec" id="schedule">
+  <div class="wrap">
+    <div class="sched-top"><div><h2 class="disp" data-i="sH"></h2><p class="lead" style="margin-top:10px" data-i="sP"></p></div></div>
+    <div class="days" role="tablist" id="days"></div>
+    <div class="filters" id="filters"></div>
+    <div class="classes" id="classes"></div>
+  </div>
+</section>
+
+<section class="sec" id="types" style="padding-top:0">
+  <div class="wrap"><h2 class="disp" data-i="cH"></h2><div class="types" id="typeGrid"></div></div>
+</section>
+
+<section class="sec" id="plans">
+  <div class="wrap">
+    <h2 class="disp" data-i="pH"></h2><p class="lead" style="margin-top:10px" data-i="pP"></p>
+    <div class="toggle"><button type="button" data-b="m" aria-pressed="true" data-i="monthly"></button><button type="button" data-b="y" aria-pressed="false"><span data-i="yearly"></span><small data-i="save"></small></button></div>
+    <div class="plans" id="planGrid"></div>
+  </div>
+</section>
+
+<section class="sec" id="coaches">
+  <div class="wrap"><h2 class="disp" data-i="kH"></h2><p class="lead" style="margin-top:10px" data-i="kP"></p><div class="coaches" id="coachGrid"></div></div>
+</section>
+
+<section class="sec" id="trial">
+  <div class="wrap">
+    <h2 class="disp" data-i="tH"></h2><p class="lead" style="margin-top:10px" data-i="tP"></p>
+    <div class="trial">
+      <div class="pass" id="pass">
+        <div class="top"><b>PULSE</b><span data-i="passType"></span></div>
+        <div class="mid">
+          <div><small data-i="passName"></small><b id="pName">—</b></div>
+          <div><small data-i="passValid"></small><b id="pValid"></b></div>
+          <div><small data-i="passIncl"></small><b data-i="passInclV"></b></div>
+          <div><small data-i="passCode"></small><b id="pCode" class="ltr"></b></div>
+        </div>
+        <div class="bar"><svg id="barcode" viewBox="0 0 300 70" preserveAspectRatio="none" aria-hidden="true"></svg><span id="pCode2"></span></div>
+      </div>
+      <div class="tform">
+        <label class="fld"><span data-i="fName"></span><input id="tName" autocomplete="name" maxlength="26"></label>
+        <label class="fld"><span data-i="fPhone"></span><input id="tPhone" type="tel" inputmode="tel" dir="ltr"></label>
+        <p class="err" id="tErr" role="alert"></p>
+        <div class="acts"><button class="btn b-sig" type="button" id="tSave" data-i="tSave"></button><button class="btn b-wa" type="button" id="tSend" data-i="tSend"></button></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="visit">
+  <div class="wrap">
+    <h2 class="disp" data-i="vH"></h2>
+    <div class="space"><img src="img/space1.webp" alt="" loading="lazy"><img src="img/space3.webp" alt="" loading="lazy"><img src="img/space2.webp" alt="" loading="lazy" style="object-position:50% 70%"></div>
+    <div class="info">
+      <div><h3 data-i="iHours"></h3><p data-i="iHoursV"></p></div>
+      <div><h3 data-i="iWhere"></h3><p data-i="iWhereV"></p><a href="https://maps.google.com/?q=gym" target="_blank" rel="noopener" data-i="map"></a></div>
+      <div><h3 data-i="iMore"></h3><p data-i="iMoreV"></p></div>
+    </div>
+  </div>
+</section>
+</main>
+<footer><div class="wrap foot"><span data-i="foot"></span><span><span data-i="madeBy"></span> <a href="https://nafetha-web.github.io" style="text-decoration:underline;color:#fff">Nafetha</a></span></div></footer>
+
+<div class="sheet" id="sheet" role="dialog" aria-modal="true" aria-labelledby="bkH">
+  <div class="bg" data-close></div>
+  <div class="box"><button class="x" type="button" data-close aria-label="close">×</button>
+    <h3 id="bkH" data-i="bkH"></h3><p id="bkInfo"></p>
+    <label class="fld"><span data-i="fName"></span><input id="bName" autocomplete="name"></label>
+    <p class="err" id="bErr" role="alert"></p>
+    <button class="btn b-wa" type="button" id="bSend" data-i="bkSend"></button>
+  </div>
+</div>
+
+<script>
+const WA='96171163991';
+const TYPES={yoga:{c:'#7C5CFF',img:'yoga',min:60,coach:'maya'},boxing:{c:'#FF5A1F',img:'boxing',min:50,coach:'eli'},cross:{c:'#121417',img:'cross',min:45,coach:'sami'},strength:{c:'#2E7D32',img:'strength',min:60,coach:'sami'},spin:{c:'#0077C8',img:'spin',min:45,coach:'maya'},pilates:{c:'#D6336C',img:'pilates',min:50,coach:'maya'}};
+const COACH=[{id:'sami',img:'coach-1'},{id:'eli',img:'coach-2'},{id:'maya',img:'coach-3'}];
+const SLOTS=[420,570,750,1050,1140,1230];
+const T={
+ar:{dir:'rtl',lang:'English',ribbon:'هذا نموذج موقع تجريبي لنادٍ غير حقيقي، من تصميم نافذة.',ribbonLink:'اطلب موقعًا مثله',
+ nSched:'الجدول',nClasses:'الحصص',nPlans:'الاشتراكات',nCoaches:'المدربون',nTrial:'يوم تجربة',ctaTrial:'جرّب يومًا مجانًا',ctaSched:'شوف جدول الحصص',
+ h1a:'تمرّن.',h1b:'بإيقاعك.',heroP:'نادٍ مفتوح من السادسة صباحًا، فيه أكثر من 30 حصة أسبوعيًا ومدربون يتابعونك. احجز مكانك في الحصة من هاتفك.',
+ nowNext:'الحصة التالية:',nowAt:'الساعة',nowNone:'لا توجد حصص أخرى اليوم، نراك غدًا.',
+ sH:'جدول الحصص',sP:'اختر اليوم ونوع الحصة، واحجز مكانك قبل أن تمتلئ.',all:'الكل',
+ types:{yoga:['يوغا','مرونة وتنفس'],boxing:['ملاكمة','لياقة وقوة'],cross:['كروس فيت','تمارين عالية الشدة'],strength:['قوة','أوزان بإشراف'],spin:['سبين','دراجات على الموسيقى'],pilates:['بيلاتس','توازن وعضلات الجذع']},
+ coaches:{sami:['سامي','القوة والكروس فيت'],eli:['إيلي','الملاكمة واللياقة'],maya:['مايا','اليوغا والبيلاتس والسبين']},
+ with:'مع',min:'دقيقة',left:'أماكن متبقية',full:'ممتلئة',book:'احجز مكانك',done:'انتهت',today:'اليوم',tomorrow:'غدًا',
+ days:['الأحد','الإثنين','الثلاثاء','الأربعاء','الخميس','الجمعة','السبت'],noClass:'لا توجد حصص من هذا النوع في هذا اليوم.',
+ cH:'الحصص',pH:'الاشتراكات',pP:'بدون رسوم تسجيل، وتستطيع إيقاف الاشتراك شهرًا في السنة.',monthly:'شهري',yearly:'سنوي',save:'شهران مجانًا',
+ perM:'/ شهر',perY:'/ سنة',yNote:'أي ما يعادل',plans:[['أساسي',35,['النادي من 6 صباحًا حتى 11 ليلًا','غرف تبديل وخزائن','تقييم لياقة عند البداية']],['Pulse',55,['كل ما في الأساسي','كل الحصص الجماعية بلا حدود','حجز الحصص من الموقع']],['برو',95,['كل ما في Pulse','4 جلسات مع مدرب شخصي شهريًا','خطة تغذية وقياسات شهرية']]],
+ pick:'اختر هذا الاشتراك',popular:'الأكثر طلبًا',
+ kH:'المدربون',kP:'مدربون معتمدون يعرفون أسماء الأعضاء ويتابعون تقدمهم.',
+ tH:'يوم تجربة مجاني',tP:'اكتب اسمك لتحصل على بطاقة دخول ليوم كامل، احفظها على هاتفك وأظهرها في الاستقبال.',
+ passType:'يوم تجربة مجاني',passName:'الاسم',passValid:'صالحة حتى',passIncl:'تشمل',passInclV:'النادي + حصة',passCode:'الرمز',
+ fName:'الاسم',fPhone:'الهاتف (اختياري)',tSave:'احفظ البطاقة',tSend:'أرسلها لنا عبر واتساب',needName:'اكتب اسمك لتظهر على البطاقة.',
+ bkH:'احجز مكانك',bkSend:'أرسل الحجز عبر واتساب',bkNeed:'اكتب اسمك لنحجز المكان باسمك.',
+ waBook:'مرحبًا Pulse، أريد حجز مكان في حصة:',waClass:'الحصة',waWhen:'الموعد',waCoach:'المدرب',waName:'الاسم',waPlan:'مرحبًا Pulse، أريد الاشتراك:',waPlanN:'الاشتراك',waBill:'الدفع',waTrial:'مرحبًا Pulse، أريد استخدام يوم التجربة المجاني:',waCode:'الرمز',waPhone:'الهاتف',waFoot:'(طلب من نموذج موقع نادي Pulse)',
+ vH:'زُر النادي',iHours:'ساعات العمل',iHoursV:'الإثنين إلى السبت: 6:00 حتى 23:00. الأحد: 8:00 حتى 20:00.',iWhere:'العنوان',iWhereV:'شارع الملعب، مبنى سبورت سنتر، الطابق الأول.',map:'افتح على الخريطة',iMore:'تسهيلات',iMoreV:'موقف مجاني، غرف تبديل، ساونا، ومنطقة مخصصة للسيدات.',
+ foot:'© 2026 نادي Pulse. نموذج تجريبي.',madeBy:'تصميم وتطوير'},
+en:{dir:'ltr',lang:'عربي',ribbon:'This is a demo website for a fictional gym, designed by Nafetha.',ribbonLink:'Get a site like this',
+ nSched:'Schedule',nClasses:'Classes',nPlans:'Memberships',nCoaches:'Coaches',nTrial:'Free day',ctaTrial:'Try a free day',ctaSched:'See the schedule',
+ h1a:'Train.',h1b:'At your pace.',heroP:'Open from 6 am, with 30+ classes a week and coaches who follow your progress. Book your spot from your phone.',
+ nowNext:'Next class:',nowAt:'at',nowNone:'No more classes today. See you tomorrow.',
+ sH:'Class schedule',sP:'Pick a day and a class type, and book your spot before it fills up.',all:'All',
+ types:{yoga:['Yoga','Flexibility and breath'],boxing:['Boxing','Fitness and power'],cross:['CrossFit','High-intensity training'],strength:['Strength','Coached weights'],spin:['Spin','Bikes to the beat'],pilates:['Pilates','Balance and core']},
+ coaches:{sami:['Sami','Strength & CrossFit'],eli:['Eli','Boxing & conditioning'],maya:['Maya','Yoga, Pilates & Spin']},
+ with:'with',min:'min',left:'spots left',full:'Full',book:'Book a spot',done:'Done',today:'Today',tomorrow:'Tomorrow',
+ days:['Sun','Mon','Tue','Wed','Thu','Fri','Sat'],noClass:'No classes of this type on this day.',
+ cH:'Classes',pH:'Memberships',pP:'No joining fee, and you can freeze your membership for a month each year.',monthly:'Monthly',yearly:'Yearly',save:'2 months free',
+ perM:'/ month',perY:'/ year',yNote:'That\'s',plans:[['Basic',35,['Gym access 6 am to 11 pm','Changing rooms and lockers','Fitness assessment to start']],['Pulse',55,['Everything in Basic','Unlimited group classes','Book classes online']],['Pro',95,['Everything in Pulse','4 personal training sessions a month','Nutrition plan and monthly check-ins']]],
+ pick:'Choose this plan',popular:'Most popular',
+ kH:'Coaches',kP:'Certified coaches who know members by name and track their progress.',
+ tH:'Free trial day',tP:'Add your name to get a one-day pass. Save it on your phone and show it at reception.',
+ passType:'Free trial day',passName:'Name',passValid:'Valid until',passIncl:'Includes',passInclV:'Gym + 1 class',passCode:'Code',
+ fName:'Name',fPhone:'Phone (optional)',tSave:'Save the pass',tSend:'Send it to us on WhatsApp',needName:'Add your name so it appears on the pass.',
+ bkH:'Book your spot',bkSend:'Send booking on WhatsApp',bkNeed:'Add your name so we can hold the spot for you.',
+ waBook:'Hello Pulse, I would like to book a class:',waClass:'Class',waWhen:'When',waCoach:'Coach',waName:'Name',waPlan:'Hello Pulse, I would like to join:',waPlanN:'Plan',waBill:'Billing',waTrial:'Hello Pulse, I would like to use my free trial day:',waCode:'Code',waPhone:'Phone',waFoot:'(Request from the Pulse demo website)',
+ vH:'Visit the club',iHours:'Opening hours',iHoursV:'Mon to Sat: 6:00 to 23:00. Sun: 8:00 to 20:00.',iWhere:'Address',iWhereV:'Stadium Street, Sport Center building, 1st floor.',map:'Open in maps',iMore:'Facilities',iMoreV:'Free parking, changing rooms, sauna and a women-only area.',
+ foot:'© 2026 Pulse Gym. Demo website.',madeBy:'Design and development by'}
+};
+let lang='ar';try{const s=localStorage.getItem('pulse-lang');if(s==='ar'||s==='en')lang=s}catch(e){}
+const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)],t=k=>T[lang][k];
+const pad=n=>String(n).padStart(2,'0');
+const fmt=m=>{const h=Math.floor(m/60),mm=m%60;return lang==='en'?`${((h+11)%12)+1}:${pad(mm)} ${h<12?'AM':'PM'}`:`${h}:${pad(mm)}`};
+function hash(s){let h=2166136261;for(const c of s){h^=c.charCodeAt(0);h=Math.imul(h,16777619)}return h>>>0}
+const dayStart=d=>{const x=new Date(d);x.setHours(0,0,0,0);return x};
+const nowMin=()=>{const n=new Date();return n.getHours()*60+n.getMinutes()};
+const TK=Object.keys(TYPES);
+function classesFor(d){
+  const out=[];const dow=d.getDay();
+  SLOTS.forEach((m,i)=>{if(dow===0&&(i===0||i===5))return;const k=TK[(hash('p'+dow+'|'+i)%TK.length)];const cap=k==='spin'?16:20;const hv=hash(d.toDateString()+i);const taken=(hv%7===0)?cap:3+hv%(cap-5);out.push({m,k,cap,taken,id:dow+'-'+i})});
+  return out;
+}
+const S={day:0,filter:'all',plan:'m'};
+const PASS={code:''};(()=>{const c='ABCDEFGHJKMNPQRSTUVWXYZ23456789';let s='PLS-';for(let i=0;i<5;i++)s+=c[Math.floor(Math.random()*c.length)];PASS.code=s})();
+function render(){
+  document.documentElement.lang=lang;document.documentElement.dir=t('dir');
+  $$('[data-i]').forEach(el=>{const v=t(el.dataset.i);if(typeof v==='string')el.textContent=v});
+  $('#langBtn').textContent=t('lang');
+  renderSched();renderTypes();renderPlans();renderCoaches();renderPass();renderNow();
+}
+function renderSched(){
+  const base=dayStart(new Date());
+  $('#days').innerHTML=[...Array(7)].map((_,i)=>{const d=new Date(base);d.setDate(base.getDate()+i);return `<button class="day" role="tab" aria-selected="${S.day===i}" data-d="${i}">${i===0?t('today'):i===1?t('tomorrow'):t('days')[d.getDay()]}<small>${d.getDate()}/${d.getMonth()+1}</small></button>`}).join('');
+  $$('#days .day').forEach(b=>b.onclick=()=>{S.day=+b.dataset.d;renderSched()});
+  $('#filters').innerHTML=`<button class="fchip" type="button" data-f="all" aria-pressed="${S.filter==='all'}">${t('all')}</button>`+TK.map(k=>`<button class="fchip" type="button" data-f="${k}" aria-pressed="${S.filter===k}"><i style="background:${TYPES[k].c}"></i>${t('types')[k][0]}</button>`).join('');
+  $$('#filters .fchip').forEach(b=>b.onclick=()=>{S.filter=b.dataset.f;renderSched()});
+  const d=new Date(base);d.setDate(base.getDate()+S.day);
+  const list=classesFor(d).filter(c=>S.filter==='all'||c.k===S.filter);
+  if(!list.length){$('#classes').innerHTML=`<div class="empty">${t('noClass')}</div>`;return}
+  $('#classes').innerHTML=list.map(c=>{const ty=TYPES[c.k],[n,dsc]=t('types')[c.k],co=t('coaches')[ty.coach][0],left=c.cap-c.taken,past=S.day===0&&c.m<=nowMin();
+    return `<article class="cls${past?' past':''}"><div class="tm">${fmt(c.m)}<small>${ty.min} ${t('min')}</small></div><img src="img/${ty.img}.webp" alt="" loading="lazy"><div><h3><i style="background:${ty.c}"></i>${n}</h3><p>${dsc} · ${t('with')} ${co}</p></div><div class="sp"><span class="spots">${left?`${left} ${t('left')}`:t('full')}</span><div class="meter"><i class="${left<=4?'hot':''}" style="width:${c.taken/c.cap*100}%"></i></div></div><button class="btn b-ink" type="button" data-c="${c.id}" ${past||!left?'disabled':''}>${past?t('done'):left?t('book'):t('full')}</button></article>`}).join('');
+  $$('#classes [data-c]').forEach(b=>b.onclick=()=>openBook(d,list.find(c=>c.id===b.dataset.c)));
+}
+let BK=null;
+function openBook(d,c){BK={d,c};const ty=TYPES[c.k];$('#bkInfo').textContent=`${t('types')[c.k][0]} · ${dayName(d)} ${fmt(c.m)} · ${t('with')} ${t('coaches')[ty.coach][0]}`;$('#bErr').textContent='';$('#sheet').classList.add('open');setTimeout(()=>$('#bName').focus(),50)}
+function dayName(d){const i=Math.round((dayStart(d)-dayStart(new Date()))/864e5);return i===0?t('today'):i===1?t('tomorrow'):t('days')[d.getDay()]+' '+d.getDate()+'/'+(d.getMonth()+1)}
+$$('[data-close]').forEach(e=>e.onclick=()=>$('#sheet').classList.remove('open'));
+document.addEventListener('keydown',e=>{if(e.key==='Escape')$('#sheet').classList.remove('open')});
+$('#bSend').onclick=()=>{const n=$('#bName').value.trim();if(!n){$('#bErr').textContent=t('bkNeed');return}const {d,c}=BK,ty=TYPES[c.k];
+  const L=[t('waBook'),'',`• ${t('waClass')}: ${t('types')[c.k][0]}`,`• ${t('waWhen')}: ${dayName(d)} - ${fmt(c.m)}`,`• ${t('waCoach')}: ${t('coaches')[ty.coach][0]}`,`• ${t('waName')}: ${n}`,'',t('waFoot')];
+  window.open(`https://wa.me/${WA}?text=${encodeURIComponent(L.join('\n'))}`,'_blank','noopener')};
+function renderTypes(){$('#typeGrid').innerHTML=TK.map(k=>`<div class="type"><img src="img/${TYPES[k].img}.webp" alt="" loading="lazy"><div><b>${t('types')[k][0]}</b><span>${t('types')[k][1]}</span></div></div>`).join('')}
+function renderPlans(){
+  $$('.toggle button').forEach(b=>{b.setAttribute('aria-pressed',b.dataset.b===S.plan);b.onclick=()=>{S.plan=b.dataset.b;renderPlans()}});
+  $('#planGrid').innerHTML=t('plans').map(([n,p,f],i)=>{const y=S.plan==='y',price=y?p*10:p;return `<article class="plan${i===1?' hot':''}"><h3>${n}${i===1?` · ${t('popular')}`:''}</h3><div class="pr">$${price} <small>${y?t('perY'):t('perM')}</small></div><p class="note">${y?`${t('yNote')} $${(price/12).toFixed(0)} ${t('perM')}`:''}</p><ul>${f.map(x=>`<li>${x}</li>`).join('')}</ul><button class="btn ${i===1?'':'b-sig'}" type="button" data-p="${i}">${t('pick')}</button></article>`}).join('');
+  $$('#planGrid [data-p]').forEach(b=>b.onclick=()=>{const [n,p]=t('plans')[+b.dataset.p];const y=S.plan==='y';const L=[t('waPlan'),'',`• ${t('waPlanN')}: ${n}`,`• ${t('waBill')}: ${y?t('yearly'):t('monthly')} - $${y?p*10:p}`,'',t('waFoot')];window.open(`https://wa.me/${WA}?text=${encodeURIComponent(L.join('\n'))}`,'_blank','noopener')});
+}
+function renderCoaches(){$('#coachGrid').innerHTML=COACH.map(c=>{const [n,r]=t('coaches')[c.id];return `<article class="coach"><img src="img/${c.img}.webp" alt="${n}" loading="lazy"><div><b>${n}</b><span>${r}</span></div></article>`}).join('')}
+// pass
+function validDate(){const d=new Date();d.setDate(d.getDate()+7);return lang==='ar'?`${d.getDate()}/${d.getMonth()+1}/${d.getFullYear()}`:`${d.getDate()}/${d.getMonth()+1}/${d.getFullYear()}`}
+function bars(code){let h=hash(code),x=0,out='';while(x<300){const w=1+(h%4);h=Math.imul(h^(h>>>13),16777619)>>>0;const gap=1+(h%3);out+=`<rect x="${x}" y="0" width="${w}" height="70" fill="#121417"/>`;x+=w+gap;h=Math.imul(h+x,2654435761)>>>0}return out}
+function renderPass(){const n=$('#tName').value.trim();$('#pName').textContent=n||'—';$('#pValid').textContent=validDate();$('#pCode').textContent=PASS.code;$('#pCode2').textContent=PASS.code;$('#barcode').innerHTML=bars(PASS.code)}
+$('#tName').addEventListener('input',renderPass);
+$('#tSave').onclick=async()=>{
+  const n=$('#tName').value.trim();if(!n){$('#tErr').textContent=t('needName');$('#tName').focus();return}$('#tErr').textContent='';
+  try{await document.fonts.ready}catch(e){}
+  const W=920,H=1100,cv=document.createElement('canvas');cv.width=W;cv.height=H;const x=cv.getContext('2d');const rtl=lang==='ar';
+  x.fillStyle='#121417';x.fillRect(0,0,W,H);x.fillStyle='#FF5A1F';x.fillRect(0,0,W,180);
+  x.fillStyle='#fff';x.font="80px 'Lalezar'";x.textBaseline='middle';x.direction='ltr';x.textAlign='left';x.fillText('PULSE',52,96);
+  x.direction=rtl?'rtl':'ltr';x.textAlign='right';x.font="800 30px 'Cairo'";x.fillText(t('passType'),W-52,96);
+  const cells=[[t('passName'),n],[t('passValid'),validDate()],[t('passIncl'),t('passInclV')],[t('passCode'),PASS.code]];
+  cells.forEach(([l,v],i)=>{const col=i%2,row=Math.floor(i/2);const xr=rtl?(W-52-col*420):(52+col*420);x.textAlign=rtl?'right':'left';x.fillStyle='#9A9DA2';x.font="700 24px 'Cairo'";x.fillText(l,xr,270+row*130);x.fillStyle='#fff';x.font="800 38px 'Cairo'";x.fillText(v,xr,318+row*130)});
+  x.setLineDash([14,10]);x.strokeStyle='#33373D';x.lineWidth=3;x.beginPath();x.moveTo(0,520);x.lineTo(W,520);x.stroke();x.setLineDash([]);
+  x.fillStyle='#fff';x.fillRect(0,540,W,H-540);
+  let h=hash(PASS.code),bx=80;x.fillStyle='#121417';while(bx<W-80){const w=(1+(h%4))*2.6;h=Math.imul(h^(h>>>13),16777619)>>>0;const g=(1+(h%3))*2.6;x.fillRect(bx,620,w,260);bx+=w+g;h=Math.imul(h+Math.round(bx),2654435761)>>>0}
+  x.direction='ltr';x.textAlign='center';x.font="800 40px 'Cairo'";x.fillText(PASS.code.split('').join(' '),W/2,950);
+  try{const a=document.createElement('a');a.download=`pulse-pass-${PASS.code}.png`;a.href=cv.toDataURL('image/png');document.body.appendChild(a);a.click();a.remove()}catch(e){}
+};
+$('#tSend').onclick=()=>{const n=$('#tName').value.trim();if(!n){$('#tErr').textContent=t('needName');$('#tName').focus();return}const p=$('#tPhone').value.trim();const L=[t('waTrial'),'',`• ${t('waName')}: ${n}`];if(p)L.push(`• ${t('waPhone')}: ${p}`);L.push(`• ${t('waCode')}: ${PASS.code}`,'',t('waFoot'));window.open(`https://wa.me/${WA}?text=${encodeURIComponent(L.join('\n'))}`,'_blank','noopener')};
+function renderNow(){const l=classesFor(dayStart(new Date())).filter(c=>c.m>nowMin());$('#nowTxt').innerHTML=l.length?`${t('nowNext')} <b>${t('types')[l[0].k][0]}</b> ${t('nowAt')} <b class="ltr">${fmt(l[0].m)}</b>`:t('nowNone')}
+$('#langBtn').onclick=()=>{lang=lang==='ar'?'en':'ar';try{localStorage.setItem('pulse-lang',lang)}catch(e){};render()};
+render();setInterval(()=>{renderNow();renderSched()},60000);
+</script>
+</body>
+</html>
