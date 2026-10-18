@@ -20,6 +20,7 @@
 <link rel="preload" as="image" href="media/work/baron.webp" type="image/webp">
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"ProfessionalService","name":"Nafetha | نافذة","url":"https://nafetha-web.github.io/","image":"https://nafetha-web.github.io/media/og.jpg","email":"nafetha.web@gmail.com","telephone":"+96171163991","description":"Websites for restaurants, shops and companies in Arabic and English, on a monthly plan.","priceRange":"$25 / month or $249 one-time","sameAs":["https://www.instagram.com/nafetha.web"]}</script>
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='22' fill='%230E4D4A'/%3E%3Cpolygon points='31,16 8,24 8,74 31,82' fill='%23F7F5F0'/%3E%3Cpolygon points='69,16 92,24 92,74 69,82' fill='%23F7F5F0'/%3E%3Crect x='34' y='16' width='32' height='66' rx='4' fill='%23E2B04A'/%3E%3C/svg%3E">
+<script src="assets/track.js" defer></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=El+Messiri:wght@600;700&family=IBM+Plex+Sans+Arabic:wght@400;600;700&display=swap">
@@ -169,6 +170,25 @@ p { margin: 0 }
 .wcap { margin-top: 12px; font-size: 14.5px; color: #CFE2E0; text-align: center; max-width: 30em }
 .wcap a { color: #FFFFFF; font-weight: 600 }
 
+/* try-your-site band + sectors */
+.navtry { color: var(--teal) !important; font-weight: 700; display: inline-flex; align-items: center; gap: 6px }
+.navtry::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: var(--gold); box-shadow: 0 0 0 3px rgba(226,176,74,.3) }
+.trysec { padding-top: 0 }
+.tryband { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, .9fr); gap: 24px; align-items: center; background: var(--teal); color: #FFFFFF; border-radius: 28px; padding: 44px 48px 0; overflow: hidden; position: relative }
+.tryband::before { content: ""; position: absolute; inset: auto auto -40% -10%; width: 520px; height: 520px; border-radius: 50%; background: radial-gradient(closest-side, rgba(226,176,74,.22), transparent); pointer-events: none }
+.tryband > div { position: relative; padding-bottom: 44px }
+.tryband .kick { display: inline-block; font-size: 14px; font-weight: 700; color: var(--teal-deep); background: var(--gold); border-radius: 999px; padding: 3px 14px; margin-bottom: 14px }
+.tryband h2 { font-size: clamp(28px, 4vw, 42px) }
+.tryband p { color: #D5E6E4; font-size: 18px; margin: 12px 0 24px; max-width: 30em }
+.tryband img { position: relative; width: auto; height: auto; max-width: 100%; max-height: 420px; justify-self: center; align-self: end; display: block }
+.tryband > div { align-self: center }
+@media (max-width: 860px) { .tryband { grid-template-columns: minmax(0, 1fr); padding: 32px 24px 0 } .tryband > div { padding-bottom: 0 } .tryband img { max-height: 340px } }
+.sectors { margin-top: 36px }
+.sectors h3 { font-family: var(--body); font-size: 19px; font-weight: 700; color: var(--teal-deep); margin-bottom: 14px }
+.sectors div { display: flex; flex-wrap: wrap; gap: 10px }
+.sectors a { text-decoration: none; border: 1.5px solid var(--line); border-radius: 999px; padding: 8px 18px; font-weight: 600; font-size: 15.5px; color: var(--ink); background: #FFFFFF }
+.sectors a:hover { border-color: var(--teal); color: var(--teal) }
+
 /* sections */
 section.blk { padding-block: 96px }
 @media (max-width: 700px) { section.blk { padding-block: 64px } }
@@ -311,6 +331,7 @@ input, select, textarea { min-width: 0; max-width: 100% }
       <b data-t="brand"></b>
     </a>
     <nav class="nav" aria-label="Sections">
+      <a href="preview/" class="navtry" data-t="navTry"></a>
       <a href="#work" data-t="navWork"></a>
       <a href="#services" data-t="navServices"></a>
       <a href="#how" data-t="navHow"></a>
@@ -370,6 +391,16 @@ input, select, textarea { min-width: 0; max-width: 100% }
         </div>
       </article>
       <div class="rail" id="rail"></div>
+    </div>
+  </section>
+
+  <section class="blk trysec" id="try">
+    <div class="wrap">
+      <div class="tryband rv">
+        <div><span class="kick" data-t="tryK"></span><h2 data-t="tryT"></h2><p data-t="tryS"></p><a class="btn btn-gold" href="preview/" data-t="tryBtn"></a></div>
+        <img src="media/preview-card.webp" alt="" loading="lazy" width="900" height="976">
+      </div>
+      <div class="sectors"><h3 data-t="secT"></h3><div id="secLinks"></div></div>
     </div>
   </section>
 
@@ -461,6 +492,7 @@ const tick = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke
 
 const T = {
   ar: { dir: 'rtl', langBtn: 'English', brand: 'نافذة',
+    navTry: 'شاهد موقعك', tryK: 'جديد', tryT: 'شاهد موقعك قبل أن تطلبه', tryS: 'اكتب اسم نشاطك واختر نوعه ولونه، وتظهر واجهة موقعك خلال ثوانٍ.', tryBtn: 'جرّبها الآن', secT: 'حلول مصمّمة لقطاعك', sectors: [['restaurants', 'مطاعم'], ['cafes', 'مقاهٍ'], ['clinics', 'عيادات'], ['salons', 'صالونات تجميل'], ['gyms', 'أندية رياضية'], ['companies', 'شركات ومكاتب'], ['contracting', 'مقاولات وتشطيب'], ['garages', 'كاراجات وصيانة'], ['gifts', 'هدايا ومناسبات']],
     navWork: 'أعمالنا', navServices: 'الخدمات', navHow: 'طريقة العمل', navPricing: 'الأسعار', navFaq: 'الأسئلة', navContact: 'تواصل معنا',
     eyebrow: 'نموذج مجاني باسمك قبل أي دفع',
     heroTitle: 'موقع <em>يبيع عنك</em> على مدار الساعة',
@@ -473,7 +505,7 @@ const T = {
     fText: 'يختار الزبون الغرفة واللون ويرى النتيجة فورًا، ويقارن قبل وبعد، ثم يحصل على سعر تقديري ويرسل طلبه عبر واتساب.',
     fChips: ['صور 3D واقعية', 'تسعير فوري', 'قبل وبعد', 'عربي وإنجليزي'], fName: 'استوديو الألوان',
     works: [
-      { img: 'artisan', tag: 'هدايا وتزيين مناسبات', t: 'Artisan Workshop', d: 'صمّم مناسبتك وشوفها مباشرة مع اسم نيون وروزنامة حجوزات، صندوق هدايا بتجهّزه بإيدك، ومعرض «بدي متلها» عالواتساب.', href: 'demo/artisan/' },
+      { img: 'artisan', tag: 'هدايا وتزيين مناسبات', t: 'Artisan Workshop', d: 'يصمّم الزبون مناسبته ويشاهدها مباشرة مع اسم نيون وروزنامة حجوزات، ويجهّز صندوق هدية بنفسه، ومعرض «أريد مثلها» عبر واتساب.', href: 'demo/artisan/' },
       { img: 'pitstop', tag: 'كاراج', t: 'كاراج مع تتبّع السيارة', d: 'حاسبة كلفة ووقت تسليم مع حجز، تتبّع حالة السيارة برمز الإيصال، وتذكير بموعد تغيير الزيت.', href: 'demo/pitstop/' },
       { img: 'asas', tag: 'مقاولات', t: 'شركة مقاولات مع قبل وبعد', d: 'مشاريع بسلايدر قبل وبعد، مشاريع قيد التنفيذ بنسبة إنجاز، وحاسبة كلفة تقديرية مع طلب كشف.', href: 'demo/asas/' },
       { img: 'pulse', tag: 'نادٍ رياضي', t: 'نادٍ مع جدول حصص وحجز', d: 'جدول أسبوعي بفلاتر وأماكن متبقية، اشتراكات شهرية وسنوية، وبطاقة يوم تجربة مجاني.', href: 'demo/pulse/' },
@@ -538,6 +570,7 @@ const T = {
     waFloat: 'راسلنا', waHello: 'مرحبًا نافذة، لديّ سؤال عن موقع لنشاطي.',
     copy: '© 2026 نافذة', terms: 'الشروط والخصوصية' },
   en: { dir: 'ltr', langBtn: 'عربي', brand: 'Nafetha',
+    navTry: 'See your site', tryK: 'New', tryT: 'See your website before you order it', tryS: 'Type your business name, pick a type and colour, and your homepage appears in seconds.', tryBtn: 'Try it now', secT: 'Solutions for your industry', sectors: [['restaurants', 'Restaurants'], ['cafes', 'Cafés'], ['clinics', 'Clinics'], ['salons', 'Beauty salons'], ['gyms', 'Gyms'], ['companies', 'Companies'], ['contracting', 'Contracting'], ['garages', 'Garages'], ['gifts', 'Gifts & events']],
     navWork: 'Our work', navServices: 'Services', navHow: 'How it works', navPricing: 'Pricing', navFaq: 'FAQ', navContact: 'Contact us',
     eyebrow: 'A free demo with your name before you pay',
     heroTitle: 'A website that <em>sells for you</em> around the clock',
@@ -636,6 +669,7 @@ function render() {
   $('fChips').innerHTML = t.fChips.map(c => '<li>' + c + '</li>').join('');
   $('fCta').textContent = t.likeThis; $('fCta').href = 'https://wa.me/' + WA + '?text=' + encodeURIComponent(t.waLike(t.fName));
   renderPlans(); renderSlides(); renderWork(); renderForm();
+  $('secLinks').innerHTML = t.sectors.map(x => '<a href="for/' + x[0] + '/">' + x[1] + '</a>').join('');
   $('waFloat').href = 'https://wa.me/' + WA + '?text=' + encodeURIComponent(t.waHello);
 }
 function renderPlans() {
