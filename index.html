@@ -94,8 +94,13 @@ p { margin: 0 }
 .assure li { display: flex; align-items: center; gap: 10px }
 .assure svg { flex: none; color: var(--gold) }
 
-.hero .wrap { grid-template-columns: minmax(0, 1fr) }
+.hero .wrap { grid-template-columns: minmax(0, 1.1fr) minmax(0, .9fr) }
 .hero .wrap > div { max-width: 48em }
+.heroshot { display: flex; flex-direction: column; align-items: center; gap: 14px; text-decoration: none; color: #E8F1F0 }
+.heroshot img { width: 100%; max-width: 440px; height: auto; display: block; filter: drop-shadow(0 30px 40px rgba(0,0,0,.35)); transition: transform .4s }
+.heroshot:hover img { transform: translateY(-6px) }
+.heroshot span { display: inline-flex; align-items: center; gap: 8px; font-weight: 600; font-size: 15.5px; border-bottom: 1.5px solid var(--gold); padding-bottom: 2px }
+@media (max-width: 900px) { .hero .wrap { grid-template-columns: minmax(0, 1fr) } .heroshot { display: none } }
 /* the window: live demo framed by shutters */
 .window { display: flex; flex-direction: column; align-items: center; min-width: 0; width: 100% }
 .frame { display: flex; align-items: center; justify-content: center; gap: 0 }
@@ -359,6 +364,7 @@ input, select, textarea { min-width: 0; max-width: 100% }
         </div>
         <ul class="assure" id="assure"></ul>
       </div>
+      <a class="heroshot" href="preview/"><img src="media/preview-card.webp" alt="" width="900" height="976"><span data-t="heroShot"></span></a>
     </div>
   </section>
 
@@ -483,7 +489,7 @@ const tick = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke
 
 const T = {
   ar: { dir: 'rtl', langBtn: 'English', brand: 'نافذة',
-    navTry: 'شاهد موقعك', tryK: 'جديد', tryT: 'شاهد موقعك قبل أن تطلبه', tryS: 'اكتب اسم نشاطك واختر نوعه ولونه، وتظهر واجهة موقعك خلال ثوانٍ.', tryBtn: 'جرّبها الآن', secT: 'حلول مصمّمة لقطاعك', sectors: [['restaurants', 'مطاعم'], ['cafes', 'مقاهٍ'], ['clinics', 'عيادات'], ['salons', 'صالونات تجميل'], ['gyms', 'أندية رياضية'], ['companies', 'شركات ومكاتب'], ['contracting', 'مقاولات وتشطيب'], ['garages', 'كاراجات وصيانة'], ['gifts', 'هدايا ومناسبات']],
+    navTry: 'شاهد موقعك', heroShot: 'اكتب اسم نشاطك وشاهد موقعك الآن ←', tryK: 'جديد', tryT: 'شاهد موقعك قبل أن تطلبه', tryS: 'اكتب اسم نشاطك واختر نوعه ولونه، وتظهر واجهة موقعك خلال ثوانٍ.', tryBtn: 'جرّبها الآن', secT: 'حلول مصمّمة لقطاعك', sectors: [['restaurants', 'مطاعم'], ['cafes', 'مقاهٍ'], ['clinics', 'عيادات'], ['salons', 'صالونات تجميل'], ['gyms', 'أندية رياضية'], ['companies', 'شركات ومكاتب'], ['contracting', 'مقاولات وتشطيب'], ['garages', 'كاراجات وصيانة'], ['gifts', 'هدايا ومناسبات']],
     navWork: 'أعمالنا', navServices: 'الخدمات', navHow: 'طريقة العمل', navPricing: 'الأسعار', navFaq: 'الأسئلة', navContact: 'تواصل معنا',
     eyebrow: 'نموذج مجاني باسمك قبل أي دفع',
     heroTitle: 'موقع <em>يبيع عنك</em> على مدار الساعة',
@@ -559,7 +565,7 @@ const T = {
     waFloat: 'راسلنا', waHello: 'مرحبًا نافذة، لديّ سؤال عن موقع لنشاطي.',
     copy: '© 2026 نافذة', terms: 'الشروط والخصوصية' },
   en: { dir: 'ltr', langBtn: 'عربي', brand: 'Nafetha',
-    navTry: 'See your site', tryK: 'New', tryT: 'See your website before you order it', tryS: 'Type your business name, pick a type and colour, and your homepage appears in seconds.', tryBtn: 'Try it now', secT: 'Solutions for your industry', sectors: [['restaurants', 'Restaurants'], ['cafes', 'Cafés'], ['clinics', 'Clinics'], ['salons', 'Beauty salons'], ['gyms', 'Gyms'], ['companies', 'Companies'], ['contracting', 'Contracting'], ['garages', 'Garages'], ['gifts', 'Gifts & events']],
+    navTry: 'See your site', heroShot: 'Type your business name and see your site →', tryK: 'New', tryT: 'See your website before you order it', tryS: 'Type your business name, pick a type and colour, and your homepage appears in seconds.', tryBtn: 'Try it now', secT: 'Solutions for your industry', sectors: [['restaurants', 'Restaurants'], ['cafes', 'Cafés'], ['clinics', 'Clinics'], ['salons', 'Beauty salons'], ['gyms', 'Gyms'], ['companies', 'Companies'], ['contracting', 'Contracting'], ['garages', 'Garages'], ['gifts', 'Gifts & events']],
     navWork: 'Our work', navServices: 'Services', navHow: 'How it works', navPricing: 'Pricing', navFaq: 'FAQ', navContact: 'Contact us',
     eyebrow: 'A free demo with your name before you pay',
     heroTitle: 'A website that <em>sells for you</em> around the clock',
