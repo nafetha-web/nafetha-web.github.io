@@ -271,6 +271,27 @@ section.blk { padding-block: 96px }
 .plan.main .subs { color: var(--teal-deep); background: var(--gold) }
 .ptotal { font-weight: 600; color: var(--teal); margin: -8px 0 20px }
 .plan .demo a { font-weight: 600; color: var(--teal) }
+.sys { margin-top: 22px; max-width: 900px; border-radius: 26px; padding: 30px 26px; background: linear-gradient(135deg, #14512F, #1E6B45); color: #fff; position: relative; overflow: hidden }
+.sys::after { content: ""; position: absolute; width: 360px; height: 360px; border-radius: 50%; background: radial-gradient(closest-side, rgba(243,181,58,.25), transparent); inset-inline-end: -120px; top: -140px; pointer-events: none }
+.sys > * { position: relative; z-index: 1 }
+.sys .stag { display: inline-block; background: var(--gold); color: var(--teal-deep); font-size: 13.5px; font-weight: 700; border-radius: 999px; padding: 4px 14px }
+.sys h3 { font-size: 28px; margin: 12px 0 4px }
+.sys .sfor { color: #D5E8DC; font-size: 15.5px; margin: 0 }
+.sys .sprice { display: flex; flex-wrap: wrap; align-items: baseline; gap: 6px 18px; margin: 18px 0 6px }
+.sys .sprice .price { color: #fff; justify-content: flex-start }
+.sys .sprice .price small { color: #D5E8DC }
+.sys .sprice .alt { font-size: 15.5px; color: #D5E8DC }
+.sys .sprice .alt b { color: #fff; font-size: 20px }
+.sys .scols { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; margin: 20px 0 22px }
+@media (max-width: 760px) { .sys .scols { grid-template-columns: minmax(0, 1fr) } }
+.sys .scol { background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.14); border-radius: 18px; padding: 16px }
+.sys .scol h4 { margin: 0 0 10px; font-size: 17px; display: flex; align-items: center; gap: 8px }
+.sys .scol ul { list-style: none; padding: 0; margin: 0; display: grid; gap: 8px; font-size: 14.5px; color: #E8F2EC }
+.sys .scol li { display: flex; gap: 8px; align-items: flex-start }
+.sys .scol li svg { flex: none; margin-top: 5px; color: var(--gold) }
+.sys .sbtns { display: flex; flex-wrap: wrap; gap: 10px }
+.sys .sbtns .btn { flex: 1 1 200px }
+.sys .btn-ghost { color: #fff; border-color: rgba(255,255,255,.55) }
 .plan.main .demo a { color: var(--gold) }
 
 /* faq */
@@ -428,6 +449,7 @@ input, select, textarea { min-width: 0; max-width: 100% }
       <p class="ptotal" id="ptotal" hidden></p>
       <div class="incl"><p class="incl-t" data-t="inclTitle"></p><ul id="incl"></ul></div>
       <div class="plans" id="plans"></div>
+      <div class="sys" id="sys"></div>
       <ul class="pextra" id="pextra"></ul>
     </div>
   </section>
@@ -535,6 +557,12 @@ const T = {
     perMonth: 'شهريًا', once: 'مرة واحدة',
     promo: 'عرض نهاية السنة حتى 31 كانون الأول: الاشتراك الشهري أول أسبوعين مجانًا، وشراء الموقع بـ 199$ بدل 249$.',
     offerBtn: 'عرض نهاية السنة',
+    sys: { tag: 'باقة خاصة', name: 'نظام السوبرماركت', for: 'موقع وتطبيق ولوحة تحكّم، لمتجر يبيع أونلاين كل يوم.', price: 45, buy: 550, yearly: 90,
+      or: 'أو شراء بـ', after: 'ثم 90$ سنويًا للاستضافة والخدمات',
+      cols: [['🛒', 'الموقع', ['أقسام بالصور وبحث سريع', '«الصق قائمتك» تملأ السلّة وحدها', 'شريط التوصيل المجاني', 'طلبات مرتّبة عبر واتساب']],
+        ['📲', 'التطبيق', ['يُثبَّت على الهاتف بضغطة', 'يعمل حتى مع إنترنت ضعيف', 'إشعارات بالعروض لزبائنك']],
+        ['🎛️', 'لوحة التحكّم', ['عروض يومية بمدة محددة', 'تغيير الأسعار ونفاد المخزون', 'إرسال إشعار لكل الزبائن', 'إحصائيات التطبيق والمشتركين']]],
+      demo: 'جرّب نموذج الماركت', panel: 'اطلب تجربة لوحة التحكّم', panelMsg: 'مرحبًا نافذة، أريد تجربة لوحة تحكّم نظام السوبرماركت', startMsg: 'مرحبًا نافذة، أنا مهتم بنظام السوبرماركت' },
     inclTitle: 'كل موقع يشمل:',
     incl: ['قائمة أو كتالوج بالصور والأسعار', 'سلّة ومراجعة الطلب', 'طلبات مباشرة عبر واتساب', 'بالعربية والإنجليزية', 'استضافة ورابط خاص بنشاطك', 'موقعك على Google Maps وتجهيز Google Business', 'رموز QR وربط إنستغرام'],
     deal: 'عرض نهاية السنة',
@@ -557,6 +585,7 @@ const T = {
       ['كيف تعمل التعديلات بعد الشراء؟', 'يمكنك الاشتراك في باقة التعديلات الاختيارية بـ 5$ شهريًا، وتشمل تعديلات بسيطة غير محدودة مثل الأسعار والأصناف والصور. وتستطيع إيقافها متى شئت.'],
       ['ماذا لو لم أجدّد الاستضافة السنوية بعد الشراء؟', 'نمنحك شهرًا إضافيًا، ثم نسلّمك ملفات موقعك ونطاقك لتستضيفه حيث تريد. لا نحذف شيئًا يخصّك.'],
       ['كيف أدفع؟', 'عبر تطبيق Whish Money، أو USDT على شبكة TRC20.'],
+      ['ماذا أملك عند شراء نظام السوبرماركت؟', 'تملك الموقع ونطاقك الخاص. أما لوحة التحكّم والإشعارات والإحصائيات فهي خدمات تعمل على خوادم نافذة، وتستمر ما دامت الاستضافة السنوية (90$) مدفوعة.'],
       ['هل يكون النطاق باسمي؟', 'عند شراء الموقع، يُسجَّل نطاق خاص (.com) باسمك ويبقى لك دائمًا. في الاشتراك الشهري، يكون موقعك على رابط باسم نشاطك ضمن نطاق نافذة، ويمكنك إضافة نطاق خاص (.com) بـ 20$ سنويًا.']],
     aboutTitle: 'من نحن', aboutText: 'بدأت نافذة من فكرة بسيطة: كل نشاط تجاري يستحق موقعًا احترافيًا بسعر معقول ومن دون تعقيد. نهتم نحن بالتفاصيل التقنية، وتتفرغ أنت لزبائنك.',
     contactTitle: 'جاهز لترى نشاطك على الإنترنت؟', contactSub: 'املأ النموذج وسيُفتح واتساب برسالة جاهزة. نرسل لك نموذجًا مجانيًا، ونردّ عادةً خلال ساعة.',
@@ -612,6 +641,12 @@ const T = {
     perMonth: '/ month', once: 'one time',
     promo: 'End-of-year offer until December 31: monthly plan free for the first two weeks, and buy your site for $199 instead of $249.',
     offerBtn: 'End-of-year offer',
+    sys: { tag: 'Special package', name: 'Supermarket system', for: 'A website, an app and a control panel for a store that sells online every day.', price: 45, buy: 550, yearly: 90,
+      or: 'or buy for', after: 'then $90 a year for hosting and services',
+      cols: [['🛒', 'Website', ['Aisles with photos and fast search', '“Paste your list” fills the basket', 'Free-delivery progress bar', 'Neat orders straight to WhatsApp']],
+        ['📲', 'App', ['Installs on the phone in one tap', 'Works even on a weak connection', 'Offer notifications for your customers']],
+        ['🎛️', 'Control panel', ['Daily offers with an end time', 'Price changes and out-of-stock', 'Send a notification to all customers', 'App and subscriber stats']]],
+      demo: 'Try the store demo', panel: 'Ask to try the control panel', panelMsg: 'Hello Nafetha, I would like to try the supermarket system control panel', startMsg: 'Hello Nafetha, I am interested in the supermarket system' },
     inclTitle: 'Every website includes:',
     incl: ['Menu or catalog with photos and prices', 'Cart and order review', 'Orders straight to WhatsApp', 'Arabic and English', 'Hosting and a link for your business', 'Google Maps and Google Business setup', 'QR codes and Instagram link'],
     deal: 'End-of-year offer',
@@ -634,6 +669,7 @@ const T = {
       ['How do updates work after buying?', 'You can join the optional updates pack for $5 a month, with unlimited small updates such as prices, items and photos. You can stop it anytime.'],
       ['What if I do not renew the yearly hosting after buying?', 'We give you an extra month, then hand over your site files and domain so you can host it anywhere. We never delete anything of yours.'],
       ['How do I pay?', 'By Whish Money, or USDT on the TRC20 network.'],
+      ['What do I own when I buy the supermarket system?', 'You own the website and your own domain. The control panel, notifications and stats are services that run on Nafetha servers, and they keep running as long as the yearly hosting ($90) is paid.'],
       ['Is the domain in my name?', 'When you buy your site, your own domain (.com) is registered in your name and is always yours. On the monthly plan, your site is on a link with your business name under the Nafetha domain, and you can add your own .com for $20 a year.']],
     aboutTitle: 'About us', aboutText: 'Nafetha started from a simple idea: every business deserves a professional website at a fair price, without the hassle. We take care of the technical details so you can focus on your customers.',
     contactTitle: 'Ready to see your business online?', contactSub: 'Fill in the form and WhatsApp opens with a ready message. We send you a free demo and usually reply within an hour.',
@@ -673,6 +709,11 @@ function renderPlans() {
   const tot = STATS ? STATS.total : 0; $('ptotal').hidden = !(tot >= 3); if (tot >= 3) $('ptotal').textContent = t.subsTotal + ' ' + tot;
   $('incl').innerHTML = t.incl.map(x => '<li>' + tick + x + '</li>').join('');
   $('pextra').innerHTML = t.extra.map(x => '<li>' + tick + '<span>' + x + '</span></li>').join('');
+  const y = t.sys;
+  $('sys').innerHTML = '<span class="stag">' + y.tag + '</span><h3>' + y.name + '</h3><p class="sfor">' + y.for + '</p>' +
+    '<div class="sprice"><div class="price">' + money(y.price) + '<small>' + t.perMonth + '</small></div><span class="alt">' + y.or + ' <b class="ltr">' + money(y.buy) + '</b>' + (lang === 'ar' ? '، ' : ', ') + y.after + '</span></div>' +
+    '<div class="scols">' + y.cols.map(c => '<div class="scol"><h4><span aria-hidden="true">' + c[0] + '</span>' + c[1] + '</h4><ul>' + c[2].map(x => '<li>' + tick + '<span>' + x + '</span></li>').join('') + '</ul></div>').join('') + '</div>' +
+    '<div class="sbtns"><a class="btn btn-gold" href="https://wa.me/' + WA + '?text=' + encodeURIComponent(y.startMsg) + '" target="_blank" rel="noopener">' + t.start + '</a><a class="btn btn-ghost" href="demo/khayrat/" target="_blank" rel="noopener">' + y.demo + ' ↗</a><a class="btn btn-ghost" href="https://wa.me/' + WA + '?text=' + encodeURIComponent(y.panelMsg) + '" target="_blank" rel="noopener">' + y.panel + '</a></div>';
   $('plans').innerHTML = t.plans.map(p => {
     const now = p.offer || p.price;
     const price = '<div class="price">' + (p.offer ? '<span class="was">' + money(p.price) + '</span>' : '') + money(now) + '<small>' + t[p.unit] + '</small></div>';
