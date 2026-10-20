@@ -53,6 +53,7 @@ h1, h2, h3 { font-family: var(--hf); margin: 0 }
 .stat b { display: block; font-family: var(--hf); font-size: 24px; line-height: 1.1 }
 .stat span { font-size: 12px; color: var(--mute) }
 .stat.o b { color: var(--tomato) }
+.stat.a b { color: var(--brand) }
 .tabs { display: grid; grid-template-columns: repeat(3, 1fr); background: #EAE7DD; border-radius: 14px; padding: 4px; gap: 4px }
 .tabs button { height: 40px; border-radius: 11px; font-weight: 600; font-size: 14px; color: var(--mute) }
 .tabs button[aria-pressed="true"] { background: #fff; color: var(--ink); box-shadow: 0 2px 6px -3px rgba(0,0,0,.25) }
@@ -142,7 +143,8 @@ textarea.fld { height: 96px; padding: 12px 14px; resize: none; line-height: 1.5 
 <div id="appV" hidden>
   <header class="top"><div class="wrap"><h1>لوحة خيرات ماركت<small id="upd">…</small></h1><a href="../" target="_blank" rel="noopener">شوف الموقع ↗</a><button type="button" id="outB">خروج</button></div></header>
   <main class="wrap">
-    <div class="stats"><div class="stat o"><b class="num" id="sOff">0</b><span>عروض شغّالة</span></div><div class="stat"><b class="num" id="sOut">0</b><span>خلصانين</span></div><div class="stat"><b class="num" id="sAll">0</b><span>مشتركين بالإشعارات</span></div></div>
+    <div class="stats"><div class="stat o"><b class="num" id="sOff">0</b><span>عروض شغّالة</span></div><div class="stat"><b class="num" id="sOut">0</b><span>خلصانين</span></div><div class="stat"><b class="num" id="sAll">0</b><span>مشتركين بالإشعارات</span></div>
+      <div class="stat a"><b class="num" id="sIns">…</b><span>نزّلوا التطبيق</span></div><div class="stat a"><b class="num" id="sTod">…</b><span>فاتوا من التطبيق اليوم</span></div><div class="stat a"><b class="num" id="sWk">…</b><span>فاتوا هالأسبوع</span></div></div>
     <button type="button" class="pushb" id="pushB"><i>📣</i><span><b>ابعت إشعار للزبائن</b><small>بيوصل لكل يلي فعّلوا الإشعارات بالتطبيق</small></span></button>
     <div class="tabs" role="group" aria-label="filter"><button type="button" data-tab="all" aria-pressed="true">الكل</button><button type="button" data-tab="off" aria-pressed="false">العروض</button><button type="button" data-tab="out" aria-pressed="false">خلصانين</button></div>
     <div class="srch"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg><input class="fld" id="q" type="search" placeholder="دوّر على منتج…"></div>
@@ -161,7 +163,7 @@ textarea.fld { height: 96px; padding: 12px 14px; resize: none; line-height: 1.5 
 const API = 'https://nafetha-api.nafetha-web.workers.dev/khayrat';
 const $ = (s) => document.querySelector(s), $$ = (s) => [...document.querySelectorAll(s)];
 P.forEach((p) => { p.img = '../' + p.img; p.base = p.old || p.p });
-let subs = null, pass = '', st = { offers: {}, out: [] }, tab = 'all', cat = 'all', q = '', cur = null;
+let usage = null, subs = null, pass = '', st = { offers: {}, out: [] }, tab = 'all', cat = 'all', q = '', cur = null;
 try { pass = localStorage.getItem('kh_admin') || '' } catch (e) {}
 
 const usd = (n) => '$' + (Math.round(n * 100) / 100).toFixed(2);
@@ -176,7 +178,7 @@ async function api(path, opt) {
   if (!r.ok) throw new Error('net');
   return r.json();
 }
-async function pull() { st = await api('/state'); st.offers = st.offers || {}; st.out = st.out || []; render(); try { subs = (await api('/subs')).count; render() } catch (e) {} }
+async function pull() { st = await api('/state'); st.offers = st.offers || {}; st.out = st.out || []; render(); try { usage = await api('/stats'); subs = usage.subs; render() } catch (e) {} }
 
 /* login */
 $('#loginF').addEventListener('submit', async (e) => {
@@ -194,6 +196,7 @@ async function enter() { $('#loginV').hidden = true; $('#appV').hidden = false; 
 function render() {
   const nOff = P.filter((p) => live(p.id)).length, nOut = st.out.length;
   $('#sOff').textContent = nOff; $('#sOut').textContent = nOut; $('#sAll').textContent = subs === null ? '…' : subs;
+  if (usage) { $('#sIns').textContent = usage.installs; $('#sTod').textContent = usage.today; $('#sWk').textContent = usage.week }
   $('#upd').textContent = st.updated ? 'آخر تحديث: ' + new Date(st.updated).toLocaleString('ar-LB', { weekday: 'long', hour: 'numeric', minute: '2-digit' }) : 'ما في تعديلات بعد';
   $$('.tabs button').forEach((b) => { b.setAttribute('aria-pressed', String(b.dataset.tab === tab)); if (b.dataset.tab === 'off') b.textContent = 'العروض' + (nOff ? ' (' + nOff + ')' : ''); if (b.dataset.tab === 'out') b.textContent = 'خلصانين' + (nOut ? ' (' + nOut + ')' : '') });
   $('#chips').innerHTML = [{ k: 'all', ar: 'كل الأقسام' }, ...CATS].map((c) => '<button type="button" data-cat="' + c.k + '" class="' + (cat === c.k ? 'on' : '') + '">' + c.ar + '</button>').join('');

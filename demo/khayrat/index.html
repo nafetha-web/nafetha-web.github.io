@@ -729,7 +729,15 @@ async function doInstall() {
   iosHelp();
 }
 addEventListener('beforeinstallprompt', (e) => { e.preventDefault(); deferredI = e; appCard() });
-addEventListener('appinstalled', () => { $('#appc').classList.remove('on'); toast(t('appDone')) });
+addEventListener('appinstalled', () => { $('#appc').classList.remove('on'); toast(t('appDone')); hit('install') });
+/* app usage counters for the owner's panel: one install per device, one open per device per day */
+function devId() { let d = ''; try { d = localStorage.getItem('kh_dev') || ''; if (!d) { d = (crypto.randomUUID ? crypto.randomUUID() : Date.now().toString(36) + Math.random().toString(36).slice(2)); localStorage.setItem('kh_dev', d) } } catch (e) {} return d }
+function hit(type) {
+  const k = type === 'install' ? 'kh_inst' : 'kh_open_' + new Date().toDateString();
+  try { if (localStorage.getItem(k)) return; localStorage.setItem(k, '1'); if (type === 'open') Object.keys(localStorage).filter((x) => x.startsWith('kh_open_') && x !== k).forEach((x) => localStorage.removeItem(x)) } catch (e) { return }
+  const d = devId(); if (d.length >= 8) fetch(API.replace('/state', '/hit'), { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ type, dev: d }), keepalive: true }).catch(() => {});
+}
+if (standalone()) { hit('install'); hit('open') }
 document.addEventListener('click', (e) => { if (e.target.closest('[data-install]')) doInstall() });
 $('#appNo').addEventListener('click', () => { try { localStorage.setItem('kh_app_no', Date.now()) } catch (e) {} $('#appc').classList.remove('on'); toast(t('appLater')) });
 appCard();
