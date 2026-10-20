@@ -53,7 +53,27 @@ h1, h2, h3 { font-family: var(--hf); margin: 0 }
 .stat b { display: block; font-family: var(--hf); font-size: 24px; line-height: 1.1 }
 .stat span { font-size: 12px; color: var(--mute) }
 .stat.o b { color: var(--tomato) }
-.stat.a b { color: var(--brand) }
+.sbtn { border: 1.5px solid var(--brand); background: var(--mint); color: var(--brand-2); font-weight: 600; width: 100% }
+.sbtn b { font-size: 22px; line-height: 1.2 }
+.sbtn span { color: var(--brand-2) !important; font-weight: 600 }
+/* stats drawer */
+.dr { position: fixed; z-index: 41; top: 0; bottom: 0; inset-inline-end: 0; width: min(360px, 88vw); background: var(--bg); box-shadow: 0 0 40px rgba(0,0,0,.25); transform: translateX(-105%); transition: transform .3s cubic-bezier(.2,.8,.2,1); overflow: auto; padding: 18px 16px calc(18px + env(safe-area-inset-bottom, 0px)) }
+[dir=ltr] .dr { transform: translateX(105%) }
+.dr.on { transform: none !important }
+.dr .dh { display: flex; align-items: center; justify-content: space-between; margin-bottom: 14px }
+.dr .dh h2 { font-size: 20px }
+.dr .x { width: 38px; height: 38px; border-radius: 99px; background: var(--card); border: 1px solid var(--line); font-size: 20px }
+.kc { background: var(--card); border: 1px solid var(--line); border-radius: 18px; padding: 14px; margin-bottom: 10px; display: flex; align-items: center; gap: 12px }
+.kc i { font-style: normal; font-size: 22px; width: 46px; height: 46px; border-radius: 14px; background: var(--mint); display: grid; place-items: center; flex: none }
+.kc b { display: block; font-family: var(--hf); font-size: 28px; line-height: 1.1 }
+.kc span { color: var(--mute); font-size: 13px }
+.kg { background: var(--card); border: 1px solid var(--line); border-radius: 18px; padding: 14px; margin-bottom: 10px }
+.kg h3 { font-size: 15px; margin-bottom: 10px; display: flex; align-items: center; gap: 8px }
+.kg .r3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; text-align: center }
+.kg .r3 div { background: var(--bg); border-radius: 12px; padding: 10px 4px }
+.kg .r3 b { display: block; font-family: var(--hf); font-size: 22px; color: var(--brand) }
+.kg .r3 span { font-size: 11.5px; color: var(--mute); line-height: 1.3; display: block }
+.dnote { font-size: 12.5px; color: var(--mute); margin: 6px 4px 14px; line-height: 1.6 }
 .tabs { display: grid; grid-template-columns: repeat(3, 1fr); background: #EAE7DD; border-radius: 14px; padding: 4px; gap: 4px }
 .tabs button { height: 40px; border-radius: 11px; font-weight: 600; font-size: 14px; color: var(--mute) }
 .tabs button[aria-pressed="true"] { background: #fff; color: var(--ink); box-shadow: 0 2px 6px -3px rgba(0,0,0,.25) }
@@ -143,8 +163,7 @@ textarea.fld { height: 96px; padding: 12px 14px; resize: none; line-height: 1.5 
 <div id="appV" hidden>
   <header class="top"><div class="wrap"><h1>لوحة خيرات ماركت<small id="upd">…</small></h1><a href="../" target="_blank" rel="noopener">شوف الموقع ↗</a><button type="button" id="outB">خروج</button></div></header>
   <main class="wrap">
-    <div class="stats"><div class="stat o"><b class="num" id="sOff">0</b><span>عروض شغّالة</span></div><div class="stat"><b class="num" id="sOut">0</b><span>خلصانين</span></div><div class="stat"><b class="num" id="sAll">0</b><span>مشتركين بالإشعارات</span></div>
-      <div class="stat a"><b class="num" id="sIns">…</b><span>نزّلوا التطبيق</span></div><div class="stat a"><b class="num" id="sTod">…</b><span>فاتوا من التطبيق اليوم</span></div><div class="stat a"><b class="num" id="sWk">…</b><span>فاتوا هالأسبوع</span></div></div>
+    <div class="stats"><div class="stat o"><b class="num" id="sOff">0</b><span>عروض شغّالة</span></div><div class="stat"><b class="num" id="sOut">0</b><span>خلصانين</span></div><button type="button" class="stat sbtn" id="statsB"><b>📊</b><span>الإحصائيات</span></button></div>
     <button type="button" class="pushb" id="pushB"><i>📣</i><span><b>ابعت إشعار للزبائن</b><small>بيوصل لكل يلي فعّلوا الإشعارات بالتطبيق</small></span></button>
     <div class="tabs" role="group" aria-label="filter"><button type="button" data-tab="all" aria-pressed="true">الكل</button><button type="button" data-tab="off" aria-pressed="false">العروض</button><button type="button" data-tab="out" aria-pressed="false">خلصانين</button></div>
     <div class="srch"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg><input class="fld" id="q" type="search" placeholder="دوّر على منتج…"></div>
@@ -155,6 +174,7 @@ textarea.fld { height: 96px; padding: 12px 14px; resize: none; line-height: 1.5 
 </div>
 
 <div class="ov" id="ov"></div>
+<aside class="dr" id="dr" aria-labelledby="drH" aria-hidden="true"><div class="dh"><h2 id="drH">📊 الإحصائيات</h2><button type="button" class="x" id="drX" aria-label="close">×</button></div><div id="drB"></div><button type="button" class="btn ghost" id="drR">حدّث الأرقام</button></aside>
 <section class="sheet" id="ed" role="dialog" aria-modal="true" aria-labelledby="edH"></section>
 <div class="toast" id="toast" role="status"></div>
 
@@ -195,8 +215,8 @@ async function enter() { $('#loginV').hidden = true; $('#appV').hidden = false; 
 /* list */
 function render() {
   const nOff = P.filter((p) => live(p.id)).length, nOut = st.out.length;
-  $('#sOff').textContent = nOff; $('#sOut').textContent = nOut; $('#sAll').textContent = subs === null ? '…' : subs;
-  if (usage) { $('#sIns').textContent = usage.installs; $('#sTod').textContent = usage.today; $('#sWk').textContent = usage.week }
+  $('#sOff').textContent = nOff; $('#sOut').textContent = nOut;
+  if ($('#dr').classList.contains('on')) drawDr();
   $('#upd').textContent = st.updated ? 'آخر تحديث: ' + new Date(st.updated).toLocaleString('ar-LB', { weekday: 'long', hour: 'numeric', minute: '2-digit' }) : 'ما في تعديلات بعد';
   $$('.tabs button').forEach((b) => { b.setAttribute('aria-pressed', String(b.dataset.tab === tab)); if (b.dataset.tab === 'off') b.textContent = 'العروض' + (nOff ? ' (' + nOff + ')' : ''); if (b.dataset.tab === 'out') b.textContent = 'خلصانين' + (nOut ? ' (' + nOut + ')' : '') });
   $('#chips').innerHTML = [{ k: 'all', ar: 'كل الأقسام' }, ...CATS].map((c) => '<button type="button" data-cat="' + c.k + '" class="' + (cat === c.k ? 'on' : '') + '">' + c.ar + '</button>').join('');
@@ -216,6 +236,9 @@ document.addEventListener('click', (e) => {
   else if (b.dataset.cat) { cat = b.dataset.cat; render() }
   else if (b.dataset.id) openEd(b.dataset.id);
   else if (b.id === 'pushB') openNt();
+  else if (b.id === 'statsB') openDr();
+  else if (b.id === 'drX') closeDr();
+  else if (b.id === 'drR') { b.disabled = true; b.textContent = 'عم يحدّث…'; api('/stats').then((u) => { usage = u; subs = u.subs; drawDr() }).catch(() => toast('ما زبط، جرّب بعد شوي')).finally(() => { b.disabled = false; b.textContent = 'حدّث الأرقام' }) }
   else if (b.id === 'clearAll') { if (confirm('أكيد بدّك تشيل كل العروض؟')) save((s) => { s.offers = {} }, 'انشالت كل العروض') }
 });
 $('#q').addEventListener('input', (e) => { q = e.target.value; render() });
@@ -239,6 +262,16 @@ function drawEd() {
     '<button type="button" class="sw" data-out aria-pressed="' + cur.out + '"><span><b>خلص من المخزن</b><small>بيطلع «خلص» عالموقع وما حدا بيقدر يطلبو</small></span><i></i></button>' +
     '<div class="acts"><button type="button" class="btn" data-save>نشر عالموقع</button>' + (cur.had ? '<button type="button" class="btn red" data-stop>شيل العرض</button>' : '') + '</div>';
 }
+function drawDr() {
+  const u = usage, v = (x) => (u ? x : '…');
+  const since = u && u.since ? new Date(u.since).toLocaleDateString('ar-LB', { day: 'numeric', month: 'long', year: 'numeric' }) : '';
+  $('#drB').innerHTML = '<div class="kc"><i>🔔</i><div><b class="num">' + v(u && u.subs) + '</b><span>مشتركين بالإشعارات</span></div></div>' +
+    '<div class="kc"><i>📲</i><div><b class="num">' + v(u && u.installs) + '</b><span>نزّلوا التطبيق على تلفونهم</span></div></div>' +
+    '<div class="kg"><h3>👆 فاتوا من التطبيق</h3><div class="r3"><div><b class="num">' + v(u && u.today) + '</b><span>اليوم</span></div><div><b class="num">' + v(u && u.week) + '</b><span>آخر 7 أيام</span></div><div><b class="num">' + v(u && u.total) + '</b><span>من أول ما اشتغل التطبيق</span></div></div></div>' +
+    '<p class="dnote">' + (since ? 'التطبيق شغّال من ' + since + '. ' : '') + 'كل زبون بينحسب مرّة وحدة باليوم، حتى لو فات أكتر من مرّة. «من أول ما اشتغل» هوّي مجموع الزيارات اليومية كلها.</p>';
+}
+function openDr() { drawDr(); $('#dr').classList.add('on'); $('#dr').setAttribute('aria-hidden', 'false'); $('#ov').classList.add('on'); document.body.style.overflow = 'hidden'; api('/stats').then((u) => { usage = u; subs = u.subs; drawDr() }).catch(() => {}) }
+function closeDr() { $('#dr').classList.remove('on'); $('#dr').setAttribute('aria-hidden', 'true'); $('#ov').classList.remove('on'); document.body.style.overflow = '' }
 function closeEd() { $('#ov').classList.remove('on'); $('#ed').classList.remove('on'); document.body.style.overflow = ''; cur = null; nt = null }
 /* notification composer */
 let nt = null;
@@ -270,8 +303,8 @@ $('#ed').addEventListener('click', async (e) => {
     catch (err) { b.disabled = false; b.textContent = 'ابعت الإشعار'; if (err.message !== 'auth') toast('ما زبط، جرّب مرّة تانية') }
   }
 });
-$('#ov').addEventListener('click', closeEd);
-document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && cur) closeEd() });
+$('#ov').addEventListener('click', () => { if ($('#dr').classList.contains('on')) closeDr(); else closeEd() });
+document.addEventListener('keydown', (e) => { if (e.key !== 'Escape') return; if ($('#dr').classList.contains('on')) closeDr(); else if (cur || nt) closeEd() });
 $('#ed').addEventListener('input', (e) => { if (e.target.id === 'np') { cur.price = e.target.value.replace(',', '.'); const p = byId[cur.id], pr = parseFloat(cur.price), pct = pr > 0 && pr < p.base ? Math.round((1 - pr / p.base) * 100) : 0; $('#hint').innerHTML = pct ? 'الزبون رح يشوف <b>-' + pct + '%</b> عالمنتج' : pr >= p.base ? 'هيدا تغيير سعر، مش عرض' : 'اكتب السعر أو اختار خصم:'; $$('[data-pct]').forEach((b) => b.classList.toggle('on', +b.dataset.pct === pct)) } });
 $('#ed').addEventListener('click', (e) => {
   const b = e.target.closest('button'); if (!b || !cur) return; const d = b.dataset, p = byId[cur.id];
