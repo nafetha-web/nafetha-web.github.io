@@ -244,6 +244,7 @@ section.blk { padding-block: 96px }
 .plan.main .was { color: #9DBDBA }
 .plan .deal { display: inline-block; width: fit-content; font-size: 13.5px; font-weight: 700; background: #FBF2DE; color: #5E4410; border-radius: 999px; padding: 3px 12px }
 .pextra { list-style: none; padding: 0; margin: 26px 0 0; display: grid; gap: 10px; max-width: 900px }
+.pextra li svg { flex: none; margin-top: 4px }
 .pextra li { display: flex; gap: 10px; align-items: flex-start; font-size: 15.5px; color: var(--ink) }
 .pextra li b { color: var(--teal-deep) }
 .pextra a { color: var(--teal); font-weight: 600 }
@@ -546,7 +547,7 @@ const T = {
         after: 'ثم 60$ سنويًا للاستضافة والنطاق، ابتداءً من السنة الثانية',
         f: ['كل مزايا الموقع', 'الموقع ملكك بالكامل', 'نطاق خاص (.com) مسجّل باسمك', 'باقة تعديلات اختيارية: 5$ شهريًا'] }
     ],
-    extra: ['<b>مشترك شهريًا وتريد الشراء؟</b> تحصل على خصم 20% على سعر الشراء.', '<b>الدفع:</b> عبر Whish Money أو USDT (شبكة TRC20).', '<b>شركة أو مشروع كبير؟</b> <a href="#contact">اطلب عرض سعر</a> حسب حاجتك.'],
+    extra: ['<b>مشترك شهريًا وتريد الشراء؟</b> تحصل على خصم 20% على سعر الشراء.', '<b>مشترك شهريًا وتريد نطاقًا خاصًا؟</b> أضف نطاق (.com) باسم نشاطك بـ 20$ سنويًا.', '<b>الدفع:</b> عبر Whish Money أو USDT (شبكة TRC20).', '<b>شركة أو مشروع كبير؟</b> <a href="#contact">اطلب عرض سعر</a> حسب حاجتك.'],
     faqTitle: 'أسئلة شائعة', faqSub: 'لم تجد جوابك؟ راسلنا عبر واتساب.',
     faq: [['كم يستغرق تجهيز الموقع؟', 'بين 3 و5 أيام عمل من تاريخ استلامنا للقائمة والصور.'],
       ['ماذا أرسل لكم؟', 'اسم النشاط، والقائمة أو لائحة المنتجات، والصور إن وُجدت، ورقم واتساب، وساعات العمل.'],
@@ -556,7 +557,7 @@ const T = {
       ['كيف تعمل التعديلات بعد الشراء؟', 'يمكنك الاشتراك في باقة التعديلات الاختيارية بـ 5$ شهريًا، وتشمل تعديلات بسيطة غير محدودة مثل الأسعار والأصناف والصور. وتستطيع إيقافها متى شئت.'],
       ['ماذا لو لم أجدّد الاستضافة السنوية بعد الشراء؟', 'نمنحك شهرًا إضافيًا، ثم نسلّمك ملفات موقعك ونطاقك لتستضيفه حيث تريد. لا نحذف شيئًا يخصّك.'],
       ['كيف أدفع؟', 'عبر تطبيق Whish Money، أو USDT على شبكة TRC20.'],
-      ['هل يكون النطاق باسمي؟', 'عند شراء الموقع، يُسجَّل نطاق خاص (.com) باسمك ويبقى لك دائمًا. في الاشتراك الشهري، يكون موقعك على رابط باسم نشاطك ضمن نطاق نافذة.']],
+      ['هل يكون النطاق باسمي؟', 'عند شراء الموقع، يُسجَّل نطاق خاص (.com) باسمك ويبقى لك دائمًا. في الاشتراك الشهري، يكون موقعك على رابط باسم نشاطك ضمن نطاق نافذة، ويمكنك إضافة نطاق خاص (.com) بـ 20$ سنويًا.']],
     aboutTitle: 'من نحن', aboutText: 'بدأت نافذة من فكرة بسيطة: كل نشاط تجاري يستحق موقعًا احترافيًا بسعر معقول ومن دون تعقيد. نهتم نحن بالتفاصيل التقنية، وتتفرغ أنت لزبائنك.',
     contactTitle: 'جاهز لترى نشاطك على الإنترنت؟', contactSub: 'املأ النموذج وسيُفتح واتساب برسالة جاهزة. نرسل لك نموذجًا مجانيًا، ونردّ عادةً خلال ساعة.',
     formTitle: 'اطلب نموذجًا مجانيًا', lblShop: 'اسم النشاط', lblKind: 'نوع النشاط', lblNeed: 'ماذا تحتاج؟ (اختياري)',
@@ -623,7 +624,7 @@ const T = {
         after: 'Then $60 a year for hosting and domain, from the second year',
         f: ['Every website feature', 'The website is fully yours', 'Your own domain (.com) in your name', 'Optional updates pack: $5/month'] }
     ],
-    extra: ['<b>On the monthly plan and want to buy?</b> You get 20% off the purchase price.', '<b>Payment:</b> by Whish Money or USDT (TRC20 network).', '<b>A company or a large project?</b> <a href="#contact">Request a quote</a> for what you need.'],
+    extra: ['<b>On the monthly plan and want to buy?</b> You get 20% off the purchase price.', '<b>On the monthly plan and want your own domain?</b> Add a .com with your business name for $20 a year.', '<b>Payment:</b> by Whish Money or USDT (TRC20 network).', '<b>A company or a large project?</b> <a href="#contact">Request a quote</a> for what you need.'],
     faqTitle: 'Frequently asked questions', faqSub: 'Did not find your answer? Message us on WhatsApp.',
     faq: [['How long does it take?', 'Between 3 and 5 working days from when we receive your menu and photos.'],
       ['What do I need to send?', 'Your business name, menu or product list, photos if you have them, a WhatsApp number and opening hours.'],
@@ -633,7 +634,7 @@ const T = {
       ['How do updates work after buying?', 'You can join the optional updates pack for $5 a month, with unlimited small updates such as prices, items and photos. You can stop it anytime.'],
       ['What if I do not renew the yearly hosting after buying?', 'We give you an extra month, then hand over your site files and domain so you can host it anywhere. We never delete anything of yours.'],
       ['How do I pay?', 'By Whish Money, or USDT on the TRC20 network.'],
-      ['Is the domain in my name?', 'When you buy your site, your own domain (.com) is registered in your name and is always yours. On the monthly plan, your site is on a link with your business name under the Nafetha domain.']],
+      ['Is the domain in my name?', 'When you buy your site, your own domain (.com) is registered in your name and is always yours. On the monthly plan, your site is on a link with your business name under the Nafetha domain, and you can add your own .com for $20 a year.']],
     aboutTitle: 'About us', aboutText: 'Nafetha started from a simple idea: every business deserves a professional website at a fair price, without the hassle. We take care of the technical details so you can focus on your customers.',
     contactTitle: 'Ready to see your business online?', contactSub: 'Fill in the form and WhatsApp opens with a ready message. We send you a free demo and usually reply within an hour.',
     formTitle: 'Get a free demo', lblShop: 'Business name', lblKind: 'Type of business', lblNeed: 'What do you need? (optional)',
