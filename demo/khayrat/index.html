@@ -197,7 +197,8 @@ main { min-width: 0; padding-top: 16px; display: flex; flex-direction: column; g
 .ci img { width: 56px; height: 56px; border-radius: 12px; object-fit: cover }
 .ci b { display: block; font-size: 14px; line-height: 1.35 }
 .ci .sub { font-size: 12px; color: var(--mute) }
-.ci select { margin-top: 4px; font-size: 12px; border: 1px solid var(--line); background: var(--card); border-radius: 8px; padding: 3px 6px; max-width: 100% }
+.ci select.set { color: var(--brand-2); border: 1px solid var(--brand); background: var(--mint); font-weight: 600 }
+.ci select { display: block; margin-top: 6px; font-size: 12px; color: var(--mute); border: 1px dashed var(--line); background: transparent; border-radius: 8px; padding: 3px 6px; max-width: 100% }
 .ci .rt { display: flex; flex-direction: column; align-items: flex-end; gap: 6px }
 .ci .rt .pr { font-family: var(--hf); font-weight: 700; font-size: 14px }
 .mini { display: inline-grid; grid-template-columns: 28px auto 28px; align-items: center; background: var(--mint); border-radius: 10px; font-weight: 700; font-size: 13px }
@@ -266,7 +267,7 @@ main { min-width: 0; padding-top: 16px; display: flex; flex-direction: column; g
 .slide .art.sun { background: var(--sun-soft) }
 .slide h4 { font-family: var(--hf); font-size: 21px; margin: 6px 0 0; line-height: 1.3 }
 .slide p { margin: 0; color: var(--mute); font-size: 14.5px; max-width: 34ch }
-.big { width: 92px; height: 92px; border-radius: 28px; background: var(--brand); display: grid; place-items: center; box-shadow: 0 16px 30px -14px rgba(20,81,47,.6) }
+.ibig { width: 92px; height: 92px; border-radius: 28px; background: var(--brand); display: grid; place-items: center; box-shadow: 0 16px 30px -14px rgba(20,81,47,.6) }
 .steps3 { display: flex; align-items: center; gap: 8px; padding: 0 12px }
 .steps3 div { background: var(--card); border-radius: 16px; padding: 10px 6px; width: 92px; display: flex; flex-direction: column; align-items: center; gap: 6px; font-size: 12px; font-weight: 600; box-shadow: 0 6px 16px -10px rgba(22,33,26,.4) }
 .steps3 div i { width: 34px; height: 34px; border-radius: 11px; background: var(--brand); color: #fff; display: grid; place-items: center; font-style: normal; font-weight: 700; font-family: var(--hf) }
@@ -373,7 +374,7 @@ const T = {
   added: ['انضافت للسلّة', 'Added to basket'], addedN: (n) => [n + ' أصناف انضافت للسلّة', n + ' items added to basket'],
   emptyCart: ['سلّتك فاضية. ابدأ بالأكثر طلبًا أو الصق قائمتك.', 'Your basket is empty. Start with the favourites or paste your list.'],
   sub: ['المجموع', 'Subtotal'], delivery: ['التوصيل', 'Delivery'], free: ['مجاني', 'Free'], total: ['المجموع الكلي', 'Total'],
-  ifOut: ['إذا مش متوفّر:', 'If unavailable:'], swap: ['بدّلوه بشي مشابه', 'Replace with similar'], call: ['اتصلوا فيّ', 'Call me'], drop: ['شيلوه', 'Remove it'],
+  ifOut: ['إذا مش متوفّر:', 'If unavailable:'], ifOutQ: ['إذا مش متوفّر؟ (اختياري)', 'If unavailable? (optional)'], swap: ['بدّلوه بشي مشابه', 'Replace with similar'], call: ['اتصلوا فيّ', 'Call me'], drop: ['شيلوه', 'Remove it'],
   where: ['منطقة التوصيل', 'Delivery area'], when: ['وقت التوصيل', 'Delivery time'], asap: ['بأسرع وقت', 'ASAP'], asapS: ['خلال 45 دقيقة', 'within 45 min'], today: ['اليوم', 'Today'], tomorrow: ['بكرا', 'Tomorrow'],
   nameL: ['الاسم', 'Name'], phoneL: ['رقم التلفون', 'Phone'], addrL: ['العنوان بالتفصيل', 'Full address'], addrPh: ['البناية، الطابق، أقرب معلم', 'Building, floor, landmark'],
   payL: ['الدفع عند التوصيل', 'Pay on delivery'], cash: ['كاش', 'Cash'], whish: ['Whish', 'Whish'], notesL: ['ملاحظات', 'Notes'], notesPh: ['مثلاً: البندورة مش كتير مستوية', 'e.g. tomatoes not too ripe'],
@@ -518,7 +519,7 @@ function renderStatic() {
 const svgI = (d, s, c) => '<svg width="' + (s || 44) + '" height="' + (s || 44) + '" viewBox="0 0 24 24" fill="none" stroke="' + (c || '#fff') + '" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">' + d + '</svg>';
 function renderIntro() {
   const S = [
-    { art: '<div class="big">' + svgI('<path d="M3 9h18l-1.8 9.6a2 2 0 0 1-2 1.6H6.8a2 2 0 0 1-2-1.6z"/><path d="M8 9l3-5M16 9l-3-5"/>', 48) + '</div>',
+    { art: '<div class="ibig">' + svgI('<path d="M3 9h18l-1.8 9.6a2 2 0 0 1-2 1.6H6.8a2 2 0 0 1-2-1.6z"/><path d="M8 9l3-5M16 9l-3-5"/>', 48) + '</div>',
       h: L('أغراض البيت لباب البيت', 'Groceries to your door'), p: L('خضرة طازجة، ألبان، لحوم، مونة ومنظّفات، بتوصلك خلال 45 دقيقة. خلّينا نفرجيك كيف بتطلب بـ 3 خطوات.', 'Fresh produce, dairy, meat, pantry and cleaning, delivered in about 45 minutes. Here is how to order in 3 steps.') },
     { art: '<div class="steps3"><div><i>+</i>' + L('اختار أغراضك', 'Pick items') + '</div><b>←</b><div><i>' + svgI('<circle cx="9" cy="20" r="1.5"/><circle cx="18" cy="20" r="1.5"/><path d="M2 3h3l2.7 12.4a1 1 0 0 0 1 .8h9.6a1 1 0 0 0 1-.8L21 7H6"/>', 18) + '</i>' + L('راجع سلّتك', 'Check basket') + '</div><b>←</b><div><i style="background:#25D366">' + svgI('<path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.6A8 8 0 1 1 21 12z"/>', 18) + '</i>' + L('ابعت عالواتساب', 'Send on WhatsApp') + '</div></div>',
       h: L('كيف بتطلب؟', 'How to order'), p: L('كبّس «+ أضف» على أي منتج، وافتح السلّة من تحت. عبّي اسمك وعنوانك، والطلب بيوصلنا مرتّب عالواتساب، وما بيتبعت شي قبل ما تكبس إرسال.', 'Tap “+ Add” on any item and open your basket below. Add your name and address, and the order reaches us on WhatsApp. Nothing is sent until you press send.') },
@@ -581,8 +582,8 @@ let form = { name: '', phone: '', addr: '', notes: '' };
 function cartHTML() {
   const ids = Object.keys(cart);
   if (!ids.length) return '<div class="cempty"><svg width="54" height="54" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="9" cy="20" r="1.5"/><circle cx="18" cy="20" r="1.5"/><path d="M2 3h3l2.7 12.4a1 1 0 0 0 1 .8h9.6a1 1 0 0 0 1-.8L21 7H6"/></svg>' + t('emptyCart') + '</div>';
-  const items = ids.map((id) => { const p = byId[id], o = opts[id] || 'swap';
-    return '<div class="ci"><img src="' + p.img + '" alt=""><div><b>' + L(p.ar, p.en) + '</b><div class="sub">' + (p.kg ? fmt(p.p) + ' ' + t('perKg') : L(p.uar, p.uen)) + '</div><label class="sub" style="display:block;margin-top:4px">' + t('ifOut') + '<br><select data-opt="' + id + '">' + ['swap', 'call', 'drop'].map((k) => '<option value="' + k + '"' + (o === k ? ' selected' : '') + '>' + t(k) + '</option>').join('') + '</select></label></div>' +
+  const items = ids.map((id) => { const p = byId[id], o = opts[id] || '';
+    return '<div class="ci"><img src="' + p.img + '" alt=""><div><b>' + L(p.ar, p.en) + '</b><div class="sub">' + (p.kg ? fmt(p.p) + ' ' + t('perKg') : L(p.uar, p.uen)) + '</div><select data-opt="' + id + '" class="' + (o ? 'set' : '') + '" aria-label="' + t('ifOut') + '"><option value="">' + t('ifOutQ') + '</option>' + ['swap', 'call', 'drop'].map((k) => '<option value="' + k + '"' + (o === k ? ' selected' : '') + '>' + t(k) + '</option>').join('') + '</select></div>' +
       '<div class="rt"><span class="pr num">' + fmt(lineTotal(id)) + '</span><span class="mini"><button type="button" data-dec="' + id + '">−</button><span class="num">' + qtyTxt(p, cart[id]) + '</span><button type="button" data-inc="' + id + '">+</button></span></div></div>' }).join('');
   const st = subtotal(), fe = fee();
   const sl = slotList();
@@ -610,7 +611,7 @@ function renderCart() {
 function sendOrder() {
   if (!form.name.trim() || !form.addr.trim()) { toast(t('fill')); const el = document.querySelector((window.innerWidth >= 1000 ? '#cartp' : '#cartSB') + ' [data-f="' + (!form.name.trim() ? 'name' : 'addr') + '"]'); el && el.focus(); return }
   const sl = slotList().find((s) => s[0] === slot) || slotList()[0];
-  const lines = Object.keys(cart).map((id) => { const p = byId[id]; return '• ' + L(p.ar, p.en) + ' × ' + qtyTxt(p, cart[id]) + ' = ' + fmt(lineTotal(id), 'usd') + ' (' + t('ifOut') + ' ' + t(opts[id] || 'swap') + ')' });
+  const lines = Object.keys(cart).map((id) => { const p = byId[id]; return '• ' + L(p.ar, p.en) + ' × ' + qtyTxt(p, cart[id]) + ' = ' + fmt(lineTotal(id), 'usd') + (opts[id] ? ' (' + t('ifOut') + ' ' + t(opts[id]) + ')' : '') });
   const st = subtotal(), fe = fee();
   const msg = [L('طلب جديد من موقع خيرات ماركت', 'New order from Khayrat Market website'), '',
     ...lines, '',
@@ -695,7 +696,7 @@ document.addEventListener('input', (e) => { const el = e.target;
   if (el.dataset.f) form[el.dataset.f] = el.value;
 });
 document.addEventListener('change', (e) => { const el = e.target;
-  if (el.dataset.opt) { opts[el.dataset.opt] = el.value; renderCart() }
+  if (el.dataset.opt) { if (el.value) opts[el.dataset.opt] = el.value; else delete opts[el.dataset.opt]; renderCart() }
   if ('area' in el.dataset) { area = +el.value; save(); refresh() }
 });
 renderStatic(); refresh();
