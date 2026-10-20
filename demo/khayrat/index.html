@@ -302,6 +302,9 @@ main { min-width: 0; padding-top: 16px; display: flex; flex-direction: column; g
 /* install app */
 .appc { display: none; align-items: center; gap: 12px; margin: 14px 0 0; padding: 12px 14px; border-radius: 18px; background: linear-gradient(135deg, var(--brand), var(--brand-2)); color: #fff; box-shadow: 0 14px 28px -18px rgba(20,81,47,.8) }
 .appc.on { display: flex }
+.appc .bell { width: 46px; height: 46px; border-radius: 13px; flex: none; background: rgba(255,255,255,.15); display: grid; place-items: center; font-size: 24px }
+.appc.push { background: linear-gradient(135deg, #E5482D, #C2381F) }
+.appc.push .get { color: #B8321C }
 .appc img { width: 46px; height: 46px; border-radius: 13px; flex: none; box-shadow: 0 0 0 2px rgba(255,255,255,.25) }
 .appc div { flex: 1; min-width: 0; line-height: 1.35 }
 .appc b { display: block; font-family: var(--hf); font-size: 15px }
@@ -345,6 +348,7 @@ main { min-width: 0; padding-top: 16px; display: flex; flex-direction: column; g
     </div>
     <div class="trust" id="trust"></div>
     <div class="appc" id="appc"><img src="img/icon-192.png" alt=""><div><b data-t="appT"></b><small data-t="appS"></small></div><button type="button" class="get" data-install data-t="appGet"></button><button type="button" class="no" id="appNo" aria-label="close">×</button></div>
+    <div class="appc push" id="pushc"><span class="bell">🔔</span><div><b data-t="pushT"></b><small data-t="pushS"></small></div><button type="button" class="get" id="pushGo" data-t="pushGet"></button><button type="button" class="no" id="pushNo" aria-label="close">×</button></div>
     <section><div class="deals" id="deals"></div></section>
     <div class="reo" id="reo" hidden></div>
     <section class="catsec"><div class="sh"><h2 data-t="cats"></h2></div><div class="cats" id="cats"></div></section>
@@ -413,7 +417,7 @@ const T = {
   reoT: ['طلبيتك الماضية', 'Your last order'], reoBtn: ['اطلبها من جديد', 'Order again'],
   areaTitle: ['وين بدك ياها توصل؟', 'Where should we deliver?'], areaFee: ['رسوم التوصيل', 'Delivery fee'],
   trust: [['45 دقيقة', '45-min delivery'], ['كاش أو Whish', 'Cash or Whish'], ['طازج كل يوم', 'Fresh daily'], ['مجاني فوق 20$', 'Free over $20']],
-  endsIn: ['بيخلص بعد', 'Ends in'], howTo: ['كيف بطلب؟', 'How to order'], appT: ['نزّل تطبيق خيرات', 'Get the Khayrat app'], appS: ['أسرع، وبأيقونة على شاشتك', 'Faster, right on your home screen'], appGet: ['نزّل', 'Install'], todayH: ['🔥 عروض اليوم', '🔥 Today’s offers'], outB: ['خلص', 'Sold out'], outBtn: ['خلص من المخزن', 'Out of stock'], outT: ['هيدا الصنف خلص هلأ، جرّب بعدين', 'This item is sold out for now'], appLater: ['تمام، منرجع نذكّرك بعد 3 أيام', 'Okay, we will remind you in 3 days'], appDone: ['انضاف التطبيق على شاشتك 🎉', 'App added to your home screen 🎉'], introH: ['أهلا فيك بخيرات ماركت', 'Welcome to Khayrat Market'], skip: ['تخطّي', 'Skip'], next: ['التالي', 'Next'], startShop: ['يلا نتسوّق', 'Start shopping'], shop: ['تسوّق', 'Shop'], kg: ['كغ', 'kg'], perKg: ['للكيلو', 'per kg'], pc: ['حبّة', 'pc']
+  endsIn: ['بيخلص بعد', 'Ends in'], howTo: ['كيف بطلب؟', 'How to order'], appT: ['نزّل تطبيق خيرات', 'Get the Khayrat app'], appS: ['أسرع، وبأيقونة على شاشتك', 'Faster, right on your home screen'], appGet: ['نزّل', 'Install'], pushT: ['خلّيك أول من يعرف بالعروض', 'Be first to hear about offers'], pushS: ['منبعتلك إشعار بس ينزل عرض جديد', 'We notify you when a new offer drops'], pushGet: ['فعّل', 'Turn on'], pushOk: ['تمام! رح يوصلك كل عرض جديد 🔔', 'Done! You will get every new offer 🔔'], pushNoT: ['ما زبط، فعّل الإشعارات من إعدادات التلفون', 'Could not enable, check your phone settings'], todayH: ['🔥 عروض اليوم', '🔥 Today’s offers'], outB: ['خلص', 'Sold out'], outBtn: ['خلص من المخزن', 'Out of stock'], outT: ['هيدا الصنف خلص هلأ، جرّب بعدين', 'This item is sold out for now'], appLater: ['تمام، منرجع نذكّرك بعد 3 أيام', 'Okay, we will remind you in 3 days'], appDone: ['انضاف التطبيق على شاشتك 🎉', 'App added to your home screen 🎉'], introH: ['أهلا فيك بخيرات ماركت', 'Welcome to Khayrat Market'], skip: ['تخطّي', 'Skip'], next: ['التالي', 'Next'], startShop: ['يلا نتسوّق', 'Start shopping'], shop: ['تسوّق', 'Shop'], kg: ['كغ', 'kg'], perKg: ['للكيلو', 'per kg'], pc: ['حبّة', 'pc']
 };
 const t = (k) => { const v = T[k]; return Array.isArray(v) ? v[lang === 'ar' ? 0 : 1] : v };
 
@@ -687,7 +691,30 @@ function appCard() {
   let no = 0; try { no = +localStorage.getItem('kh_app_no') || 0 } catch (e) {}
   const show = !standalone() && Date.now() - no > 3 * 864e5 && (deferredI || isIOS || /android/i.test(navigator.userAgent));
   $('#appc').classList.toggle('on', !!show);
+  pushCard();
 }
+/* offer notifications (web push) */
+const VAPID = 'BLIk2-xpY5txJxFpohOpcAkAylEuvz2sWw_k2Heaj-YpJpqsVikbICDxLhsPFLsi7cI7SBsFCC7IuJ8xc_hVof0';
+const canPush = () => 'serviceWorker' in navigator && 'PushManager' in window && 'Notification' in window && Notification.permission !== 'denied' && (!isIOS || standalone());
+function pushCard() {
+  let no = 0, on = 0; try { no = +localStorage.getItem('kh_push_no') || 0; on = localStorage.getItem('kh_push') === '1' } catch (e) {}
+  const show = canPush() && !(on && Notification.permission === 'granted') && Date.now() - no > 3 * 864e5 && !$('#appc').classList.contains('on');
+  $('#pushc').classList.toggle('on', !!show);
+}
+const u8 = (b) => { const p = '='.repeat((4 - b.length % 4) % 4), r = atob((b + p).replace(/-/g, '+').replace(/_/g, '/')); return Uint8Array.from([...r].map((c) => c.charCodeAt(0))) };
+async function subPush(silent) {
+  try {
+    if (!silent && (await Notification.requestPermission()) !== 'granted') { pushCard(); return toast(t('pushNoT')) }
+    const reg = await navigator.serviceWorker.ready;
+    const sub = (await reg.pushManager.getSubscription()) || (await reg.pushManager.subscribe({ userVisibleOnly: true, applicationServerKey: u8(VAPID) }));
+    await fetch(API.replace('/state', '/subscribe'), { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ endpoint: sub.endpoint }) });
+    try { localStorage.setItem('kh_push', '1') } catch (e) {}
+    $('#pushc').classList.remove('on'); if (!silent) toast(t('pushOk'));
+  } catch (e) { if (!silent) toast(t('pushNoT')) }
+}
+$('#pushGo').addEventListener('click', () => subPush(false));
+$('#pushNo').addEventListener('click', () => { try { localStorage.setItem('kh_push_no', Date.now()) } catch (e) {} $('#pushc').classList.remove('on'); toast(t('appLater')) });
+try { if (localStorage.getItem('kh_push') === '1' && 'Notification' in window && Notification.permission === 'granted' && 'serviceWorker' in navigator) subPush(true) } catch (e) {}
 function iosHelp() {
   const share = '<span><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12M8 7l4-4 4 4"/><path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-7"/></svg></span>';
   const plus = '<span style="color:var(--ink)"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><rect x="4" y="4" width="16" height="16" rx="4"/><path d="M12 8v8M8 12h8"/></svg></span>';
