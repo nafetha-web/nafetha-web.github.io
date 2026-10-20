@@ -94,7 +94,11 @@ section.block { padding-block: 40px 4px; display: flex; flex-direction: column; 
 .tab { flex: none; border: 1.5px solid var(--line); background: var(--surface); color: var(--fg); border-radius: 999px; padding: 0 16px; min-height: 42px; font-weight: 600; cursor: pointer }
 .tab[aria-pressed="true"] { background: var(--fire); border-color: var(--fire); color: #1B0B04 }
 .cats { display: grid; grid-template-columns: minmax(0, 1fr); gap: 14px }
-@media (min-width: 860px) { .cats { grid-template-columns: repeat(2, minmax(0, 1fr)); align-items: start } }
+@media (min-width: 860px) { .cat .items { display: grid; grid-template-columns: 1fr 1fr; column-gap: 32px } .cat .items .item:nth-child(2) { border-top: 0 } }
+.cat .items .item:first-child { border-top: 0 }
+@media (prefers-reduced-motion: no-preference) { .cat.anim { animation: catIn .28s ease } @keyframes catIn { from { opacity: 0; transform: translateY(8px) } } }
+.tab .n { display: inline-grid; place-items: center; min-width: 20px; height: 20px; border-radius: 99px; background: var(--gold); color: #1B0B04; font-size: 12px; font-weight: 700; margin-inline-start: 6px; padding: 0 5px }
+.tab[aria-pressed="true"] .n { background: #1B0B04; color: var(--gold) }
 .cat { scroll-margin-top: 128px; background: var(--surface); border: 1px solid var(--line); border-radius: 20px; padding: 14px 16px 6px }
 .cat h3 { font-family: var(--display); font-size: 25px; margin: 0; display: flex; align-items: baseline; justify-content: space-between; gap: 8px }
 .cat h3 small { font-family: var(--body); font-size: 12.5px; color: var(--muted); font-weight: 400 }
@@ -384,20 +388,15 @@ function optHTML(c, n, s, p) {
     (q ? '<button type="button" class="qbtn" data-dec="' + k + '" aria-label="' + t.remove + '">−</button><span class="qn">' + q + '</span>' : '') +
     '<button type="button" class="qbtn add" data-inc="' + k + '" aria-label="' + t.add + '">+</button></div></div>';
 }
-let io = null;
-function renderMenu() {
+function renderMenu(anim) {
   const t = T[lang], ai = lang === 'ar' ? 0 : 1;
-  $('tabs').innerHTML = MENU.map(c => '<button type="button" class="tab" data-cat="' + c.id + '" aria-pressed="' + (c.id === activeCat) + '">' + c[lang] + '</button>').join('');
-  $('cats').innerHTML = MENU.map(c => '<div class="cat" id="cat-' + c.id + '"><h3>' + c[lang] + ' <small>' + t.count(c.items.length) + '</small></h3>' +
-    c.items.map((it, n) => '<div class="item"><span class="nm">' + it[ai] + '</span><div class="opts">' + [it[2], it[3]].map((p, s) => p ? optHTML(c, n, s, p) : '').join('') + '</div></div>').join('') +
-    (c.extra ? '<div class="extra">' + c.extra[lang] + '</div>' : '') + '</div>').join('');
-  if ('IntersectionObserver' in window) {
-    if (io) io.disconnect();
-    io = new IntersectionObserver((ents) => { ents.forEach(en => { if (en.isIntersecting) { activeCat = en.target.id.slice(4); setTabs() } }) }, { rootMargin: '-140px 0px -60% 0px' });
-    document.querySelectorAll('.cat').forEach(c => io.observe(c));
-  }
+  const inCat = (id) => Object.keys(cart).reduce((a, k) => a + (k.split('-')[0] === id ? cart[k] : 0), 0);
+  $('tabs').innerHTML = MENU.map(c => { const n = inCat(c.id); return '<button type="button" class="tab" data-cat="' + c.id + '" aria-pressed="' + (c.id === activeCat) + '">' + c[lang] + (n ? '<span class="n">' + n + '</span>' : '') + '</button>' }).join('');
+  const c = MENU.find(m => m.id === activeCat) || MENU[0];
+  $('cats').innerHTML = '<div class="cat' + (anim ? ' anim' : '') + '" id="cat-' + c.id + '"><h3>' + c[lang] + ' <small>' + t.count(c.items.length) + '</small></h3><div class="items">' +
+    c.items.map((it, n) => '<div class="item"><span class="nm">' + it[ai] + '</span><div class="opts">' + [it[2], it[3]].map((p, s) => p ? optHTML(c, n, s, p) : '').join('') + '</div></div>').join('') + '</div>' +
+    (c.extra ? '<div class="extra">' + c.extra[lang] + '</div>' : '') + '</div>';
 }
-const esc = (x) => String(x).replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
 function totals() { const keys = Object.keys(cart); return { keys, count: keys.reduce((a, k) => a + cart[k], 0), total: keys.reduce((a, k) => a + cart[k] * LINES[k].p, 0) } }
 function renderOrder() {
   const t = T[lang], { count, total } = totals();
@@ -433,11 +432,11 @@ function renderReview() {
 let lastFocus = null;
 function openRev() { if (!totals().count) return; lastFocus = document.activeElement; renderReview(); $('ov').classList.add('on'); $('rev').classList.add('on'); document.body.style.overflow = 'hidden'; setTimeout(() => $('revX').focus(), 50) }
 function closeRev() { $('ov').classList.remove('on'); $('rev').classList.remove('on'); document.body.style.overflow = ''; lastFocus && lastFocus.focus && lastFocus.focus() }
-function changed() { saveCart(); const y = window.scrollY; renderMenu(); renderOrder(); window.scrollTo(0, y) }
+function changed() { saveCart(); const y = window.scrollY, sl = $('tabs').scrollLeft; renderMenu(); $('tabs').scrollLeft = sl; renderOrder(); window.scrollTo(0, y) }
 function renderAll() { renderStatic(); renderMenu(); renderOrder() }
 
 $('langBtn').addEventListener('click', () => { lang = lang === 'ar' ? 'en' : 'ar'; try { localStorage.setItem('flamez-lang', lang) } catch (e) {} renderAll() });
-$('tabs').addEventListener('click', (e) => { const b = e.target.closest('[data-cat]'); if (!b) return; activeCat = b.dataset.cat; setTabs(); const el = $('cat-' + activeCat); if (el) el.scrollIntoView({ block: 'start' }) });
+$('tabs').addEventListener('click', (e) => { const b = e.target.closest('[data-cat]'); if (!b || b.dataset.cat === activeCat) return; const sl = $('tabs').scrollLeft; activeCat = b.dataset.cat; renderMenu(1); $('tabs').scrollLeft = sl; setTabs(); const el = $('cat-' + activeCat); if (el && el.getBoundingClientRect().top < 120) el.scrollIntoView({ block: 'start' }) });
 $('cats').addEventListener('click', (e) => {
   const inc = e.target.closest('[data-inc]'), dec = e.target.closest('[data-dec]'); if (!inc && !dec) return;
   const k = inc ? inc.dataset.inc : dec.dataset.dec;
