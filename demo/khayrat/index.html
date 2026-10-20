@@ -404,7 +404,7 @@ const T = {
   reoT: ['طلبيتك الماضية', 'Your last order'], reoBtn: ['اطلبها من جديد', 'Order again'],
   areaTitle: ['وين بدك ياها توصل؟', 'Where should we deliver?'], areaFee: ['رسوم التوصيل', 'Delivery fee'],
   trust: [['45 دقيقة', '45-min delivery'], ['كاش أو Whish', 'Cash or Whish'], ['طازج كل يوم', 'Fresh daily'], ['مجاني فوق 20$', 'Free over $20']],
-  endsIn: ['بيخلص بعد', 'Ends in'], howTo: ['كيف بطلب؟', 'How to order'], appT: ['نزّل تطبيق خيرات', 'Get the Khayrat app'], appS: ['أسرع، وبأيقونة على شاشتك', 'Faster, right on your home screen'], appGet: ['نزّل', 'Install'], appDone: ['انضاف التطبيق على شاشتك 🎉', 'App added to your home screen 🎉'], introH: ['أهلا فيك بخيرات ماركت', 'Welcome to Khayrat Market'], skip: ['تخطّي', 'Skip'], next: ['التالي', 'Next'], startShop: ['يلا نتسوّق', 'Start shopping'], shop: ['تسوّق', 'Shop'], kg: ['كغ', 'kg'], perKg: ['للكيلو', 'per kg'], pc: ['حبّة', 'pc']
+  endsIn: ['بيخلص بعد', 'Ends in'], howTo: ['كيف بطلب؟', 'How to order'], appT: ['نزّل تطبيق خيرات', 'Get the Khayrat app'], appS: ['أسرع، وبأيقونة على شاشتك', 'Faster, right on your home screen'], appGet: ['نزّل', 'Install'], appLater: ['تمام، منرجع نذكّرك بعد 3 أيام', 'Okay, we will remind you in 3 days'], appDone: ['انضاف التطبيق على شاشتك 🎉', 'App added to your home screen 🎉'], introH: ['أهلا فيك بخيرات ماركت', 'Welcome to Khayrat Market'], skip: ['تخطّي', 'Skip'], next: ['التالي', 'Next'], startShop: ['يلا نتسوّق', 'Start shopping'], shop: ['تسوّق', 'Shop'], kg: ['كغ', 'kg'], perKg: ['للكيلو', 'per kg'], pc: ['حبّة', 'pc']
 };
 const t = (k) => { const v = T[k]; return Array.isArray(v) ? v[lang === 'ar' ? 0 : 1] : v };
 
@@ -727,7 +727,7 @@ const standalone = () => matchMedia('(display-mode: standalone)').matches || nav
 const isIOS = /iphone|ipad|ipod/i.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
 function appCard() {
   let no = 0; try { no = +localStorage.getItem('kh_app_no') || 0 } catch (e) {}
-  const show = !standalone() && Date.now() - no > 7 * 864e5 && (deferredI || isIOS || /android/i.test(navigator.userAgent));
+  const show = !standalone() && Date.now() - no > 3 * 864e5 && (deferredI || isIOS || /android/i.test(navigator.userAgent));
   $('#appc').classList.toggle('on', !!show);
 }
 function iosHelp() {
@@ -746,7 +746,7 @@ async function doInstall() {
 addEventListener('beforeinstallprompt', (e) => { e.preventDefault(); deferredI = e; appCard() });
 addEventListener('appinstalled', () => { $('#appc').classList.remove('on'); toast(t('appDone')) });
 document.addEventListener('click', (e) => { if (e.target.closest('[data-install]')) doInstall() });
-$('#appNo').addEventListener('click', () => { try { localStorage.setItem('kh_app_no', Date.now()) } catch (e) {} $('#appc').classList.remove('on') });
+$('#appNo').addEventListener('click', () => { try { localStorage.setItem('kh_app_no', Date.now()) } catch (e) {} $('#appc').classList.remove('on'); toast(t('appLater')) });
 appCard();
 if ('serviceWorker' in navigator && (location.protocol === 'https:' || location.hostname === 'localhost')) addEventListener('load', () => navigator.serviceWorker.register('sw.js').catch(() => {}));
 (() => { const o = new URLSearchParams(location.search).get('open'); if (o === 'list') setTimeout(() => $('#listBtn') && $('#listBtn').click(), 400); if (o === 'cart') setTimeout(() => openS('#cartS'), 400) })();
