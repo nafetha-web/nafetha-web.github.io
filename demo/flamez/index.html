@@ -134,6 +134,37 @@ section.block { padding-block: 40px 4px; display: flex; flex-direction: column; 
 .order .sum { flex: 1; min-width: 0; font-size: 14px; color: var(--muted) }
 .order .sum strong { display: block; color: var(--fg); font-size: 18px; font-variant-numeric: tabular-nums }
 .wa { background: var(--wa); color: #FFFFFF }
+.order .sum { background: none; border: 0; color: var(--muted); font: inherit; font-size: 14px; text-align: start; padding: 0; cursor: pointer }
+.order .sum u { color: var(--gold); text-decoration: none; font-weight: 600; font-size: 13px }
+.revb[aria-disabled="true"] { opacity: .45; pointer-events: none }
+.ov { position: fixed; inset: 0; z-index: 40; background: rgba(0,0,0,.6); opacity: 0; pointer-events: none; transition: opacity .25s }
+.ov.on { opacity: 1; pointer-events: auto }
+.rev { position: fixed; z-index: 41; inset-inline: 0; bottom: 0; max-height: 90vh; display: flex; flex-direction: column; background: var(--surface); border-top: 1px solid var(--line); border-radius: 22px 22px 0 0; transform: translateY(105%); transition: transform .3s cubic-bezier(.2,.8,.2,1) }
+.rev.on { transform: none }
+@media (min-width: 700px) { .rev { inset-inline: auto; left: 50%; width: 560px; bottom: 50%; border-radius: 22px; border: 1px solid var(--line); transform: translate(-50%, 60%); opacity: 0; pointer-events: none; transition: transform .3s, opacity .25s } .rev.on { transform: translate(-50%, 50%); opacity: 1; pointer-events: auto } }
+.rev header { display: flex; align-items: center; justify-content: space-between; gap: 10px; padding: 16px 18px 10px }
+.rev h2 { font-family: var(--display); font-size: 26px; margin: 0 }
+.rev .x { width: 40px; height: 40px; border-radius: 99px; border: 1.5px solid var(--line); background: transparent; color: var(--fg); font-size: 22px; cursor: pointer; line-height: 1 }
+.rev .bd { overflow: auto; padding: 0 18px 8px; overscroll-behavior: contain }
+.rl { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 6px 12px; align-items: center; padding: 12px 0; border-bottom: 1px solid var(--line) }
+.rl b { font-weight: 600; font-size: 15px }
+.rl small { display: block; color: var(--muted); font-size: 13px }
+.rl .rt { display: flex; flex-direction: column; align-items: flex-end; gap: 6px }
+.rl .lt { font-weight: 700; font-variant-numeric: tabular-nums }
+.rl .del { background: none; border: 0; color: var(--muted); font-size: 12.5px; cursor: pointer; padding: 0; text-decoration: underline; justify-self: start }
+.rtot { display: flex; justify-content: space-between; align-items: baseline; padding: 14px 0 6px; font-family: var(--display); font-size: 20px; font-weight: 700 }
+.rtot span:last-child { color: var(--gold); font-family: var(--body) }
+.seg { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; background: var(--surface-2); border-radius: 14px; padding: 4px; margin: 10px 0 }
+.seg button { min-height: 42px; border-radius: 11px; border: 0; background: transparent; color: var(--muted); font-weight: 600; cursor: pointer }
+.seg button[aria-pressed="true"] { background: var(--fire); color: #1B0B04 }
+.fld { display: block; font-size: 13.5px; color: var(--muted); margin: 10px 0 0 }
+.fld input, .fld textarea { display: block; width: 100%; margin-top: 4px; background: var(--surface-2); color: var(--fg); border: 1px solid var(--line); border-radius: 12px; padding: 10px 12px; font: inherit; font-size: 15px }
+.fld textarea { min-height: 64px; resize: vertical }
+.fld input.err { border-color: var(--fire) }
+.rev footer { padding: 12px 18px calc(14px + env(safe-area-inset-bottom, 0px)); border-top: 1px solid var(--line); display: grid; gap: 8px }
+.rev footer .btn { width: 100% }
+.rev .more { background: none; border: 0; color: var(--muted); font: inherit; font-size: 14px; cursor: pointer; padding: 4px }
+.rev .empty { color: var(--muted); text-align: center; padding: 30px 0 }
 .wa[aria-disabled="true"] { opacity: .45; pointer-events: none }
 @media (prefers-reduced-motion: no-preference) {
   html { scroll-behavior: smooth }
@@ -204,10 +235,16 @@ section.block { padding-block: 40px 4px; display: flex; flex-direction: column; 
 
 <div class="order">
   <div class="wrap">
-    <div class="sum" id="sum"></div>
-    <a class="btn wa" id="goBtn" target="_blank" rel="noopener"></a>
+    <button type="button" class="sum" id="sum" data-rev></button>
+    <button type="button" class="btn btn-fire revb" id="revBtn" data-rev></button>
   </div>
 </div>
+<div class="ov" id="ov"></div>
+<section class="rev" id="rev" role="dialog" aria-modal="true" aria-labelledby="revH">
+  <header><h2 id="revH"></h2><button type="button" class="x" id="revX" aria-label="close">×</button></header>
+  <div class="bd" id="revBd"></div>
+  <footer><a class="btn wa" id="goBtn" target="_blank" rel="noopener"></a><button type="button" class="more" id="revMore"></button></footer>
+</section>
 
 <script>
 const WA = '96181910105';
@@ -287,7 +324,9 @@ const T = {
     foot: '© 2026 FlameZ Bakery &amp; Grill · نموذج من تصميم <a href="https://nafetha-web.github.io" target="_blank" rel="noopener">نافذة</a>',
     items: (n) => n === 0 ? 'لم تختر شيئًا بعد' : n === 1 ? 'صنف واحد' : n === 2 ? 'صنفان' : n <= 10 ? n + ' أصناف' : n + ' صنفًا', go: 'اطلب عبر واتساب',
     add: 'أضف', remove: 'احذف', money: (n) => (n * 1000).toLocaleString('en-US') + ' ل.ل',
-    hello: 'مرحبًا FlameZ، أودّ أن أطلب:', total: 'المجموع' },
+    hello: 'مرحبًا FlameZ، أودّ أن أطلب:', total: 'المجموع',
+    review: 'راجع طلبك', revH: 'طلبك', tapRev: 'اضغط لمراجعة الطلب', more: 'أضف أصنافًا أخرى', del: 'حذف', clear: 'إفراغ الطلب', empty: 'طلبك فارغ. أضف أصنافًا من القائمة.',
+    deliv: 'توصيل', pick: 'استلام من المحل', name: 'الاسم (اختياري)', addr: 'عنوان التوصيل', addrPh: 'المنطقة، الشارع، البناية', notes: 'ملاحظات (اختياري)', notesPh: 'مثلًا: بدون بصل، صوص إضافي…', needAddr: 'أضف عنوان التوصيل أولًا', each: 'للواحدة', type: 'نوع الطلب' },
   en: { dir: 'ltr', lang: 'عربي',
     demo: 'A proposed site for FlameZ by <a href="https://nafetha-web.github.io" target="_blank" rel="noopener">Nafetha</a>, not the official site.',
     navOffers: 'Offers', navMenu: 'Menu', navVisit: 'Contact',
@@ -305,13 +344,18 @@ const T = {
     foot: '© 2026 FlameZ Bakery &amp; Grill · Demo designed by <a href="https://nafetha-web.github.io" target="_blank" rel="noopener">Nafetha</a>',
     items: (n) => n === 0 ? 'Nothing added yet' : n + (n === 1 ? ' item' : ' items'), go: 'Order on WhatsApp',
     add: 'Add', remove: 'Remove', money: (n) => 'LBP ' + (n * 1000).toLocaleString('en-US'),
-    hello: 'Hello FlameZ, I would like to order:', total: 'Total' }
+    hello: 'Hello FlameZ, I would like to order:', total: 'Total',
+    review: 'Review order', revH: 'Your order', tapRev: 'Tap to review', more: 'Add more items', del: 'Remove', clear: 'Clear order', empty: 'Your order is empty. Add items from the menu.',
+    deliv: 'Delivery', pick: 'Pick-up', name: 'Name (optional)', addr: 'Delivery address', addrPh: 'Area, street, building', notes: 'Notes (optional)', notesPh: 'e.g. no onions, extra sauce…', needAddr: 'Add your delivery address first', each: 'each', type: 'Order type' }
 };
 
 let lang = 'ar', activeCat = MENU[0].id;
-const cart = {};
+const cart = {}, form = { type: 'deliv', name: '', addr: '', notes: '' };
+try { const c = JSON.parse(localStorage.getItem('flamez-cart') || '{}'); Object.keys(c).forEach(k => { cart[k] = c[k] }) } catch (e) {}
+const saveCart = () => { try { localStorage.setItem('flamez-cart', JSON.stringify(cart)) } catch (e) {} };
 const LINES = {};
 MENU.forEach(c => c.items.forEach((it, n) => [it[2], it[3]].forEach((p, s) => { if (p) LINES[c.id + '-' + n + '-' + s] = { c, it, s, p } })));
+Object.keys(cart).forEach(k => { if (!LINES[k] || !(cart[k] > 0)) delete cart[k] });
 try { const s = localStorage.getItem('flamez-lang'); if (s === 'en' || s === 'ar') lang = s } catch (e) {}
 const $ = (id) => document.getElementById(id);
 const PRE = { man: ['منقوشة', 'Manousheh'], kaak: ['كعكة', 'Ka\'ak'], pastry: ['فطيرة', 'Pastry'], pizza: ['بيتزا', 'Pizza'], burger: ['برغر', 'Burger'] };
@@ -353,17 +397,43 @@ function renderMenu() {
     document.querySelectorAll('.cat').forEach(c => io.observe(c));
   }
 }
+const esc = (x) => String(x).replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+function totals() { const keys = Object.keys(cart); return { keys, count: keys.reduce((a, k) => a + cart[k], 0), total: keys.reduce((a, k) => a + cart[k] * LINES[k].p, 0) } }
 function renderOrder() {
-  const t = T[lang];
-  const keys = Object.keys(cart);
-  const count = keys.reduce((a, k) => a + cart[k], 0), total = keys.reduce((a, k) => a + cart[k] * LINES[k].p, 0);
-  $('sum').innerHTML = t.items(count) + (count ? '<strong class="ltr">' + t.money(total) + '</strong>' : '');
-  const go = $('goBtn'); go.textContent = t.go;
-  if (!count) { go.setAttribute('aria-disabled', 'true'); go.removeAttribute('href'); return }
-  go.removeAttribute('aria-disabled');
-  const msg = t.hello + '\n' + keys.map(k => '- ' + cart[k] + ' × ' + nameOf(LINES[k]) + ' (' + t.money(cart[k] * LINES[k].p) + ')').join('\n') + '\n' + t.total + ': ' + t.money(total);
-  go.href = 'https://wa.me/' + WA + '?text=' + encodeURIComponent(msg);
+  const t = T[lang], { count, total } = totals();
+  $('sum').innerHTML = t.items(count) + (count ? '<strong class="ltr">' + t.money(total) + '</strong><u>' + t.tapRev + '</u>' : '');
+  const rb = $('revBtn'); rb.textContent = t.review + (count ? ' (' + count + ')' : '');
+  if (count) rb.removeAttribute('aria-disabled'); else rb.setAttribute('aria-disabled', 'true');
+  if ($('rev').classList.contains('on')) renderReview();
 }
+function waMsg() {
+  const t = T[lang], { keys, total } = totals();
+  return [t.hello, ...keys.map(k => '- ' + cart[k] + ' × ' + nameOf(LINES[k]) + ' (' + t.money(cart[k] * LINES[k].p) + ')'), t.total + ': ' + t.money(total), '',
+    t.type + ': ' + t[form.type], form.type === 'deliv' && form.addr.trim() ? t.addr + ': ' + form.addr.trim() : null, form.name.trim() ? t.name.replace(/ \(.*\)/, '') + ': ' + form.name.trim() : null, form.notes.trim() ? t.notes.replace(/ \(.*\)/, '') + ': ' + form.notes.trim() : null].filter(x => x !== null).join('\n');
+}
+function setGo() {
+  const t = T[lang], go = $('goBtn'), { count } = totals();
+  go.textContent = t.go;
+  if (!count) { go.setAttribute('aria-disabled', 'true'); go.removeAttribute('href'); return }
+  go.removeAttribute('aria-disabled'); go.href = 'https://wa.me/' + WA + '?text=' + encodeURIComponent(waMsg());
+}
+function renderReview() {
+  const t = T[lang], { keys, count, total } = totals();
+  $('revH').textContent = t.revH; $('revMore').textContent = t.more;
+  if (!count) { $('revBd').innerHTML = '<p class="empty">' + t.empty + '</p>'; setGo(); return }
+  $('revBd').innerHTML = keys.map(k => '<div class="rl"><div><b>' + nameOf(LINES[k]) + '</b><small><span class="ltr">' + t.money(LINES[k].p) + '</span> ' + t.each + '</small></div><div class="rt"><span class="lt ltr">' + t.money(cart[k] * LINES[k].p) + '</span><div class="qty"><button type="button" class="qbtn" data-dec="' + k + '" aria-label="' + t.remove + '">−</button><span class="qn">' + cart[k] + '</span><button type="button" class="qbtn add" data-inc="' + k + '" aria-label="' + t.add + '">+</button></div></div><button type="button" class="del" data-del="' + k + '">' + t.del + '</button></div>').join('') +
+    '<div class="rtot"><span>' + t.total + '</span><span class="ltr">' + t.money(total) + '</span></div>' +
+    '<div class="seg" role="group" aria-label="' + t.type + '"><button type="button" data-type="deliv" aria-pressed="' + (form.type === 'deliv') + '">' + t.deliv + '</button><button type="button" data-type="pick" aria-pressed="' + (form.type === 'pick') + '">' + t.pick + '</button></div>' +
+    (form.type === 'deliv' ? '<label class="fld">' + t.addr + '<input data-f="addr" autocomplete="street-address" placeholder="' + t.addrPh + '" value="' + esc(form.addr) + '"></label>' : '') +
+    '<label class="fld">' + t.name + '<input data-f="name" autocomplete="name" value="' + esc(form.name) + '"></label>' +
+    '<label class="fld">' + t.notes + '<textarea data-f="notes" placeholder="' + t.notesPh + '">' + esc(form.notes) + '</textarea></label>' +
+    '<p style="text-align:center;margin:12px 0 4px"><button type="button" class="more" data-clear>' + t.clear + '</button></p>';
+  setGo();
+}
+let lastFocus = null;
+function openRev() { if (!totals().count) return; lastFocus = document.activeElement; renderReview(); $('ov').classList.add('on'); $('rev').classList.add('on'); document.body.style.overflow = 'hidden'; setTimeout(() => $('revX').focus(), 50) }
+function closeRev() { $('ov').classList.remove('on'); $('rev').classList.remove('on'); document.body.style.overflow = ''; lastFocus && lastFocus.focus && lastFocus.focus() }
+function changed() { saveCart(); const y = window.scrollY; renderMenu(); renderOrder(); window.scrollTo(0, y) }
 function renderAll() { renderStatic(); renderMenu(); renderOrder() }
 
 $('langBtn').addEventListener('click', () => { lang = lang === 'ar' ? 'en' : 'ar'; try { localStorage.setItem('flamez-lang', lang) } catch (e) {} renderAll() });
@@ -372,7 +442,24 @@ $('cats').addEventListener('click', (e) => {
   const inc = e.target.closest('[data-inc]'), dec = e.target.closest('[data-dec]'); if (!inc && !dec) return;
   const k = inc ? inc.dataset.inc : dec.dataset.dec;
   if (inc) cart[k] = (cart[k] || 0) + 1; else { cart[k] = Math.max(0, (cart[k] || 0) - 1); if (!cart[k]) delete cart[k] }
-  const y = window.scrollY; renderMenu(); renderOrder(); window.scrollTo(0, y);
+  changed();
+});
+document.querySelector('.order').addEventListener('click', (e) => { if (e.target.closest('[data-rev]')) openRev() });
+$('ov').addEventListener('click', closeRev); $('revX').addEventListener('click', closeRev); $('revMore').addEventListener('click', closeRev);
+document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && $('rev').classList.contains('on')) closeRev() });
+$('revBd').addEventListener('click', (e) => {
+  const b = e.target.closest('button'); if (!b) return; const d = b.dataset;
+  if (d.inc) cart[d.inc]++;
+  else if (d.dec) { cart[d.dec]--; if (!cart[d.dec]) delete cart[d.dec] }
+  else if (d.del) delete cart[d.del];
+  else if ('clear' in d) Object.keys(cart).forEach(k => delete cart[k]);
+  else if (d.type) { form.type = d.type; renderReview(); return }
+  else return;
+  changed();
+});
+$('revBd').addEventListener('input', (e) => { const f = e.target.dataset.f; if (!f) return; form[f] = e.target.value; e.target.classList.remove('err'); setGo() });
+$('goBtn').addEventListener('click', (e) => {
+  if (form.type === 'deliv' && !form.addr.trim()) { e.preventDefault(); const a = $('revBd').querySelector('[data-f=addr]'); if (a) { a.classList.add('err'); a.placeholder = T[lang].needAddr; a.focus() } }
 });
 renderAll();
 </script>
