@@ -1,0 +1,24 @@
+{
+  "name": "خيرات ماركت | Khayrat Market",
+  "short_name": "خيرات",
+  "description": "أغراض البيت لباب البيت: خضرة، ألبان، لحوم، مونة ومنظّفات.",
+  "lang": "ar",
+  "dir": "rtl",
+  "start_url": "./?source=app",
+  "scope": "./",
+  "id": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#F5F3EC",
+  "theme_color": "#1E6B45",
+  "categories": ["shopping", "food"],
+  "icons": [
+    { "src": "img/icon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "img/icon-512.png", "sizes": "512x512", "type": "image/png" },
+    { "src": "img/icon-mask-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ],
+  "shortcuts": [
+    { "name": "الصق قائمتك", "short_name": "قائمتي", "url": "./?source=app&open=list", "icons": [{ "src": "img/icon-192.png", "sizes": "192x192" }] },
+    { "name": "سلّتي", "url": "./?source=app&open=cart", "icons": [{ "src": "img/icon-192.png", "sizes": "192x192" }] }
+  ]
+}

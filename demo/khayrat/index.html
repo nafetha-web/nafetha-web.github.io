@@ -18,6 +18,11 @@
 <meta name="twitter:card" content="summary_large_image">
 <link rel="icon" href="img/icon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="img/icon-180.png">
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="خيرات">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Readex+Pro:wght@400;500;600;700&family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&display=swap">
@@ -287,6 +292,19 @@ main { min-width: 0; padding-top: 16px; display: flex; flex-direction: column; g
 .inav .pbtn { flex: 1 }
 .slide .art.auto { aspect-ratio: auto; padding: 16px 0 }
 .trust .how { white-space: nowrap; flex: none; display: inline-flex; align-items: center; gap: 6px; font-size: 12.5px; border: 1px solid; border-radius: 99px; padding: 5px 11px; color: var(--brand-2); border-color: var(--brand); background: var(--mint); cursor: pointer; font-weight: 600 }
+/* install app */
+.appc { display: none; align-items: center; gap: 12px; margin: 14px 0 0; padding: 12px 14px; border-radius: 18px; background: linear-gradient(135deg, var(--brand), var(--brand-2)); color: #fff; box-shadow: 0 14px 28px -18px rgba(20,81,47,.8) }
+.appc.on { display: flex }
+.appc img { width: 46px; height: 46px; border-radius: 13px; flex: none; box-shadow: 0 0 0 2px rgba(255,255,255,.25) }
+.appc div { flex: 1; min-width: 0; line-height: 1.35 }
+.appc b { display: block; font-family: var(--hf); font-size: 15px }
+.appc small { font-size: 12.5px; opacity: .85 }
+.appc .get { flex: none; background: #fff; color: var(--brand-2); font-weight: 700; border-radius: 12px; padding: 9px 14px; font-size: 14px }
+.appc .no { flex: none; width: 30px; height: 30px; border-radius: 99px; color: #fff; opacity: .7; font-size: 18px; line-height: 1 }
+.ios ol { margin: 4px 0 14px; padding-inline-start: 22px; display: grid; gap: 12px; font-size: 15px }
+.ios li span { display: inline-grid; place-items: center; vertical-align: middle; width: 30px; height: 30px; border-radius: 9px; background: var(--card); box-shadow: 0 0 0 1px var(--line); margin: 0 4px; color: #0A84FF }
+.ios .pv { display: flex; align-items: center; gap: 12px; background: var(--card); border-radius: 16px; padding: 12px; margin-bottom: 14px }
+.ios .pv img { width: 52px; height: 52px; border-radius: 14px }
 .foot { text-align: center; color: var(--mute); font-size: 12.5px; padding: 6px 0 10px }
 .foot a { color: var(--brand); font-weight: 600 }
 @media (prefers-reduced-motion: reduce) { * { transition: none !important } }
@@ -319,6 +337,7 @@ main { min-width: 0; padding-top: 16px; display: flex; flex-direction: column; g
       <button class="listbtn" id="listBtn" type="button"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M9 6h11M9 12h11M9 18h11M4 6h.01M4 12h.01M4 18h.01"/></svg><span class="lg" data-t="pasteList"></span></button>
     </div>
     <div class="trust" id="trust"></div>
+    <div class="appc" id="appc"><img src="img/icon-192.png" alt=""><div><b data-t="appT"></b><small data-t="appS"></small></div><button type="button" class="get" data-install data-t="appGet"></button><button type="button" class="no" id="appNo" aria-label="close">×</button></div>
     <section><div class="deals" id="deals"></div></section>
     <div class="reo" id="reo" hidden></div>
     <section class="catsec"><div class="sh"><h2 data-t="cats"></h2></div><div class="cats" id="cats"></div></section>
@@ -350,6 +369,7 @@ main { min-width: 0; padding-top: 16px; display: flex; flex-direction: column; g
 <div class="sheet" id="areaS" role="dialog" aria-modal="true"><div class="shh"><h3 data-t="areaTitle"></h3><button class="x" data-close>×</button></div><div class="shb" id="areaSB"></div></div>
 <div class="fdb" id="fdb" aria-live="polite"></div>
 <div class="sheet intro" id="introS" role="dialog" aria-modal="true" aria-labelledby="introH"><div class="shh"><h3 id="introH" data-t="introH"></h3><button class="x" data-close aria-label="close">×</button></div><div class="shb"><div class="track" id="track"></div><div class="dots" id="dots"></div><div class="inav"><button class="skip" type="button" id="iSkip" data-t="skip"></button><button class="pbtn" type="button" id="iNext"></button></div></div></div>
+<div class="sheet ios" id="iosS" role="dialog" aria-modal="true" aria-labelledby="iosH"><div class="shh"><h3 id="iosH" data-t="appT"></h3><button class="x" data-close aria-label="close">×</button></div><div class="shb" id="iosB"></div></div>
 <div class="toast" id="toast"></div>
 
 <script>
@@ -384,7 +404,7 @@ const T = {
   reoT: ['طلبيتك الماضية', 'Your last order'], reoBtn: ['اطلبها من جديد', 'Order again'],
   areaTitle: ['وين بدك ياها توصل؟', 'Where should we deliver?'], areaFee: ['رسوم التوصيل', 'Delivery fee'],
   trust: [['45 دقيقة', '45-min delivery'], ['كاش أو Whish', 'Cash or Whish'], ['طازج كل يوم', 'Fresh daily'], ['مجاني فوق 20$', 'Free over $20']],
-  endsIn: ['بيخلص بعد', 'Ends in'], howTo: ['كيف بطلب؟', 'How to order'], introH: ['أهلا فيك بخيرات ماركت', 'Welcome to Khayrat Market'], skip: ['تخطّي', 'Skip'], next: ['التالي', 'Next'], startShop: ['يلا نتسوّق', 'Start shopping'], shop: ['تسوّق', 'Shop'], kg: ['كغ', 'kg'], perKg: ['للكيلو', 'per kg'], pc: ['حبّة', 'pc']
+  endsIn: ['بيخلص بعد', 'Ends in'], howTo: ['كيف بطلب؟', 'How to order'], appT: ['نزّل تطبيق خيرات', 'Get the Khayrat app'], appS: ['أسرع، وبأيقونة على شاشتك', 'Faster, right on your home screen'], appGet: ['نزّل', 'Install'], appDone: ['انضاف التطبيق على شاشتك 🎉', 'App added to your home screen 🎉'], introH: ['أهلا فيك بخيرات ماركت', 'Welcome to Khayrat Market'], skip: ['تخطّي', 'Skip'], next: ['التالي', 'Next'], startShop: ['يلا نتسوّق', 'Start shopping'], shop: ['تسوّق', 'Shop'], kg: ['كغ', 'kg'], perKg: ['للكيلو', 'per kg'], pc: ['حبّة', 'pc']
 };
 const t = (k) => { const v = T[k]; return Array.isArray(v) ? v[lang === 'ar' ? 0 : 1] : v };
 
@@ -701,6 +721,35 @@ document.addEventListener('change', (e) => { const el = e.target;
 });
 renderStatic(); refresh();
 (() => { const cs = $('.catsec'), fc = $('#fcat'); let on = false; const chk = () => { const v = cs.getBoundingClientRect().bottom < 70; if (v !== on) { on = v; fc.classList.toggle('on', v) } }; addEventListener('scroll', chk, { passive: true }); chk() })();
+/* ---- installable app (PWA) ---- */
+let deferredI = null;
+const standalone = () => matchMedia('(display-mode: standalone)').matches || navigator.standalone === true;
+const isIOS = /iphone|ipad|ipod/i.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+function appCard() {
+  let no = 0; try { no = +localStorage.getItem('kh_app_no') || 0 } catch (e) {}
+  const show = !standalone() && Date.now() - no > 7 * 864e5 && (deferredI || isIOS || /android/i.test(navigator.userAgent));
+  $('#appc').classList.toggle('on', !!show);
+}
+function iosHelp() {
+  const share = '<span><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12M8 7l4-4 4 4"/><path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-7"/></svg></span>';
+  const plus = '<span style="color:var(--ink)"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><rect x="4" y="4" width="16" height="16" rx="4"/><path d="M12 8v8M8 12h8"/></svg></span>';
+  const menu = '<span style="color:var(--ink)"><svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="5" r="2"/><circle cx="12" cy="12" r="2"/><circle cx="12" cy="19" r="2"/></svg></span>';
+  $('#iosB').innerHTML = '<div class="pv"><img src="img/icon-192.png" alt=""><div><b>' + L('خيرات ماركت', 'Khayrat Market') + '</b><br><small style="color:var(--mute)">' + t('appS') + '</small></div></div><ol>' + (isIOS
+    ? '<li>' + L('اكبس زر المشاركة', 'Tap the Share button') + share + L('تحت بـ Safari', 'at the bottom of Safari') + '</li><li>' + L('نزّل واختار', 'Scroll and choose') + plus + '<b>' + L('«إضافة إلى الشاشة الرئيسية»', '“Add to Home Screen”') + '</b></li><li>' + L('اكبس', 'Tap') + ' <b>' + L('«إضافة»', '“Add”') + '</b> ' + L('فوق، وخلص!', 'at the top, and you are done!') + '</li>'
+    : '<li>' + L('اكبس قائمة المتصفّح', 'Open the browser menu') + menu + L('فوق', 'at the top') + '</li><li>' + L('اختار', 'Choose') + ' <b>' + L('«تثبيت التطبيق»', '“Install app”') + '</b> ' + L('أو «إضافة إلى الشاشة الرئيسية»', 'or “Add to Home screen”') + '</li><li>' + L('اكبس', 'Tap') + ' <b>' + L('«تثبيت»', '“Install”') + '</b></li>') + '</ol>';
+  openS('#iosS');
+}
+async function doInstall() {
+  if (deferredI) { deferredI.prompt(); const r = await deferredI.userChoice; deferredI = null; if (r && r.outcome === 'accepted') { $('#appc').classList.remove('on'); toast(t('appDone')) } return }
+  iosHelp();
+}
+addEventListener('beforeinstallprompt', (e) => { e.preventDefault(); deferredI = e; appCard() });
+addEventListener('appinstalled', () => { $('#appc').classList.remove('on'); toast(t('appDone')) });
+document.addEventListener('click', (e) => { if (e.target.closest('[data-install]')) doInstall() });
+$('#appNo').addEventListener('click', () => { try { localStorage.setItem('kh_app_no', Date.now()) } catch (e) {} $('#appc').classList.remove('on') });
+appCard();
+if ('serviceWorker' in navigator && (location.protocol === 'https:' || location.hostname === 'localhost')) addEventListener('load', () => navigator.serviceWorker.register('sw.js').catch(() => {}));
+(() => { const o = new URLSearchParams(location.search).get('open'); if (o === 'list') setTimeout(() => $('#listBtn') && $('#listBtn').click(), 400); if (o === 'cart') setTimeout(() => openS('#cartS'), 400) })();
 (() => { let seen = null; try { seen = localStorage.getItem('kh_seen') } catch (e) {} if (!seen) setTimeout(openIntro, 700) })();
 </script>
 </body>
