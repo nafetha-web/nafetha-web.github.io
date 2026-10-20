@@ -242,6 +242,35 @@ main { min-width: 0; padding-top: 16px; display: flex; flex-direction: column; g
 .toast { position: fixed; z-index: 80; left: 50%; bottom: calc(var(--navh) + 86px + env(safe-area-inset-bottom, 0px)); transform: translate(-50%, 20px); background: var(--ink); color: #fff; padding: 10px 16px; border-radius: 99px; font-size: 14px; opacity: 0; transition: .3s; pointer-events: none; white-space: nowrap; max-width: 92vw; overflow: hidden; text-overflow: ellipsis }
 .toast.on { opacity: 1; transform: translate(-50%, 0) }
 @media (min-width: 1000px) { .toast { bottom: 96px } }
+/* first-visit guide */
+.intro .shb { padding: 0 0 18px }
+.track { display: grid; grid-auto-flow: column; grid-auto-columns: 100%; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; overscroll-behavior-x: contain }
+.track::-webkit-scrollbar { display: none }
+.slide { scroll-snap-align: center; padding: 6px 22px 4px; display: flex; flex-direction: column; align-items: center; text-align: center; gap: 10px; min-width: 0 }
+.slide .art { width: 100%; max-width: 360px; aspect-ratio: 16 / 10; border-radius: 22px; background: var(--mint); display: grid; place-items: center; position: relative; overflow: hidden }
+.slide .art.sun { background: var(--sun-soft) }
+.slide h4 { font-family: var(--hf); font-size: 21px; margin: 6px 0 0; line-height: 1.3 }
+.slide p { margin: 0; color: var(--mute); font-size: 14.5px; max-width: 34ch }
+.big { width: 92px; height: 92px; border-radius: 28px; background: var(--brand); display: grid; place-items: center; box-shadow: 0 16px 30px -14px rgba(20,81,47,.6) }
+.steps3 { display: flex; align-items: center; gap: 8px; padding: 0 12px }
+.steps3 div { background: var(--card); border-radius: 16px; padding: 10px 6px; width: 92px; display: flex; flex-direction: column; align-items: center; gap: 6px; font-size: 12px; font-weight: 600; box-shadow: 0 6px 16px -10px rgba(22,33,26,.4) }
+.steps3 div i { width: 34px; height: 34px; border-radius: 11px; background: var(--brand); color: #fff; display: grid; place-items: center; font-style: normal; font-weight: 700; font-family: var(--hf) }
+.steps3 b { color: var(--brand); font-size: 16px }
+[dir=ltr] .steps3 b { transform: scaleX(-1) }
+.paper { width: 74%; background: #fff; border-radius: 14px; padding: 12px 16px; font-size: 13.5px; line-height: 1.9; text-align: start; box-shadow: 0 10px 24px -14px rgba(22,33,26,.45); transform: rotate(-2deg) }
+.paper span { display: block; border-bottom: 1px dashed var(--line) }
+.paper + .tick { position: absolute; bottom: 14px; inset-inline-end: 18px; background: var(--brand); color: #fff; border-radius: 99px; padding: 5px 12px; font-size: 12.5px; font-weight: 700 }
+.facts { display: grid; gap: 8px; width: 86%; text-align: start }
+.facts div { display: flex; align-items: center; gap: 10px; background: #fff; border-radius: 14px; padding: 9px 12px; font-size: 13.5px; font-weight: 600 }
+.facts i { width: 30px; height: 30px; border-radius: 10px; background: var(--mint); display: grid; place-items: center; flex: none; font-style: normal }
+.dots { display: flex; justify-content: center; gap: 7px; margin: 14px 0 12px }
+.dots i { width: 8px; height: 8px; border-radius: 99px; background: var(--line); transition: width .3s, background .3s }
+.dots i.on { width: 24px; background: var(--brand) }
+.inav { display: flex; gap: 10px; padding: 0 22px }
+.inav .skip { flex: none; padding: 0 16px; height: 50px; border-radius: 14px; color: var(--mute); font-weight: 600 }
+.inav .pbtn { flex: 1 }
+.slide .art.auto { aspect-ratio: auto; padding: 16px 0 }
+.trust .how { white-space: nowrap; flex: none; display: inline-flex; align-items: center; gap: 6px; font-size: 12.5px; border: 1px solid; border-radius: 99px; padding: 5px 11px; color: var(--brand-2); border-color: var(--brand); background: var(--mint); cursor: pointer; font-weight: 600 }
 .foot { text-align: center; color: var(--mute); font-size: 12.5px; padding: 6px 0 10px }
 .foot a { color: var(--brand); font-weight: 600 }
 @media (prefers-reduced-motion: reduce) { * { transition: none !important } }
@@ -303,6 +332,7 @@ main { min-width: 0; padding-top: 16px; display: flex; flex-direction: column; g
 </div></div>
 <div class="sheet" id="areaS" role="dialog" aria-modal="true"><div class="shh"><h3 data-t="areaTitle"></h3><button class="x" data-close>×</button></div><div class="shb" id="areaSB"></div></div>
 <div class="fdb" id="fdb" aria-live="polite"></div>
+<div class="sheet intro" id="introS" role="dialog" aria-modal="true" aria-labelledby="introH"><div class="shh"><h3 id="introH" data-t="introH"></h3><button class="x" data-close aria-label="close">×</button></div><div class="shb"><div class="track" id="track"></div><div class="dots" id="dots"></div><div class="inav"><button class="skip" type="button" id="iSkip" data-t="skip"></button><button class="pbtn" type="button" id="iNext"></button></div></div></div>
 <div class="toast" id="toast"></div>
 
 <script>
@@ -337,7 +367,7 @@ const T = {
   reoT: ['طلبيتك الماضية', 'Your last order'], reoBtn: ['اطلبها من جديد', 'Order again'],
   areaTitle: ['وين بدك ياها توصل؟', 'Where should we deliver?'], areaFee: ['رسوم التوصيل', 'Delivery fee'],
   trust: [['45 دقيقة', '45-min delivery'], ['كاش أو Whish', 'Cash or Whish'], ['طازج كل يوم', 'Fresh daily'], ['مجاني فوق 20$', 'Free over $20']],
-  endsIn: ['بيخلص بعد', 'Ends in'], shop: ['تسوّق', 'Shop'], kg: ['كغ', 'kg'], perKg: ['للكيلو', 'per kg'], pc: ['حبّة', 'pc']
+  endsIn: ['بيخلص بعد', 'Ends in'], howTo: ['كيف بطلب؟', 'How to order'], introH: ['أهلا فيك بخيرات ماركت', 'Welcome to Khayrat Market'], skip: ['تخطّي', 'Skip'], next: ['التالي', 'Next'], startShop: ['يلا نتسوّق', 'Start shopping'], shop: ['تسوّق', 'Shop'], kg: ['كغ', 'kg'], perKg: ['للكيلو', 'per kg'], pc: ['حبّة', 'pc']
 };
 const t = (k) => { const v = T[k]; return Array.isArray(v) ? v[lang === 'ar' ? 0 : 1] : v };
 
@@ -463,12 +493,35 @@ function renderStatic() {
   $('#langBtn').textContent = lang === 'ar' ? 'EN' : 'ع';
   $('#curBtn').textContent = cur === 'usd' ? '$' : L('ل.ل', 'LBP');
   const ic = ['<path d="M13 2 3 14h9l-1 8 10-12h-9z"/>', '<rect x="2" y="6" width="20" height="12" rx="2"/><circle cx="12" cy="12" r="2.5"/>', '<path d="M11 20A7 7 0 0 1 4 13c0-5 7-11 7-11s7 6 7 11a7 7 0 0 1-7 7z"/>', '<path d="M3 7h11v9H3zM14 10h4l3 3v3h-7"/><circle cx="7" cy="18" r="2"/><circle cx="17" cy="18" r="2"/>'];
-  $('#trust').innerHTML = T.trust.map((x, i) => '<span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">' + ic[i] + '</svg>' + x[lang === 'ar' ? 0 : 1] + '</span>').join('');
+  $('#trust').innerHTML = '<button type="button" class="how" data-intro><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M9.5 9.5a2.5 2.5 0 1 1 3.5 2.3c-.6.3-1 .9-1 1.6V14M12 17.5v.01"/></svg>' + t('howTo') + '</button>' + T.trust.map((x, i) => '<span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">' + ic[i] + '</svg>' + x[lang === 'ar' ? 0 : 1] + '</span>').join('');
   $('#side').innerHTML = '<h3>' + t('cats') + '</h3>' + [{ k: 'all', ar: 'كل المنتجات', en: 'All products', img: 'p1366594' }, ...CATS].map((c) => '<button type="button" data-cat="' + c.k + '"><img src="img/' + c.img + '.webp" alt="" loading="lazy">' + L(c.ar, c.en) + '</button>').join('');
   $('#cats').innerHTML = CATS.map((c) => '<button class="cat" type="button" data-cat="' + c.k + '"><img src="img/' + c.img + '.webp" alt="" loading="lazy">' + L(c.ar, c.en) + '</button>').join('');
   $('#ex').innerHTML = (lang === 'ar' ? ['2 خبز', 'كيلو بندورة', 'لبنة', 'نص كيلو موز', 'زيت زيتون', 'بيض', 'محارم'] : ['2 bread', '1 kg tomatoes', 'labneh', 'olive oil', 'eggs']).map((x) => '<button type="button">' + x + '</button>').join('');
-  renderDeals(); renderOpen();
+  renderDeals(); renderOpen(); renderIntro();
 }
+const svgI = (d, s, c) => '<svg width="' + (s || 44) + '" height="' + (s || 44) + '" viewBox="0 0 24 24" fill="none" stroke="' + (c || '#fff') + '" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">' + d + '</svg>';
+function renderIntro() {
+  const S = [
+    { art: '<div class="big">' + svgI('<path d="M3 9h18l-1.8 9.6a2 2 0 0 1-2 1.6H6.8a2 2 0 0 1-2-1.6z"/><path d="M8 9l3-5M16 9l-3-5"/>', 48) + '</div>',
+      h: L('أغراض البيت لباب البيت', 'Groceries to your door'), p: L('خضرة طازجة، ألبان، لحوم، مونة ومنظّفات، بتوصلك خلال 45 دقيقة. خلّينا نفرجيك كيف بتطلب بـ 3 خطوات.', 'Fresh produce, dairy, meat, pantry and cleaning, delivered in about 45 minutes. Here is how to order in 3 steps.') },
+    { art: '<div class="steps3"><div><i>+</i>' + L('اختار أغراضك', 'Pick items') + '</div><b>←</b><div><i>' + svgI('<circle cx="9" cy="20" r="1.5"/><circle cx="18" cy="20" r="1.5"/><path d="M2 3h3l2.7 12.4a1 1 0 0 0 1 .8h9.6a1 1 0 0 0 1-.8L21 7H6"/>', 18) + '</i>' + L('راجع سلّتك', 'Check basket') + '</div><b>←</b><div><i style="background:#25D366">' + svgI('<path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.6A8 8 0 1 1 21 12z"/>', 18) + '</i>' + L('ابعت عالواتساب', 'Send on WhatsApp') + '</div></div>',
+      h: L('كيف بتطلب؟', 'How to order'), p: L('كبّس «+ أضف» على أي منتج، وافتح السلّة من تحت. عبّي اسمك وعنوانك، والطلب بيوصلنا مرتّب عالواتساب، وما بيتبعت شي قبل ما تكبس إرسال.', 'Tap “+ Add” on any item and open your basket below. Add your name and address, and the order reaches us on WhatsApp. Nothing is sent until you press send.') },
+    { art: '<div class="paper">' + (lang === 'ar' ? ['2 خبز', 'كيلو بندورة', 'لبنة', 'زيت زيتون'] : ['2 bread', '1 kg tomatoes', 'labneh', 'olive oil']).map((x) => '<span>' + x + '</span>').join('') + '</div><span class="tick">' + L('✓ انضافوا للسلّة', '✓ Added to basket') + '</span>', sun: 1,
+      h: L('عندك ليستة؟ الصقها', 'Have a list? Paste it'), p: L('كبّس «الصق قائمتك» واكتب أغراضك متل ما بتكتبها على ورقة. منعبّي السلّة عنك، ويلي ما لقيناه منسألك عنه.', 'Tap “Paste your list” and write items as you would on paper. We fill the basket for you and ask about anything we can’t find.') },
+    { art: '<div class="facts"><div><i>🚚</i>' + L('التوصيل مجاني فوق ' + '$' + FREE, 'Free delivery over ' + '$' + FREE) + '</div><div><i>📍</i>' + L('تحت ' + '$' + FREE + ': من ' + '$1' + ' حسب منطقتك', 'Under ' + '$' + FREE + ': from ' + '$1' + ' by area') + '</div><div><i>💵</i>' + L('الدفع كاش أو Whish عند الباب', 'Pay cash or Whish at the door') + '</div><div><i>🔁</i>' + L('إذا غرض مش متوفّر، إنت بتقرّر: نبدّله، نتصل فيك، أو نشيله', 'If something’s out, you choose: replace, call or remove') + '</div></div>', sun: 1, auto: 1,
+      h: L('التوصيل والدفع', 'Delivery & payment'), p: L('من 8 الصبح لـ 10 المسا، كل يوم. وفيك تختار «بأسرع وقت» أو ساعة بتناسبك.', 'Every day from 8 am to 10 pm. Choose “ASAP” or a time that suits you.') }
+  ];
+  $('#track').innerHTML = S.map((x, i) => '<div class="slide" data-s="' + i + '"><div class="art' + (x.sun ? ' sun' : '') + (x.auto ? ' auto' : '') + '">' + x.art + '</div><h4>' + x.h + '</h4><p>' + x.p + '</p></div>').join('');
+  $('#dots').innerHTML = S.map((_, i) => '<i class="' + (i ? '' : 'on') + '"></i>').join('');
+  iIdx = 0; setNext();
+  if (iObs) iObs.disconnect();
+  iObs = new IntersectionObserver((es) => es.forEach((e) => { if (e.isIntersecting) { iIdx = +e.target.dataset.s; $$('#dots i').forEach((d, k) => d.classList.toggle('on', k === iIdx)); setNext() } }), { root: $('#track'), threshold: .6 });
+  $$('#track .slide').forEach((el) => iObs.observe(el));
+}
+let iIdx = 0, iObs = null;
+function setNext() { const last = iIdx >= $$('#track .slide').length - 1; $('#iNext').textContent = last ? t('startShop') : t('next'); $('#iSkip').style.visibility = last ? 'hidden' : 'visible' }
+function openIntro() { openS('#introS'); requestAnimationFrame(() => { const f = $('#track .slide'); f && f.scrollIntoView({ block: 'nearest', inline: 'center' }) }) }
+function doneIntro() { try { localStorage.setItem('kh_seen', '1') } catch (e) {} closeS() }
 function renderDeals() {
   const D = [['p1366594', L('عروض الويك إند', 'Weekend deals'), L('خصومات لحد 20% على المونة والمنظّفات', 'Up to 20% off pantry & cleaning'), '-20%', 'pan'],
     ['p2416879', L('سوق الخضرة', 'Fresh market'), L('خضرة وفواكه طازجة كل يوم الصبح', 'Fresh produce every morning'), L('طازج', 'Fresh'), 'veg'],
@@ -599,7 +652,10 @@ document.addEventListener('click', (e) => {
   if (b.dataset.pay) { pay = b.dataset.pay; renderCart(); return }
   if ('send' in b.dataset) { sendOrder(); return }
   if ('reo' in b.dataset) { let last = null; try { last = JSON.parse(localStorage.getItem('kh_last')) } catch (x) {} if (last) { Object.entries(last.cart).forEach(([id, v]) => { if (byId[id]) cart[id] = v }); save(); refresh(); toast(T.addedN(Object.keys(last.cart).length)[lang === 'ar' ? 0 : 1]); if (window.innerWidth < 1000) openS('#cartS') } return }
-  if ('close' in b.dataset) { closeS(); return }
+  if ('close' in b.dataset) { if ($('#introS').classList.contains('on')) doneIntro(); else closeS(); return }
+  if ('intro' in b.dataset) { openIntro(); return }
+  if (b.id === 'iSkip') { doneIntro(); return }
+  if (b.id === 'iNext') { const sl = $$('#track .slide'); if (iIdx >= sl.length - 1) doneIntro(); else sl[iIdx + 1].scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' }); return }
   if (b.dataset.go) { $$('#bnav button').forEach((x) => x.classList.toggle('on', x === b)); const g = b.dataset.go;
     if (g === 'top') window.scrollTo({ top: 0, behavior: 'smooth' }); else if (g === 'all') document.getElementById('all').scrollIntoView({ behavior: 'smooth' }); else if (g === 'list') { openS('#listS'); setTimeout(() => $('#lstT').focus(), 300) } else openS('#cartS'); return }
   if (b.parentNode && b.parentNode.id === 'ex') { const ta = $('#lstT'); ta.value = (ta.value.trim() ? ta.value.trim() + '\n' : '') + b.textContent; return }
@@ -612,8 +668,8 @@ document.addEventListener('click', (e) => {
   if (b.id === 'langBtn') { lang = lang === 'ar' ? 'en' : 'ar'; try { localStorage.setItem('kh_lang', lang) } catch (x) {} renderStatic(); refresh(); return }
   if (b.id === 'curBtn') { cur = cur === 'usd' ? 'lbp' : 'usd'; try { localStorage.setItem('kh_cur', cur) } catch (x) {} renderStatic(); refresh(); return }
 });
-$('#ov').addEventListener('click', closeS);
-document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeS() });
+$('#ov').addEventListener('click', () => { if ($('#introS').classList.contains('on')) doneIntro(); else closeS() });
+document.addEventListener('keydown', (e) => { if (e.key === 'Escape') { if ($('#introS').classList.contains('on')) doneIntro(); else closeS() } });
 document.addEventListener('input', (e) => { const el = e.target;
   if (el.id === 'q') { q = el.value; if (q) catF = 'all'; clearTimeout(el._t); el._t = setTimeout(() => { refresh(); if (q.trim()) document.getElementById('all').scrollIntoView({ behavior: 'smooth' }) }, 220) }
   if (el.dataset.f) form[el.dataset.f] = el.value;
@@ -623,6 +679,7 @@ document.addEventListener('change', (e) => { const el = e.target;
   if ('area' in el.dataset) { area = +el.value; save(); refresh() }
 });
 renderStatic(); refresh();
+(() => { let seen = null; try { seen = localStorage.getItem('kh_seen') } catch (e) {} if (!seen) setTimeout(openIntro, 700) })();
 </script>
 </body>
 </html>
