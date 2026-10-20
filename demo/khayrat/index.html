@@ -159,6 +159,13 @@ main { min-width: 0; padding-top: 16px; display: flex; flex-direction: column; g
 .pc:hover .im img { transform: scale(1.05) }
 .pc .bd { position: absolute; top: 7px; inset-inline-start: 7px; font-size: 11px; font-weight: 700; border-radius: 99px; padding: 2px 8px; background: var(--sun); color: var(--ink) }
 .pc .bd.off { background: var(--tomato); color: #fff }
+.pc.out .im img { filter: grayscale(1); opacity: .55 }
+.pc .bd.outb { background: var(--ink); color: #fff }
+.pc .add[disabled] { background: var(--line); color: var(--mute); cursor: not-allowed }
+.today { background: linear-gradient(180deg, #FFF1E8, transparent); border-radius: 22px; padding: 14px 16px 6px; margin-inline: -16px }
+.today .sh h2 { color: var(--tomato) }
+.today .cdu { font-size: 12.5px; font-weight: 700; color: #fff; background: var(--tomato); border-radius: 99px; padding: 4px 10px }
+.today .cdu:empty { display: none }
 .pc .nm { font-weight: 600; font-size: 14px; line-height: 1.35; min-height: 2.7em; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden }
 .pc .un { color: var(--mute); font-size: 12px }
 .pc .pr { display: flex; align-items: baseline; gap: 6px; flex-wrap: wrap; font-family: var(--hf); font-weight: 700; font-size: 15.5px; color: var(--brand-2) }
@@ -341,6 +348,7 @@ main { min-width: 0; padding-top: 16px; display: flex; flex-direction: column; g
     <section><div class="deals" id="deals"></div></section>
     <div class="reo" id="reo" hidden></div>
     <section class="catsec"><div class="sh"><h2 data-t="cats"></h2></div><div class="cats" id="cats"></div></section>
+    <section class="today" id="todaySec" hidden><div class="sh"><h2 data-t="todayH"></h2><span class="cdu num" id="todayCd"></span></div><div class="rail" id="today"></div></section>
     <section><div class="sh"><h2 data-t="popular"></h2></div><div class="rail" id="pop"></div></section>
     <section id="all"><div class="sh"><h2 id="allT"></h2><span class="count num" id="cnt"></span></div><div class="chips" id="chips"></div><div class="grid" id="grid"></div>
       <div class="scale"><svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="#1E6B45" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="4"/><path d="M8 12h8M12 8v8"/></svg><div><b class="num" data-t="scaleN"></b><div data-t="scaleT"></div></div></div>
@@ -372,6 +380,7 @@ main { min-width: 0; padding-top: 16px; display: flex; flex-direction: column; g
 <div class="sheet ios" id="iosS" role="dialog" aria-modal="true" aria-labelledby="iosH"><div class="shh"><h3 id="iosH" data-t="appT"></h3><button class="x" data-close aria-label="close">×</button></div><div class="shb" id="iosB"></div></div>
 <div class="toast" id="toast"></div>
 
+<script src="data.js"></script>
 <script>
 const WA = '96171163991', RATE = 89500, FREE = 20;
 const $ = (s) => document.querySelector(s), $$ = (s) => [...document.querySelectorAll(s)];
@@ -404,91 +413,35 @@ const T = {
   reoT: ['طلبيتك الماضية', 'Your last order'], reoBtn: ['اطلبها من جديد', 'Order again'],
   areaTitle: ['وين بدك ياها توصل؟', 'Where should we deliver?'], areaFee: ['رسوم التوصيل', 'Delivery fee'],
   trust: [['45 دقيقة', '45-min delivery'], ['كاش أو Whish', 'Cash or Whish'], ['طازج كل يوم', 'Fresh daily'], ['مجاني فوق 20$', 'Free over $20']],
-  endsIn: ['بيخلص بعد', 'Ends in'], howTo: ['كيف بطلب؟', 'How to order'], appT: ['نزّل تطبيق خيرات', 'Get the Khayrat app'], appS: ['أسرع، وبأيقونة على شاشتك', 'Faster, right on your home screen'], appGet: ['نزّل', 'Install'], appLater: ['تمام، منرجع نذكّرك بعد 3 أيام', 'Okay, we will remind you in 3 days'], appDone: ['انضاف التطبيق على شاشتك 🎉', 'App added to your home screen 🎉'], introH: ['أهلا فيك بخيرات ماركت', 'Welcome to Khayrat Market'], skip: ['تخطّي', 'Skip'], next: ['التالي', 'Next'], startShop: ['يلا نتسوّق', 'Start shopping'], shop: ['تسوّق', 'Shop'], kg: ['كغ', 'kg'], perKg: ['للكيلو', 'per kg'], pc: ['حبّة', 'pc']
+  endsIn: ['بيخلص بعد', 'Ends in'], howTo: ['كيف بطلب؟', 'How to order'], appT: ['نزّل تطبيق خيرات', 'Get the Khayrat app'], appS: ['أسرع، وبأيقونة على شاشتك', 'Faster, right on your home screen'], appGet: ['نزّل', 'Install'], todayH: ['🔥 عروض اليوم', '🔥 Today’s offers'], outB: ['خلص', 'Sold out'], outBtn: ['خلص من المخزن', 'Out of stock'], outT: ['هيدا الصنف خلص هلأ، جرّب بعدين', 'This item is sold out for now'], appLater: ['تمام، منرجع نذكّرك بعد 3 أيام', 'Okay, we will remind you in 3 days'], appDone: ['انضاف التطبيق على شاشتك 🎉', 'App added to your home screen 🎉'], introH: ['أهلا فيك بخيرات ماركت', 'Welcome to Khayrat Market'], skip: ['تخطّي', 'Skip'], next: ['التالي', 'Next'], startShop: ['يلا نتسوّق', 'Start shopping'], shop: ['تسوّق', 'Shop'], kg: ['كغ', 'kg'], perKg: ['للكيلو', 'per kg'], pc: ['حبّة', 'pc']
 };
 const t = (k) => { const v = T[k]; return Array.isArray(v) ? v[lang === 'ar' ? 0 : 1] : v };
 
-const CATS = [
-  { k: 'veg', ar: 'خضرة وفواكه', en: 'Fruit & veg', img: 'p2416879' },
-  { k: 'bak', ar: 'مخبوزات', en: 'Bakery', img: 'p1383908' },
-  { k: 'dai', ar: 'ألبان وأجبان وبيض', en: 'Dairy & eggs', img: 'p4187779' },
-  { k: 'meat', ar: 'لحوم ودجاج', en: 'Meat & poultry', img: 'p128401' },
-  { k: 'pan', ar: 'مونة وزيوت', en: 'Pantry & oils', img: 'p3737639' },
-  { k: 'can', ar: 'معلّبات', en: 'Canned food', img: 'p18216881' },
-  { k: 'frz', ar: 'مجمّدات', en: 'Frozen', img: 'p14062139' },
-  { k: 'snk', ar: 'سناكس وحلويات', en: 'Snacks & sweets', img: 'p13060681' },
-  { k: 'hot', ar: 'قهوة وشاي', en: 'Coffee & tea', img: 'p36111898' },
-  { k: 'drk', ar: 'مشروبات وعصائر', en: 'Drinks & juices', img: 'p10895942' },
-  { k: 'cln', ar: 'منظّفات', en: 'Cleaning', img: 'p5217888' },
-  { k: 'care', ar: 'عناية شخصية', en: 'Personal care', img: 'p6621322' }
-];
-// id, cat, ar, en, unit ar, unit en, price $, old $, kg?, popular?, img, keywords
-const P = [
-  ['tom', 'veg', 'بندورة بلدية', 'Local tomatoes', 'بالكيلو', 'per kg', 1.2, 0, 1, 1, '38444064', 'بندوره طماطم tomato tomatoes'],
-  ['chr', 'veg', 'بندورة كرزية', 'Cherry tomatoes', '250 غ', '250 g', 1.5, 0, 0, 0, '4856743', 'كرزيه cherry'],
-  ['oni', 'veg', 'بصل أصفر', 'Yellow onions', 'بالكيلو', 'per kg', .8, 0, 1, 0, '12296935', 'بصل onion onions'],
-  ['car', 'veg', 'جزر', 'Carrots', 'بالكيلو', 'per kg', .9, 0, 1, 0, '5377336', 'جزر carrot carrots'],
-  ['bet', 'veg', 'شمندر', 'Beetroot', 'بالكيلو', 'per kg', 1.1, 0, 1, 0, '5758603', 'شمندر beet beetroot'],
-  ['crn', 'veg', 'عرانيس ذرة', 'Corn cobs', '2 حبّة', '2 pcs', 1, 0, 0, 0, '38519270', 'ذره عرانيس corn'],
-  ['rad', 'veg', 'فجل', 'Radish', 'ربطة', 'bunch', .5, 0, 0, 0, '8356962', 'فجل radish'],
-  ['grn', 'veg', 'خضرة ورق: بقدونس، نعنع، خس', 'Leafy greens: parsley, mint, lettuce', 'ربطة', 'bunch', .75, 0, 0, 1, '5202195', 'بقدونس نعنع خس خضره parsley mint lettuce greens'],
-  ['pep', 'veg', 'فليفلة وبروكولي', 'Peppers & broccoli', 'بالكيلو', 'per kg', 1.8, 0, 1, 0, '5719966', 'فليفله بروكلي بروكولي pepper broccoli'],
-  ['cab', 'veg', 'ملفوف وحرّ', 'Cabbage & chili', 'بالكيلو', 'per kg', .9, 0, 1, 0, '36174433', 'ملفوف حر cabbage chili'],
-  ['ban', 'veg', 'موز', 'Bananas', 'بالكيلو', 'per kg', 1.4, 1.7, 1, 1, '7288788', 'موز banana bananas'],
-  ['frt', 'veg', 'تفاح وليمون أفندي', 'Apples & mandarins', 'بالكيلو', 'per kg', 1.3, 0, 1, 0, '2416879', 'تفاح افندي apple apples mandarin orange برتقال'],
-  ['lem', 'veg', 'حامض', 'Lemons', 'بالكيلو', 'per kg', 1, 0, 1, 0, '4385293', 'حامض ليمون lemon lemons'],
-  ['pit', 'bak', 'خبز عربي', 'Pita bread', 'ربطة كبيرة', 'large pack', .6, 0, 0, 1, '34938514', 'خبز عربي pita bread'],
-  ['kaa', 'bak', 'كعك بالسمسم', 'Sesame ka’ak', 'حبّة', 'piece', .8, 0, 0, 0, '32965430', 'كعك سمسم kaak'],
-  ['bag', 'bak', 'باغيت فرنسي', 'French baguette', 'حبّة', 'piece', .7, 0, 0, 0, '3789032', 'باغيت baguette'],
-  ['rol', 'bak', 'خبز إفرنجي صغير', 'Bread rolls', '6 حبّات', '6 pcs', 1, 0, 0, 0, '7543099', 'افرنجي سندويش rolls buns'],
-  ['lof', 'bak', 'خبز الضيعة بالخميرة الطبيعية', 'Village sourdough loaf', 'رغيف', 'loaf', 2.5, 0, 0, 0, '1383908', 'ضيعه sourdough loaf'],
-  ['mil', 'dai', 'حليب طازج', 'Fresh milk', '1 ليتر', '1 L', 1.6, 0, 0, 1, '5946733', 'حليب milk'],
-  ['yog', 'dai', 'لبن بلدي', 'Plain yogurt', '1 كغ', '1 kg', 2.2, 0, 0, 0, '373882', 'لبن روب yogurt'],
-  ['lab', 'dai', 'لبنة بلدية', 'Labneh', '500 غ', '500 g', 2.4, 2.8, 0, 1, '5191723', 'لبنه labneh labne'],
-  ['chs', 'dai', 'تشكيلة أجبان', 'Cheese selection', '400 غ', '400 g', 6.5, 0, 0, 0, '4187779', 'جبنه اجبان cheese'],
-  ['ckh', 'dai', 'جبنة قريشة', 'Cottage cheese', '500 غ', '500 g', 2.4, 0, 0, 0, '11281331', 'قريشه cottage'],
-  ['egg', 'dai', 'بيض بلدي', 'Free-range eggs', '15 بيضة', '15 eggs', 3.5, 0, 0, 1, '6827029', 'بيض بيضات egg eggs'],
-  ['eg30', 'dai', 'كرتونة بيض', 'Egg tray', '30 بيضة', '30 eggs', 6.5, 0, 0, 0, '6845644', 'كرتونه بيض tray'],
-  ['min', 'meat', 'لحمة مفرومة بقر', 'Minced beef', '500 غ', '500 g', 6.9, 0, 0, 1, '128401', 'لحمه مفرومه minced ground beef'],
-  ['stk', 'meat', 'ستيك بقر', 'Beef steak', 'بالكيلو', 'per kg', 18, 0, 1, 0, '34003515', 'ستيك steak'],
-  ['chk', 'meat', 'صدر دجاج', 'Chicken breast', '1 كغ', '1 kg', 6.5, 7.5, 0, 1, '5769376', 'صدر دجاج chicken breast فروج'],
-  ['chl', 'meat', 'أفخاذ دجاج متبّلة', 'Marinated chicken thighs', '1 كغ', '1 kg', 6, 0, 0, 0, '7140318', 'افخاذ دجاج متبله thighs'],
-  ['ric', 'pan', 'رز مصري', 'Egyptian rice', '2 كغ', '2 kg', 3.2, 0, 0, 1, '3737645', 'رز ارز rice'],
-  ['chp', 'pan', 'حمص حب', 'Dry chickpeas', '1 كغ', '1 kg', 2, 0, 0, 0, '3737639', 'حمص حب chickpeas'],
-  ['bul', 'pan', 'برغل ناعم', 'Fine bulgur', '1 كغ', '1 kg', 1.6, 0, 0, 0, '4224266', 'برغل bulgur'],
-  ['pas', 'pan', 'معكرونة', 'Pasta', '500 غ', '500 g', .9, 0, 0, 0, '7055128', 'معكرونه مكرونه pasta'],
-  ['olv', 'pan', 'زيت زيتون بلدي', 'Local olive oil', '1 ليتر', '1 L', 8.5, 9.5, 0, 1, '31275839', 'زيت زيتون olive oil'],
-  ['sun', 'pan', 'زيت زيتون ودوّار الشمس', 'Olive & sunflower oil duo', '2 × 500 مل', '2 × 500 ml', 7.9, 0, 0, 0, '31275834', 'زيت نباتي دوار الشمس sunflower oil'],
-  ['olv2', 'pan', 'زيت زيتون بكر ممتاز', 'Extra virgin olive oil', '500 مل', '500 ml', 5.2, 0, 0, 0, '7656591', 'زيت بكر extra virgin'],
-  ['tun', 'can', 'تونة بالزيت', 'Tuna in oil', '160 غ', '160 g', 1.8, 0, 0, 1, '14426299', 'تونه طون tuna'],
-  ['sar', 'can', 'سردين', 'Sardines', '125 غ', '125 g', .95, 0, 0, 0, '13499754', 'سردين sardine sardines'],
-  ['tpa', 'can', 'رب البندورة', 'Tomato paste', '400 غ', '400 g', 1.1, 0, 0, 0, '18216881', 'رب بندوره معجون tomato paste'],
-  ['fol', 'can', 'فول مدمّس', 'Fava beans (foul)', '400 غ', '400 g', .9, 0, 0, 0, '35972716', 'فول مدمس foul fava'],
-  ['shr', 'frz', 'قريدس مجمّد', 'Frozen shrimp', '500 غ', '500 g', 9, 0, 0, 0, '14062139', 'قريدس جمبري shrimp'],
-  ['sal', 'frz', 'فيليه سلمون', 'Salmon fillets', '400 غ', '400 g', 11, 0, 0, 0, '14062145', 'سلمون سمك salmon fish'],
-  ['ber', 'frz', 'توت مشكّل مجمّد', 'Frozen mixed berries', '500 غ', '500 g', 3.8, 0, 0, 0, '15048304', 'توت berries'],
-  ['ics', 'frz', 'آيس كريم ساندويش', 'Ice cream sandwich', 'حبّة', 'piece', 1.2, 0, 0, 0, '35054722', 'ايس كريم بوظه ice cream'],
-  ['pop', 'frz', 'بوظة عصا بالبرتقال', 'Orange ice pops', '6 حبّات', '6 pcs', 3, 0, 0, 0, '39798755', 'بوظه عصا popsicle'],
-  ['jel', 'frz', 'كاسات جيلي فواكه', 'Fruit jelly cups', '12 حبّة', '12 pcs', 2.5, 0, 0, 0, '38390238', 'جيلي jelly'],
-  ['chi', 'snk', 'شيبس مملّح', 'Salted chips', 'كيس كبير', 'large bag', .75, 0, 0, 1, '13060681', 'شيبس تشيبس chips crisps'],
-  ['chi2', 'snk', 'شيبس بالبابريكا', 'Paprika chips', 'كيس كبير', 'large bag', .75, 0, 0, 0, '6941047', 'شيبس بابريكا paprika chips'],
-  ['coo', 'snk', 'كوكيز شوكولا', 'Chocolate cookies', '12 حبّة', '12 pcs', 2.5, 0, 0, 0, '6044053', 'كوكيز بسكوت شوكولا cookies chocolate biscuit'],
-  ['cof', 'hot', 'قهوة بالهال', 'Coffee with cardamom', '250 غ', '250 g', 4.5, 0, 0, 1, '36111898', 'قهوه بن هال coffee'],
-  ['tea', 'hot', 'شاي أسود', 'Black tea', '100 كيس', '100 bags', 2.2, 0, 0, 0, '15223902', 'شاي tea'],
-  ['tea2', 'hot', 'شاي سيلاني فرط', 'Loose Ceylon tea', '500 غ', '500 g', 3, 0, 0, 0, '3644476', 'شاي سيلاني loose tea'],
-  ['oj', 'drk', 'عصير برتقال طبيعي', 'Fresh orange juice', '1 ليتر', '1 L', 2.5, 0, 0, 1, '8679343', 'عصير برتقال orange juice'],
-  ['juc', 'drk', 'عصائر طبيعية مشكّلة', 'Assorted fresh juices', '2 قنينة', '2 bottles', 4, 0, 0, 0, '10895942', 'عصير عصائر juice'],
-  ['wat', 'drk', 'مياه معدنية', 'Mineral water', '6 × 1.5 ليتر', '6 × 1.5 L', 2.1, 0, 0, 1, '327090', 'مي مياه ماء ميه water'],
-  ['det', 'cln', 'مسحوق غسيل سائل', 'Liquid laundry detergent', '3 ليتر', '3 L', 5.9, 6.9, 0, 1, '5217885', 'مسحوق غسيل detergent laundry'],
-  ['sof', 'cln', 'منعّم أقمشة', 'Fabric softener', '2 ليتر', '2 L', 3.2, 0, 0, 0, '5217886', 'منعم softener'],
-  ['flr', 'cln', 'سائل تنظيف أرضيات', 'Floor cleaner', '1.5 ليتر', '1.5 L', 2.1, 0, 0, 0, '5217898', 'تنظيف ارض اراضي floor cleaner'],
-  ['gls', 'cln', 'بخّاخ زجاج', 'Glass cleaner spray', '750 مل', '750 ml', 1.6, 0, 0, 0, '4440564', 'زجاج بخاخ glass spray'],
-  ['sop', 'care', 'صابون طبيعي', 'Natural soap bars', '4 قطع', '4 bars', 3, 0, 0, 0, '6621322', 'صابون soap'],
-  ['sop2', 'care', 'صابون زيت زيتون', 'Olive oil soap', '2 قطعة', '2 bars', 2, 0, 0, 0, '9475427', 'صابون زيت غار olive soap'],
-  ['sha', 'care', 'شامبو وبلسم', 'Shampoo & conditioner', 'طقم', 'set', 6.5, 0, 0, 0, '7440062', 'شامبو بلسم shampoo conditioner']
-].map((r) => ({ id: r[0], c: r[1], ar: r[2], en: r[3], uar: r[4], uen: r[5], p: r[6], old: r[7], kg: !!r[8], pop: !!r[9], img: 'img/p' + r[10] + '.webp', kw: r[11] }));
-const byId = Object.fromEntries(P.map((p) => [p.id, p]));
-const AREAS = [['بشامون', 'Bchamoun', 1], ['عرمون', 'Aramoun', 1], ['دوحة عرمون', 'Doha Aramoun', 1], ['الشويفات', 'Choueifat', 1.5], ['خلدة', 'Khaldeh', 1.5], ['عيناب', 'Aynab', 2]];
+
+/* live offers + stock (edited by the owner from admin/) */
+const API = 'https://nafetha-api.nafetha-web.workers.dev/khayrat/state';
+P.forEach((p) => { p.bp = p.p; p.bo = p.old });
+let liveSt = null;
+function applySt(st) {
+  liveSt = st; const now = Date.now(), outS = new Set((st && st.out) || []);
+  P.forEach((p) => { p.p = p.bp; p.old = p.bo; p.until = 0; p.live = false; p.out = outS.has(p.id) });
+  Object.entries((st && st.offers) || {}).forEach(([id, o]) => {
+    const p = byId[id]; if (!p || (o.until && o.until <= now)) return;
+    p.p = o.price; p.old = o.price < (p.bo || p.bp) ? (p.bo || p.bp) : 0; p.live = p.old > 0; p.until = o.until || 0;
+  });
+}
+try { const c = JSON.parse(localStorage.getItem('kh_state') || 'null'); if (c) applySt(c) } catch (e) {}
+async function loadSt() {
+  try { const r = await fetch(API, { cache: 'no-store' }); if (!r.ok) return; const st = await r.json(); if (liveSt && st.updated === liveSt.updated) return; try { localStorage.setItem('kh_state', JSON.stringify(st)) } catch (e) {} applySt(st); refresh() } catch (e) {}
+}
+function renderToday() {
+  const L2 = P.filter((p) => p.live && !p.out);
+  $('#todaySec').hidden = !L2.length;
+  if (!L2.length) return;
+  $('#today').innerHTML = L2.map(card).join('');
+  const u = L2.map((p) => p.until).filter(Boolean);
+  $('#todayCd').dataset.until = u.length ? Math.min(...u) : ''; tick();
+}
 
 /* state */
 let cart = {}, opts = {}, catF = 'all', q = '', area = 0, slot = 'asap', pay = 'cash', missNotes = [];
@@ -505,12 +458,13 @@ const fee = () => subtotal() >= FREE || !Object.keys(cart).length ? 0 : AREAS[ar
 const count = () => Object.keys(cart).length;
 
 function setQty(id, v) { const p = byId[id]; v = Math.round(v * 2) / 2; if (v <= 0) { delete cart[id]; delete opts[id] } else cart[id] = v; save(); refresh() }
-function addP(id, n) { const p = byId[id]; setQty(id, (cart[id] || 0) + (n || (p.kg && !cart[id] ? 1 : step(p)))) }
+function addP(id, n) { const p = byId[id]; if (p.out) { toast(t('outT')); return } setQty(id, (cart[id] || 0) + (n || (p.kg && !cart[id] ? 1 : step(p)))) }
 
 /* cards */
 function card(p) {
   const q = cart[p.id], off = p.old ? Math.round((1 - p.p / p.old) * 100) : 0;
   const unit = p.kg ? t('perKg') : L(p.uar, p.uen);
+  if (p.out) return '<article class="pc out"><div class="im"><img src="' + p.img + '" alt="" loading="lazy" width="440" height="440"><span class="bd outb">' + t('outB') + '</span></div><div class="nm">' + L(p.ar, p.en) + '</div><div class="un">' + unit + '</div><div class="pr num">' + fmt(p.p) + '</div><button class="add" type="button" disabled>' + t('outBtn') + '</button></article>';
   return '<article class="pc"><div class="im"><img src="' + p.img + '" alt="" loading="lazy" width="440" height="440">' + (off ? '<span class="bd off">-' + off + '%</span>' : p.pop ? '<span class="bd">' + L('مطلوب', 'Popular') + '</span>' : '') + '</div>' +
     '<div class="nm">' + L(p.ar, p.en) + '</div><div class="un">' + unit + '</div><div class="pr num">' + fmt(p.p) + (p.old ? '<s>' + fmt(p.old) + '</s>' : '') + '</div>' +
     (q ? '<div class="step"><button type="button" data-dec="' + p.id + '" aria-label="-">−</button><span class="num">' + qtyTxt(p, q) + '</span><button type="button" data-inc="' + p.id + '" aria-label="+">+</button></div>'
@@ -567,7 +521,9 @@ function renderDeals() {
   $('#deals').innerHTML = D.map((d) => '<a class="deal" href="#all" data-cat="' + d[4] + '"><img src="img/' + d[0].replace('p', 'b') + '.webp" alt=""><span class="tg">' + d[3] + '</span><h3>' + d[1] + '</h3><p>' + d[2] + '</p><div class="row"><span class="cd num" data-cd>--:--:--</span><span class="go">' + t('shop') + '</span></div></a>').join('');
   tick();
 }
-function tick() { const n = new Date(), m = new Date(n); m.setHours(24, 0, 0, 0); let s = Math.floor((m - n) / 1000); const h = String(Math.floor(s / 3600)).padStart(2, '0'), mi = String(Math.floor(s % 3600 / 60)).padStart(2, '0'), se = String(s % 60).padStart(2, '0'); $$('[data-cd]').forEach((e) => e.textContent = '⏱ ' + h + ':' + mi + ':' + se) }
+function tick() { const n = new Date(), m = new Date(n); m.setHours(24, 0, 0, 0); let s = Math.floor((m - n) / 1000); const h = String(Math.floor(s / 3600)).padStart(2, '0'), mi = String(Math.floor(s % 3600 / 60)).padStart(2, '0'), se = String(s % 60).padStart(2, '0'); $$('[data-cd]').forEach((e) => e.textContent = '⏱ ' + h + ':' + mi + ':' + se);
+  const cu = document.getElementById('todayCd'); if (cu) { const u = +cu.dataset.until; if (u) { let r = Math.max(0, Math.floor((u - n) / 1000)); const d = Math.floor(r / 86400); r %= 86400; cu.textContent = '⏱ ' + (d ? d + L('ي ', 'd ') : '') + String(Math.floor(r / 3600)).padStart(2, '0') + ':' + String(Math.floor(r % 3600 / 60)).padStart(2, '0') + ':' + String(r % 60).padStart(2, '0') } else cu.textContent = '' }
+  if (liveSt && P.some((p) => p.until && p.until <= +n)) { applySt(liveSt); refresh() } }
 setInterval(tick, 1000);
 function renderOpen() { const h = new Date().getHours(), o = h >= 8 && h < 22; $('#open').classList.toggle('closed', !o); $('#openT').textContent = o ? t('open') + ' · 8–22' : t('closed') + ' · ' + L('بيفتح 8 الصبح', 'opens 8 am') }
 
@@ -578,6 +534,7 @@ function refresh() {
   const cn = catF === 'all' ? null : CATS.find((c) => c.k === catF);
   $('#allT').textContent = q.trim() ? L('نتائج «' + q.trim() + '»', 'Results for “' + q.trim() + '”') : cn ? L(cn.ar, cn.en) : t('all');
   $('#pop').innerHTML = P.filter((p) => p.pop).map(card).join('');
+  renderToday();
   $('#chips').innerHTML = [{ k: 'all', ar: t('allChip'), en: t('allChip') }, ...CATS].map((c) => '<button type="button" class="' + (catF === c.k ? 'on' : '') + '" data-cat="' + c.k + '">' + L(c.ar, c.en) + '</button>').join('');
   $('#fcatR').innerHTML = '<button type="button" class="' + (catF === 'all' ? 'on' : '') + '" data-goaisles><span class="ic"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg></span>' + t('allChip') + '</button>' + CATS.map((c) => '<button type="button" class="' + (catF === c.k ? 'on' : '') + '" data-cat="' + c.k + '"><img src="img/' + c.img + '.webp" alt="" loading="lazy">' + L(c.ar, c.en) + '</button>').join('');
   { const on = $('#fcatR .on'); if (on) { const r = $('#fcatR'); r.scrollLeft += on.getBoundingClientRect().left - r.getBoundingClientRect().left - (r.clientWidth - on.offsetWidth) / 2 } }
@@ -720,6 +677,7 @@ document.addEventListener('change', (e) => { const el = e.target;
   if ('area' in el.dataset) { area = +el.value; save(); refresh() }
 });
 renderStatic(); refresh();
+loadSt(); setInterval(loadSt, 60000); document.addEventListener('visibilitychange', () => { if (!document.hidden) loadSt() });
 (() => { const cs = $('.catsec'), fc = $('#fcat'); let on = false; const chk = () => { const v = cs.getBoundingClientRect().bottom < 70; if (v !== on) { on = v; fc.classList.toggle('on', v) } }; addEventListener('scroll', chk, { passive: true }); chk() })();
 /* ---- installable app (PWA) ---- */
 let deferredI = null;
