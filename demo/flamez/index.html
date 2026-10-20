@@ -168,6 +168,20 @@ section.block { padding-block: 40px 4px; display: flex; flex-direction: column; 
 .rev footer { padding: 12px 18px calc(14px + env(safe-area-inset-bottom, 0px)); border-top: 1px solid var(--line); display: grid; gap: 8px }
 .rev footer .btn { width: 100% }
 .rev .more { background: none; border: 0; color: var(--muted); font: inherit; font-size: 14px; cursor: pointer; padding: 4px }
+.cus .hd { color: var(--muted); font-size: 14px; margin: 0 0 6px }
+.ings { display: flex; flex-wrap: wrap; gap: 8px; margin: 8px 0 4px }
+.ing { min-height: 42px; padding: 0 14px; border-radius: 999px; border: 1.5px solid var(--fire); background: rgba(242,84,27,.14); color: var(--fg); font-weight: 600; font-size: 15px; cursor: pointer; display: inline-flex; align-items: center; gap: 6px }
+.ing::before { content: "✓"; color: var(--gold); font-weight: 700 }
+.ing[aria-pressed="false"] { border-color: var(--line); background: transparent; color: var(--muted); text-decoration: line-through }
+.ing[aria-pressed="false"]::before { content: "−"; color: var(--muted); text-decoration: none }
+.addon { display: flex; align-items: center; justify-content: space-between; gap: 10px; width: 100%; margin-top: 12px; min-height: 50px; padding: 0 14px; border-radius: 14px; border: 1.5px dashed var(--line); background: transparent; color: var(--fg); font-weight: 600; cursor: pointer; font-size: 15px }
+.addon[aria-pressed="true"] { border-style: solid; border-color: var(--gold); background: var(--gold-soft) }
+.addon span:last-child { color: var(--gold) }
+.cqty { display: flex; align-items: center; justify-content: space-between; margin-top: 14px; color: var(--muted); font-size: 14px }
+.cqty .qbtn { width: 40px; height: 40px }
+.cqty .qn { font-size: 18px; min-width: 28px }
+.rl .mods { color: var(--gold); font-size: 12.5px; margin-top: 2px; display: block }
+.cat .tip { color: var(--gold); font-size: 13px; margin: 2px 0 0 }
 .rev .empty { color: var(--muted); text-align: center; padding: 30px 0 }
 .wa[aria-disabled="true"] { opacity: .45; pointer-events: none }
 @media (prefers-reduced-motion: no-preference) {
@@ -244,6 +258,11 @@ section.block { padding-block: 40px 4px; display: flex; flex-direction: column; 
   </div>
 </div>
 <div class="ov" id="ov"></div>
+<section class="rev cus" id="cus" role="dialog" aria-modal="true" aria-labelledby="cusH">
+  <header><h2 id="cusH"></h2><button type="button" class="x" id="cusX" aria-label="close">×</button></header>
+  <div class="bd" id="cusBd"></div>
+  <footer><button type="button" class="btn btn-fire" id="cusAdd"></button></footer>
+</section>
 <section class="rev" id="rev" role="dialog" aria-modal="true" aria-labelledby="revH">
   <header><h2 id="revH"></h2><button type="button" class="x" id="revX" aria-label="close">×</button></header>
   <div class="bd" id="revBd"></div>
@@ -330,7 +349,7 @@ const T = {
     add: 'أضف', remove: 'احذف', money: (n) => (n * 1000).toLocaleString('en-US') + ' ل.ل',
     hello: 'مرحبًا FlameZ، أودّ أن أطلب:', total: 'المجموع',
     review: 'راجع طلبك', revH: 'طلبك', tapRev: 'اضغط لمراجعة الطلب', more: 'أضف أصنافًا أخرى', del: 'حذف', clear: 'إفراغ الطلب', empty: 'طلبك فارغ. أضف أصنافًا من القائمة.',
-    deliv: 'توصيل', pick: 'استلام من المحل', name: 'الاسم (اختياري)', addr: 'عنوان التوصيل', addrPh: 'المنطقة، الشارع، البناية', notes: 'ملاحظات (اختياري)', notesPh: 'مثلًا: بدون بصل، صوص إضافي…', needAddr: 'أضف عنوان التوصيل أولًا', each: 'للواحدة', type: 'نوع الطلب' },
+    deliv: 'توصيل', pick: 'استلام من المحل', name: 'الاسم (اختياري)', addr: 'عنوان التوصيل', addrPh: 'المنطقة، الشارع، البناية', notes: 'ملاحظات (اختياري)', notesPh: 'مثلًا: بدون بصل، صوص إضافي…', needAddr: 'أضف عنوان التوصيل أولًا', cusHd: 'المكوّنات: اضغط على أي مكوّن لإزالته', addTo: 'أضف إلى الطلب', qtyL: 'الكمية', without: 'بدون', tip: 'اضغط + لتختار المكوّنات على ذوقك', each: 'للواحدة', type: 'نوع الطلب' },
   en: { dir: 'ltr', lang: 'عربي',
     demo: 'A proposed site for FlameZ by <a href="https://nafetha-web.github.io" target="_blank" rel="noopener">Nafetha</a>, not the official site.',
     navOffers: 'Offers', navMenu: 'Menu', navVisit: 'Contact',
@@ -350,16 +369,25 @@ const T = {
     add: 'Add', remove: 'Remove', money: (n) => 'LBP ' + (n * 1000).toLocaleString('en-US'),
     hello: 'Hello FlameZ, I would like to order:', total: 'Total',
     review: 'Review order', revH: 'Your order', tapRev: 'Tap to review', more: 'Add more items', del: 'Remove', clear: 'Clear order', empty: 'Your order is empty. Add items from the menu.',
-    deliv: 'Delivery', pick: 'Pick-up', name: 'Name (optional)', addr: 'Delivery address', addrPh: 'Area, street, building', notes: 'Notes (optional)', notesPh: 'e.g. no onions, extra sauce…', needAddr: 'Add your delivery address first', each: 'each', type: 'Order type' }
+    deliv: 'Delivery', pick: 'Pick-up', name: 'Name (optional)', addr: 'Delivery address', addrPh: 'Area, street, building', notes: 'Notes (optional)', notesPh: 'e.g. no onions, extra sauce…', needAddr: 'Add your delivery address first', cusHd: 'Ingredients: tap any to remove it', addTo: 'Add to order', qtyL: 'Quantity', without: 'No', tip: 'Tap + to choose your ingredients', each: 'each', type: 'Order type' }
 };
 
+/* demo ingredient lists per section — to confirm with the restaurant */
+const ING = {
+  burger: { list: [['خس', 'Lettuce'], ['بندورة', 'Tomato'], ['بصل', 'Onion'], ['كبيس', 'Pickles'], ['صوص', 'Sauce']], addon: [['زيادة جبنة', 'Extra cheese'], 100] },
+  sand: { list: [['خس', 'Lettuce'], ['بندورة', 'Tomato'], ['كبيس', 'Pickles'], ['بطاطا', 'Fries'], ['صوص', 'Sauce']] },
+  arabic: { list: [['ثوم', 'Garlic'], ['كبيس', 'Pickles'], ['بطاطا', 'Fries'], ['خس', 'Lettuce'], ['بندورة', 'Tomato']] }
+};
 let lang = 'ar', activeCat = MENU[0].id;
 const cart = {}, form = { type: 'deliv', name: '', addr: '', notes: '' };
 try { const c = JSON.parse(localStorage.getItem('flamez-cart') || '{}'); Object.keys(c).forEach(k => { cart[k] = c[k] }) } catch (e) {}
 const saveCart = () => { try { localStorage.setItem('flamez-cart', JSON.stringify(cart)) } catch (e) {} };
 const LINES = {};
 MENU.forEach(c => c.items.forEach((it, n) => [it[2], it[3]].forEach((p, s) => { if (p) LINES[c.id + '-' + n + '-' + s] = { c, it, s, p } })));
-Object.keys(cart).forEach(k => { if (!LINES[k] || !(cart[k] > 0)) delete cart[k] });
+/* cart key: base[~removed.indices][~x] (x = add-on) */
+const LN = (k) => { const [b, r, x] = k.split('~'), l = LINES[b]; if (!l) return null; const g = ING[l.c.id]; return { ...l, b, rm: r ? r.split('.').map(Number) : [], x: !!x, p: l.p + (x && g && g.addon ? g.addon[1] : 0) } };
+const modsOf = (k) => { const l = LN(k), g = ING[l.c.id], ai = lang === 'ar' ? 0 : 1; if (!g) return ''; return [...l.rm.map(i => T[lang].without + ' ' + g.list[i][ai]), ...(l.x ? ['+ ' + g.addon[0][ai]] : [])].join(lang === 'ar' ? '، ' : ', ') };
+Object.keys(cart).forEach(k => { if (!LN(k) || !(cart[k] > 0)) delete cart[k] });
 try { const s = localStorage.getItem('flamez-lang'); if (s === 'en' || s === 'ar') lang = s } catch (e) {}
 const $ = (id) => document.getElementById(id);
 const PRE = { man: ['منقوشة', 'Manousheh'], kaak: ['كعكة', 'Ka\'ak'], pastry: ['فطيرة', 'Pastry'], pizza: ['بيتزا', 'Pizza'], burger: ['برغر', 'Burger'] };
@@ -383,7 +411,7 @@ function renderStatic() {
   $('foot').innerHTML = t.foot;
 }
 function optHTML(c, n, s, p) {
-  const t = T[lang], k = c.id + '-' + n + '-' + s, q = cart[k] || 0, ai = lang === 'ar' ? 0 : 1;
+  const t = T[lang], k = c.id + '-' + n + '-' + s, q = Object.keys(cart).reduce((a, x) => a + (x.split('~')[0] === k ? cart[x] : 0), 0), ai = lang === 'ar' ? 0 : 1;
   return '<div class="opt' + (q ? ' on' : '') + '"><span>' + (c.sz ? '<span class="lb">' + c.sz[s][ai] + '</span>' : '') + '<span class="pr ltr">' + (p * 1000).toLocaleString('en-US') + '</span></span><div class="qty">' +
     (q ? '<button type="button" class="qbtn" data-dec="' + k + '" aria-label="' + t.remove + '">−</button><span class="qn">' + q + '</span>' : '') +
     '<button type="button" class="qbtn add" data-inc="' + k + '" aria-label="' + t.add + '">+</button></div></div>';
@@ -393,11 +421,12 @@ function renderMenu(anim) {
   const inCat = (id) => Object.keys(cart).reduce((a, k) => a + (k.split('-')[0] === id ? cart[k] : 0), 0);
   $('tabs').innerHTML = MENU.map(c => { const n = inCat(c.id); return '<button type="button" class="tab" data-cat="' + c.id + '" aria-pressed="' + (c.id === activeCat) + '">' + c[lang] + (n ? '<span class="n">' + n + '</span>' : '') + '</button>' }).join('');
   const c = MENU.find(m => m.id === activeCat) || MENU[0];
-  $('cats').innerHTML = '<div class="cat' + (anim ? ' anim' : '') + '" id="cat-' + c.id + '"><h3>' + c[lang] + ' <small>' + t.count(c.items.length) + '</small></h3><div class="items">' +
+  $('cats').innerHTML = '<div class="cat' + (anim ? ' anim' : '') + '" id="cat-' + c.id + '"><h3>' + c[lang] + ' <small>' + t.count(c.items.length) + '</small></h3>' + (ING[c.id] ? '<p class="tip">' + t.tip + '</p>' : '') + '<div class="items">' +
     c.items.map((it, n) => '<div class="item"><span class="nm">' + it[ai] + '</span><div class="opts">' + [it[2], it[3]].map((p, s) => p ? optHTML(c, n, s, p) : '').join('') + '</div></div>').join('') + '</div>' +
     (c.extra ? '<div class="extra">' + c.extra[lang] + '</div>' : '') + '</div>';
 }
-function totals() { const keys = Object.keys(cart); return { keys, count: keys.reduce((a, k) => a + cart[k], 0), total: keys.reduce((a, k) => a + cart[k] * LINES[k].p, 0) } }
+const esc = (x) => String(x).replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+function totals() { const keys = Object.keys(cart); return { keys, count: keys.reduce((a, k) => a + cart[k], 0), total: keys.reduce((a, k) => a + cart[k] * LN(k).p, 0) } }
 function renderOrder() {
   const t = T[lang], { count, total } = totals();
   $('sum').innerHTML = t.items(count) + (count ? '<strong class="ltr">' + t.money(total) + '</strong><u>' + t.tapRev + '</u>' : '');
@@ -407,7 +436,7 @@ function renderOrder() {
 }
 function waMsg() {
   const t = T[lang], { keys, total } = totals();
-  return [t.hello, ...keys.map(k => '- ' + cart[k] + ' × ' + nameOf(LINES[k]) + ' (' + t.money(cart[k] * LINES[k].p) + ')'), t.total + ': ' + t.money(total), '',
+  return [t.hello, ...keys.map(k => { const m = modsOf(k); return '- ' + cart[k] + ' × ' + nameOf(LN(k)) + (m ? ' [' + m + ']' : '') + ' (' + t.money(cart[k] * LN(k).p) + ')' }), t.total + ': ' + t.money(total), '',
     t.type + ': ' + t[form.type], form.type === 'deliv' && form.addr.trim() ? t.addr + ': ' + form.addr.trim() : null, form.name.trim() ? t.name.replace(/ \(.*\)/, '') + ': ' + form.name.trim() : null, form.notes.trim() ? t.notes.replace(/ \(.*\)/, '') + ': ' + form.notes.trim() : null].filter(x => x !== null).join('\n');
 }
 function setGo() {
@@ -420,7 +449,7 @@ function renderReview() {
   const t = T[lang], { keys, count, total } = totals();
   $('revH').textContent = t.revH; $('revMore').textContent = t.more;
   if (!count) { $('revBd').innerHTML = '<p class="empty">' + t.empty + '</p>'; setGo(); return }
-  $('revBd').innerHTML = keys.map(k => '<div class="rl"><div><b>' + nameOf(LINES[k]) + '</b><small><span class="ltr">' + t.money(LINES[k].p) + '</span> ' + t.each + '</small></div><div class="rt"><span class="lt ltr">' + t.money(cart[k] * LINES[k].p) + '</span><div class="qty"><button type="button" class="qbtn" data-dec="' + k + '" aria-label="' + t.remove + '">−</button><span class="qn">' + cart[k] + '</span><button type="button" class="qbtn add" data-inc="' + k + '" aria-label="' + t.add + '">+</button></div></div><button type="button" class="del" data-del="' + k + '">' + t.del + '</button></div>').join('') +
+  $('revBd').innerHTML = keys.map(k => '<div class="rl"><div><b>' + nameOf(LN(k)) + '</b>' + (modsOf(k) ? '<span class="mods">' + modsOf(k) + '</span>' : '') + '<small><span class="ltr">' + t.money(LN(k).p) + '</span> ' + t.each + '</small></div><div class="rt"><span class="lt ltr">' + t.money(cart[k] * LN(k).p) + '</span><div class="qty"><button type="button" class="qbtn" data-dec="' + k + '" aria-label="' + t.remove + '">−</button><span class="qn">' + cart[k] + '</span><button type="button" class="qbtn add" data-inc="' + k + '" aria-label="' + t.add + '">+</button></div></div><button type="button" class="del" data-del="' + k + '">' + t.del + '</button></div>').join('') +
     '<div class="rtot"><span>' + t.total + '</span><span class="ltr">' + t.money(total) + '</span></div>' +
     '<div class="seg" role="group" aria-label="' + t.type + '"><button type="button" data-type="deliv" aria-pressed="' + (form.type === 'deliv') + '">' + t.deliv + '</button><button type="button" data-type="pick" aria-pressed="' + (form.type === 'pick') + '">' + t.pick + '</button></div>' +
     (form.type === 'deliv' ? '<label class="fld">' + t.addr + '<input data-f="addr" autocomplete="street-address" placeholder="' + t.addrPh + '" value="' + esc(form.addr) + '"></label>' : '') +
@@ -440,12 +469,33 @@ $('tabs').addEventListener('click', (e) => { const b = e.target.closest('[data-c
 $('cats').addEventListener('click', (e) => {
   const inc = e.target.closest('[data-inc]'), dec = e.target.closest('[data-dec]'); if (!inc && !dec) return;
   const k = inc ? inc.dataset.inc : dec.dataset.dec;
-  if (inc) cart[k] = (cart[k] || 0) + 1; else { cart[k] = Math.max(0, (cart[k] || 0) - 1); if (!cart[k]) delete cart[k] }
+  if (inc) { if (ING[LINES[k].c.id]) { openCus(k); return } cart[k] = (cart[k] || 0) + 1 }
+  else { const v = Object.keys(cart).filter(x => x.split('~')[0] === k).pop(); if (!v) return; cart[v]--; if (!cart[v]) delete cart[v] }
   changed();
 });
 document.querySelector('.order').addEventListener('click', (e) => { if (e.target.closest('[data-rev]')) openRev() });
-$('ov').addEventListener('click', closeRev); $('revX').addEventListener('click', closeRev); $('revMore').addEventListener('click', closeRev);
-document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && $('rev').classList.contains('on')) closeRev() });
+let cus = null;
+function renderCus() {
+  const t = T[lang], l = LINES[cus.k], g = ING[l.c.id], ai = lang === 'ar' ? 0 : 1, price = l.p + (cus.x ? g.addon[1] : 0);
+  $('cusH').textContent = nameOf(l);
+  $('cusBd').innerHTML = '<p class="hd">' + t.cusHd + '</p><div class="ings">' + g.list.map((x, i) => '<button type="button" class="ing" data-ing="' + i + '" aria-pressed="' + !cus.rm.includes(i) + '">' + (cus.rm.includes(i) ? t.without + ' ' : '') + x[ai] + '</button>').join('') + '</div>' +
+    (g.addon ? '<button type="button" class="addon" data-addon aria-pressed="' + cus.x + '"><span>' + (cus.x ? '✓ ' : '+ ') + g.addon[0][ai] + '</span><span class="ltr">+' + (g.addon[1] * 1000).toLocaleString('en-US') + '</span></button>' : '') +
+    '<div class="cqty"><span>' + t.qtyL + '</span><div class="qty"><button type="button" class="qbtn" data-cq="-1" aria-label="' + t.remove + '">−</button><span class="qn">' + cus.q + '</span><button type="button" class="qbtn add" data-cq="1" aria-label="' + t.add + '">+</button></div></div>';
+  $('cusAdd').innerHTML = t.addTo + ' · <span class="ltr">' + t.money(price * cus.q) + '</span>';
+}
+function openCus(k) { cus = { k, rm: [], x: false, q: 1 }; renderCus(); $('ov').classList.add('on'); $('cus').classList.add('on'); document.body.style.overflow = 'hidden'; setTimeout(() => $('cusX').focus(), 50) }
+function closeCus() { $('cus').classList.remove('on'); if (!$('rev').classList.contains('on')) { $('ov').classList.remove('on'); document.body.style.overflow = '' } cus = null }
+$('cusBd').addEventListener('click', (e) => {
+  const b = e.target.closest('button'); if (!b || !cus) return; const d = b.dataset;
+  if (d.ing) { const i = +d.ing; cus.rm = cus.rm.includes(i) ? cus.rm.filter(x => x !== i) : [...cus.rm, i].sort((a, b) => a - b) }
+  else if ('addon' in d) cus.x = !cus.x;
+  else if (d.cq) cus.q = Math.max(1, Math.min(20, cus.q + +d.cq));
+  renderCus();
+});
+$('cusAdd').addEventListener('click', () => { if (!cus) return; const key = cus.k + (cus.rm.length || cus.x ? '~' + cus.rm.join('.') + (cus.x ? '~x' : '') : ''); cart[key] = (cart[key] || 0) + cus.q; closeCus(); changed() });
+$('cusX').addEventListener('click', closeCus);
+$('ov').addEventListener('click', () => { if ($('cus').classList.contains('on')) closeCus(); else closeRev() }); $('revX').addEventListener('click', closeRev); $('revMore').addEventListener('click', closeRev);
+document.addEventListener('keydown', (e) => { if (e.key !== 'Escape') return; if ($('cus').classList.contains('on')) closeCus(); else if ($('rev').classList.contains('on')) closeRev() });
 $('revBd').addEventListener('click', (e) => {
   const b = e.target.closest('button'); if (!b) return; const d = b.dataset;
   if (d.inc) cart[d.inc]++;
