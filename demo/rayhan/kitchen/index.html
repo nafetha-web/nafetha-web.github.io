@@ -23,6 +23,7 @@ body { margin: 0; background: var(--bg); color: var(--light); font-family: var(-
 button, input { font: inherit; color: inherit }
 button { cursor: pointer; border: 0; background: none; padding: 0 }
 [hidden] { display: none !important }
+html[lang=en] .ord .tb { display: inline-flex; flex-direction: row-reverse; gap: 6px; align-items: baseline }
 .num { font-variant-numeric: tabular-nums }
 :focus-visible { outline: 3px solid var(--prep); outline-offset: 2px }
 
@@ -96,6 +97,7 @@ button { cursor: pointer; border: 0; background: none; padding: 0 }
 .demo { background: #E3A24E; color: #1B1206; text-align: center; font-size: 12.5px; padding: 6px 12px; font-weight: 600 }
 .demo a { color: inherit }
 </style>
+<script src="../../shared/panel-i18n.js"></script>
 </head>
 <body>
 <div class="demo">نموذج تجريبي لباقة Pro: هكذا تبدو شاشة المطبخ. افتح <a href="../#t5" target="_blank" rel="noopener">صفحة الطاولة 5</a> من هاتف آخر واطلب، وشاهد الطلب يصل هنا.</div>
@@ -129,6 +131,7 @@ button { cursor: pointer; border: 0; background: none; padding: 0 }
   <details class="done" id="doneW"><summary id="doneT">آخر ما قُدِّم</summary><div id="done"></div></details>
 </div>
 
+<script src="../data.js"></script>
 <script>
 const API = 'https://nafetha-api.nafetha-web.workers.dev/rayhan';
 const $ = (s) => document.querySelector(s);

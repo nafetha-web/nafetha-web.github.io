@@ -22,6 +22,7 @@ html { -webkit-text-size-adjust: 100% }
 body { margin: 0; background: var(--bg); color: var(--ink); font-family: var(--bf); font-size: 15px; line-height: 1.5 }
 button, input, textarea { font: inherit; color: inherit }
 [hidden] { display: none !important }
+@media (max-width: 520px) { .top .wrap { flex-wrap: wrap; row-gap: 8px } .top h1 { flex-basis: 100% } }
 button { background: none; border: 0; cursor: pointer; padding: 0 }
 h1, h2, h3 { font-family: var(--hf); margin: 0 }
 .num { font-variant-numeric: tabular-nums }
@@ -145,6 +146,7 @@ textarea.fld { height: 96px; padding: 12px 14px; resize: none; line-height: 1.5 
 .prev small { font-size: 11px; opacity: .55 }
 .demo { background: var(--sun); color: var(--ink); font-size: 12.5px; text-align: center; padding: 6px 12px; font-weight: 600 }
 </style>
+<script src="../../shared/panel-i18n.js"></script>
 </head>
 <body>
 <div class="demo">نموذج تجريبي: هيك بتكون لوحة صاحب الماركت. تصميم <a href="https://nafetha-web.github.io" style="color:inherit">نافذة</a></div>
