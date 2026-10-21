@@ -95,6 +95,44 @@ h1, h2, h3 { text-wrap: balance }
 .tal.on { display: flex }
 .tal span { font-size: 26px }
 @keyframes pop { from { transform: scale(.92); opacity: 0 } }
+.guide .sheet-in { padding-inline: 0 }
+.guide .sheet-head { padding-inline: 16px }
+.gtrack { display: grid; grid-auto-flow: column; grid-auto-columns: 100%; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; overscroll-behavior-x: contain }
+.gtrack::-webkit-scrollbar { display: none }
+.gs { scroll-snap-align: center; padding: 4px 20px; display: flex; flex-direction: column; align-items: center; text-align: center; gap: 10px; min-width: 0 }
+.gs .art { width: 100%; max-width: 360px; aspect-ratio: 16 / 10; border-radius: 20px; background: var(--saffron-soft); display: grid; place-items: center; position: relative; overflow: hidden }
+.gs .art.g { background: #E4EFE7 }
+.gs h3 { margin: 4px 0 0; font-size: 20px }
+.gs p { margin: 0; color: var(--muted); font-size: 14.5px; max-width: 34ch }
+.gbig { font-size: 64px; line-height: 1 }
+.gtb { position: absolute; top: 12px; inset-inline-start: 12px; background: var(--basil); color: #fff; font-weight: 700; border-radius: 99px; padding: 4px 12px; font-size: 13px }
+.gflow { display: flex; align-items: center; gap: 6px; padding: 0 10px }
+.gflow div { background: var(--surface); border-radius: 14px; padding: 10px 6px; width: 88px; display: flex; flex-direction: column; align-items: center; gap: 6px; font-size: 12px; font-weight: 600; box-shadow: 0 6px 16px -10px rgba(0,0,0,.35) }
+.gflow div span { font-size: 22px }
+.gflow b { color: var(--basil); font-size: 15px }
+[dir=ltr] .gflow b { transform: scaleX(-1) }
+.gsteps { width: 86%; display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; font-size: 11.5px; font-weight: 600 }
+.gsteps div { display: flex; flex-direction: column; align-items: center; gap: 6px }
+.gsteps i { display: block; width: 100%; height: 7px; border-radius: 99px; background: var(--basil) }
+.gsteps div:last-child i { background: var(--line) }
+.gcalls { display: flex; flex-direction: column; gap: 10px; align-items: center }
+.gcalls span { background: var(--fg); color: var(--bg); border-radius: 99px; padding: 9px 18px; font-weight: 700; font-size: 15px }
+.gcalls span.b { background: var(--saffron); color: #1E2A22 }
+.gopts { display: grid; gap: 8px; width: 100%; max-width: 360px }
+.gopt { display: flex; align-items: center; gap: 10px; width: 100%; text-align: start; background: var(--surface); border: 1.5px solid var(--line); border-radius: 14px; padding: 10px 12px; font: inherit; color: var(--fg); cursor: pointer }
+.gopt span { font-size: 22px }
+.gopt div { flex: 1; min-width: 0 }
+.gopt b { display: block; font-size: 14.5px }
+.gopt small { color: var(--muted); font-size: 12.5px }
+.gopt em { font-style: normal; font-size: 12px; font-weight: 700; color: var(--basil); white-space: nowrap }
+.gopt.done { border-color: var(--basil); background: #E4EFE7 }
+.gdots { display: flex; justify-content: center; gap: 7px; margin: 12px 0 }
+.gdots i { width: 8px; height: 8px; border-radius: 99px; background: var(--line); transition: width .3s, background .3s }
+.gdots i.on { width: 24px; background: var(--basil) }
+.gnav { display: flex; gap: 10px; padding: 0 16px }
+.gnav .skip { flex: none; padding: 0 16px; min-height: 48px; border: 0; background: none; color: var(--muted); font: inherit; font-weight: 600; cursor: pointer }
+.gnav .btn { flex: 1 }
+.howb { border: 1.5px solid var(--basil); background: transparent; color: var(--fg); border-radius: 99px; padding: 5px 12px; font: inherit; font-size: 13px; font-weight: 700; cursor: pointer }
 .nbtn { width: 100%; border: 1.5px dashed var(--basil); background: transparent; color: var(--fg); border-radius: 14px; padding: 11px 12px; font: inherit; font-weight: 700; font-size: 14.5px; cursor: pointer }
 .nok { font-size: 13.5px; color: var(--muted); text-align: center }
 
@@ -264,7 +302,7 @@ button.btn { font-family: inherit }
     <div id="dotd" hidden></div>
     <nav class="tabs" id="tabs" aria-label="Menu sections"></nav>
     <div id="cats"></div>
-    <p class="note" id="priceNote"></p>
+    <p class="note"><span id="priceNote"></span> <button type="button" class="howb" id="howB"></button></p>
   </section>
 
   <section class="block" id="book">
@@ -344,6 +382,14 @@ button.btn { font-family: inherit }
     <div id="nArea"></div>
   </div>
 </dialog>
+<dialog class="sheet guide" id="guide" aria-labelledby="gTitle">
+  <div class="sheet-in">
+    <div class="sheet-head"><h2 id="gTitle"></h2><button type="button" class="x" id="gClose" aria-label="close">×</button></div>
+    <div class="gtrack" id="gTrack"></div>
+    <div class="gdots" id="gDots"></div>
+    <div class="gnav"><button type="button" class="skip" id="gSkip"></button><button type="button" class="btn btn-saffron" id="gNext"></button></div>
+  </div>
+</dialog>
 <div class="toast" id="toast" role="status"></div>
 <script src="data.js"></script>
 <script>
@@ -384,6 +430,20 @@ const T = {
     revTitle: 'مراجعة الطلب', revNote: 'ملاحظة للمطبخ (اختياري)', revNoteShort: 'ملاحظة', revSend: 'تأكيد وإرسال عبر واتساب', revBack: 'متابعة الاختيار',
     hello: 'مرحبًا مطبخ الريحان، أودّ أن أطلب:', total: 'المجموع', tableLine: (n) => 'الطاولة رقم ' + n,
     tableBar: (n) => 'أنت على الطاولة رقم ' + n + '. يصل طلبك مباشرة إلى شاشة المطبخ.',
+    gTitle: 'أهلًا بك في مطبخ الريحان', gSkip: 'تخطَّ', gNext: 'التالي', gGo: 'ابدأ الطلب', gGoMenu: 'تصفّح القائمة', howB: 'كيف أطلب؟',
+    gT: (n) => [
+      ['🪑', 'أنت على الطاولة رقم ' + n, 'اطلب من هاتفك مباشرة، دون انتظار النادل. يصل طلبك إلى المطبخ فورًا مع رقم طاولتك.'],
+      ['flow', 'كيف أطلب؟', 'اضغط «+» على الأطباق، ثم «راجع طلبك»، ثم «أرسل الطلب إلى المطبخ». يمكنك إضافة ملاحظة للمطبخ.'],
+      ['steps', 'تابع طلبك لحظة بلحظة', 'ترى حالة طلبك: وصل المطبخ، يُحضَّر، جاهز، قُدِّم. وننبّهك بصوت وإشعار عندما يجهز.'],
+      ['calls', 'تحتاج شيئًا؟', 'زر «النادل» يرسل تنبيهًا إلى الطاقم فورًا، وزر «الحساب» يطلب فاتورتك.'],
+      ['app', 'اجعلها أسهل في المرة القادمة', 'اختياري: ثبّت التطبيق على هاتفك، وفعّل الإشعارات لتصلك عروضنا وطبق اليوم.']],
+    gW: [
+      ['👋', 'أهلًا بك في مطبخ الريحان', 'مازة لبنانية ومشاوي على الفحم وحلويات عربية. اطلب إلى منزلك أو احجز طاولتك.'],
+      ['flow2', 'كيف أطلب؟', 'اضغط «+» على الأطباق، راجع طلبك، ثم أرسله عبر واتساب. يصلنا مرتّبًا ونؤكّده لك.'],
+      ['⭐', 'طبق اليوم والعروض', 'تابع طبق اليوم في أعلى القائمة، وخصومات Happy Hour التي تظهر تلقائيًا في أوقاتها.'],
+      ['app', 'اجعلها أسهل في المرة القادمة', 'اختياري: ثبّت التطبيق على هاتفك، وفعّل الإشعارات لتصلك عروضنا وطبق اليوم.']],
+    gF: ['اختر أطباقك', 'راجع طلبك', 'أرسله للمطبخ'], gF2: ['اختر أطباقك', 'راجع طلبك', 'أرسله عبر واتساب'],
+    gInst: ['📲', 'ثبّت التطبيق', 'أيقونة على شاشتك، وفتح أسرع'], gPush: ['🔔', 'فعّل إشعارات العروض', 'طبق اليوم والخصومات أولًا بأول'], gOpt: 'اختياري', gDone: '✓ تم',
     goTable: 'راجع طلبك', sendKitchen: 'أرسل الطلب إلى المطبخ', sending: 'جارٍ الإرسال…', failSend: 'تعذّر الإرسال، تحقّق من الإنترنت وحاول مجددًا', busy: 'لديك طلبات كثيرة قيد التحضير، انتظر قليلًا',
     trkTitle: 'حالة طلباتك', myOrders: 'طلباتي', orderN: (n) => 'الطلب ' + n, st: { new: 'وصل إلى المطبخ', prep: 'يُحضَّر الآن 👨‍🍳', ready: 'جاهز، في الطريق إليك', done: 'قُدِّم، بالهناء والشفاء', cancel: 'أُلغي الطلب' },
     readyToast: 'طلبك جاهز وفي الطريق إليك 🍽️', stepL: ['وصل المطبخ', 'يُحضَّر', 'جاهز', 'قُدِّم'], stepI: ['📥', '👨‍🍳', '✅', '🍽️'], notifyBtn: '🔔 نبّهني على هاتفي عندما يجهز طلبي', notifyOn: '✓ سيصلك تنبيه على هاتفك عندما يجهز طلبك', notifyIOS: 'أبقِ هذه الصفحة مفتوحة، وسننبّهك بصوت واهتزاز عندما يجهز طلبك.', notifyNo: 'لم يُسمح بالتنبيهات. سننبّهك هنا بصوت عندما يجهز طلبك.', callW: '🙋 النادل', callB: '🧾 الحساب', calledW: 'أبلغنا النادل، سيصل إليك بعد قليل', calledB: 'سيصلك الحساب بعد قليل',
@@ -415,6 +475,20 @@ const T = {
     add: 'Add', remove: 'Remove', money: (n) => '$' + n,
     hello: 'Hello Matbakh El Rayhan, I would like to order:', total: 'Total', tableLine: (n) => 'Table ' + n,
     tableBar: (n) => 'You are at table ' + n + '. Your order goes straight to the kitchen screen.',
+    gTitle: 'Welcome to Matbakh El Rayhan', gSkip: 'Skip', gNext: 'Next', gGo: 'Start ordering', gGoMenu: 'See the menu', howB: 'How to order',
+    gT: (n) => [
+      ['🪑', 'You are at table ' + n, 'Order straight from your phone, no need to wait for the waiter. Your order reaches the kitchen instantly with your table number.'],
+      ['flow', 'How to order', 'Tap “+” on dishes, then “Review order”, then “Send the order to the kitchen”. You can add a note for the kitchen.'],
+      ['steps', 'Follow your order live', 'See its status: received, preparing, ready, served. We alert you with a sound and a notification when it is ready.'],
+      ['calls', 'Need something?', 'The “Waiter” button alerts the staff instantly, and “Bill” asks for your check.'],
+      ['app', 'Make it easier next time', 'Optional: install the app on your phone and turn on notifications for our offers and dish of the day.']],
+    gW: [
+      ['👋', 'Welcome to Matbakh El Rayhan', 'Lebanese mezze, charcoal grills and Arabic sweets. Order to your door or book a table.'],
+      ['flow2', 'How to order', 'Tap “+” on dishes, review your order, then send it on WhatsApp. It reaches us neatly and we confirm it.'],
+      ['⭐', 'Dish of the day and offers', 'Look for the dish of the day at the top of the menu, and happy-hour discounts that appear automatically.'],
+      ['app', 'Make it easier next time', 'Optional: install the app on your phone and turn on notifications for our offers and dish of the day.']],
+    gF: ['Pick dishes', 'Review order', 'Send to kitchen'], gF2: ['Pick dishes', 'Review order', 'Send on WhatsApp'],
+    gInst: ['📲', 'Install the app', 'An icon on your screen, faster to open'], gPush: ['🔔', 'Turn on offer notifications', 'Dish of the day and discounts first'], gOpt: 'Optional', gDone: '✓ Done',
     goTable: 'Review order', sendKitchen: 'Send the order to the kitchen', sending: 'Sending…', failSend: 'Could not send. Check your connection and try again', busy: 'You have many orders in progress, please wait a little',
     trkTitle: 'Your orders', myOrders: 'My orders', orderN: (n) => 'Order ' + n, st: { new: 'Received by the kitchen', prep: 'Being prepared 👨‍🍳', ready: 'Ready, on its way to you', done: 'Served, enjoy!', cancel: 'Order cancelled' },
     readyToast: 'Your order is ready and on its way 🍽️', stepL: ['Received', 'Preparing', 'Ready', 'Served'], stepI: ['📥', '👨‍🍳', '✅', '🍽️'], notifyBtn: '🔔 Notify my phone when my order is ready', notifyOn: '✓ You will get a notification when your order is ready', notifyIOS: 'Keep this page open and we will alert you with a sound when your order is ready.', notifyNo: 'Notifications are blocked. We will alert you here with a sound when it is ready.', callW: '🙋 Waiter', callB: '🧾 Bill', calledW: 'We told the waiter, they are on their way', calledB: 'Your bill is on its way',
@@ -461,6 +535,7 @@ function renderStatic() {
   $('foot').innerHTML = t.foot;
   $('hours').innerHTML = HOURS.map(x => '<span>' + x[lang] + '</span><span class="ltr">' + x.h + '</span>').join('');
   if (tableFromHash) { $('tableBar').hidden = false; $('tableBar').textContent = t.tableBar(tableFromHash); $('callBtns').hidden = false; $('callW').textContent = t.callW; $('callB').textContent = t.callB; renderMine() }
+  $('howB').textContent = t.howB;
   $('appT').textContent = pushMode ? t.pushT : t.appT; $('appS').textContent = pushMode ? t.pushS : t.appS; $('appGo').textContent = pushMode ? t.pushGo : t.appGo;
   const keep = { time: $('bTime').value, people: $('bPeople').value, seat: $('bSeat').value };
   $('bTime').innerHTML = TIMES.map(x => '<option value="' + x + '">' + x + '</option>').join('');
@@ -683,7 +758,7 @@ const canPush = () => 'serviceWorker' in navigator && 'PushManager' in window &&
 function appCard() {
   let no = 0, on = false; try { no = +localStorage.getItem('rh_card_no') || 0; on = localStorage.getItem('rh_push') === '1' } catch (e) {}
   const snooze = Date.now() - no < 3 * 864e5;
-  const showInstall = !standalone() && !tableFromHash && (deferredI || isIOS || /android/i.test(navigator.userAgent));
+  const showInstall = !standalone() && (deferredI || isIOS || /android/i.test(navigator.userAgent));
   const showPush = !showInstall && canPush() && !(on && Notification.permission === 'granted');
   pushMode = !showInstall && showPush;
   $('appc').classList.toggle('on', !snooze && (showInstall || showPush));
@@ -718,8 +793,55 @@ if (standalone()) { hit('install'); hit('open') }
 try { if (localStorage.getItem('rh_push') === '1' && 'Notification' in window && Notification.permission === 'granted' && 'serviceWorker' in navigator) subPush(true) } catch (e) {}
 if ('serviceWorker' in navigator && (location.protocol === 'https:' || location.hostname === 'localhost')) addEventListener('load', () => navigator.serviceWorker.register('sw.js').catch(() => {}));
 
+/* ===== first-visit guide (table and regular visits) ===== */
+let gIdx = 0, gObs = null;
+const GK = tableFromHash ? 'rh_guide_t' : 'rh_guide';
+function gArt(k) {
+  const t = T[lang];
+  if (k === 'flow' || k === 'flow2') { const f = k === 'flow' ? t.gF : t.gF2; return '<div class="art"><div class="gflow"><div><span>➕</span>' + f[0] + '</div><b>←</b><div><span>🧾</span>' + f[1] + '</div><b>←</b><div><span>' + (k === 'flow' ? '👨‍🍳' : '💬') + '</span>' + f[2] + '</div></div></div>' }
+  if (k === 'steps') return '<div class="art g"><div class="gsteps">' + t.stepL.map((x, q) => '<div><span style="font-size:20px">' + t.stepI[q] + '</span><i></i>' + x + '</div>').join('') + '</div></div>';
+  if (k === 'calls') return '<div class="art"><div class="gcalls"><span>' + t.callW + '</span><span class="b">' + t.callB + '</span></div></div>';
+  if (k === 'app') {
+    let pushOn = false; try { pushOn = localStorage.getItem('rh_push') === '1' && Notification.permission === 'granted' } catch (e) {}
+    const instDone = standalone();
+    return '<div class="gopts">' + '<button type="button" class="gopt' + (instDone ? ' done' : '') + '" data-g="inst"><span>' + t.gInst[0] + '</span><div><b>' + t.gInst[1] + '</b><small>' + t.gInst[2] + '</small></div><em>' + (instDone ? t.gDone : t.gOpt) + '</em></button>' +
+      '<button type="button" class="gopt' + (pushOn ? ' done' : '') + '" data-g="push"><span>' + t.gPush[0] + '</span><div><b>' + t.gPush[1] + '</b><small>' + t.gPush[2] + '</small></div><em>' + (pushOn ? t.gDone : t.gOpt) + '</em></button></div>';
+  }
+  return '<div class="art' + (tableFromHash ? ' g' : '') + '"><span class="gbig">' + k + '</span>' + (tableFromHash && k === '🪑' ? '<span class="gtb">' + t.table + ' ' + tableFromHash + '</span>' : '') + '</div>';
+}
+function renderGuide() {
+  const t = T[lang], S = tableFromHash ? t.gT(tableFromHash) : t.gW;
+  $('gTitle').textContent = t.gTitle; $('gSkip').textContent = t.gSkip;
+  $('gTrack').innerHTML = S.map((x, i) => '<div class="gs" data-s="' + i + '">' + gArt(x[0]) + '<h3>' + x[1] + '</h3><p>' + x[2] + '</p></div>').join('');
+  $('gDots').innerHTML = S.map((_, i) => '<i class="' + (i === gIdx ? 'on' : '') + '"></i>').join('');
+  setGNext();
+  if (gObs) gObs.disconnect();
+  gObs = new IntersectionObserver((es) => es.forEach((e) => { if (e.isIntersecting) { gIdx = +e.target.dataset.s; document.querySelectorAll('#gDots i').forEach((d, k) => d.classList.toggle('on', k === gIdx)); setGNext() } }), { root: $('gTrack'), threshold: .6 });
+  document.querySelectorAll('#gTrack .gs').forEach((el) => gObs.observe(el));
+}
+function setGNext() { const t = T[lang], last = gIdx >= document.querySelectorAll('#gTrack .gs').length - 1; $('gNext').textContent = last ? (tableFromHash ? t.gGo : t.gGoMenu) : t.gNext; $('gSkip').style.visibility = last ? 'hidden' : 'visible' }
+function openGuide() { gIdx = 0; renderGuide(); const d = $('guide'); if (d.showModal) d.showModal(); else d.setAttribute('open', ''); requestAnimationFrame(() => { const f = document.querySelector('#gTrack .gs'); f && f.scrollIntoView({ block: 'nearest', inline: 'center' }) }) }
+function doneGuide() { try { localStorage.setItem(GK, '1') } catch (e) {} const d = $('guide'); if (d.open) { if (d.close) d.close(); else d.removeAttribute('open') } if (!tableFromHash) { const m = $('menu'); m && m.scrollIntoView({ behavior: 'smooth' }) } }
+$('gSkip').addEventListener('click', doneGuide); $('gClose').addEventListener('click', doneGuide);
+$('guide').addEventListener('cancel', (e) => { e.preventDefault(); doneGuide() });
+$('gNext').addEventListener('click', () => { const sl = document.querySelectorAll('#gTrack .gs'); if (gIdx >= sl.length - 1) doneGuide(); else sl[gIdx + 1].scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' }) });
+$('howB').addEventListener('click', openGuide);
+$('gTrack').addEventListener('click', async (e) => {
+  const b = e.target.closest('[data-g]'); if (!b || b.classList.contains('done')) return;
+  if (b.dataset.g === 'inst') {
+    if (deferredI) { deferredI.prompt(); const r = await deferredI.userChoice; deferredI = null; if (r && r.outcome === 'accepted') { hit('install'); toast(T[lang].appDone) } }
+    else toast(T[lang].iosHelp);
+  } else {
+    if (isIOS && !standalone()) { toast(T[lang].iosHelp); return }
+    if (!canPush()) { toast(T[lang].pushNo); return }
+    await subPush(false);
+  }
+  const keep = gIdx; renderGuide(); gIdx = keep; setGNext();
+  requestAnimationFrame(() => { const sl = document.querySelectorAll('#gTrack .gs'); sl[keep] && sl[keep].scrollIntoView({ block: 'nearest', inline: 'center' }) });
+});
 renderAll();
 appCard();
+(() => { let seen = null; try { seen = localStorage.getItem(GK) } catch (e) {} if (!seen && !/[?&]order=/.test(location.search)) setTimeout(openGuide, 700) })();
 loadSt(); setInterval(loadSt, 60000); document.addEventListener('visibilitychange', () => { if (!document.hidden) loadSt() });
 </script>
 </body>
