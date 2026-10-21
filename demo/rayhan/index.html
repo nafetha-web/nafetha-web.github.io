@@ -80,11 +80,26 @@ h1, h2, h3 { text-wrap: balance }
 .trk .o h4 { margin: 0 0 6px; font-size: 15px; display: flex; justify-content: space-between; gap: 8px }
 .trk .o h4 small { color: var(--muted); font-weight: 400 }
 .trk .o ul { margin: 0 0 10px; padding: 0; list-style: none; font-size: 14px; color: var(--muted) }
-.steps { display: grid; grid-template-columns: repeat(4, 1fr); gap: 4px }
-.steps i { height: 6px; border-radius: 99px; background: var(--line) }
-.steps i.on { background: var(--basil) }
+.steps { display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px }
+.steps div { display: flex; flex-direction: column; align-items: center; gap: 5px; text-align: center; font-size: 11.5px; color: var(--muted); line-height: 1.25 }
+.steps div span { font-size: 18px; filter: grayscale(1); opacity: .5 }
+.steps div.on { color: var(--fg); font-weight: 600 }
+.steps div.on span { filter: none; opacity: 1 }
+.steps div.cur { color: var(--basil); font-weight: 700 }
+.steps i { display: block; width: 100%; height: 6px; border-radius: 99px; background: var(--line) }
+.steps .on i { background: var(--basil) }
+.steps .cur i { animation: grow 1.4s ease-in-out infinite }
+@keyframes grow { 50% { opacity: .45 } }
+.trk .o.ready { border-color: var(--basil); box-shadow: 0 0 0 2px var(--basil) }
+.tal { display: none; align-items: center; gap: 10px; background: var(--basil); color: #fff; border-radius: 16px; padding: 12px 14px; font-weight: 700; font-size: 16px; animation: pop .35s ease }
+.tal.on { display: flex }
+.tal span { font-size: 26px }
+@keyframes pop { from { transform: scale(.92); opacity: 0 } }
+.nbtn { width: 100%; border: 1.5px dashed var(--basil); background: transparent; color: var(--fg); border-radius: 14px; padding: 11px 12px; font: inherit; font-weight: 700; font-size: 14.5px; cursor: pointer }
+.nok { font-size: 13.5px; color: var(--muted); text-align: center }
+
 .trk .st { margin-top: 8px; font-weight: 700; font-size: 15px; color: var(--basil) }
-@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .trk .st, :root:not([data-theme="light"]) .steps i.on { color: #8FD3A5; background: #8FD3A5 } }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .trk .st, :root:not([data-theme="light"]) .steps div.cur { color: #8FD3A5 } :root:not([data-theme="light"]) .steps .on i { background: #5FBF84 } :root:not([data-theme="light"]) .tal { background: #2E6B47 } }
 .toast { position: fixed; z-index: 90; left: 50%; bottom: calc(96px + env(safe-area-inset-bottom, 0px)); transform: translate(-50%, 20px); background: var(--fg); color: var(--bg); padding: 10px 16px; border-radius: 99px; font-size: 14px; font-weight: 600; opacity: 0; pointer-events: none; transition: .25s; max-width: 92vw; text-align: center }
 .toast.on { opacity: 1; transform: translate(-50%, 0) }
 .appc { display: none; align-items: center; gap: 12px; margin: 12px 0 0; padding: 12px 14px; border-radius: 18px; background: var(--basil); color: #fff }
@@ -324,7 +339,9 @@ button.btn { font-family: inherit }
 <dialog class="sheet" id="track" aria-labelledby="trkTitle">
   <div class="sheet-in">
     <div class="sheet-head"><h2 id="trkTitle"></h2><button type="button" class="x" id="trkClose" aria-label="close">×</button></div>
+    <div class="tal" id="tal" role="alert"><span>🍽️</span><div id="talT"></div></div>
     <div class="trk" id="trkList"></div>
+    <div id="nArea"></div>
   </div>
 </dialog>
 <div class="toast" id="toast" role="status"></div>
@@ -369,7 +386,7 @@ const T = {
     tableBar: (n) => 'أنت على الطاولة رقم ' + n + '. يصل طلبك مباشرة إلى شاشة المطبخ.',
     goTable: 'راجع طلبك', sendKitchen: 'أرسل الطلب إلى المطبخ', sending: 'جارٍ الإرسال…', failSend: 'تعذّر الإرسال، تحقّق من الإنترنت وحاول مجددًا', busy: 'لديك طلبات كثيرة قيد التحضير، انتظر قليلًا',
     trkTitle: 'حالة طلباتك', myOrders: 'طلباتي', orderN: (n) => 'الطلب ' + n, st: { new: 'وصل إلى المطبخ', prep: 'يُحضَّر الآن 👨‍🍳', ready: 'جاهز، في الطريق إليك', done: 'قُدِّم، بالهناء والشفاء', cancel: 'أُلغي الطلب' },
-    readyToast: 'طلبك جاهز وفي الطريق إليك 🍽️', callW: '🙋 النادل', callB: '🧾 الحساب', calledW: 'أبلغنا النادل، سيصل إليك بعد قليل', calledB: 'سيصلك الحساب بعد قليل',
+    readyToast: 'طلبك جاهز وفي الطريق إليك 🍽️', stepL: ['وصل المطبخ', 'يُحضَّر', 'جاهز', 'قُدِّم'], stepI: ['📥', '👨‍🍳', '✅', '🍽️'], notifyBtn: '🔔 نبّهني على هاتفي عندما يجهز طلبي', notifyOn: '✓ سيصلك تنبيه على هاتفك عندما يجهز طلبك', notifyIOS: 'أبقِ هذه الصفحة مفتوحة، وسننبّهك بصوت واهتزاز عندما يجهز طلبك.', notifyNo: 'لم يُسمح بالتنبيهات. سننبّهك هنا بصوت عندما يجهز طلبك.', callW: '🙋 النادل', callB: '🧾 الحساب', calledW: 'أبلغنا النادل، سيصل إليك بعد قليل', calledB: 'سيصلك الحساب بعد قليل',
     dotdK: '⭐ طبق اليوم', hhBar: (p, to, c) => '🍹 Happy Hour: خصم ' + p + '%' + (c ? ' على قسم «' + c + '»' : ' على كل القائمة') + ' حتى الساعة ' + to, hhTag: 'Happy Hour', soldOut: 'نفد اليوم',
     appT: 'ثبّت تطبيق الريحان', appS: 'اطلب أسرع، وتصلك عروضنا أولًا', appGo: 'ثبّت', pushT: 'خلّيك أول من يعرف بالعروض', pushS: 'نرسل لك إشعارًا بطبق اليوم والعروض', pushGo: 'فعّل', later: 'حسنًا، سنذكّرك بعد 3 أيام', pushOk: 'تمّ! ستصلك العروض أولًا 🔔', pushNo: 'لم ينجح، فعّل الإشعارات من إعدادات الهاتف', appDone: 'أُضيف التطبيق إلى شاشتك 🎉',
     iosHelp: 'لتثبيت التطبيق على iPhone: اضغط زر المشاركة ⬆️ في Safari، ثم «إضافة إلى الشاشة الرئيسية».' },
@@ -400,7 +417,7 @@ const T = {
     tableBar: (n) => 'You are at table ' + n + '. Your order goes straight to the kitchen screen.',
     goTable: 'Review order', sendKitchen: 'Send the order to the kitchen', sending: 'Sending…', failSend: 'Could not send. Check your connection and try again', busy: 'You have many orders in progress, please wait a little',
     trkTitle: 'Your orders', myOrders: 'My orders', orderN: (n) => 'Order ' + n, st: { new: 'Received by the kitchen', prep: 'Being prepared 👨‍🍳', ready: 'Ready, on its way to you', done: 'Served, enjoy!', cancel: 'Order cancelled' },
-    readyToast: 'Your order is ready and on its way 🍽️', callW: '🙋 Waiter', callB: '🧾 Bill', calledW: 'We told the waiter, they are on their way', calledB: 'Your bill is on its way',
+    readyToast: 'Your order is ready and on its way 🍽️', stepL: ['Received', 'Preparing', 'Ready', 'Served'], stepI: ['📥', '👨‍🍳', '✅', '🍽️'], notifyBtn: '🔔 Notify my phone when my order is ready', notifyOn: '✓ You will get a notification when your order is ready', notifyIOS: 'Keep this page open and we will alert you with a sound when your order is ready.', notifyNo: 'Notifications are blocked. We will alert you here with a sound when it is ready.', callW: '🙋 Waiter', callB: '🧾 Bill', calledW: 'We told the waiter, they are on their way', calledB: 'Your bill is on its way',
     dotdK: '⭐ Dish of the day', hhBar: (p, to, c) => '🍹 Happy Hour: ' + p + '% off ' + (c ? c : 'the whole menu') + ' until ' + to, hhTag: 'Happy Hour', soldOut: 'Sold out today',
     appT: 'Install the Rayhan app', appS: 'Order faster and get our offers first', appGo: 'Install', pushT: 'Be first to hear about offers', pushS: 'We notify you about the dish of the day and offers', pushGo: 'Turn on', later: 'Okay, we will remind you in 3 days', pushOk: 'Done! You will get our offers first 🔔', pushNo: 'Could not enable, check your phone settings', appDone: 'App added to your home screen 🎉',
     iosHelp: 'To install on iPhone: tap the Share button ⬆️ in Safari, then “Add to Home Screen”.' }
@@ -582,7 +599,7 @@ async function sendKitchen() {
   const lines = ALL.filter((i) => cart[i.id]); if (!lines.length) return;
   sendingNow = true; renderReview();
   try {
-    const r = await fetch(API + '/order', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ table: tableFromHash, note: $('revNote').value.trim(), items: lines.map((i) => ({ id: i.id, n: i.ar, q: cart[i.id], p: i.p })) }) });
+    const r = await fetch(API + '/order', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ table: tableFromHash, ep: await myEndpoint(), note: $('revNote').value.trim(), items: lines.map((i) => ({ id: i.id, n: i.ar, q: cart[i.id], p: i.p })) }) });
     const j = await r.json().catch(() => ({}));
     if (r.status === 429) throw new Error('busy');
     if (!r.ok || !j.id) throw new Error('net');
@@ -596,7 +613,7 @@ const ORDER_ST = ['new', 'prep', 'ready', 'done'];
 async function pollMine(show) {
   const l = myOrders(); if (!l.length) return; let changed = false;
   await Promise.all(l.filter((o) => o.st !== 'done' && o.st !== 'cancel').map(async (o) => {
-    try { const r = await fetch(API + '/order?id=' + o.id, { cache: 'no-store' }); if (!r.ok) return; const j = await r.json(); if (j.status && j.status !== o.st) { if (j.status === 'ready') toast(T[lang].readyToast); o.st = j.status; changed = true } } catch (e) {}
+    try { const r = await fetch(API + '/order?id=' + o.id, { cache: 'no-store' }); if (!r.ok) return; const j = await r.json(); if (j.status && j.status !== o.st) { if (j.status === 'ready') readyAlert(); o.st = j.status; changed = true } } catch (e) {}
   }));
   if (changed) saveMine(l);
   if (show || changed) drawTrack();
@@ -605,8 +622,9 @@ function drawTrack() {
   const t = T[lang], l = myOrders().slice().reverse();
   $('trkTitle').textContent = t.trkTitle;
   $('trkList').innerHTML = l.map((o, k) => { const n = ORDER_ST.indexOf(o.st);
-    return '<div class="o"><h4>' + t.orderN(l.length - k) + '<small>' + new Date(o.ts).toLocaleTimeString(lang === 'ar' ? 'ar-LB' : 'en-GB', { hour: '2-digit', minute: '2-digit' }) + '</small></h4><ul>' + o.items.map((x) => { const i = ALL.find((y) => y.id === x[1]); return '<li>' + x[0] + ' × ' + (i ? i[lang] : x[1]) + '</li>' }).join('') + '</ul>' +
-      (o.st === 'cancel' ? '' : '<div class="steps">' + ORDER_ST.map((s, q) => '<i class="' + (q <= n ? 'on' : '') + '"></i>').join('') + '</div>') + '<div class="st">' + (t.st[o.st] || '') + '</div></div>' }).join('');
+    return '<div class="o' + (o.st === 'ready' ? ' ready' : '') + '"><h4>' + t.orderN(l.length - k) + '<small>' + new Date(o.ts).toLocaleTimeString(lang === 'ar' ? 'ar-LB' : 'en-GB', { hour: '2-digit', minute: '2-digit' }) + '</small></h4><ul>' + o.items.map((x) => { const i = ALL.find((y) => y.id === x[1]); return '<li>' + x[0] + ' × ' + (i ? i[lang] : x[1]) + '</li>' }).join('') + '</ul>' +
+      (o.st === 'cancel' ? '' : '<div class="steps">' + ORDER_ST.map((s, q) => '<div class="' + (q <= n ? 'on' : '') + (q === n ? ' cur' : '') + '"><span>' + t.stepI[q] + '</span><i></i>' + t.stepL[q] + '</div>').join('') + '</div>') + '<div class="st">' + (t.st[o.st] || '') + '</div></div>' }).join('');
+  drawNotify();
 }
 let trkTimer = null;
 function openTrack() { drawTrack(); const d = $('track'); if (d.showModal) d.showModal(); else d.setAttribute('open', ''); pollMine(true); clearInterval(trkTimer); trkTimer = setInterval(() => pollMine(true), 5000) }
@@ -615,6 +633,38 @@ $('trkClose').addEventListener('click', closeTrack);
 $('track').addEventListener('click', (e) => { if (e.target === $('track')) closeTrack() });
 $('track').addEventListener('close', () => clearInterval(trkTimer));
 $('myOrd').addEventListener('click', openTrack);
+/* "your order is ready": sound + vibration on the page, and a phone notification through the app's push */
+let ac = null;
+function chime() { try { ac = ac || new (window.AudioContext || window.webkitAudioContext)(); ac.resume(); [784, 988, 1319].forEach((f, j) => { const o = ac.createOscillator(), g = ac.createGain(), t0 = ac.currentTime + j * 0.18; o.frequency.value = f; g.gain.setValueAtTime(0.0001, t0); g.gain.exponentialRampToValueAtTime(0.3, t0 + 0.02); g.gain.exponentialRampToValueAtTime(0.0001, t0 + 0.3); o.connect(g).connect(ac.destination); o.start(t0); o.stop(t0 + 0.32) }) } catch (e) {} }
+document.addEventListener('pointerdown', () => { try { ac = ac || new (window.AudioContext || window.webkitAudioContext)(); ac.resume() } catch (e) {} }, { once: true });
+function readyAlert() {
+  const t = T[lang]; chime(); try { navigator.vibrate && navigator.vibrate([250, 120, 250, 120, 400]) } catch (e) {}
+  $('talT').textContent = t.readyToast; $('tal').classList.add('on'); setTimeout(() => $('tal').classList.remove('on'), 15000);
+  if (!$('track').open) openTrack(); toast(t.readyToast);
+}
+async function myEndpoint() { try { if (!('serviceWorker' in navigator) || !('PushManager' in window) || Notification.permission !== 'granted') return null; const reg = await navigator.serviceWorker.ready; const s = await reg.pushManager.getSubscription(); return s ? s.endpoint : null } catch (e) { return null } }
+let notifyState = 'unknown';
+async function drawNotify() {
+  const t = T[lang], box = $('nArea'); if (!box) return;
+  const active = myOrders().some((o) => o.st === 'new' || o.st === 'prep');
+  if (!active) { box.innerHTML = ''; return }
+  if (!('serviceWorker' in navigator) || !('PushManager' in window) || !('Notification' in window) || (isIOS && !standalone())) { box.innerHTML = '<p class="nok">' + t.notifyIOS + '</p>'; return }
+  if (Notification.permission === 'denied') { box.innerHTML = '<p class="nok">' + t.notifyNo + '</p>'; return }
+  const ep = await myEndpoint();
+  box.innerHTML = ep ? '<p class="nok">' + t.notifyOn + '</p>' : '<button type="button" class="nbtn" id="nBtn">' + t.notifyBtn + '</button>';
+}
+$('nArea').addEventListener('click', async (e) => {
+  if (!e.target.closest('#nBtn')) return;
+  try {
+    if ((await Notification.requestPermission()) !== 'granted') return drawNotify();
+    const reg = await navigator.serviceWorker.ready;
+    const sub = (await reg.pushManager.getSubscription()) || (await reg.pushManager.subscribe({ userVisibleOnly: true, applicationServerKey: u8(VAPID) }));
+    const ids = myOrders().filter((o) => o.st === 'new' || o.st === 'prep').map((o) => o.id);
+    await fetch(API + '/watch', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ ids, ep: sub.endpoint }) });
+  } catch (x) {}
+  drawNotify();
+});
+if (tableFromHash && /[?&]order=/.test(location.search)) setTimeout(openTrack, 600);
 if (tableFromHash) setInterval(() => { if (!$('track').open) pollMine(false) }, 20000);
 async function callStaff(kind, btn) {
   btn.disabled = true; setTimeout(() => { btn.disabled = false }, 45000);

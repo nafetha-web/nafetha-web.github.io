@@ -1,5 +1,5 @@
 /* Rayhan service worker: fast loads + works on weak connections */
-const V = 'rh-v1';
+const V = 'rh-v2';
 const API = 'https://nafetha-api.nafetha-web.workers.dev/rayhan';
 const SHELL = ['./', './manifest.webmanifest', './img/icon-192.png', './img/icon-512.png'];
 self.addEventListener('install', (e) => { e.waitUntil(caches.open(V).then((c) => c.addAll(SHELL)).then(() => self.skipWaiting())) });
@@ -16,8 +16,10 @@ self.addEventListener('fetch', (e) => {
 
 /* offer notifications: the push carries no data, we fetch the latest notice */
 self.addEventListener('push', (e) => {
-  e.waitUntil(fetch(API + '/notice', { cache: 'no-store' }).then((r) => r.json()).catch(() => ({})).then((n) =>
-    self.registration.showNotification(n.title || 'مطبخ الريحان', { body: n.body || 'لدينا عرض جديد، اطّلع عليه 🍽️', icon: 'img/icon-192.png', badge: 'img/icon-192.png', tag: 'rh-offer', renotify: true, lang: 'ar', dir: 'rtl', data: { url: n.url || './' } })));
+  const hex = (b) => [...new Uint8Array(b)].map((x) => x.toString(16).padStart(2, '0')).join('');
+  const who = self.registration.pushManager.getSubscription().then((sub) => sub ? crypto.subtle.digest('SHA-256', new TextEncoder().encode(sub.endpoint)).then((d) => '?sub=' + hex(d).slice(0, 32)) : '').catch(() => '');
+  e.waitUntil(who.then((q) => fetch(API + '/notice' + q, { cache: 'no-store' })).then((r) => r.json()).catch(() => ({})).then((n) =>
+    self.registration.showNotification(n.title || 'مطبخ الريحان', { body: n.body || 'لدينا عرض جديد، اطّلع عليه 🍽️', icon: 'img/icon-192.png', badge: 'img/icon-192.png', tag: n.url && n.url.includes('order=') ? 'rh-order' : 'rh-offer', renotify: true, vibrate: [250, 120, 250], lang: 'ar', dir: 'rtl', data: { url: n.url || './' } })));
 });
 self.addEventListener('notificationclick', (e) => {
   e.notification.close();
