@@ -58,12 +58,26 @@ C = {
  'p2n': ('شراء الموقع', 'Buy your site'), 'p2f': ('ادفع مرة واحدة والموقع لك', 'Pay once and it’s yours'), 'p2u': ('مرة واحدة', 'one time'), 'p2d': ('199$ بدل 249$', '$199 instead of $249'), 'p2tag': ('الأوفر على المدى الطويل', 'Best long-term value'),
  'p2a': ('ثم 60$ سنويًا للاستضافة والنطاق، ابتداءً من السنة الثانية', 'Then $60 a year for hosting and domain, from year two'),
  'p2l': [('كل مزايا الموقع', 'Every site feature'), ('الموقع ملكك بالكامل', 'The site is fully yours'), ('نطاق خاص (.com) مسجّل باسمك', 'Your own .com domain in your name'), ('باقة تعديلات اختيارية: 5$ شهريًا', 'Optional updates plan: $5/month')],
+ 'basicK': ('باقة Basic', 'Basic package'), 'proK': ('باقة Pro', 'Pro package'), 'proPrice': ('45$ شهريًا، أو 550$ شراء ثم 90$ سنويًا', '$45 a month, or $550 to buy then $90 a year'),
+ 'proSoon': ('قريبًا', 'Coming soon'), 'proLive': ('متوفّر الآن', 'Available now'), 'proBtn': ('اسأل عن Pro', 'Ask about Pro'), 'proLead': ('كل مزايا Basic، مع نظام متكامل وتطبيق يُثبَّت على الهاتف وإشعارات ولوحة تحكّم تديرها بنفسك:', 'Everything in Basic, plus a full system, an installable app, notifications and a control panel you run yourself:'),
  'start': ('ابدأ الآن', 'Start now'), 'more': ('تفاصيل أكثر عن الأسعار', 'More pricing details'),
  'faqT': ('أسئلة شائعة', 'FAQ'), 'faqS': ('لم تجد جوابك؟ راسلنا عبر واتساب.', 'Didn’t find your answer? Message us on WhatsApp.'),
  'endT': ('جاهز لترى موقع نشاطك؟', 'Ready to see your site?'), 'endS': ('شاهد واجهة موقعك خلال ثوانٍ، أو راسلنا ونجهّز لك نموذجًا مجانيًا باسمك.', 'See your homepage in seconds, or message us for a free sample with your name.'),
  'endWa': ('اطلب نموذجًا مجانيًا', 'Get a free sample'),
  'otherT': ('حلول لقطاعات أخرى', 'Other industries'),
  'copy': ('© 2026 نافذة', '© 2026 Nafetha'), 'home': ('الرئيسية', 'Home'), 'terms': ('الشروط والخصوصية', 'Terms & privacy'), 'waFloat': ('راسلنا', 'Message us'),
+}
+
+PRO = {
+ 'rest': (False, [('الطلب من الطاولة عبر رمز QR', 'Order from the table by QR code'), ('شاشة للمطبخ تستقبل الطلبات مباشرة', 'A kitchen screen that receives orders live'), ('زر لطلب النادل وزر لطلب الحساب', 'Call-waiter and ask-for-bill buttons'), ('طبق اليوم وأسعار Happy Hour تلقائية', 'Dish of the day and automatic happy-hour prices')]),
+ 'cafe': (False, [('بطاقة ولاء رقمية بالأختام', 'A digital loyalty stamp card'), ('اطلب مسبقًا وتصلك «قهوتك جاهزة»', 'Order ahead and get “your coffee is ready”'), ('إشعارات بالعروض لزبائنك', 'Offer notifications for your customers')]),
+ 'clinic': (False, [('حجز أونلاين مع رابط للدور المباشر', 'Online booking with a live queue link'), ('إشعار «دورك بعد مريض واحد»', '“You are next” notification'), ('تذكير بالموعد قبل يوم', 'Appointment reminder the day before')]),
+ 'salon': (False, [('حجز حسب الموظفة والوقت المتاح', 'Booking by staff member and free slots'), ('بطاقات هدايا برمز تُصرف من اللوحة', 'Gift cards with codes redeemed from the panel'), ('تذكير بموعد الزيارة التالية', 'Reminder for the next visit')]),
+ 'gym': (False, [('بطاقة عضو QR للدخول', 'A member QR card for check-in'), ('تنبيه قبل انتهاء الاشتراك', 'Alert before a membership expires'), ('حجز الحصص مع لائحة انتظار', 'Class booking with a waitlist')]),
+ 'office': (False, [('بوابة خاصة يتابع فيها العميل ملفه', 'A private portal where clients follow their file'), ('لائحة بالمستندات المطلوبة من كل عميل', 'A checklist of documents needed from each client'), ('تذكير تلقائي بالمواعيد المهمة', 'Automatic reminders for key deadlines')]),
+ 'build': (False, [('بوابة خاصة يتابع فيها الزبون تقدّم مشروعه بالصور', 'A private portal showing project progress in photos'), ('تحديثات أسبوعية تصله بإشعار', 'Weekly updates delivered as a notification')]),
+ 'garage': (False, [('ملف لكل سيارة برقم اللوحة', 'A file for every car by plate number'), ('تتبّع حالة السيارة حتى تصبح جاهزة', 'Live car status until it is ready'), ('تذكير تلقائي بتغيير الزيت', 'Automatic oil-change reminders')]),
+ 'gift': (False, [('حجز المناسبات حسب الأيام المتاحة', 'Event booking by available dates'), ('عرض سعر فوري لكل باقة تزيين', 'Instant quotes for each decoration package'), ('تذكير الزبائن بمناسباتهم السنوية', 'Reminders for customers’ yearly occasions')]),
 }
 
 def A(p): return p[0]
@@ -91,6 +105,12 @@ def build(s):
     steps = ''.join(f'''<li><h3 data-k="st{i}t">{k(f'st{i}t', x[0])}</h3><p data-k="st{i}d">{k(f'st{i}d', x[1])}</p></li>''' for i, x in enumerate(C['steps']))
     p1 = ''.join(f'''<li>{ico('check', 16, 3)}<span data-k="p1l{i}">{k(f'p1l{i}', x)}</span></li>''' for i, x in enumerate(C['p1l']))
     p2 = ''.join(f'''<li>{ico('check', 16, 3)}<span data-k="p2l{i}">{k(f'p2l{i}', x)}</span></li>''' for i, x in enumerate(C['p2l']))
+    live, pf = PRO.get(key, (False, []))
+    prol = ''.join(f'''<li>{ico('check', 16, 3)}<span data-k="pro{i}">{k(f'pro{i}', x)}</span></li>''' for i, x in enumerate(pf))
+    D['proT'] = ['نظام Pro لـ' + s['name'][0], 'Pro system for ' + s['name'][1].lower()]
+    pro_html = (f'''<div class="probox rv"><div class="prohead"><span class="prok" data-k="proK">{html.escape(C['proK'][0])}</span><span class="prost" data-k="{'proLive' if live else 'proSoon'}">{html.escape(C['proLive' if live else 'proSoon'][0])}</span></div>'''
+      f'''<h3 data-k="proT">{html.escape(D['proT'][0])}</h3><p class="proprice" data-k="proPrice">{html.escape(C['proPrice'][0])}</p><p class="prolead" data-k="proLead">{html.escape(C['proLead'][0])}</p><ul>{prol}</ul>'''
+      f'''<a class="btn btn-gold wa" href="https://wa.me/96171163991?text={__import__('urllib.parse').parse.quote('مرحبًا نافذة، أنا مهتم بباقة Pro لـ' + s['name'][0])}" target="_blank" rel="noopener" data-k="proBtn">{html.escape(C['proBtn'][0])}</a></div>''') if pf else ''
     others = ''.join(f'''<a href="../{o['slug']}/" data-k="o_{o['slug']}">{k('o_' + o['slug'], o['name'])}</a>''' for o in SECTORS if o['slug'] != slug)
     preview = f'../../preview/?s={key}'
     out = TEMPLATE
@@ -98,7 +118,7 @@ def build(s):
       '{{SLUG}}': slug, '{{TITLE}}': html.escape(D['title'][0]), '{{DESC}}': html.escape(s['lead'][0]), '{{EYEBROW}}': html.escape(D['eyebrowFull'][0]),
       '{{H1}}': s['h1'][0], '{{LEAD}}': html.escape(s['lead'][0]), '{{IMG}}': s['img'], '{{DEMO}}': s['demo'], '{{PREVIEW}}': preview,
       '{{PAINS}}': pains, '{{FEATS}}': feats, '{{TRIES}}': tries, '{{FAQS}}': faqs, '{{ASSURE}}': assure, '{{STEPS}}': steps, '{{P1}}': p1, '{{P2}}': p2,
-      '{{OTHERS}}': others, '{{DEMONAME}}': html.escape(s['demoName'][0]), '{{WAICON}}': WA_SVG, '{{LOGO}}': LOGO,
+      '{{OTHERS}}': others, '{{PRO}}': pro_html, '{{DEMONAME}}': html.escape(s['demoName'][0]), '{{WAICON}}': WA_SVG, '{{LOGO}}': LOGO,
       '{{WAHREF}}': 'https://wa.me/96171163991?text=' + __import__('urllib.parse').parse.quote(wa_ar),
       '{{DATA}}': json.dumps(D, ensure_ascii=False),
     }
