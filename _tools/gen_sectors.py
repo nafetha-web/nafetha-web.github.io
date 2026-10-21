@@ -59,7 +59,7 @@ C = {
  'p2a': ('ثم 60$ سنويًا للاستضافة والنطاق، ابتداءً من السنة الثانية', 'Then $60 a year for hosting and domain, from year two'),
  'p2l': [('كل مزايا الموقع', 'Every site feature'), ('الموقع ملكك بالكامل', 'The site is fully yours'), ('نطاق خاص (.com) مسجّل باسمك', 'Your own .com domain in your name'), ('باقة تعديلات اختيارية: 5$ شهريًا', 'Optional updates plan: $5/month')],
  'basicK': ('باقة Basic', 'Basic package'), 'proK': ('باقة Pro', 'Pro package'), 'proPrice': ('45$ شهريًا، أو 550$ شراء ثم 90$ سنويًا', '$45 a month, or $550 to buy then $90 a year'),
- 'proSoon': ('قريبًا', 'Coming soon'), 'proLive': ('متوفّر الآن', 'Available now'), 'proBtn': ('اسأل عن Pro', 'Ask about Pro'), 'proLead': ('كل مزايا Basic، مع نظام متكامل وتطبيق يُثبَّت على الهاتف وإشعارات ولوحة تحكّم تديرها بنفسك:', 'Everything in Basic, plus a full system, an installable app, notifications and a control panel you run yourself:'),
+ 'proSoon': ('قريبًا', 'Coming soon'), 'proLive': ('متوفّر الآن', 'Available now'), 'proBtn': ('اسأل عن Pro', 'Ask about Pro'), 'proTry': ('جرّب نظام Pro', 'Try the Pro system'), 'proLead': ('كل مزايا Basic، مع نظام متكامل وتطبيق يُثبَّت على الهاتف وإشعارات ولوحة تحكّم تديرها بنفسك:', 'Everything in Basic, plus a full system, an installable app, notifications and a control panel you run yourself:'),
  'start': ('ابدأ الآن', 'Start now'), 'more': ('تفاصيل أكثر عن الأسعار', 'More pricing details'),
  'faqT': ('أسئلة شائعة', 'FAQ'), 'faqS': ('لم تجد جوابك؟ راسلنا عبر واتساب.', 'Didn’t find your answer? Message us on WhatsApp.'),
  'endT': ('جاهز لترى موقع نشاطك؟', 'Ready to see your site?'), 'endS': ('شاهد واجهة موقعك خلال ثوانٍ، أو راسلنا ونجهّز لك نموذجًا مجانيًا باسمك.', 'See your homepage in seconds, or message us for a free sample with your name.'),
@@ -69,7 +69,7 @@ C = {
 }
 
 PRO = {
- 'rest': (False, [('الطلب من الطاولة عبر رمز QR', 'Order from the table by QR code'), ('شاشة للمطبخ تستقبل الطلبات مباشرة', 'A kitchen screen that receives orders live'), ('زر لطلب النادل وزر لطلب الحساب', 'Call-waiter and ask-for-bill buttons'), ('طبق اليوم وأسعار Happy Hour تلقائية', 'Dish of the day and automatic happy-hour prices')]),
+ 'rest': ('../../demo/rayhan/#t5', [('الطلب من الطاولة عبر رمز QR', 'Order from the table by QR code'), ('شاشة للمطبخ تستقبل الطلبات مباشرة', 'A kitchen screen that receives orders live'), ('زر لطلب النادل وزر لطلب الحساب', 'Call-waiter and ask-for-bill buttons'), ('طبق اليوم وأسعار Happy Hour تلقائية', 'Dish of the day and automatic happy-hour prices')]),
  'cafe': (False, [('بطاقة ولاء رقمية بالأختام', 'A digital loyalty stamp card'), ('اطلب مسبقًا وتصلك «قهوتك جاهزة»', 'Order ahead and get “your coffee is ready”'), ('إشعارات بالعروض لزبائنك', 'Offer notifications for your customers')]),
  'clinic': (False, [('حجز أونلاين مع رابط للدور المباشر', 'Online booking with a live queue link'), ('إشعار «دورك بعد مريض واحد»', '“You are next” notification'), ('تذكير بالموعد قبل يوم', 'Appointment reminder the day before')]),
  'salon': (False, [('حجز حسب الموظفة والوقت المتاح', 'Booking by staff member and free slots'), ('بطاقات هدايا برمز تُصرف من اللوحة', 'Gift cards with codes redeemed from the panel'), ('تذكير بموعد الزيارة التالية', 'Reminder for the next visit')]),
@@ -110,6 +110,7 @@ def build(s):
     D['proT'] = ['نظام Pro لـ' + s['name'][0], 'Pro system for ' + s['name'][1].lower()]
     pro_html = (f'''<div class="probox rv"><div class="prohead"><span class="prok" data-k="proK">{html.escape(C['proK'][0])}</span><span class="prost" data-k="{'proLive' if live else 'proSoon'}">{html.escape(C['proLive' if live else 'proSoon'][0])}</span></div>'''
       f'''<h3 data-k="proT">{html.escape(D['proT'][0])}</h3><p class="proprice" data-k="proPrice">{html.escape(C['proPrice'][0])}</p><p class="prolead" data-k="proLead">{html.escape(C['proLead'][0])}</p><ul>{prol}</ul>'''
+      + (f'''<a class="btn btn-ghost" style="margin-inline-end:8px;color:#fff;border-color:rgba(255,255,255,.55)" href="{live}" target="_blank" rel="noopener" data-k="proTry">{html.escape(C['proTry'][0])} ↗</a>''' if isinstance(live, str) else '') +
       f'''<a class="btn btn-gold wa" href="https://wa.me/96171163991?text={__import__('urllib.parse').parse.quote('مرحبًا نافذة، أنا مهتم بباقة Pro لـ' + s['name'][0])}" target="_blank" rel="noopener" data-k="proBtn">{html.escape(C['proBtn'][0])}</a></div>''') if pf else ''
     others = ''.join(f'''<a href="../{o['slug']}/" data-k="o_{o['slug']}">{k('o_' + o['slug'], o['name'])}</a>''' for o in SECTORS if o['slug'] != slug)
     preview = f'../../preview/?s={key}'

@@ -1,0 +1,676 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="مطبخ الريحان: مأكولات لبنانية، ومشاوي على الفحم، ومازة. موقع تجريبي من نافذة.">
+<title>مطبخ الريحان</title>
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#24412F">
+<link rel="icon" href="img/icon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="img/icon-180.png">
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="الريحان">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://images.unsplash.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Aref+Ruqaa:wght@700&family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&display=swap">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<style>
+:root {
+  --bg: #F6F3EC;
+  --surface: #FFFFFF;
+  --fg: #1E2A22;
+  --muted: #5E665F;
+  --line: #E4DFD3;
+  --basil: #24412F;
+  --basil-ink: #FFFFFF;
+  --saffron: #C9822B;
+  --saffron-ink: #8A5512;
+  --saffron-soft: #F5E7D0;
+  --wa: #1F7A45;
+  --display: 'Aref Ruqaa', 'Times New Roman', serif;
+  --body: 'IBM Plex Sans Arabic', 'Segoe UI', Tahoma, Arial, sans-serif;
+}
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+  --bg: #121814; --surface: #1A221D; --fg: #ECEFEA; --muted: #A9B2AB; --line: #2B352F;
+  --basil: #1F3528; --saffron: #E3A24E; --saffron-ink: #E3A24E; --saffron-soft: #33291B; --wa: #2B9A5A; color-scheme: dark } }
+:root[data-theme="dark"] {
+  --bg: #121814; --surface: #1A221D; --fg: #ECEFEA; --muted: #A9B2AB; --line: #2B352F;
+  --basil: #1F3528; --saffron: #E3A24E; --saffron-ink: #E3A24E; --saffron-soft: #33291B; --wa: #2B9A5A; color-scheme: dark }
+
+* { box-sizing: border-box }
+html { -webkit-text-size-adjust: 100% }
+body { background: var(--bg); color: var(--fg); font-family: var(--body); font-size: 16px; line-height: 1.6; margin: 0 }
+a { color: inherit }
+img { display: block; max-width: 100% }
+button, input, select, textarea { font-family: inherit; font-size: 16px }
+:focus-visible { outline: 3px solid var(--saffron); outline-offset: 2px }
+h1, h2, h3 { text-wrap: balance }
+.ltr { direction: ltr; unicode-bidi: isolate }
+
+.demo { background: var(--fg); color: var(--bg); font-size: 13px; text-align: center; padding: 7px 16px; line-height: 1.5 }
+.demo a { color: var(--bg); font-weight: 700 }
+.wrap { max-width: 1040px; margin: 0 auto; padding-inline: 16px }
+.dish.out .ph img { filter: grayscale(1); opacity: .55 }
+.dish .tag.hh { background: #7C3AED; color: #fff }
+.dish .tag.dd { background: var(--basil); color: #fff }
+.price s { color: var(--muted); font-weight: 400; font-size: 13px }
+.soldout { font-size: 13px; font-weight: 700; color: var(--muted); background: var(--line); border-radius: 99px; padding: 4px 12px }
+.dotd { display: flex; gap: 14px; align-items: stretch; background: var(--surface); border: 2px solid var(--saffron); border-radius: 20px; overflow: hidden; margin: 6px 0 14px }
+.dotd .ph { position: relative; flex: none; width: 128px; min-height: 128px }
+.dotd .ph img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover }
+.dotd .bd { flex: 1; min-width: 0; padding: 12px 14px 12px 0; display: flex; flex-direction: column; gap: 4px }
+[dir=ltr] .dotd .bd { padding: 12px 0 12px 14px }
+.dotd .k { font-size: 12.5px; font-weight: 700; color: var(--saffron-ink) }
+.dotd h3 { margin: 0; font-size: 18px }
+.dotd p { margin: 0; color: var(--muted); font-size: 13.5px }
+.dotd .row { margin-top: auto; display: flex; justify-content: space-between; align-items: center; gap: 8px; padding-inline-end: 12px }
+.hhbar { background: linear-gradient(135deg, #6D28D9, #9333EA); color: #fff; border-radius: 16px; padding: 10px 14px; font-weight: 700; font-size: 14.5px; margin: 6px 0 10px; display: flex; align-items: center; gap: 8px }
+.callbtns { position: fixed; z-index: 31; left: 50%; transform: translateX(-50%); bottom: calc(84px + env(safe-area-inset-bottom, 0px)); display: flex; gap: 8px; white-space: nowrap }
+.callbtns button[hidden], .callbtns[hidden] { display: none }
+.callbtns button { display: flex; align-items: center; gap: 6px; border: 0; border-radius: 99px; padding: 9px 14px; font: inherit; font-weight: 700; font-size: 14px; background: var(--fg); color: var(--bg); box-shadow: 0 8px 20px -8px rgba(0,0,0,.45); cursor: pointer }
+.callbtns button.bill { background: var(--saffron); color: #1E2A22 }
+.callbtns button.mine { background: var(--basil); color: #fff }
+.callbtns button:disabled { opacity: .55 }
+.trk { display: grid; gap: 12px }
+.trk .o { border: 1px solid var(--line); border-radius: 16px; padding: 12px 14px }
+.trk .o h4 { margin: 0 0 6px; font-size: 15px; display: flex; justify-content: space-between; gap: 8px }
+.trk .o h4 small { color: var(--muted); font-weight: 400 }
+.trk .o ul { margin: 0 0 10px; padding: 0; list-style: none; font-size: 14px; color: var(--muted) }
+.steps { display: grid; grid-template-columns: repeat(4, 1fr); gap: 4px }
+.steps i { height: 6px; border-radius: 99px; background: var(--line) }
+.steps i.on { background: var(--basil) }
+.trk .st { margin-top: 8px; font-weight: 700; font-size: 15px; color: var(--basil) }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .trk .st, :root:not([data-theme="light"]) .steps i.on { color: #8FD3A5; background: #8FD3A5 } }
+.toast { position: fixed; z-index: 90; left: 50%; bottom: calc(96px + env(safe-area-inset-bottom, 0px)); transform: translate(-50%, 20px); background: var(--fg); color: var(--bg); padding: 10px 16px; border-radius: 99px; font-size: 14px; font-weight: 600; opacity: 0; pointer-events: none; transition: .25s; max-width: 92vw; text-align: center }
+.toast.on { opacity: 1; transform: translate(-50%, 0) }
+.appc { display: none; align-items: center; gap: 12px; margin: 12px 0 0; padding: 12px 14px; border-radius: 18px; background: var(--basil); color: #fff }
+.appc.on { display: flex }
+.appc img { width: 44px; height: 44px; border-radius: 12px; flex: none }
+.appc div { flex: 1; min-width: 0; line-height: 1.35 }
+.appc b { display: block; font-size: 15px }
+.appc small { font-size: 12.5px; opacity: .85 }
+.appc .get { flex: none; background: #fff; color: var(--basil); font-weight: 700; border-radius: 12px; padding: 9px 14px; font: inherit; font-weight: 700; border: 0; cursor: pointer }
+.appc .no { flex: none; width: 30px; height: 30px; border: 0; background: none; color: #fff; opacity: .7; font-size: 18px; cursor: pointer }
+.tablebar { background: var(--saffron); color: #1E2A22; text-align: center; font-weight: 700; padding: 10px 16px }
+
+.top { position: sticky; top: 0; z-index: 20; background: var(--basil); color: var(--basil-ink) }
+.bar { display: flex; justify-content: space-between; align-items: center; gap: 12px; min-height: 60px }
+.logo { display: flex; align-items: center; gap: 8px; font-family: var(--display); font-size: 24px; white-space: nowrap }
+.logo svg { color: #9CCB8A }
+.nav { display: flex; gap: 4px 16px; align-items: center; font-size: 15px }
+.nav a { text-decoration: none; opacity: .9 }
+@media (max-width: 560px) { .nav a { display: none } }
+.lang { background: transparent; color: var(--basil-ink); border: 1.5px solid rgba(255,255,255,.6); border-radius: 999px; padding: 4px 14px; min-height: 40px; font-weight: 600; cursor: pointer }
+
+.hero { position: relative; color: #FFFFFF; background: #1E2A22; overflow: hidden }
+.hero img.bg { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover }
+.hero::after { content: ""; position: absolute; inset: 0; background: linear-gradient(to top, rgba(14,22,17,.94) 10%, rgba(14,22,17,.5) 60%, rgba(14,22,17,.3)) }
+.hero .wrap { position: relative; z-index: 1; min-height: min(72vh, 540px); display: flex; flex-direction: column; justify-content: flex-end; padding-block: 48px 32px; gap: 10px }
+.status { display: inline-flex; align-items: center; gap: 8px; background: rgba(255,255,255,.16); border-radius: 999px; padding: 4px 14px; font-size: 14px; width: fit-content }
+.dot { width: 9px; height: 9px; border-radius: 50%; background: #9BE29F }
+.dot.closed { background: #F1A3A9 }
+.hero h1 { font-family: var(--display); font-size: clamp(42px, 10vw, 68px); line-height: 1.2; margin: 6px 0 0 }
+.hero p { margin: 0; font-size: 17px; opacity: .92; max-width: 32em }
+.cta { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 12px }
+.btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 48px; padding: 0 22px; border-radius: 14px; font-weight: 700; font-size: 16px; text-decoration: none; border: 0; cursor: pointer }
+.btn-saffron { background: var(--saffron); color: #1E2A22 }
+.btn-ghost { background: rgba(255,255,255,.12); color: #FFFFFF; border: 1.5px solid rgba(255,255,255,.55) }
+.facts { display: flex; flex-wrap: wrap; gap: 6px 18px; font-size: 14px; opacity: .9; margin-top: 10px }
+.facts span::before { content: "✦"; color: var(--saffron); margin-inline-end: 6px }
+
+section.block { padding-block: 36px 4px; display: flex; flex-direction: column; gap: 12px }
+.eyebrow { font-size: 13px; font-weight: 700; letter-spacing: .04em; color: var(--saffron-ink); margin: 0 }
+.block h2 { font-family: var(--display); font-size: 34px; margin: 0; line-height: 1.3 }
+
+
+.ph { position: relative; overflow: hidden; background: var(--saffron-soft) }
+.ph img { position: relative; z-index: 1; width: 100%; height: 100%; object-fit: cover }
+.ph .fb { position: absolute; inset: 0; display: grid; place-items: center; font-family: var(--display); font-size: 30px; color: var(--saffron-ink) }
+
+.tabs { display: flex; gap: 8px; overflow-x: auto; scrollbar-width: none; position: sticky; top: 60px; z-index: 10; background: var(--bg); padding-block: 10px; margin-inline: -16px; padding-inline: 16px }
+.tabs::-webkit-scrollbar { display: none }
+.tab { flex: none; border: 1.5px solid var(--line); background: var(--surface); color: var(--fg); border-radius: 999px; padding: 0 16px; min-height: 42px; font-weight: 600; cursor: pointer }
+.tab[aria-pressed="true"] { background: var(--basil); border-color: var(--basil); color: var(--basil-ink) }
+.cat { scroll-margin-top: 126px; padding-top: 6px }
+.cat h3.ch { font-family: var(--display); font-size: 26px; margin: 8px 0 10px; display: flex; align-items: baseline; gap: 8px }
+.cat h3.ch small { font-family: var(--body); font-size: 13px; color: var(--muted); font-weight: 500 }
+.list { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(320px, 100%), 1fr)); gap: 10px }
+.dish { display: flex; background: var(--surface); border: 1px solid var(--line); border-radius: 16px; overflow: hidden; min-width: 0 }
+.dish .ph { flex: none; width: 104px; min-height: 104px }
+.dish .ph .tag { position: absolute; z-index: 2; inset-inline-start: 6px; top: 6px; background: var(--saffron); color: #1E2A22; font-size: 11px; font-weight: 700; border-radius: 999px; padding: 1px 8px }
+.dish .body { flex: 1; min-width: 0; padding: 10px 12px; display: flex; flex-direction: column; gap: 2px }
+.dish h4 { margin: 0; font-size: 16px; line-height: 1.4 }
+.dish p { margin: 0; color: var(--muted); font-size: 13px; line-height: 1.5 }
+.dish .row { margin-top: auto; padding-top: 6px; display: flex; justify-content: space-between; align-items: center; gap: 8px }
+.price { font-weight: 700; color: var(--saffron-ink); font-variant-numeric: tabular-nums; white-space: nowrap }
+.qty { display: flex; align-items: center; gap: 6px }
+.qbtn { width: 38px; height: 38px; border-radius: 11px; border: 1.5px solid var(--basil); background: var(--surface); color: var(--fg); font-size: 20px; font-weight: 700; line-height: 1; cursor: pointer; display: grid; place-items: center; padding: 0 }
+.qbtn.add { background: var(--basil); color: var(--basil-ink) }
+.qn { min-width: 18px; text-align: center; font-weight: 700; font-variant-numeric: tabular-nums }
+.note { color: var(--muted); font-size: 13px; margin: 6px 0 0 }
+
+.split { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(300px, 100%), 1fr)); gap: 16px; align-items: start }
+.panel { background: var(--surface); border: 1px solid var(--line); border-radius: 20px; padding: 20px; display: flex; flex-direction: column; gap: 12px; min-width: 0 }
+.field { display: flex; flex-direction: column; gap: 6px }
+.field label { font-size: 14px; font-weight: 600 }
+.field input, .field select, .field textarea { border: 1.5px solid var(--line); background: var(--bg); color: var(--fg); border-radius: 12px; padding: 10px 12px; min-height: 46px; width: 100% }
+.two { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 12px }
+.wa { background: var(--wa); color: #FFFFFF }
+.wa[aria-disabled="true"] { opacity: .5; pointer-events: none }
+button.btn { font-family: inherit }
+.hint { font-size: 13px; color: var(--muted); margin: 0 }
+#qrPanel { border: 2px dashed var(--saffron); background: var(--saffron-soft) }
+#qrPanel .eyebrow::before { content: "★ " }
+.qrbox { display: flex; flex-wrap: wrap; gap: 16px; align-items: center }
+.qr { background: #FFFFFF; padding: 12px; border-radius: 14px; width: 160px; height: 160px; display: grid; place-items: center; flex: none; border: 1px solid var(--line) }
+.qr img, .qr canvas { width: 136px !important; height: 136px !important }
+.qrtext { flex: 1 1 200px; min-width: 0; display: flex; flex-direction: column; gap: 8px }
+.tables { display: flex; flex-wrap: wrap; gap: 6px }
+.tables button { min-width: 42px; min-height: 42px; border-radius: 10px; border: 1.5px solid var(--line); background: var(--bg); color: var(--fg); font-weight: 600; cursor: pointer }
+.tables button[aria-pressed="true"] { background: var(--saffron); border-color: var(--saffron); color: #1E2A22 }
+.mono { font-family: ui-monospace, Menlo, Consolas, monospace; font-size: 12px; color: var(--muted); overflow-wrap: anywhere; direction: ltr; unicode-bidi: isolate }
+
+.gallery { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px }
+@media (min-width: 720px) { .gallery { grid-template-columns: repeat(4, 1fr) } }
+.gallery figure { margin: 0; border-radius: 16px; aspect-ratio: 1 }
+.gallery figcaption { position: absolute; z-index: 2; inset-inline: 0; bottom: 0; padding: 8px 10px; font-size: 13px; font-weight: 600; color: #FFFFFF; background: linear-gradient(transparent, rgba(0,0,0,.6)) }
+
+.info { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 10px }
+.card { background: var(--saffron-soft); border-radius: 16px; padding: 16px; display: flex; flex-direction: column; gap: 4px; min-width: 0 }
+.card b { font-size: 14px; color: var(--saffron-ink) }
+.hours { display: grid; grid-template-columns: auto 1fr; gap: 2px 16px; font-variant-numeric: tabular-nums }
+.foot { color: var(--muted); font-size: 13px; text-align: center; padding-block: 28px 130px }
+.foot a { color: var(--saffron-ink); font-weight: 700 }
+
+.order { position: fixed; inset-inline: 0; bottom: 0; padding: 10px 16px calc(10px + env(safe-area-inset-bottom, 0px)); background: var(--surface); border-top: 1px solid var(--line); box-shadow: 0 -6px 20px rgba(0,0,0,.08); z-index: 30 }
+.order .wrap { padding-inline: 0; display: flex; align-items: center; gap: 12px }
+.order .sum { flex: 1; min-width: 0; font-size: 14px; color: var(--muted) }
+.order .sum strong { display: block; color: var(--fg); font-size: 19px; font-variant-numeric: tabular-nums }
+.sheet { border: 0; padding: 0; margin: auto auto 0; width: 100%; max-width: 560px; max-height: 88vh; border-radius: 22px 22px 0 0; background: var(--surface); color: var(--fg) }
+.sheet::backdrop { background: rgba(0,0,0,.45) }
+.sheet-in { padding: 18px 16px calc(18px + env(safe-area-inset-bottom, 0px)); display: flex; flex-direction: column; gap: 12px }
+.sheet-head { display: flex; justify-content: space-between; align-items: center }
+.sheet-head h2 { margin: 0; font-family: var(--display); font-size: 28px }
+.x { width: 40px; height: 40px; border-radius: 50%; border: 1px solid var(--line); background: var(--bg); color: var(--fg); font-size: 22px; cursor: pointer }
+.revlist { display: flex; flex-direction: column; gap: 8px; overflow-y: auto; max-height: 42vh }
+.rev { display: flex; align-items: center; gap: 10px; border: 1px solid var(--line); border-radius: 14px; padding: 8px }
+.rev .ph { width: 52px; height: 52px; border-radius: 10px; flex: none }
+.rev .ph .fb { font-size: 20px }
+.rev .nm { flex: 1; min-width: 0; font-weight: 600; font-size: 15px; line-height: 1.4 }
+.rev .nm small { display: block; color: var(--saffron-ink); font-weight: 700 }
+.revtotal { display: flex; justify-content: space-between; align-items: baseline; border-top: 1px dashed var(--line); padding-top: 10px; font-size: 16px }
+.revtotal strong { font-size: 22px; font-variant-numeric: tabular-nums }
+.back { background: transparent; color: var(--fg); border: 1.5px solid var(--line) }
+@media (prefers-reduced-motion: no-preference) { html { scroll-behavior: smooth } }
+</style>
+</head>
+<body>
+
+<div class="demo" id="demoBar"></div>
+<div class="tablebar" id="tableBar" hidden></div>
+<div class="callbtns" id="callBtns" hidden><button type="button" class="mine" id="myOrd" hidden></button><button type="button" id="callW"></button><button type="button" class="bill" id="callB"></button></div>
+
+<header class="top">
+  <div class="wrap bar">
+    <div class="logo">
+      <svg aria-hidden="true" width="28" height="28" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 29V9"/><path d="M16 21c-5 0-8-3-8-8 5 0 8 3 8 8z"/><path d="M16 16c5 0 8-3 8-8-5 0-8 3-8 8z"/><path d="M16 9c-2-2-2-5 0-7 2 2 2 5 0 7z"/></svg>
+      <span id="brand"></span>
+    </div>
+    <nav class="nav" aria-label="Sections">
+      <a href="#menu" id="navMenu"></a><a href="#book" id="navBook"></a><a href="#gallery" id="navGallery"></a>
+      <button class="lang" id="langBtn" type="button"></button>
+    </nav>
+  </div>
+</header>
+
+<section class="hero">
+  <img class="bg" id="heroImg" alt="" fetchpriority="high" onerror="this.remove()">
+  <div class="wrap">
+    <div class="status"><span class="dot" id="dot"></span><span id="statusText"></span></div>
+    <h1 id="heroTitle"></h1>
+    <p id="heroText"></p>
+    <div class="cta">
+      <a class="btn btn-saffron" href="#menu" id="ctaMenu"></a>
+      <a class="btn btn-ghost" href="#book" id="ctaBook"></a>
+    </div>
+    <div class="facts" id="facts"></div>
+  </div>
+</section>
+
+<main class="wrap">
+  <section class="block" id="menu">
+    <h2 id="menuTitle"></h2>
+    <div class="appc" id="appc"><img src="img/icon-192.png" alt=""><div><b id="appT"></b><small id="appS"></small></div><button type="button" class="get" id="appGo"></button><button type="button" class="no" id="appNo" aria-label="close">×</button></div>
+    <div class="hhbar" id="hhbar" hidden></div>
+    <div id="dotd" hidden></div>
+    <nav class="tabs" id="tabs" aria-label="Menu sections"></nav>
+    <div id="cats"></div>
+    <p class="note" id="priceNote"></p>
+  </section>
+
+  <section class="block" id="book">
+    <p class="eyebrow" id="bookEyebrow"></p>
+    <h2 id="bookTitle"></h2>
+    <div class="split">
+      <form class="panel" id="bookForm" novalidate>
+        <div class="field"><label for="bName" id="lName"></label><input id="bName" type="text" autocomplete="name"></div>
+        <div class="two">
+          <div class="field"><label for="bDate" id="lDate"></label><input id="bDate" type="date"></div>
+          <div class="field"><label for="bTime" id="lTime"></label><select id="bTime"></select></div>
+        </div>
+        <div class="two">
+          <div class="field"><label for="bPeople" id="lPeople"></label><select id="bPeople"></select></div>
+          <div class="field"><label for="bSeat" id="lSeat"></label><select id="bSeat"></select></div>
+        </div>
+        <div class="field"><label for="bNote" id="lNote"></label><textarea id="bNote" rows="2"></textarea></div>
+        <a class="btn wa" id="bookBtn" target="_blank" rel="noopener"></a>
+        <p class="hint" id="bookHint"></p>
+      </form>
+      <div class="panel" id="qrPanel">
+        <p class="eyebrow" id="qrEyebrow"></p>
+        <h3 style="margin:0; font-size: 20px" id="qrTitle"></h3>
+        <div class="qrbox">
+          <div class="qr" id="qr" role="img"></div>
+          <div class="qrtext">
+            <p class="hint" id="qrText"></p>
+            <div class="tables" id="tables"></div>
+            <span class="mono" id="qrUrl"></span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="block" id="gallery">
+    <p class="eyebrow" id="galEyebrow"></p>
+    <h2 id="galTitle"></h2>
+    <div class="gallery" id="gal"></div>
+    <a class="btn btn-saffron" style="width: fit-content" id="instaBtn" href="https://www.instagram.com/nafetha.web" target="_blank" rel="noopener"></a>
+  </section>
+
+  <section class="block" id="visit">
+    <h2 id="visitTitle"></h2>
+    <div class="info">
+      <div class="card"><b id="lblAddr"></b><span id="addr"></span><a id="mapLink" target="_blank" rel="noopener"></a></div>
+      <div class="card"><b id="lblHours"></b><div class="hours" id="hours"></div></div>
+      <div class="card"><b id="lblPhone"></b><span class="ltr">+961 71 163 991</span><span id="extra"></span></div>
+    </div>
+  </section>
+  <p class="foot" id="foot"></p>
+</main>
+
+<div class="order">
+  <div class="wrap">
+    <div class="sum" id="sum"></div>
+    <button class="btn wa" id="goBtn" type="button"></button>
+  </div>
+</div>
+
+<dialog class="sheet" id="review" aria-labelledby="revTitle">
+  <div class="sheet-in">
+    <div class="sheet-head"><h2 id="revTitle"></h2><button type="button" class="x" id="revClose" aria-label="close">×</button></div>
+    <div class="revlist" id="revList"></div>
+    <div class="revtotal"><span id="revTotalLbl"></span><strong id="revTotal"></strong></div>
+    <div class="field"><label for="revNote" id="revNoteLbl"></label><textarea id="revNote" rows="2"></textarea></div>
+    <a class="btn wa" id="revSend" target="_blank" rel="noopener"></a>
+    <button type="button" class="btn back" id="revBack"></button>
+  </div>
+</dialog>
+
+<dialog class="sheet" id="track" aria-labelledby="trkTitle">
+  <div class="sheet-in">
+    <div class="sheet-head"><h2 id="trkTitle"></h2><button type="button" class="x" id="trkClose" aria-label="close">×</button></div>
+    <div class="trk" id="trkList"></div>
+  </div>
+</dialog>
+<div class="toast" id="toast" role="status"></div>
+<script src="data.js"></script>
+<script>
+const WA = '96171163991';
+const PAGE = 'https://nafetha-web.github.io/demo/rayhan/';
+const GALLERY = [
+  { ar: 'التراس', en: 'Terrace', ph: 'photo-1770221636504-e606b81c412e' },
+  { ar: 'الصالة', en: 'Dining room', ph: 'photo-1526069631228-723c945bea6b' },
+  { ar: 'مائدة المازة', en: 'Mezze spread', ph: 'photo-1724024702408-e7f08478b680' },
+  { ar: 'المطبخ', en: 'Kitchen', ph: 'photo-1684864115205-242c064363e6' }
+];
+const HERO = 'photo-1743674453093-592bed88018e';
+const HOURS = [ { ar: 'يوميًا', en: 'Every day', h: '12:00 - 00:00', o: 12, c: 24, days: [0,1,2,3,4,5,6] } ];
+const TIMES = ['13:00','14:00','15:00','19:00','20:00','21:00','22:00'];
+const T = {
+  ar: { dir: 'rtl', lang: 'English', brand: 'مطبخ الريحان',
+    demo: 'موقع تجريبي لمطعم وهمي ضمن <b>باقة Pro</b> من <a href="https://nafetha-web.github.io" target="_blank" rel="noopener">نافذة</a>: طلب من الطاولة، وشاشة للمطبخ، ولوحة تحكّم لصاحب المطعم. الصور توضيحية من Unsplash.',
+    navMenu: 'القائمة', navBook: 'احجز', navGallery: 'الصور',
+    open: 'مفتوح الآن', closed: 'مغلق الآن',
+    heroTitle: 'مطبخ الريحان', heroText: 'مازة لبنانية، ومشاوي على الفحم، وحلويات عربية. اطلب إلى منزلك أو احجز طاولتك.',
+    ctaMenu: 'تصفّح القائمة', ctaBook: 'احجز طاولة', facts: ['مشاوي على الفحم', 'توصيل', 'تراس'],
+    popular: 'الأكثر طلبًا',
+    menuTitle: 'قائمة الطعام', priceNote: 'الأسعار بالدولار وتشمل الضريبة.', count: (n) => n + ' أصناف',
+    bookEyebrow: 'حجز الطاولات', bookTitle: 'احجز طاولتك',
+    lName: 'الاسم', lDate: 'التاريخ', lTime: 'الوقت', lPeople: 'عدد الأشخاص', lSeat: 'مكان الجلوس', lNote: 'ملاحظة (اختياري)',
+    seats: ['في الداخل', 'على التراس', 'لا فرق'], person: (n) => n === 1 ? 'شخص واحد' : n === 2 ? 'شخصان' : n <= 10 ? n + ' أشخاص' : n + ' شخصًا',
+    bookBtn: 'أرسل الحجز عبر واتساب', bookHint: 'تصلنا رسالة بتفاصيل الحجز، ونؤكّده لك عبر واتساب.', fillName: 'اكتب اسمك لإرسال الحجز',
+    bookMsg: (b) => 'مرحبًا مطبخ الريحان، أودّ حجز طاولة:\nالاسم: ' + b.name + '\nالتاريخ: ' + b.date + '\nالوقت: ' + b.time + '\nالعدد: ' + b.people + '\nالمكان: ' + b.seat + (b.note ? '\nملاحظة: ' + b.note : ''),
+    qrEyebrow: 'جرّب ميزة Pro', qrTitle: 'اطلب من الطاولة',
+    qrText: 'امسح الرمز من هاتف آخر، أو اضغط رقم طاولة ثم افتح الرابط. اطلب كأنك جالس في المطعم: يصل طلبك إلى شاشة المطبخ فورًا، وتتابع حالته من هاتفك، وتطلب النادل أو الحساب بضغطة.',
+    table: 'طاولة', tableBar: (n) => 'أنت على الطاولة رقم ' + n + '. سيصل طلبك إلى المطبخ مع رقم الطاولة.',
+    galEyebrow: 'معرض الصور', galTitle: 'من أجوائنا', insta: 'تابعنا على إنستغرام',
+    visitTitle: 'زورونا', lblAddr: 'العنوان', addr: 'خلدة، الطريق البحري', map: 'افتح على الخريطة',
+    lblHours: 'أوقات العمل', lblPhone: 'واتساب وهاتف', extra: 'موقف سيارات مجاني',
+    foot: 'تصميم الموقع: <a href="https://nafetha-web.github.io" target="_blank" rel="noopener">نافذة</a>',
+    items: (n) => n === 1 ? 'صنف واحد' : n === 2 ? 'صنفان' : (n >= 3 && n <= 10) ? n + ' أصناف' : n + (n === 0 ? ' أصناف' : ' صنفًا'), go: 'اطلب عبر واتساب',
+    add: 'أضف', remove: 'احذف', money: (n) => n + '$',
+    revTitle: 'مراجعة الطلب', revNote: 'ملاحظة للمطبخ (اختياري)', revNoteShort: 'ملاحظة', revSend: 'تأكيد وإرسال عبر واتساب', revBack: 'متابعة الاختيار',
+    hello: 'مرحبًا مطبخ الريحان، أودّ أن أطلب:', total: 'المجموع', tableLine: (n) => 'الطاولة رقم ' + n,
+    tableBar: (n) => 'أنت على الطاولة رقم ' + n + '. يصل طلبك مباشرة إلى شاشة المطبخ.',
+    goTable: 'راجع طلبك', sendKitchen: 'أرسل الطلب إلى المطبخ', sending: 'جارٍ الإرسال…', failSend: 'تعذّر الإرسال، تحقّق من الإنترنت وحاول مجددًا', busy: 'لديك طلبات كثيرة قيد التحضير، انتظر قليلًا',
+    trkTitle: 'حالة طلباتك', myOrders: 'طلباتي', orderN: (n) => 'الطلب ' + n, st: { new: 'وصل إلى المطبخ', prep: 'يُحضَّر الآن 👨‍🍳', ready: 'جاهز، في الطريق إليك', done: 'قُدِّم، بالهناء والشفاء', cancel: 'أُلغي الطلب' },
+    readyToast: 'طلبك جاهز وفي الطريق إليك 🍽️', callW: '🙋 النادل', callB: '🧾 الحساب', calledW: 'أبلغنا النادل، سيصل إليك بعد قليل', calledB: 'سيصلك الحساب بعد قليل',
+    dotdK: '⭐ طبق اليوم', hhBar: (p, to, c) => '🍹 Happy Hour: خصم ' + p + '%' + (c ? ' على قسم «' + c + '»' : ' على كل القائمة') + ' حتى الساعة ' + to, hhTag: 'Happy Hour', soldOut: 'نفد اليوم',
+    appT: 'ثبّت تطبيق الريحان', appS: 'اطلب أسرع، وتصلك عروضنا أولًا', appGo: 'ثبّت', pushT: 'خلّيك أول من يعرف بالعروض', pushS: 'نرسل لك إشعارًا بطبق اليوم والعروض', pushGo: 'فعّل', later: 'حسنًا، سنذكّرك بعد 3 أيام', pushOk: 'تمّ! ستصلك العروض أولًا 🔔', pushNo: 'لم ينجح، فعّل الإشعارات من إعدادات الهاتف', appDone: 'أُضيف التطبيق إلى شاشتك 🎉',
+    iosHelp: 'لتثبيت التطبيق على iPhone: اضغط زر المشاركة ⬆️ في Safari، ثم «إضافة إلى الشاشة الرئيسية».' },
+  en: { dir: 'ltr', lang: 'عربي', brand: 'Matbakh El Rayhan',
+    demo: 'Demo site for a fictional restaurant on the <b>Pro package</b> by <a href="https://nafetha-web.github.io" target="_blank" rel="noopener">Nafetha</a>: order from the table, a kitchen screen, and an owner control panel. Photos are illustrative from Unsplash.',
+    navMenu: 'Menu', navBook: 'Book', navGallery: 'Photos',
+    open: 'Open now', closed: 'Closed now',
+    heroTitle: 'Matbakh El Rayhan', heroText: 'Lebanese mezze, charcoal grills and Arabic sweets. Order to your door or book a table.',
+    ctaMenu: 'See the menu', ctaBook: 'Book a table', facts: ['Charcoal grill', 'Delivery', 'Terrace'],
+    popular: 'Popular',
+    menuTitle: 'Menu', priceNote: 'Prices are in US dollars and include tax.', count: (n) => n + ' items',
+    bookEyebrow: 'Table booking', bookTitle: 'Book your table',
+    lName: 'Name', lDate: 'Date', lTime: 'Time', lPeople: 'Guests', lSeat: 'Seating', lNote: 'Note (optional)',
+    seats: ['Indoors', 'Terrace', 'No preference'], person: (n) => n + (n === 1 ? ' guest' : ' guests'),
+    bookBtn: 'Send booking on WhatsApp', bookHint: 'We get a message with your booking details and confirm it on WhatsApp.', fillName: 'Enter your name to send the booking',
+    bookMsg: (b) => 'Hello Matbakh El Rayhan, I would like to book a table:\nName: ' + b.name + '\nDate: ' + b.date + '\nTime: ' + b.time + '\nGuests: ' + b.people + '\nSeating: ' + b.seat + (b.note ? '\nNote: ' + b.note : ''),
+    qrEyebrow: 'Try a Pro feature', qrTitle: 'Order from the table',
+    qrText: 'Scan the code from another phone, or pick a table and open the link. Order as if you were sitting in the restaurant: your order reaches the kitchen screen instantly, you follow its status on your phone, and you can call the waiter or ask for the bill in one tap.',
+    table: 'Table', tableBar: (n) => 'You are at table ' + n + '. Your order goes to the kitchen with your table number.',
+    galEyebrow: 'Photo gallery', galTitle: 'Around the place', insta: 'Follow us on Instagram',
+    visitTitle: 'Visit us', lblAddr: 'Address', addr: 'Khaldeh, seaside road', map: 'Open in Maps',
+    lblHours: 'Opening hours', lblPhone: 'WhatsApp and phone', extra: 'Free parking',
+    foot: 'Site designed by <a href="https://nafetha-web.github.io" target="_blank" rel="noopener">Nafetha</a>',
+    items: (n) => n + (n === 1 ? ' item' : ' items'), go: 'Order on WhatsApp',
+    revTitle: 'Review your order', revNote: 'Note for the kitchen (optional)', revNoteShort: 'Note', revSend: 'Confirm and send on WhatsApp', revBack: 'Keep browsing',
+    add: 'Add', remove: 'Remove', money: (n) => '$' + n,
+    hello: 'Hello Matbakh El Rayhan, I would like to order:', total: 'Total', tableLine: (n) => 'Table ' + n,
+    tableBar: (n) => 'You are at table ' + n + '. Your order goes straight to the kitchen screen.',
+    goTable: 'Review order', sendKitchen: 'Send the order to the kitchen', sending: 'Sending…', failSend: 'Could not send. Check your connection and try again', busy: 'You have many orders in progress, please wait a little',
+    trkTitle: 'Your orders', myOrders: 'My orders', orderN: (n) => 'Order ' + n, st: { new: 'Received by the kitchen', prep: 'Being prepared 👨‍🍳', ready: 'Ready, on its way to you', done: 'Served, enjoy!', cancel: 'Order cancelled' },
+    readyToast: 'Your order is ready and on its way 🍽️', callW: '🙋 Waiter', callB: '🧾 Bill', calledW: 'We told the waiter, they are on their way', calledB: 'Your bill is on its way',
+    dotdK: '⭐ Dish of the day', hhBar: (p, to, c) => '🍹 Happy Hour: ' + p + '% off ' + (c ? c : 'the whole menu') + ' until ' + to, hhTag: 'Happy Hour', soldOut: 'Sold out today',
+    appT: 'Install the Rayhan app', appS: 'Order faster and get our offers first', appGo: 'Install', pushT: 'Be first to hear about offers', pushS: 'We notify you about the dish of the day and offers', pushGo: 'Turn on', later: 'Okay, we will remind you in 3 days', pushOk: 'Done! You will get our offers first 🔔', pushNo: 'Could not enable, check your phone settings', appDone: 'App added to your home screen 🎉',
+    iosHelp: 'To install on iPhone: tap the Share button ⬆️ in Safari, then “Add to Home Screen”.' }
+};
+
+let lang = 'ar', activeCat = MENU[0].id, qrTable = 5;
+const cart = {};
+const ALL = MENU.flatMap(c => c.items);
+const tableFromHash = (() => { const m = /^#t(\d{1,2})$/.exec(location.hash || ''); return m ? Number(m[1]) : null })();
+try { const s = localStorage.getItem('rayhan-lang'); if (s === 'en' || s === 'ar') lang = s } catch (e) {}
+const $ = (id) => document.getElementById(id);
+
+function photo(id, w, h, alt) {
+  return '<span class="fb" aria-hidden="true">' + alt.charAt(0) + '</span><img src="' + img(id, w, h) + '" alt="' + alt + '" loading="lazy" decoding="async" onerror="this.remove()">';
+}
+function isOpen() { const d = new Date(); const h = d.getHours() + d.getMinutes() / 60; return HOURS.some(x => x.days.includes(d.getDay()) && h >= x.o && h < x.c) }
+function priceHTML(i) { const t = T[lang]; return '<span class="price">' + t.money(i.p) + (i.old ? ' <s>' + t.money(i.old) + '</s>' : '') + '</span>' }
+function tagHTML(i) { const t = T[lang], dd = liveSt && liveSt.dotd && liveSt.dotd.id === i.id; return i.hh ? '<span class="tag hh">' + t.hhTag + '</span>' : dd ? '<span class="tag dd">' + t.dotdK + '</span>' : i.old ? '<span class="tag">-' + Math.round((1 - i.p / i.old) * 100) + '%</span>' : i.pop ? '<span class="tag">' + t.popular + '</span>' : '' }
+function qtyHTML(i) {
+  if (i.out) return '<span class="soldout">' + T[lang].soldOut + '</span>';
+  const t = T[lang], q = cart[i.id] || 0;
+  return '<div class="qty">' + (q ? '<button type="button" class="qbtn" data-dec="' + i.id + '" aria-label="' + t.remove + ' ' + i[lang] + '">−</button><span class="qn">' + q + '</span>' : '') +
+    '<button type="button" class="qbtn add" data-inc="' + i.id + '" aria-label="' + t.add + ' ' + i[lang] + '">+</button></div>';
+}
+function setTabs() {
+  let on = null; document.querySelectorAll('.tab').forEach(x => { const a = x.dataset.cat === activeCat; x.setAttribute('aria-pressed', String(a)); if (a) on = x });
+  const bar = $('tabs'); if (on && bar) { const bl = bar.getBoundingClientRect(), r = on.getBoundingClientRect(); if (r.left < bl.left || r.right > bl.right) bar.scrollLeft += (r.left + r.width / 2) - (bl.left + bl.width / 2) }
+}
+
+function renderStatic() {
+  const t = T[lang];
+  document.documentElement.lang = lang; document.documentElement.dir = t.dir; document.title = t.brand;
+  $('demoBar').innerHTML = t.demo;
+  $('brand').textContent = t.brand; $('langBtn').textContent = t.lang;
+  const open = isOpen(); $('dot').className = 'dot' + (open ? '' : ' closed'); $('statusText').textContent = open ? t.open : t.closed;
+  ['navMenu','navBook','navGallery','heroTitle','heroText','ctaBook','ctaMenu','menuTitle','priceNote','bookEyebrow','bookTitle','lName','lDate','lTime','lPeople','lSeat','lNote','bookHint','qrEyebrow','qrTitle','qrText','galEyebrow','galTitle','visitTitle','lblAddr','addr','lblHours','lblPhone','extra'].forEach(k => { $(k).textContent = t[k] });
+  $('facts').innerHTML = t.facts.map(f => '<span>' + f + '</span>').join('');
+  if ($('heroImg')) $('heroImg').src = img(HERO, 1200, 900);
+  $('instaBtn').textContent = t.insta;
+  $('mapLink').textContent = t.map; $('mapLink').href = 'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent('Khaldeh, Lebanon');
+  $('foot').innerHTML = t.foot;
+  $('hours').innerHTML = HOURS.map(x => '<span>' + x[lang] + '</span><span class="ltr">' + x.h + '</span>').join('');
+  if (tableFromHash) { $('tableBar').hidden = false; $('tableBar').textContent = t.tableBar(tableFromHash); $('callBtns').hidden = false; $('callW').textContent = t.callW; $('callB').textContent = t.callB; renderMine() }
+  $('appT').textContent = pushMode ? t.pushT : t.appT; $('appS').textContent = pushMode ? t.pushS : t.appS; $('appGo').textContent = pushMode ? t.pushGo : t.appGo;
+  const keep = { time: $('bTime').value, people: $('bPeople').value, seat: $('bSeat').value };
+  $('bTime').innerHTML = TIMES.map(x => '<option value="' + x + '">' + x + '</option>').join('');
+  $('bPeople').innerHTML = [1,2,3,4,5,6,7,8,10,12].map(n => '<option value="' + n + '">' + t.person(n) + '</option>').join('');
+  $('bSeat').innerHTML = t.seats.map((s, i) => '<option value="' + i + '">' + s + '</option>').join('');
+  $('bTime').value = keep.time || '20:00'; $('bPeople').value = keep.people || '2'; $('bSeat').value = keep.seat || '2';
+  $('gal').innerHTML = GALLERY.map(g => '<figure class="ph">' + photo(g.ph, 480, 480, g[lang]) + '<figcaption>' + g[lang] + '</figcaption></figure>').join('');
+  $('tables').innerHTML = [1,2,3,4,5,6,7,8].map(n => '<button type="button" data-table="' + n + '" aria-pressed="' + (n === qrTable) + '" aria-label="' + t.table + ' ' + n + '">' + n + '</button>').join('');
+  renderQR(); renderBooking();
+}
+
+let io = null;
+function renderMenu() {
+  const t = T[lang];
+  renderLive();
+  $('tabs').innerHTML = MENU.map(c => '<button type="button" class="tab" data-cat="' + c.id + '" aria-pressed="' + (c.id === activeCat) + '">' + c[lang] + '</button>').join('');
+  $('cats').innerHTML = MENU.map(c => '<div class="cat" id="cat-' + c.id + '"><h3 class="ch">' + c[lang] + ' <small>' + t.count(c.items.length) + '</small></h3><div class="list">' +
+    c.items.map(i => {
+      const d = i['d' + lang];
+      return '<article class="dish' + (i.out ? ' out' : '') + '"><div class="ph">' + photo(i.ph, 208, 208, i[lang]) + tagHTML(i) + '</div>' +
+        '<div class="body"><h4>' + i[lang] + '</h4>' + (d ? '<p>' + d + '</p>' : '') + '<div class="row">' + priceHTML(i) + qtyHTML(i) + '</div></div></article>';
+    }).join('') + '</div></div>').join('');
+  if ('IntersectionObserver' in window) {
+    if (io) io.disconnect();
+    io = new IntersectionObserver((ents) => { ents.forEach(en => { if (en.isIntersecting) { activeCat = en.target.id.slice(4); setTabs() } }) }, { rootMargin: '-140px 0px -60% 0px' });
+    document.querySelectorAll('.cat').forEach(c => io.observe(c));
+  }
+}
+
+function renderOrder() {
+  const t = T[lang];
+  const lines = ALL.filter(i => cart[i.id]);
+  const count = lines.reduce((a, i) => a + cart[i.id], 0), total = lines.reduce((a, i) => a + cart[i.id] * i.p, 0);
+  $('sum').innerHTML = (tableFromHash ? t.tableLine(tableFromHash) + ' · ' : '') + t.items(count) + '<strong>' + t.money(total) + '</strong>';
+  const go = $('goBtn'); go.textContent = tableFromHash ? t.goTable : t.go;
+  if (count) go.removeAttribute('aria-disabled'); else go.setAttribute('aria-disabled', 'true');
+  if ($('review').open) renderReview();
+}
+
+function renderReview() {
+  const t = T[lang];
+  const lines = ALL.filter(i => cart[i.id]);
+  if (!lines.length) { closeReview(); return }
+  const total = lines.reduce((a, i) => a + cart[i.id] * i.p, 0);
+  $('revTitle').textContent = t.revTitle; $('revTotalLbl').textContent = t.total; $('revTotal').textContent = t.money(total);
+  $('revNoteLbl').textContent = t.revNote; $('revBack').textContent = t.revBack; $('revSend').textContent = t.revSend;
+  $('revList').innerHTML = lines.map(i => '<div class="rev"><div class="ph">' + photo(i.ph, 104, 104, i[lang]) + '</div><div class="nm">' + i[lang] + '<small>' + t.money(cart[i.id] * i.p) + '</small></div>' + qtyHTML(i) + '</div>').join('');
+  const note = $('revNote').value.trim();
+  const msg = t.hello + (tableFromHash ? '\n' + t.tableLine(tableFromHash) : '') + '\n' + lines.map(i => '- ' + cart[i.id] + ' × ' + i[lang] + ' (' + t.money(cart[i.id] * i.p) + ')').join('\n') + '\n' + t.total + ': ' + t.money(total) + (note ? '\n' + t.revNoteShort + ': ' + note : '');
+  if (tableFromHash) { $('revSend').removeAttribute('href'); $('revSend').removeAttribute('target'); $('revSend').textContent = sendingNow ? t.sending : t.sendKitchen; $('revSend').setAttribute('role', 'button') }
+  else $('revSend').href = 'https://wa.me/' + WA + '?text=' + encodeURIComponent(msg);
+}
+function openReview() { if (!ALL.some(i => cart[i.id])) return; renderReview(); const d = $('review'); if (d.showModal) d.showModal(); else d.setAttribute('open', '') }
+function closeReview() { const d = $('review'); if (d.open) { if (d.close) d.close(); else d.removeAttribute('open') } }
+
+function renderBooking() {
+  const t = T[lang]; const name = $('bName').value.trim(); const btn = $('bookBtn');
+  if (!name) { btn.textContent = t.fillName; btn.href = '#book'; btn.setAttribute('aria-disabled', 'true'); return }
+  const b = { name: name, date: $('bDate').value || '-', time: $('bTime').value, people: $('bPeople').selectedOptions[0].textContent, seat: $('bSeat').selectedOptions[0].textContent, note: $('bNote').value.trim() };
+  btn.textContent = t.bookBtn; btn.href = 'https://wa.me/' + WA + '?text=' + encodeURIComponent(t.bookMsg(b)); btn.removeAttribute('aria-disabled');
+}
+
+function renderQR() {
+  const url = PAGE + '#t' + qrTable; const box = $('qr'); box.innerHTML = '';
+  box.setAttribute('aria-label', 'QR ' + T[lang].table + ' ' + qrTable);
+  $('qrUrl').textContent = url.replace('https://', '');
+  if (window.QRCode) { try { new QRCode(box, { text: url, width: 136, height: 136, colorDark: '#1E2A22', colorLight: '#FFFFFF', correctLevel: QRCode.CorrectLevel.M }) } catch (e) {} }
+}
+
+function renderAll() { renderStatic(); renderMenu(); renderOrder() }
+
+$('langBtn').addEventListener('click', () => { lang = lang === 'ar' ? 'en' : 'ar'; try { localStorage.setItem('rayhan-lang', lang) } catch (e) {} renderAll() });
+$('tabs').addEventListener('click', (e) => {
+  const b = e.target.closest('[data-cat]'); if (!b) return; activeCat = b.dataset.cat; setTabs();
+  const el = $('cat-' + activeCat); if (el) el.scrollIntoView({ block: 'start' });
+});
+function onQty(e) {
+  const inc = e.target.closest('[data-inc]'), dec = e.target.closest('[data-dec]'); if (!inc && !dec) return;
+  const id = inc ? inc.dataset.inc : dec.dataset.dec;
+  if (inc) cart[id] = (cart[id] || 0) + 1; else { cart[id] = Math.max(0, (cart[id] || 0) - 1); if (!cart[id]) delete cart[id] }
+  const y = window.scrollY; renderMenu(); renderOrder(); window.scrollTo(0, y);
+}
+$('cats').addEventListener('click', onQty);
+$('goBtn').addEventListener('click', openReview);
+$('revList').addEventListener('click', (e) => { const inc = e.target.closest('[data-inc]'), dec = e.target.closest('[data-dec]'); if (!inc && !dec) return; const id = inc ? inc.dataset.inc : dec.dataset.dec; if (inc) cart[id] = (cart[id] || 0) + 1; else { cart[id] = Math.max(0, (cart[id] || 0) - 1); if (!cart[id]) delete cart[id] } const y = window.scrollY; renderMenu(); renderOrder(); window.scrollTo(0, y) });
+$('revNote').addEventListener('input', renderReview);
+$('revClose').addEventListener('click', closeReview); $('revBack').addEventListener('click', closeReview);
+$('review').addEventListener('click', (e) => { if (e.target === $('review')) closeReview() });
+$('tables').addEventListener('click', (e) => { const b = e.target.closest('[data-table]'); if (!b) return; qrTable = Number(b.dataset.table); document.querySelectorAll('[data-table]').forEach(x => x.setAttribute('aria-pressed', String(Number(x.dataset.table) === qrTable))); renderQR() });
+['bName','bDate','bTime','bPeople','bSeat','bNote'].forEach(id => { $(id).addEventListener('input', renderBooking); $(id).addEventListener('change', renderBooking) });
+$('bookForm').addEventListener('submit', (e) => e.preventDefault());
+(function () { const d = new Date(); d.setDate(d.getDate() + 1); $('bDate').value = d.toISOString().slice(0, 10) })();
+
+/* ===== Pro: live menu state, table ordering, order tracking, app ===== */
+const API = 'https://nafetha-api.nafetha-web.workers.dev/rayhan';
+const catOf = Object.fromEntries(MENU.flatMap((c) => c.items.map((i) => [i.id, c.id])));
+ALL.forEach((i) => { i.bp = i.p });
+let liveSt = null, sendingNow = false;
+function toast(m) { const e = $('toast'); e.textContent = m; e.classList.add('on'); clearTimeout(e._t); e._t = setTimeout(() => e.classList.remove('on'), 2600) }
+function hhActive(st) {
+  const h = st && st.hh; if (!h || h.on === false) return false;
+  const n = new Date(), m = n.getHours() * 60 + n.getMinutes(), [a, b] = h.from.split(':').map(Number), [c, d] = h.to.split(':').map(Number), f = a * 60 + b, e = c * 60 + d;
+  return f <= e ? m >= f && m < e : m >= f || m < e;
+}
+function applySt(st) {
+  liveSt = st || {}; const out = new Set(liveSt.out || []), hh = hhActive(liveSt) ? liveSt.hh : null;
+  ALL.forEach((i) => {
+    i.p = i.bp; i.old = 0; i.hh = false; i.out = out.has(i.id);
+    const o = (liveSt.offers || {})[i.id]; if (o && (!o.until || o.until > Date.now())) { i.p = o.price; if (o.price < i.bp) i.old = i.bp }
+    if (hh && (!hh.cats.length || hh.cats.includes(catOf[i.id]))) { const np = Math.round(i.p * (1 - hh.pct / 100) * 2) / 2; if (np < i.p) { i.old = i.old || i.p; i.p = np; i.hh = true } }
+    if (i.out) delete cart[i.id];
+  });
+}
+try { const c = JSON.parse(localStorage.getItem('rh_state') || 'null'); if (c) applySt(c) } catch (e) {}
+async function loadSt() {
+  try { const r = await fetch(API + '/state', { cache: 'no-store' }); if (!r.ok) return; const st = await r.json(); try { localStorage.setItem('rh_state', JSON.stringify(st)) } catch (e) {} applySt(st); const y = scrollY; renderMenu(); renderOrder(); scrollTo(0, y) } catch (e) {}
+}
+function renderLive() {
+  const t = T[lang], st = liveSt || {};
+  const hh = hhActive(st) ? st.hh : null;
+  $('hhbar').hidden = !hh;
+  if (hh) $('hhbar').textContent = t.hhBar(hh.pct, hh.to, hh.cats.length ? hh.cats.map((k) => (MENU.find((c) => c.id === k) || {})[lang]).filter(Boolean).join(lang === 'ar' ? '، ' : ', ') : '');
+  const dd = st.dotd && ALL.find((i) => i.id === st.dotd.id);
+  $('dotd').hidden = !dd || dd.out;
+  if (dd && !dd.out) $('dotd').innerHTML = '<article class="dotd"><div class="ph">' + photo(dd.ph, 256, 256, dd[lang]) + '</div><div class="bd"><span class="k">' + t.dotdK + '</span><h3>' + dd[lang] + '</h3><p>' + (st.dotd.note || dd['d' + lang] || '') + '</p><div class="row">' + priceHTML(dd) + qtyHTML(dd) + '</div></div></article>';
+}
+$('dotd').addEventListener('click', onQty);
+
+/* my orders at this table */
+const MYK = 'rh_my_' + (tableFromHash || 0);
+const myOrders = () => { try { return (JSON.parse(localStorage.getItem(MYK) || '[]')).filter((o) => Date.now() - o.ts < 6 * 3600e3) } catch (e) { return [] } };
+const saveMine = (l) => { try { localStorage.setItem(MYK, JSON.stringify(l.slice(-10))) } catch (e) {} };
+function renderMine() { const l = myOrders(); $('myOrd').hidden = !l.length; $('myOrd').textContent = '📋 ' + T[lang].myOrders + (l.length ? ' (' + l.length + ')' : '') }
+async function sendKitchen() {
+  const t = T[lang]; if (sendingNow) return;
+  const lines = ALL.filter((i) => cart[i.id]); if (!lines.length) return;
+  sendingNow = true; renderReview();
+  try {
+    const r = await fetch(API + '/order', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ table: tableFromHash, note: $('revNote').value.trim(), items: lines.map((i) => ({ id: i.id, n: i.ar, q: cart[i.id], p: i.p })) }) });
+    const j = await r.json().catch(() => ({}));
+    if (r.status === 429) throw new Error('busy');
+    if (!r.ok || !j.id) throw new Error('net');
+    const l = myOrders(); l.push({ id: j.id, ts: Date.now(), items: lines.map((i) => [cart[i.id], i.id]), st: 'new' }); saveMine(l);
+    Object.keys(cart).forEach((k) => delete cart[k]); $('revNote').value = ''; sendingNow = false;
+    closeReview(); renderMenu(); renderOrder(); renderMine(); openTrack();
+  } catch (e) { sendingNow = false; renderReview(); toast(e.message === 'busy' ? t.busy : t.failSend) }
+}
+$('revSend').addEventListener('click', (e) => { if (tableFromHash) { e.preventDefault(); sendKitchen() } });
+const ORDER_ST = ['new', 'prep', 'ready', 'done'];
+async function pollMine(show) {
+  const l = myOrders(); if (!l.length) return; let changed = false;
+  await Promise.all(l.filter((o) => o.st !== 'done' && o.st !== 'cancel').map(async (o) => {
+    try { const r = await fetch(API + '/order?id=' + o.id, { cache: 'no-store' }); if (!r.ok) return; const j = await r.json(); if (j.status && j.status !== o.st) { if (j.status === 'ready') toast(T[lang].readyToast); o.st = j.status; changed = true } } catch (e) {}
+  }));
+  if (changed) saveMine(l);
+  if (show || changed) drawTrack();
+}
+function drawTrack() {
+  const t = T[lang], l = myOrders().slice().reverse();
+  $('trkTitle').textContent = t.trkTitle;
+  $('trkList').innerHTML = l.map((o, k) => { const n = ORDER_ST.indexOf(o.st);
+    return '<div class="o"><h4>' + t.orderN(l.length - k) + '<small>' + new Date(o.ts).toLocaleTimeString(lang === 'ar' ? 'ar-LB' : 'en-GB', { hour: '2-digit', minute: '2-digit' }) + '</small></h4><ul>' + o.items.map((x) => { const i = ALL.find((y) => y.id === x[1]); return '<li>' + x[0] + ' × ' + (i ? i[lang] : x[1]) + '</li>' }).join('') + '</ul>' +
+      (o.st === 'cancel' ? '' : '<div class="steps">' + ORDER_ST.map((s, q) => '<i class="' + (q <= n ? 'on' : '') + '"></i>').join('') + '</div>') + '<div class="st">' + (t.st[o.st] || '') + '</div></div>' }).join('');
+}
+let trkTimer = null;
+function openTrack() { drawTrack(); const d = $('track'); if (d.showModal) d.showModal(); else d.setAttribute('open', ''); pollMine(true); clearInterval(trkTimer); trkTimer = setInterval(() => pollMine(true), 5000) }
+function closeTrack() { const d = $('track'); clearInterval(trkTimer); if (d.open) { if (d.close) d.close(); else d.removeAttribute('open') } }
+$('trkClose').addEventListener('click', closeTrack);
+$('track').addEventListener('click', (e) => { if (e.target === $('track')) closeTrack() });
+$('track').addEventListener('close', () => clearInterval(trkTimer));
+$('myOrd').addEventListener('click', openTrack);
+if (tableFromHash) setInterval(() => { if (!$('track').open) pollMine(false) }, 20000);
+async function callStaff(kind, btn) {
+  btn.disabled = true; setTimeout(() => { btn.disabled = false }, 45000);
+  try { const r = await fetch(API + '/call', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ table: tableFromHash, kind }) }); if (!r.ok) throw 0; toast(kind === 'bill' ? T[lang].calledB : T[lang].calledW) }
+  catch (e) { btn.disabled = false; toast(T[lang].failSend) }
+}
+$('callW').addEventListener('click', (e) => callStaff('waiter', e.currentTarget));
+$('callB').addEventListener('click', (e) => callStaff('bill', e.currentTarget));
+
+/* installable app + offer notifications */
+const standalone = () => matchMedia('(display-mode: standalone)').matches || navigator.standalone === true;
+const isIOS = /iphone|ipad|ipod/i.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+let deferredI = null, pushMode = false;
+const VAPID = 'BLIk2-xpY5txJxFpohOpcAkAylEuvz2sWw_k2Heaj-YpJpqsVikbICDxLhsPFLsi7cI7SBsFCC7IuJ8xc_hVof0';
+const canPush = () => 'serviceWorker' in navigator && 'PushManager' in window && 'Notification' in window && Notification.permission !== 'denied' && (!isIOS || standalone());
+function appCard() {
+  let no = 0, on = false; try { no = +localStorage.getItem('rh_card_no') || 0; on = localStorage.getItem('rh_push') === '1' } catch (e) {}
+  const snooze = Date.now() - no < 3 * 864e5;
+  const showInstall = !standalone() && !tableFromHash && (deferredI || isIOS || /android/i.test(navigator.userAgent));
+  const showPush = !showInstall && canPush() && !(on && Notification.permission === 'granted');
+  pushMode = !showInstall && showPush;
+  $('appc').classList.toggle('on', !snooze && (showInstall || showPush));
+  const t = T[lang]; $('appT').textContent = pushMode ? t.pushT : t.appT; $('appS').textContent = pushMode ? t.pushS : t.appS; $('appGo').textContent = pushMode ? t.pushGo : t.appGo;
+}
+const u8 = (b) => { const p = '='.repeat((4 - b.length % 4) % 4), r = atob((b + p).replace(/-/g, '+').replace(/_/g, '/')); return Uint8Array.from([...r].map((c) => c.charCodeAt(0))) };
+async function subPush(silent) {
+  try {
+    if (!silent && (await Notification.requestPermission()) !== 'granted') { appCard(); return toast(T[lang].pushNo) }
+    const reg = await navigator.serviceWorker.ready;
+    const sub = (await reg.pushManager.getSubscription()) || (await reg.pushManager.subscribe({ userVisibleOnly: true, applicationServerKey: u8(VAPID) }));
+    await fetch(API + '/subscribe', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ endpoint: sub.endpoint }) });
+    try { localStorage.setItem('rh_push', '1') } catch (e) {}
+    $('appc').classList.remove('on'); if (!silent) toast(T[lang].pushOk);
+  } catch (e) { if (!silent) toast(T[lang].pushNo) }
+}
+$('appGo').addEventListener('click', async () => {
+  if (pushMode) return subPush(false);
+  if (deferredI) { deferredI.prompt(); const r = await deferredI.userChoice; deferredI = null; if (r && r.outcome === 'accepted') { toast(T[lang].appDone); hit('install') } appCard(); return }
+  toast(T[lang].iosHelp);
+});
+$('appNo').addEventListener('click', () => { try { localStorage.setItem('rh_card_no', Date.now()) } catch (e) {} $('appc').classList.remove('on'); toast(T[lang].later) });
+addEventListener('beforeinstallprompt', (e) => { e.preventDefault(); deferredI = e; appCard() });
+addEventListener('appinstalled', () => { hit('install'); appCard() });
+function devId() { let d = ''; try { d = localStorage.getItem('rh_dev') || ''; if (!d) { d = crypto.randomUUID ? crypto.randomUUID() : Date.now().toString(36) + Math.random().toString(36).slice(2); localStorage.setItem('rh_dev', d) } } catch (e) {} return d }
+function hit(type) {
+  const k = type === 'install' ? 'rh_inst' : 'rh_open_' + new Date().toDateString();
+  try { if (localStorage.getItem(k)) return; localStorage.setItem(k, '1') } catch (e) { return }
+  const d = devId(); if (d.length >= 8) fetch(API + '/hit', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ type, dev: d }), keepalive: true }).catch(() => {});
+}
+if (standalone()) { hit('install'); hit('open') }
+try { if (localStorage.getItem('rh_push') === '1' && 'Notification' in window && Notification.permission === 'granted' && 'serviceWorker' in navigator) subPush(true) } catch (e) {}
+if ('serviceWorker' in navigator && (location.protocol === 'https:' || location.hostname === 'localhost')) addEventListener('load', () => navigator.serviceWorker.register('sw.js').catch(() => {}));
+
+renderAll();
+appCard();
+loadSt(); setInterval(loadSt, 60000); document.addEventListener('visibilitychange', () => { if (!document.hidden) loadSt() });
+</script>
+</body>
+</html>
