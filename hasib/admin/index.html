@@ -58,6 +58,7 @@ h1, h2, h3 { font-family: var(--hf); margin: 0 }
 .top { position: sticky; top: 0; z-index: 20; background: var(--brand-2); color: #fff; padding: 12px 0 }
 .top .wrap { display: flex; align-items: center; gap: 10px }
 .top h1 { font-size: 17px; flex: 1; min-width: 0 }
+@media (max-width: 560px) { .top .wrap { flex-wrap: wrap; row-gap: 8px } .top h1 { flex: 1 0 100% } .top .inst { display: none !important } }
 .top h1 small { display: block; font-family: var(--bf); font-weight: 400; font-size: 12px; opacity: .75 }
 .top a, .top button { color: #fff; font-size: 13px; font-weight: 600; border: 1px solid rgba(255,255,255,.3); border-radius: 99px; padding: 6px 12px; text-decoration: none; white-space: nowrap }
 .stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin: 16px 0 }
@@ -147,6 +148,7 @@ h1, h2, h3 { font-family: var(--hf); margin: 0 }
 .pushb i { font-style: normal; font-size: 24px; width: 42px; height: 42px; border-radius: 12px; background: rgba(255,255,255,.18); display: grid; place-items: center; flex: none }
 .pushb b { display: block; font-family: var(--hf); font-size: 15.5px }
 .pushb small { opacity: .85; font-size: 12.5px }
+.appb { background: linear-gradient(135deg, var(--brand), var(--brand-2)) }
 textarea.fld { height: 96px; padding: 12px 14px; resize: none; line-height: 1.5 }
 .sugg { display: grid; gap: 6px; margin-top: 8px }
 .sugg button { text-align: start; background: var(--card); border: 1px dashed var(--line); border-radius: 12px; padding: 8px 12px; font-size: 13.5px }
@@ -177,6 +179,7 @@ textarea.fld { height: 96px; padding: 12px 14px; resize: none; line-height: 1.5 
   <header class="top"><div class="wrap"><h1>لوحة حسيب مهتار سوبر ماركت<small id="upd">…</small></h1><a href="../" target="_blank" rel="noopener">شوف الموقع ↗</a><button type="button" class="inst" data-inst hidden>📲 نزّل التطبيق</button><button type="button" id="outB">خروج</button></div></header>
   <main class="wrap">
     <div class="stats"><div class="stat o"><b class="num" id="sOff">0</b><span>عروض شغّالة</span></div><div class="stat"><b class="num" id="sOut">0</b><span>خلصانين</span></div><button type="button" class="stat sbtn" id="statsB"><b>📊</b><span>الإحصائيات</span></button></div>
+    <button type="button" class="pushb appb" data-inst hidden><i>📲</i><span><b>نزّل تطبيق اللوحة</b><small>أيقونة على شاشتك، بلا ما تدوّر على الرابط</small></span></button>
     <button type="button" class="pushb" id="pushB"><i>📣</i><span><b>ابعت إشعار للزبائن</b><small>بيوصل لكل يلي فعّلوا الإشعارات بالتطبيق</small></span></button>
     <div class="tabs" role="group" aria-label="filter"><button type="button" data-tab="all" aria-pressed="true">الكل</button><button type="button" data-tab="off" aria-pressed="false">العروض</button><button type="button" data-tab="out" aria-pressed="false">خلصانين</button></div>
     <div class="srch"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg><input class="fld" id="q" type="search" placeholder="دوّر على منتج…"></div>
