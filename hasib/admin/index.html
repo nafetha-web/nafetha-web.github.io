@@ -1,0 +1,335 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>لوحة التحكّم | حسيب مختار سوبر ماركت</title>
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#123F20">
+<link rel="icon" href="../img/icon-192.png" type="image/png">
+<link rel="apple-touch-icon" href="../img/icon-180.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Readex+Pro:wght@500;600;700&family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&display=swap">
+<style>
+:root {
+  --bg: #F5F3EC; --card: #FFFFFF; --ink: #16211A; --mute: #66726A; --line: #E4E1D6;
+  --brand: #1B5E30; --brand-2: #123F20; --mint: #E5F1E9; --tomato: #E5482D; --sun: #F3B53A; --sun-soft: #FDF3DC;
+  --hf: 'Readex Pro', 'IBM Plex Sans Arabic', system-ui, sans-serif; --bf: 'IBM Plex Sans Arabic', system-ui, sans-serif;
+}
+* { box-sizing: border-box }
+html { -webkit-text-size-adjust: 100% }
+body { margin: 0; background: var(--bg); color: var(--ink); font-family: var(--bf); font-size: 15px; line-height: 1.5 }
+button, input, textarea { font: inherit; color: inherit }
+[hidden] { display: none !important }
+@media (max-width: 520px) { .top .wrap { flex-wrap: wrap; row-gap: 8px } .top h1 { flex-basis: 100% } }
+button { background: none; border: 0; cursor: pointer; padding: 0 }
+h1, h2, h3 { font-family: var(--hf); margin: 0 }
+.num { font-variant-numeric: tabular-nums }
+.wrap { max-width: 760px; margin: 0 auto; padding: 0 16px }
+:focus-visible { outline: 3px solid var(--sun); outline-offset: 2px }
+
+/* login */
+.login { min-height: 100vh; display: grid; place-items: center; padding: 24px 16px }
+.lbox { width: 100%; max-width: 380px; background: var(--card); border: 1px solid var(--line); border-radius: 24px; padding: 28px 22px; text-align: center; box-shadow: 0 20px 40px -28px rgba(20,81,47,.5) }
+.lbox svg { margin: 0 auto 10px; display: block }
+.lbox h1 { font-size: 22px }
+.lbox p { color: var(--mute); margin: 6px 0 18px; font-size: 14px }
+.fld { width: 100%; height: 50px; border-radius: 14px; border: 1.5px solid var(--line); background: var(--bg); padding: 0 14px; font-size: 16px }
+.fld:focus { border-color: var(--brand); outline: 0; background: #fff }
+.btn { width: 100%; height: 50px; border-radius: 14px; background: var(--brand); color: #fff; font-weight: 700; font-size: 16px; margin-top: 12px; display: flex; align-items: center; justify-content: center; gap: 8px }
+.btn:disabled { opacity: .6 }
+.btn.ghost { background: var(--mint); color: var(--brand-2) }
+.btn.red { background: #FCE9E5; color: #B8321C }
+.err { color: #B8321C; font-size: 13.5px; min-height: 20px; margin-top: 8px }
+
+/* app */
+.top { position: sticky; top: 0; z-index: 20; background: var(--brand-2); color: #fff; padding: 12px 0 }
+.top .wrap { display: flex; align-items: center; gap: 10px }
+.top h1 { font-size: 17px; flex: 1; min-width: 0 }
+.top h1 small { display: block; font-family: var(--bf); font-weight: 400; font-size: 12px; opacity: .75 }
+.top a, .top button { color: #fff; font-size: 13px; font-weight: 600; border: 1px solid rgba(255,255,255,.3); border-radius: 99px; padding: 6px 12px; text-decoration: none; white-space: nowrap }
+.stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin: 16px 0 }
+.stat { background: var(--card); border: 1px solid var(--line); border-radius: 16px; padding: 12px; text-align: center }
+.stat b { display: block; font-family: var(--hf); font-size: 24px; line-height: 1.1 }
+.stat span { font-size: 12px; color: var(--mute) }
+.stat.o b { color: var(--tomato) }
+.sbtn { border: 1.5px solid var(--brand); background: var(--mint); color: var(--brand-2); font-weight: 600; width: 100% }
+.sbtn b { font-size: 22px; line-height: 1.2 }
+.sbtn span { color: var(--brand-2) !important; font-weight: 600 }
+/* stats drawer */
+.dr { position: fixed; z-index: 41; top: 0; bottom: 0; inset-inline-end: 0; width: min(360px, 88vw); background: var(--bg); box-shadow: 0 0 40px rgba(0,0,0,.25); transform: translateX(-105%); transition: transform .3s cubic-bezier(.2,.8,.2,1); overflow: auto; padding: 18px 16px calc(18px + env(safe-area-inset-bottom, 0px)) }
+[dir=ltr] .dr { transform: translateX(105%) }
+.dr.on { transform: none !important }
+.dr .dh { display: flex; align-items: center; justify-content: space-between; margin-bottom: 14px }
+.dr .dh h2 { font-size: 20px }
+.dr .x { width: 38px; height: 38px; border-radius: 99px; background: var(--card); border: 1px solid var(--line); font-size: 20px }
+.kc { background: var(--card); border: 1px solid var(--line); border-radius: 18px; padding: 14px; margin-bottom: 10px; display: flex; align-items: center; gap: 12px }
+.kc i { font-style: normal; font-size: 22px; width: 46px; height: 46px; border-radius: 14px; background: var(--mint); display: grid; place-items: center; flex: none }
+.kc b { display: block; font-family: var(--hf); font-size: 28px; line-height: 1.1 }
+.kc span { color: var(--mute); font-size: 13px }
+.kg { background: var(--card); border: 1px solid var(--line); border-radius: 18px; padding: 14px; margin-bottom: 10px }
+.kg h3 { font-size: 15px; margin-bottom: 10px; display: flex; align-items: center; gap: 8px }
+.kg .r3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; text-align: center }
+.kg .r3 div { background: var(--bg); border-radius: 12px; padding: 10px 4px }
+.kg .r3 b { display: block; font-family: var(--hf); font-size: 22px; color: var(--brand) }
+.kg .r3 span { font-size: 11.5px; color: var(--mute); line-height: 1.3; display: block }
+.dnote { font-size: 12.5px; color: var(--mute); margin: 6px 4px 14px; line-height: 1.6 }
+.tabs { display: grid; grid-template-columns: repeat(3, 1fr); background: #EAE7DD; border-radius: 14px; padding: 4px; gap: 4px }
+.tabs button { height: 40px; border-radius: 11px; font-weight: 600; font-size: 14px; color: var(--mute) }
+.tabs button[aria-pressed="true"] { background: #fff; color: var(--ink); box-shadow: 0 2px 6px -3px rgba(0,0,0,.25) }
+.srch { position: relative; margin: 12px 0 8px }
+.srch input { padding-inline-start: 42px }
+.srch svg { position: absolute; top: 15px; inset-inline-start: 14px; color: var(--mute) }
+.chips { display: flex; gap: 6px; overflow-x: auto; scrollbar-width: none; margin: 0 -16px 10px; padding: 0 16px }
+.chips::-webkit-scrollbar { display: none }
+.chips button { flex: none; border: 1px solid var(--line); background: var(--card); border-radius: 99px; padding: 5px 12px; font-size: 13px; font-weight: 500; white-space: nowrap }
+.chips button.on { background: var(--ink); color: #fff; border-color: var(--ink) }
+.list { display: grid; gap: 8px; padding-bottom: 40px }
+.row { display: flex; align-items: center; gap: 12px; background: var(--card); border: 1px solid var(--line); border-radius: 16px; padding: 8px; text-align: start; width: 100% }
+.row img { width: 54px; height: 54px; border-radius: 12px; object-fit: cover; flex: none; background: var(--mint) }
+.row .tx { flex: 1; min-width: 0 }
+.row b { display: block; font-weight: 600; font-size: 14.5px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis }
+.row small { color: var(--mute); font-size: 12.5px }
+.row .st { display: flex; flex-direction: column; align-items: flex-end; gap: 4px; flex: none }
+.tag { font-size: 11.5px; font-weight: 700; border-radius: 99px; padding: 2px 9px; white-space: nowrap }
+.tag.off { background: var(--tomato); color: #fff }
+.tag.out { background: var(--ink); color: #fff }
+.tag.chg { background: var(--sun-soft); color: #8A5A00 }
+.tag.time { background: var(--bg); color: var(--mute); font-weight: 500 }
+.row s { color: var(--mute); font-size: 12px }
+.row .np { font-family: var(--hf); font-weight: 700; color: var(--brand-2) }
+.empty { text-align: center; color: var(--mute); padding: 40px 10px }
+.clearall { margin: 4px 0 12px }
+
+/* sheet */
+.ov { position: fixed; inset: 0; z-index: 40; background: rgba(15,22,17,.45); opacity: 0; pointer-events: none; transition: opacity .25s }
+.ov.on { opacity: 1; pointer-events: auto }
+.sheet { position: fixed; z-index: 41; inset-inline: 0; bottom: 0; max-height: 92vh; overflow: auto; background: var(--bg); border-radius: 24px 24px 0 0; padding: 18px 18px calc(18px + env(safe-area-inset-bottom, 0px)); transform: translateY(105%); transition: transform .3s cubic-bezier(.2,.8,.2,1) }
+.sheet.on { transform: none }
+@media (min-width: 700px) { .sheet { inset-inline: auto; left: 50%; width: 520px; bottom: 50%; border-radius: 24px; transform: translate(-50%, 60%); opacity: 0; pointer-events: none; transition: transform .3s, opacity .25s } .sheet.on { transform: translate(-50%, 50%); opacity: 1; pointer-events: auto } }
+.ph { display: flex; align-items: center; gap: 12px; margin-bottom: 14px }
+.ph img { width: 64px; height: 64px; border-radius: 14px; object-fit: cover }
+.ph div { flex: 1; min-width: 0 }
+.ph h3 { font-size: 17px }
+.ph small { color: var(--mute) }
+.ph .x { width: 38px; height: 38px; border-radius: 99px; background: var(--card); border: 1px solid var(--line); font-size: 20px; flex: none }
+.lbl { font-weight: 600; font-size: 14px; margin: 14px 0 6px; display: block }
+.pin { position: relative }
+.pin input { padding-inline-end: 40px; font-family: var(--hf); font-size: 20px; font-weight: 700; direction: ltr; text-align: right }
+.pin span { position: absolute; top: 13px; inset-inline-end: 14px; color: var(--mute); font-weight: 700 }
+.hint { font-size: 12.5px; color: var(--mute); margin-top: 6px; min-height: 18px }
+.hint b { color: var(--tomato) }
+.qs { display: flex; flex-wrap: wrap; gap: 6px }
+.qs button { border: 1.5px solid var(--line); background: var(--card); border-radius: 12px; padding: 7px 12px; font-weight: 600; font-size: 13.5px }
+.qs button.on { border-color: var(--brand); background: var(--mint); color: var(--brand-2) }
+.sw { display: flex; align-items: center; justify-content: space-between; gap: 12px; background: var(--card); border: 1px solid var(--line); border-radius: 14px; padding: 12px 14px; margin-top: 16px; width: 100%; text-align: start }
+.sw small { display: block; color: var(--mute); font-size: 12.5px }
+.sw i { width: 46px; height: 28px; border-radius: 99px; background: var(--line); position: relative; flex: none; transition: background .2s }
+.sw i::after { content: ""; position: absolute; top: 3px; inset-inline-start: 3px; width: 22px; height: 22px; border-radius: 99px; background: #fff; transition: inset-inline-start .2s; box-shadow: 0 1px 3px rgba(0,0,0,.25) }
+.sw[aria-pressed="true"] i { background: var(--ink) }
+.sw[aria-pressed="true"] i::after { inset-inline-start: 21px }
+.acts { display: grid; gap: 8px; margin-top: 16px }
+.toast { position: fixed; z-index: 80; left: 50%; bottom: calc(24px + env(safe-area-inset-bottom, 0px)); transform: translate(-50%, 20px); background: var(--ink); color: #fff; padding: 10px 16px; border-radius: 99px; font-size: 14px; font-weight: 600; opacity: 0; pointer-events: none; transition: .25s; white-space: nowrap }
+.toast.on { opacity: 1; transform: translate(-50%, 0) }
+.pushb { width: 100%; display: flex; align-items: center; gap: 12px; background: linear-gradient(135deg, #E5482D, #C2381F); color: #fff; border-radius: 16px; padding: 12px 14px; margin-bottom: 14px; text-align: start }
+.pushb i { font-style: normal; font-size: 24px; width: 42px; height: 42px; border-radius: 12px; background: rgba(255,255,255,.18); display: grid; place-items: center; flex: none }
+.pushb b { display: block; font-family: var(--hf); font-size: 15.5px }
+.pushb small { opacity: .85; font-size: 12.5px }
+textarea.fld { height: 96px; padding: 12px 14px; resize: none; line-height: 1.5 }
+.sugg { display: grid; gap: 6px; margin-top: 8px }
+.sugg button { text-align: start; background: var(--card); border: 1px dashed var(--line); border-radius: 12px; padding: 8px 12px; font-size: 13.5px }
+.prev { background: #2B2F2C; border-radius: 18px; padding: 12px; margin-top: 14px; display: flex; gap: 10px; align-items: flex-start; color: #fff }
+.prev img { width: 38px; height: 38px; border-radius: 10px }
+.prev b { display: block; font-size: 14px }
+.prev span { font-size: 13px; opacity: .85; display: block; white-space: pre-wrap }
+.prev small { font-size: 11px; opacity: .55 }
+.demo { background: var(--sun); color: var(--ink); font-size: 12.5px; text-align: center; padding: 6px 12px; font-weight: 600 }
+</style>
+<script src="../../shared/panel-i18n.js"></script>
+</head>
+<body>
+
+<section class="login" id="loginV">
+  <form class="lbox" id="loginF">
+    <img src="../img/logo-160.png" alt="" width="72" height="72" style="border-radius:50%;margin-inline:auto">
+    <h1>لوحة حسيب مختار سوبر ماركت</h1>
+    <p>العروض والأسعار والمخزن، من تلفونك.</p>
+    <input class="fld" id="pass" type="password" autocomplete="current-password" placeholder="كلمة السر" required>
+    <button class="btn" id="loginB" type="submit">دخول</button>
+    <div class="err" id="loginE" role="alert"></div>
+  </form>
+</section>
+
+<div id="appV" hidden>
+  <header class="top"><div class="wrap"><h1>لوحة حسيب مختار سوبر ماركت<small id="upd">…</small></h1><a href="../" target="_blank" rel="noopener">شوف الموقع ↗</a><button type="button" id="outB">خروج</button></div></header>
+  <main class="wrap">
+    <div class="stats"><div class="stat o"><b class="num" id="sOff">0</b><span>عروض شغّالة</span></div><div class="stat"><b class="num" id="sOut">0</b><span>خلصانين</span></div><button type="button" class="stat sbtn" id="statsB"><b>📊</b><span>الإحصائيات</span></button></div>
+    <button type="button" class="pushb" id="pushB"><i>📣</i><span><b>ابعت إشعار للزبائن</b><small>بيوصل لكل يلي فعّلوا الإشعارات بالتطبيق</small></span></button>
+    <div class="tabs" role="group" aria-label="filter"><button type="button" data-tab="all" aria-pressed="true">الكل</button><button type="button" data-tab="off" aria-pressed="false">العروض</button><button type="button" data-tab="out" aria-pressed="false">خلصانين</button></div>
+    <div class="srch"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg><input class="fld" id="q" type="search" placeholder="دوّر على منتج…"></div>
+    <div class="chips" id="chips"></div>
+    <div id="clearW"></div>
+    <div class="list" id="list"></div>
+  </main>
+</div>
+
+<div class="ov" id="ov"></div>
+<aside class="dr" id="dr" aria-labelledby="drH" aria-hidden="true"><div class="dh"><h2 id="drH">📊 الإحصائيات</h2><button type="button" class="x" id="drX" aria-label="close">×</button></div><div id="drB"></div><button type="button" class="btn ghost" id="drR">حدّث الأرقام</button></aside>
+<section class="sheet" id="ed" role="dialog" aria-modal="true" aria-labelledby="edH"></section>
+<div class="toast" id="toast" role="status"></div>
+
+<script src="../data.js"></script>
+<script>
+const API = 'https://nafetha-api.nafetha-web.workers.dev/hasib';
+const $ = (s) => document.querySelector(s), $$ = (s) => [...document.querySelectorAll(s)];
+P.forEach((p) => { p.img = '../' + p.img; p.base = p.old || p.p });
+let usage = null, subs = null, pass = '', st = { offers: {}, out: [] }, tab = 'all', cat = 'all', q = '', cur = null;
+try { pass = localStorage.getItem('hs_admin') || '' } catch (e) {}
+
+const usd = (n) => '$' + (Math.round(n * 100) / 100).toFixed(2);
+const norm = (s) => s.toLowerCase().replace(/[أإآ]/g, 'ا').replace(/ة/g, 'ه').replace(/ى/g, 'ي');
+function toast(m) { const e = $('#toast'); e.textContent = m; e.classList.add('on'); clearTimeout(e._t); e._t = setTimeout(() => e.classList.remove('on'), 2400) }
+const live = (id) => { const o = st.offers[id]; return o && (!o.until || o.until > Date.now()) ? o : null };
+function left(u) { const s = Math.max(0, u - Date.now()) / 1000, d = Math.floor(s / 86400), h = Math.floor(s % 86400 / 3600), m = Math.floor(s % 3600 / 60); return d ? 'باقي ' + d + ' يوم' + (h ? ' و' + h + ' س' : '') : h ? 'باقي ' + h + ' س' + (m ? ' و' + m + ' د' : '') : 'باقي ' + m + ' د' }
+
+async function api(path, opt) {
+  const r = await fetch(API + path, Object.assign({ cache: 'no-store' }, opt, { headers: Object.assign({ 'Content-Type': 'application/json', Authorization: 'Bearer ' + pass }, (opt && opt.headers) || {}) }));
+  if (r.status === 401) { logout(); throw new Error('auth') }
+  if (!r.ok) throw new Error('net');
+  return r.json();
+}
+async function pull() { st = await api('/state'); st.offers = st.offers || {}; st.out = st.out || []; render(); try { usage = await api('/stats'); subs = usage.subs; render() } catch (e) {} }
+
+/* login */
+$('#loginF').addEventListener('submit', async (e) => {
+  e.preventDefault(); const b = $('#loginB'); b.disabled = true; $('#loginE').textContent = '';
+  pass = $('#pass').value.trim();
+  try { const r = await fetch(API + '/login', { method: 'POST', headers: { Authorization: 'Bearer ' + pass } }); if (!r.ok) throw 0; try { localStorage.setItem('hs_admin', pass) } catch (e) {} enter() }
+  catch (e) { $('#loginE').textContent = 'كلمة السر غلط، جرّب مرّة تانية'; pass = '' }
+  b.disabled = false;
+});
+function logout() { pass = ''; try { localStorage.removeItem('hs_admin') } catch (e) {} $('#appV').hidden = true; $('#loginV').hidden = false }
+$('#outB').addEventListener('click', logout);
+async function enter() { $('#loginV').hidden = true; $('#appV').hidden = false; render(); try { await pull() } catch (e) { if (e.message !== 'auth') toast('ما في إنترنت، جرّب بعد شوي') } }
+
+/* list */
+function render() {
+  const nOff = P.filter((p) => live(p.id)).length, nOut = st.out.length;
+  $('#sOff').textContent = nOff; $('#sOut').textContent = nOut;
+  if ($('#dr').classList.contains('on')) drawDr();
+  $('#upd').textContent = st.updated ? 'آخر تحديث: ' + new Date(st.updated).toLocaleString('ar-LB', { weekday: 'long', hour: 'numeric', minute: '2-digit' }) : 'ما في تعديلات بعد';
+  $$('.tabs button').forEach((b) => { b.setAttribute('aria-pressed', String(b.dataset.tab === tab)); if (b.dataset.tab === 'off') b.textContent = 'العروض' + (nOff ? ' (' + nOff + ')' : ''); if (b.dataset.tab === 'out') b.textContent = 'خلصانين' + (nOut ? ' (' + nOut + ')' : '') });
+  $('#chips').innerHTML = [{ k: 'all', ar: 'كل الأقسام' }, ...CATS].map((c) => '<button type="button" data-cat="' + c.k + '" class="' + (cat === c.k ? 'on' : '') + '">' + c.ar + '</button>').join('');
+  $('#clearW').innerHTML = tab === 'off' && nOff ? '<button type="button" class="btn red clearall" id="clearAll">شيل كل العروض</button>' : '';
+  const nq = norm(q.trim());
+  const L = P.filter((p) => (cat === 'all' || p.c === cat) && (!nq || norm(p.ar + ' ' + p.en + ' ' + p.kw).includes(nq)) && (tab === 'all' || (tab === 'off' ? live(p.id) : st.out.includes(p.id))));
+  $('#list').innerHTML = L.length ? L.map((p) => {
+    const o = live(p.id), out = st.out.includes(p.id), unit = p.kg ? 'بالكيلو' : p.uar;
+    const price = o ? '<span class="np num">' + usd(o.price) + '</span> ' + (o.price < p.base ? '<s class="num">' + usd(p.base) + '</s>' : '') : '<span class="num">' + usd(p.base) + '</span>';
+    const tags = (out ? '<span class="tag out">خلص</span>' : '') + (o ? (o.price < p.base ? '<span class="tag off">-' + Math.round((1 - o.price / p.base) * 100) + '%</span>' : '<span class="tag chg">سعر جديد</span>') + (o.until ? '<span class="tag time">' + left(o.until) + '</span>' : '') : '');
+    return '<button type="button" class="row" data-id="' + p.id + '"><img src="' + p.img + '" alt="" loading="lazy"><span class="tx"><b>' + p.ar + '</b><small>' + unit + ' · ' + price + '</small></span><span class="st">' + tags + '</span></button>';
+  }).join('') : '<div class="empty">' + (tab === 'off' ? 'ما في عروض شغّالة. اكبس على أي منتج لتعمل عرض.' : tab === 'out' ? 'كل المنتجات متوفّرة 👌' : 'ما لقينا شي') + '</div>';
+}
+document.addEventListener('click', (e) => {
+  const b = e.target.closest('button'); if (!b) return;
+  if (b.dataset.tab) { tab = b.dataset.tab; render() }
+  else if (b.dataset.cat) { cat = b.dataset.cat; render() }
+  else if (b.dataset.id) openEd(b.dataset.id);
+  else if (b.id === 'pushB') openNt();
+  else if (b.id === 'statsB') openDr();
+  else if (b.id === 'drX') closeDr();
+  else if (b.id === 'drR') { b.disabled = true; b.textContent = 'عم يحدّث…'; api('/stats').then((u) => { usage = u; subs = u.subs; drawDr() }).catch(() => toast('ما زبط، جرّب بعد شوي')).finally(() => { b.disabled = false; b.textContent = 'حدّث الأرقام' }) }
+  else if (b.id === 'clearAll') { if (confirm('أكيد بدّك تشيل كل العروض؟')) save((s) => { s.offers = {} }, 'انشالت كل العروض') }
+});
+$('#q').addEventListener('input', (e) => { q = e.target.value; render() });
+
+/* editor */
+const DUR = [['day', 'لآخر اليوم'], ['tom', 'لبكرا بالليل'], ['d3', '3 أيام'], ['wk', 'أسبوع'], ['none', 'بلا وقت']];
+function untilOf(k) { const d = new Date(); if (k === 'none') return null; if (k === 'day') { d.setHours(23, 59, 0, 0); return +d } if (k === 'tom') { d.setDate(d.getDate() + 1); d.setHours(23, 59, 0, 0); return +d } return Date.now() + (k === 'd3' ? 3 : 7) * 864e5 }
+function openEd(id) {
+  const p = byId[id], o = live(id);
+  cur = { id, price: o ? String(o.price) : '', dur: o ? (o.until ? 'keep' : 'none') : 'day', out: st.out.includes(id), had: !!o };
+  drawEd(); $('#ov').classList.add('on'); $('#ed').classList.add('on'); document.body.style.overflow = 'hidden';
+}
+function drawEd() {
+  const p = byId[cur.id], pr = parseFloat(cur.price), pct = pr > 0 && pr < p.base ? Math.round((1 - pr / p.base) * 100) : 0;
+  const durs = (cur.dur === 'keep' ? [['keep', left(live(cur.id).until)]] : []).concat(DUR);
+  $('#ed').innerHTML = '<div class="ph"><img src="' + p.img + '" alt=""><div><h3 id="edH">' + p.ar + '</h3><small>' + (p.kg ? 'بالكيلو' : p.uar) + ' · السعر العادي <b class="num">' + usd(p.base) + '</b></small></div><button type="button" class="x" data-close aria-label="close">×</button></div>' +
+    '<label class="lbl" for="np">سعر العرض</label><div class="pin"><input class="fld num" id="np" inputmode="decimal" placeholder="' + p.base + '" value="' + cur.price + '"><span>$</span></div>' +
+    '<div class="hint" id="hint">' + (pct ? 'الزبون رح يشوف <b>-' + pct + '%</b> عالمنتج' : pr >= p.base ? 'هيدا تغيير سعر، مش عرض' : 'اكتب السعر أو اختار خصم:') + '</div>' +
+    '<div class="qs">' + [10, 15, 20, 25, 30].map((d) => '<button type="button" data-pct="' + d + '" class="' + (pct === d ? 'on' : '') + '">-' + d + '%</button>').join('') + '</div>' +
+    '<span class="lbl">لأيمتى؟</span><div class="qs">' + durs.map((d) => '<button type="button" data-dur="' + d[0] + '" class="' + (cur.dur === d[0] ? 'on' : '') + '">' + d[1] + '</button>').join('') + '</div>' +
+    '<button type="button" class="sw" data-out aria-pressed="' + cur.out + '"><span><b>خلص من المخزن</b><small>بيطلع «خلص» عالموقع وما حدا بيقدر يطلبو</small></span><i></i></button>' +
+    '<div class="acts"><button type="button" class="btn" data-save>نشر عالموقع</button>' + (cur.had ? '<button type="button" class="btn red" data-stop>شيل العرض</button>' : '') + '</div>';
+}
+function drawDr() {
+  const u = usage, v = (x) => (u ? x : '…');
+  const since = u && u.since ? new Date(u.since).toLocaleDateString('ar-LB', { day: 'numeric', month: 'long', year: 'numeric' }) : '';
+  $('#drB').innerHTML = '<div class="kc"><i>🔔</i><div><b class="num">' + v(u && u.subs) + '</b><span>مشتركين بالإشعارات</span></div></div>' +
+    '<div class="kc"><i>📲</i><div><b class="num">' + v(u && u.installs) + '</b><span>نزّلوا التطبيق على تلفونهم</span></div></div>' +
+    '<div class="kg"><h3>👆 فاتوا من التطبيق</h3><div class="r3"><div><b class="num">' + v(u && u.today) + '</b><span>اليوم</span></div><div><b class="num">' + v(u && u.week) + '</b><span>آخر 7 أيام</span></div><div><b class="num">' + v(u && u.total) + '</b><span>من أول ما اشتغل التطبيق</span></div></div></div>' +
+    '<p class="dnote">' + (since ? 'التطبيق شغّال من ' + since + '. ' : '') + 'كل زبون بينحسب مرّة وحدة باليوم، حتى لو فات أكتر من مرّة. «من أول ما اشتغل» هوّي مجموع الزيارات اليومية كلها.</p>';
+}
+function openDr() { drawDr(); $('#dr').classList.add('on'); $('#dr').setAttribute('aria-hidden', 'false'); $('#ov').classList.add('on'); document.body.style.overflow = 'hidden'; api('/stats').then((u) => { usage = u; subs = u.subs; drawDr() }).catch(() => {}) }
+function closeDr() { $('#dr').classList.remove('on'); $('#dr').setAttribute('aria-hidden', 'true'); $('#ov').classList.remove('on'); document.body.style.overflow = '' }
+function closeEd() { $('#ov').classList.remove('on'); $('#ed').classList.remove('on'); document.body.style.overflow = ''; cur = null; nt = null }
+/* notification composer */
+let nt = null;
+function suggestions() {
+  const offs = P.filter((p) => { const o = live(p.id); return o && o.price < p.base }).map((p) => { const o = live(p.id); return '🔥 ' + p.ar + ' بـ ' + usd(o.price) + ' بدل ' + usd(p.base) + (o.until ? (o.until - Date.now() < 864e5 ? '، بس لليوم!' : '، لفترة محدودة') : '') });
+  const out = offs.slice(0, 3);
+  if (offs.length > 1) out.unshift('🔥 عروض اليوم نزلت! ' + offs.length + ' أصناف بأسعار مخفّضة، شوفها قبل ما تخلص');
+  out.push('🥬 الخضرة الطازجة وصلت هلّق، اطلب وبتوصلك خلال 45 دقيقة');
+  return out;
+}
+function openNt() { nt = { title: 'حسيب مختار سوبر ماركت', body: '' }; drawNt(); $('#ov').classList.add('on'); $('#ed').classList.add('on'); document.body.style.overflow = 'hidden' }
+function drawNt() {
+  $('#ed').innerHTML = '<div class="ph"><div><h3 id="edH">📣 إشعار للزبائن</h3><small>' + (subs ? 'رح يوصل لـ ' + subs + ' زبون' : 'ما في مشتركين بعد. بس يفعّلوا الإشعارات بالتطبيق بيوصلهم') + '</small></div><button type="button" class="x" data-close aria-label="close">×</button></div>' +
+    '<label class="lbl" for="ntT">العنوان</label><input class="fld" id="ntT" maxlength="60" value="' + nt.title.replace(/"/g, '&quot;') + '">' +
+    '<label class="lbl" for="ntB">الرسالة</label><textarea class="fld" id="ntB" maxlength="200" placeholder="مثلًا: 🔥 الزيت بـ 8$ بس لليوم!">' + nt.body.replace(/</g, '&lt;') + '</textarea>' +
+    '<span class="lbl">اقتراحات جاهزة</span><div class="sugg">' + suggestions().map((x, i) => '<button type="button" data-sg="' + i + '">' + x + '</button>').join('') + '</div>' +
+    '<div class="prev" aria-hidden="true"><img src="../img/icon-192.png" alt=""><div><b id="pvT">' + nt.title + '</b><span id="pvB">' + (nt.body || 'نص الإشعار رح يطلع هون') + '</span><small>هلّق</small></div></div>' +
+    '<div class="acts"><button type="button" class="btn" data-send>ابعت الإشعار</button></div>';
+}
+$('#ed').addEventListener('input', (e) => { if (!nt) return; if (e.target.id === 'ntT') { nt.title = e.target.value; $('#pvT').textContent = nt.title } if (e.target.id === 'ntB') { nt.body = e.target.value; $('#pvB').textContent = nt.body || 'نص الإشعار رح يطلع هون' } });
+$('#ed').addEventListener('click', async (e) => {
+  const b = e.target.closest('button'); if (!b || !nt) return;
+  if ('close' in b.dataset) return closeEd();
+  if (b.dataset.sg) { nt.body = suggestions()[+b.dataset.sg]; drawNt() }
+  else if ('send' in b.dataset) {
+    if (!nt.body.trim()) { $('#ntB').focus(); return toast('اكتب نص الإشعار') }
+    b.disabled = true; b.textContent = 'عم يبعت…';
+    try { let cursor = null, sent = 0, first = true; do { const r = await api('/push', { method: 'POST', body: JSON.stringify(first ? { title: nt.title, body: nt.body, url: './?source=push' } : { cursor }) }); sent += r.sent; cursor = r.cursor; first = false } while (cursor); closeEd(); toast(sent ? 'انبعت ✓ لـ ' + sent + ' زبون' : 'انحفظ ✓ بس ما في مشتركين بعد') }
+    catch (err) { b.disabled = false; b.textContent = 'ابعت الإشعار'; if (err.message !== 'auth') toast('ما زبط، جرّب مرّة تانية') }
+  }
+});
+$('#ov').addEventListener('click', () => { if ($('#dr').classList.contains('on')) closeDr(); else closeEd() });
+document.addEventListener('keydown', (e) => { if (e.key !== 'Escape') return; if ($('#dr').classList.contains('on')) closeDr(); else if (cur || nt) closeEd() });
+$('#ed').addEventListener('input', (e) => { if (e.target.id === 'np') { cur.price = e.target.value.replace(',', '.'); const p = byId[cur.id], pr = parseFloat(cur.price), pct = pr > 0 && pr < p.base ? Math.round((1 - pr / p.base) * 100) : 0; $('#hint').innerHTML = pct ? 'الزبون رح يشوف <b>-' + pct + '%</b> عالمنتج' : pr >= p.base ? 'هيدا تغيير سعر، مش عرض' : 'اكتب السعر أو اختار خصم:'; $$('[data-pct]').forEach((b) => b.classList.toggle('on', +b.dataset.pct === pct)) } });
+$('#ed').addEventListener('click', (e) => {
+  const b = e.target.closest('button'); if (!b || !cur) return; const d = b.dataset, p = byId[cur.id];
+  if ('close' in d) return closeEd();
+  if (d.pct) { cur.price = String(Math.round(p.base * (1 - d.pct / 100) * 100) / 100); drawEd() }
+  else if (d.dur) { cur.dur = d.dur; drawEd() }
+  else if ('out' in d) { cur.out = !cur.out; b.setAttribute('aria-pressed', String(cur.out)) }
+  else if ('stop' in d) { const id = cur.id; save((s) => { delete s.offers[id] }, 'انشال العرض ✓'); closeEd() }
+  else if ('save' in d) {
+    const id = cur.id, pr = parseFloat(cur.price), out = cur.out, dur = cur.dur;
+    if (cur.price && !(pr > 0)) { $('#np').focus(); return toast('اكتب سعر صحيح') }
+    save((s) => {
+      if (pr > 0 && Math.abs(pr - p.base) > 0.001) s.offers[id] = { price: pr, until: dur === 'keep' ? (live(id) || {}).until : untilOf(dur) };
+      else delete s.offers[id];
+      s.out = s.out.filter((x) => x !== id); if (out) s.out.push(id);
+    }, 'صار عالموقع ✓'); closeEd();
+  }
+});
+async function save(fn, msg) {
+  try { const fresh = await api('/state'); fresh.offers = fresh.offers || {}; fresh.out = fresh.out || []; fn(fresh); const r = await api('/state', { method: 'PUT', body: JSON.stringify(fresh) }); st = r.state; render(); toast(msg) }
+  catch (e) { if (e.message !== 'auth') toast('ما زبط، تأكّد من الإنترنت وجرّب مرّة تانية') }
+}
+if (pass) enter();
+setInterval(() => { if (!$('#appV').hidden) render() }, 60000);
+</script>
+</body>
+</html>
