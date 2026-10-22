@@ -1,5 +1,5 @@
 /* Hasib Mohtar Super Market service worker: fast loads + works on weak connections */
-const V = 'kh-v2';
+const V = 'kh-v3';
 const API = 'https://nafetha-api.nafetha-web.workers.dev/hasib';
 const SHELL = ['./', './manifest.webmanifest', './img/icon-192.png', './img/icon-512.png'];
 self.addEventListener('install', (e) => { e.waitUntil(caches.open(V).then((c) => c.addAll(SHELL)).then(() => self.skipWaiting())) });
@@ -8,6 +8,7 @@ const put = (req, res) => { if (res && (res.ok || res.type === 'opaque')) { cons
 self.addEventListener('fetch', (e) => {
   const r = e.request; if (r.method !== 'GET') return;
   const u = new URL(r.url);
+  if (u.origin === location.origin && u.pathname.includes('/admin/')) return;
   if (r.mode === 'navigate') { e.respondWith(fetch(r).then((res) => put('./', res)).catch(() => caches.match('./'))); return }
   if (u.origin === location.origin && u.pathname.includes('/img/')) { e.respondWith(caches.match(r).then((m) => m || fetch(r).then((res) => put(r, res)))); return }
   if (/fonts\.(googleapis|gstatic)\.com$/.test(u.hostname)) { e.respondWith(caches.match(r).then((m) => { const f = fetch(r).then((res) => put(r, res)).catch(() => m); return m || f })); return }

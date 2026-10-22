@@ -8,6 +8,10 @@
 <meta name="theme-color" content="#123F20">
 <link rel="icon" href="../img/icon-192.png" type="image/png">
 <link rel="apple-touch-icon" href="../img/icon-180.png">
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="لوحة حسيب">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Readex+Pro:wght@500;600;700&family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&display=swap">
@@ -22,6 +26,13 @@ html { -webkit-text-size-adjust: 100% }
 body { margin: 0; background: var(--bg); color: var(--ink); font-family: var(--bf); font-size: 15px; line-height: 1.5 }
 button, input, textarea { font: inherit; color: inherit }
 [hidden] { display: none !important }
+.inst { display: inline-flex; align-items: center; gap: 4px }
+.lbox .inst { margin-top: 14px; border: 1.5px solid var(--brand); color: var(--brand); border-radius: 99px; padding: 8px 16px; font-weight: 600; font-size: 14px }
+.ig { position: fixed; inset: auto 0 0 0; z-index: 60; background: var(--card); border-radius: 22px 22px 0 0; padding: 20px 20px calc(20px + env(safe-area-inset-bottom)); box-shadow: 0 -10px 40px rgba(0,0,0,.2); max-width: 520px; margin: 0 auto }
+.ig h3 { font-size: 18px; margin-bottom: 4px } .ig p { color: var(--mute); margin: 0 0 12px } .ig b { display: block; margin-top: 10px } .ig ol { margin: 4px 0 0; padding-inline-start: 22px }
+.ig .ok { margin-top: 16px; width: 100%; background: var(--brand); color: #fff; border-radius: 14px; padding: 12px; font-weight: 700 }
+.igb { position: fixed; inset: 0; z-index: 59; background: rgba(15,22,17,.45) }
+
 @media (max-width: 520px) { .top .wrap { flex-wrap: wrap; row-gap: 8px } .top h1 { flex-basis: 100% } }
 button { background: none; border: 0; cursor: pointer; padding: 0 }
 h1, h2, h3 { font-family: var(--hf); margin: 0 }
@@ -146,7 +157,7 @@ textarea.fld { height: 96px; padding: 12px 14px; resize: none; line-height: 1.5 
 .prev small { font-size: 11px; opacity: .55 }
 .demo { background: var(--sun); color: var(--ink); font-size: 12.5px; text-align: center; padding: 6px 12px; font-weight: 600 }
 </style>
-<script src="../../shared/panel-i18n.js"></script>
+<script src="i18n.js"></script>
 </head>
 <body>
 
@@ -158,11 +169,12 @@ textarea.fld { height: 96px; padding: 12px 14px; resize: none; line-height: 1.5 
     <input class="fld" id="pass" type="password" autocomplete="current-password" placeholder="كلمة السر" required>
     <button class="btn" id="loginB" type="submit">دخول</button>
     <div class="err" id="loginE" role="alert"></div>
+    <button type="button" class="inst" data-inst hidden>📲 نزّل التطبيق</button>
   </form>
 </section>
 
 <div id="appV" hidden>
-  <header class="top"><div class="wrap"><h1>لوحة حسيب مهتار سوبر ماركت<small id="upd">…</small></h1><a href="../" target="_blank" rel="noopener">شوف الموقع ↗</a><button type="button" id="outB">خروج</button></div></header>
+  <header class="top"><div class="wrap"><h1>لوحة حسيب مهتار سوبر ماركت<small id="upd">…</small></h1><a href="../" target="_blank" rel="noopener">شوف الموقع ↗</a><button type="button" class="inst" data-inst hidden>📲 نزّل التطبيق</button><button type="button" id="outB">خروج</button></div></header>
   <main class="wrap">
     <div class="stats"><div class="stat o"><b class="num" id="sOff">0</b><span>عروض شغّالة</span></div><div class="stat"><b class="num" id="sOut">0</b><span>خلصانين</span></div><button type="button" class="stat sbtn" id="statsB"><b>📊</b><span>الإحصائيات</span></button></div>
     <button type="button" class="pushb" id="pushB"><i>📣</i><span><b>ابعت إشعار للزبائن</b><small>بيوصل لكل يلي فعّلوا الإشعارات بالتطبيق</small></span></button>
@@ -330,6 +342,34 @@ async function save(fn, msg) {
 }
 if (pass) enter();
 setInterval(() => { if (!$('#appV').hidden) render() }, 60000);
+</script>
+<div class="igb" id="igb" hidden></div>
+<div class="ig" id="ig" hidden role="dialog" aria-modal="true">
+  <h3>نزّل تطبيق اللوحة</h3><p>بتفتح اللوحة من أيقونة على شاشتك، بلا ما تدوّر على الرابط.</p>
+  <div id="igI"><b>على الآيفون:</b><ol><li>افتح اللوحة بـ Safari</li><li>اضغط زر المشاركة</li><li>اختار «إضافة إلى الشاشة الرئيسية»</li></ol></div>
+  <div id="igA"><b>على الأندرويد:</b><ol><li>افتح قائمة Chrome (⋮)</li><li>اختار «تثبيت التطبيق» أو «إضافة إلى الشاشة الرئيسية»</li></ol></div>
+  <button type="button" class="ok" id="igOk">تمام</button>
+</div>
+<script>
+(() => {
+  const standalone = () => matchMedia('(display-mode: standalone)').matches || navigator.standalone === true;
+  const isIOS = /iphone|ipad|ipod/i.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+  const btns = [...document.querySelectorAll('[data-inst]')];
+  let dp = null;
+  const show = (on) => btns.forEach((b) => { b.hidden = !on });
+  if ('serviceWorker' in navigator) navigator.serviceWorker.register('sw.js').catch(() => {});
+  if (!standalone()) show(true);
+  addEventListener('beforeinstallprompt', (e) => { e.preventDefault(); dp = e; if (!standalone()) show(true) });
+  addEventListener('appinstalled', () => { show(false); dp = null });
+  const guide = (on) => { document.getElementById('ig').hidden = !on; document.getElementById('igb').hidden = !on };
+  btns.forEach((b) => b.addEventListener('click', async () => {
+    if (dp) { dp.prompt(); const r = await dp.userChoice.catch(() => null); dp = null; if (r && r.outcome === 'accepted') show(false); return }
+    document.getElementById('igI').hidden = !isIOS && /android/i.test(navigator.userAgent);
+    document.getElementById('igA').hidden = isIOS; guide(true);
+  }));
+  document.getElementById('igOk').addEventListener('click', () => guide(false));
+  document.getElementById('igb').addEventListener('click', () => guide(false));
+})();
 </script>
 </body>
 </html>
