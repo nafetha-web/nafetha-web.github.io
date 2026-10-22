@@ -236,6 +236,7 @@ main { min-width: 0; padding-top: 16px; display: flex; flex-direction: column; g
 .slots button.on { border-color: var(--brand); background: var(--mint) }
 .slots.two-s button { flex: 1 } .slots button:disabled { opacity: .5 }
 .pickt { margin-top: 8px }
+.saved { display: block; margin-top: 5px; font-size: 12px; color: var(--brand) }
 .send { height: 52px; border-radius: 16px; background: #25D366; color: #06331A; font-weight: 700; font-size: 16px; display: flex; align-items: center; justify-content: center; gap: 10px }
 .send:disabled { opacity: .5; cursor: not-allowed }
 .cempty { text-align: center; color: var(--mute); padding: 24px 6px; font-size: 14px }
@@ -566,6 +567,8 @@ function slotText() {
   return t('asap') + ' (' + t('asapS') + ')';
 }
 let form = { name: '', phone: '', addr: '', notes: '' };
+try { const sv = JSON.parse(localStorage.getItem('hs_form') || 'null'); if (sv) ['name', 'phone', 'addr'].forEach((k) => { if (typeof sv[k] === 'string') form[k] = sv[k] }) } catch (e) {}
+const saveForm = () => { try { localStorage.setItem('hs_form', JSON.stringify({ name: form.name, phone: form.phone, addr: form.addr })) } catch (e) {} };
 function cartHTML() {
   const ids = Object.keys(cart);
   if (!ids.length) return '<div class="cempty"><svg width="54" height="54" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="9" cy="20" r="1.5"/><circle cx="18" cy="20" r="1.5"/><path d="M2 3h3l2.7 12.4a1 1 0 0 0 1 .8h9.6a1 1 0 0 0 1-.8L21 7H6"/></svg>' + t('emptyCart') + '</div>';
@@ -578,7 +581,7 @@ function cartHTML() {
     '<div class="fld"><label>' + t('where') + '</label><select class="in" data-area>' + AREAS.map((a, i) => '<option value="' + i + '"' + (i === area ? ' selected' : '') + '>' + L(a[0], a[1]) + ' · ' + t('areaFee') + ' ' + fmt(a[2]) + '</option>').join('') + '</select></div>' +
     slotsHTML() +
     '<div class="two"><div class="fld"><label>' + t('nameL') + '</label><input class="in" data-f="name" value="' + esc(form.name) + '" autocomplete="name"></div><div class="fld"><label>' + t('phoneL') + '</label><input class="in" data-f="phone" value="' + esc(form.phone) + '" inputmode="tel" autocomplete="tel"></div></div>' +
-    '<div class="fld"><label>' + t('addrL') + '</label><input class="in" data-f="addr" value="' + esc(form.addr) + '" placeholder="' + t('addrPh') + '" autocomplete="street-address"></div>' +
+    '<div class="fld"><label>' + t('addrL') + '</label><input class="in" data-f="addr" value="' + esc(form.addr) + '" placeholder="' + t('addrPh') + '" autocomplete="street-address">' + (form.addr ? '<small class="saved">' + L('✓ محفوظ لطلبك الجاي', '✓ Saved for your next order') + '</small>' : '') + '</div>' +
     '<div class="fld"><label>' + t('payL') + '</label><div class="pay"><button type="button" data-pay="cash" class="' + (pay === 'cash' ? 'on' : '') + '">' + t('cash') + '</button><button type="button" data-pay="whish" class="' + (pay === 'whish' ? 'on' : '') + '">' + t('whish') + '</button></div></div>' +
     '<div class="fld"><label>' + t('notesL') + '</label><input class="in" data-f="notes" value="' + esc(form.notes) + '" placeholder="' + t('notesPh') + '"></div>' +
     (missNotes.length ? '<div class="miss">' + t('miss') + missNotes.join('، ') + t('missNote') + '</div>' : '') +
@@ -685,7 +688,7 @@ $('#ov').addEventListener('click', () => { if ($('#introS').classList.contains('
 document.addEventListener('keydown', (e) => { if (e.key === 'Escape') { if ($('#introS').classList.contains('on')) doneIntro(); else closeS() } });
 document.addEventListener('input', (e) => { const el = e.target;
   if (el.id === 'q') { q = el.value; if (q) catF = 'all'; clearTimeout(el._t); el._t = setTimeout(() => { refresh(); if (q.trim()) document.getElementById('all').scrollIntoView({ behavior: 'smooth' }) }, 220) }
-  if (el.dataset.f) form[el.dataset.f] = el.value;
+  if (el.dataset.f) { form[el.dataset.f] = el.value; if (el.dataset.f !== 'notes') saveForm() }
 });
 document.addEventListener('change', (e) => { const el = e.target;
   if (el.dataset.opt) { if (el.value) opts[el.dataset.opt] = el.value; else delete opts[el.dataset.opt]; renderCart() }
