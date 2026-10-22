@@ -17,7 +17,7 @@ self.addEventListener('fetch', (e) => {
 /* offer notifications: the push carries no data, we fetch the latest notice */
 self.addEventListener('push', (e) => {
   e.waitUntil(fetch(API + '/notice', { cache: 'no-store' }).then((r) => r.json()).catch(() => ({})).then((n) =>
-    self.registration.showNotification(n.title || 'حسيب مختار سوبر ماركت', { body: n.body || 'في عروض جديدة، شوفها 🔥', icon: 'img/icon-192.png', badge: 'img/icon-192.png', tag: 'kh-offer', renotify: true, lang: 'ar', dir: 'rtl', data: { url: n.url || './' } })));
+    self.registration.showNotification(n.title || 'حسيب مهتار سوبر ماركت', { body: n.body || 'في عروض جديدة، شوفها 🔥', icon: 'img/icon-192.png', badge: 'img/icon-192.png', tag: 'kh-offer', renotify: true, lang: 'ar', dir: 'rtl', data: { url: n.url || './' } })));
 });
 self.addEventListener('notificationclick', (e) => {
   e.notification.close();
