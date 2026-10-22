@@ -234,6 +234,8 @@ main { min-width: 0; padding-top: 16px; display: flex; flex-direction: column; g
 .slots button { flex: none; border: 1.5px solid var(--line); background: var(--card); border-radius: 12px; padding: 7px 11px; font-size: 13px; font-weight: 600; line-height: 1.3; text-align: center }
 .slots button small { display: block; font-weight: 400; color: var(--mute); font-size: 11.5px }
 .slots button.on { border-color: var(--brand); background: var(--mint) }
+.slots.two-s button { flex: 1 } .slots button:disabled { opacity: .5 }
+.pickt { margin-top: 8px }
 .send { height: 52px; border-radius: 16px; background: #25D366; color: #06331A; font-weight: 700; font-size: 16px; display: flex; align-items: center; justify-content: center; gap: 10px }
 .send:disabled { opacity: .5; cursor: not-allowed }
 .cempty { text-align: center; color: var(--mute); padding: 24px 6px; font-size: 14px }
@@ -408,7 +410,7 @@ const T = {
   emptyCart: ['سلّتك فاضية. ابدأ بالأكثر طلبًا أو الصق قائمتك.', 'Your basket is empty. Start with the favourites or paste your list.'],
   sub: ['المجموع', 'Subtotal'], delivery: ['التوصيل', 'Delivery'], free: ['مجاني', 'Free'], total: ['المجموع الكلي', 'Total'],
   ifOut: ['إذا مش متوفّر:', 'If unavailable:'], ifOutQ: ['إذا مش متوفّر؟ (اختياري)', 'If unavailable? (optional)'], swap: ['بدّلوه بشي مشابه', 'Replace with similar'], call: ['اتصلوا فيّ', 'Call me'], drop: ['شيلوه', 'Remove it'],
-  where: ['منطقة التوصيل', 'Delivery area'], when: ['وقت التوصيل', 'Delivery time'], asap: ['بأسرع وقت', 'ASAP'], asapS: ['خلال 45 دقيقة', 'within 45 min'], today: ['اليوم', 'Today'], tomorrow: ['بكرا', 'Tomorrow'],
+  where: ['منطقة التوصيل', 'Delivery area'], when: ['وقت التوصيل', 'Delivery time'], asap: ['بأسرع وقت', 'ASAP'], asapS: ['خلال 30 دقيقة', 'within 30 min'], today: ['اليوم', 'Today'], tomorrow: ['بكرا', 'Tomorrow'],
   nameL: ['الاسم', 'Name'], phoneL: ['رقم التلفون', 'Phone'], addrL: ['العنوان بالتفصيل', 'Full address'], addrPh: ['البناية، الطابق، أقرب معلم', 'Building, floor, landmark'],
   payL: ['الدفع عند التوصيل', 'Pay on delivery'], cash: ['كاش', 'Cash'], whish: ['Whish', 'Whish'], notesL: ['ملاحظات', 'Notes'], notesPh: ['مثلاً: البندورة مش كتير مستوية', 'e.g. tomatoes not too ripe'],
   send: ['أرسل الطلب عالواتساب', 'Send order on WhatsApp'], sent: ['انبعت الطلب! كمّل عالواتساب', 'Order sent! Continue on WhatsApp'],
@@ -416,7 +418,7 @@ const T = {
   fdbLeft: (x) => ['باقي <b>' + x + '</b> وبيصير التوصيل مجاني', 'Add <b>' + x + '</b> more for free delivery'], fdbOk: ['🎉 التوصيل صار مجاني على طلبك', '🎉 Your delivery is free'],
   reoT: ['طلبيتك الماضية', 'Your last order'], reoBtn: ['اطلبها من جديد', 'Order again'],
   areaTitle: ['وين بدك ياها توصل؟', 'Where should we deliver?'], areaFee: ['رسوم التوصيل', 'Delivery fee'],
-  trust: [['45 دقيقة', '45-min delivery'], ['كاش أو Whish', 'Cash or Whish'], ['طازج كل يوم', 'Fresh daily'], ['مجاني فوق 20$', 'Free over $20']],
+  trust: [['30 دقيقة', '30-min delivery'], ['كاش أو Whish', 'Cash or Whish'], ['طازج كل يوم', 'Fresh daily'], ['مجاني فوق 20$', 'Free over $20']],
   endsIn: ['بيخلص بعد', 'Ends in'], howTo: ['كيف بطلب؟', 'How to order'], appT: ['نزّل تطبيق حسيب', 'Get the Hasib app'], appS: ['أسرع، وبأيقونة على شاشتك', 'Faster, right on your home screen'], appGet: ['نزّل', 'Install'], pushT: ['خلّيك أول من يعرف بالعروض', 'Be first to hear about offers'], pushS: ['منبعتلك إشعار بس ينزل عرض جديد', 'We notify you when a new offer drops'], pushGet: ['فعّل', 'Turn on'], pushOk: ['تمام! رح يوصلك كل عرض جديد 🔔', 'Done! You will get every new offer 🔔'], pushNoT: ['ما زبط، فعّل الإشعارات من إعدادات التلفون', 'Could not enable, check your phone settings'], todayH: ['🔥 عروض اليوم', '🔥 Today’s offers'], outB: ['خلص', 'Sold out'], outBtn: ['خلص من المخزن', 'Out of stock'], outT: ['هيدا الصنف خلص هلأ، جرّب بعدين', 'This item is sold out for now'], appLater: ['تمام، منرجع نذكّرك بعد 3 أيام', 'Okay, we will remind you in 3 days'], appDone: ['انضاف التطبيق على شاشتك 🎉', 'App added to your home screen 🎉'], introH: ['أهلا فيك بحسيب مهتار سوبر ماركت', 'Welcome to Hasib Mohtar Super Market'], skip: ['تخطّي', 'Skip'], next: ['التالي', 'Next'], startShop: ['يلا نتسوّق', 'Start shopping'], shop: ['تسوّق', 'Shop'], kg: ['كغ', 'kg'], perKg: ['للكيلو', 'per kg'], pc: ['حبّة', 'pc']
 };
 const t = (k) => { const v = T[k]; return Array.isArray(v) ? v[lang === 'ar' ? 0 : 1] : v };
@@ -498,7 +500,7 @@ const svgI = (d, s, c) => '<svg width="' + (s || 44) + '" height="' + (s || 44) 
 function renderIntro() {
   const S = [
     { art: '<div class="ibig">' + svgI('<path d="M3 9h18l-1.8 9.6a2 2 0 0 1-2 1.6H6.8a2 2 0 0 1-2-1.6z"/><path d="M8 9l3-5M16 9l-3-5"/>', 48) + '</div>',
-      h: L('أغراض البيت لباب البيت', 'Groceries to your door'), p: L('خضرة طازجة، ألبان، لحوم، مونة ومنظّفات، بتوصلك خلال 45 دقيقة. خلّينا نفرجيك كيف بتطلب بـ 3 خطوات.', 'Fresh produce, dairy, meat, pantry and cleaning, delivered in about 45 minutes. Here is how to order in 3 steps.') },
+      h: L('أغراض البيت لباب البيت', 'Groceries to your door'), p: L('خضرة طازجة، ألبان، لحوم، مونة ومنظّفات، بتوصلك خلال 30 دقيقة. خلّينا نفرجيك كيف بتطلب بـ 3 خطوات.', 'Fresh produce, dairy, meat, pantry and cleaning, delivered in about 30 minutes. Here is how to order in 3 steps.') },
     { art: '<div class="steps3"><div><i>+</i>' + L('اختار أغراضك', 'Pick items') + '</div><b>←</b><div><i>' + svgI('<circle cx="9" cy="20" r="1.5"/><circle cx="18" cy="20" r="1.5"/><path d="M2 3h3l2.7 12.4a1 1 0 0 0 1 .8h9.6a1 1 0 0 0 1-.8L21 7H6"/>', 18) + '</i>' + L('راجع سلّتك', 'Check basket') + '</div><b>←</b><div><i style="background:#25D366">' + svgI('<path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.6A8 8 0 1 1 21 12z"/>', 18) + '</i>' + L('ابعت عالواتساب', 'Send on WhatsApp') + '</div></div>',
       h: L('كيف بتطلب؟', 'How to order'), p: L('كبّس «+ أضف» على أي منتج، وافتح السلّة من تحت. عبّي اسمك وعنوانك، والطلب بيوصلنا مرتّب عالواتساب، وما بيتبعت شي قبل ما تكبس إرسال.', 'Tap “+ Add” on any item and open your basket below. Add your name and address, and the order reaches us on WhatsApp. Nothing is sent until you press send.') },
     { art: '<div class="paper">' + (lang === 'ar' ? ['2 خبز', 'كيلو بندورة', 'لبنة', 'زيت زيتون'] : ['2 bread', '1 kg tomatoes', 'labneh', 'olive oil']).map((x) => '<span>' + x + '</span>').join('') + '</div><span class="tick">' + L('✓ انضافوا للسلّة', '✓ Added to basket') + '</span>', sun: 1,
@@ -553,11 +555,15 @@ function refresh() {
 }
 
 /* cart + checkout */
-function slotList() {
-  const now = new Date(), h = now.getHours(), out = [['asap', t('asap'), t('asapS')]];
-  for (let s = Math.max(10, h + 2); s <= 18; s += 2) out.push(['t' + s, t('today'), s + ':00 – ' + (s + 2) + ':00']);
-  for (let s = 10; s <= 18; s += 4) out.push(['m' + s, t('tomorrow'), s + ':00 – ' + (s + 2) + ':00']);
+function pickTimes() {
+  const now = new Date(), m0 = Math.max(9 * 60 + 30, Math.ceil((now.getHours() * 60 + now.getMinutes() + 30) / 30) * 30), out = [];
+  for (let m = m0; m <= 20 * 60 + 30; m += 30) out.push(String(Math.floor(m / 60)).padStart(2, '0') + ':' + String(m % 60).padStart(2, '0'));
   return out;
+}
+let pickT = '';
+function slotText() {
+  if (slot === 'pick' && pickT) return t('today') + ' ' + L('الساعة', 'at') + ' ' + pickT;
+  return t('asap') + ' (' + t('asapS') + ')';
 }
 let form = { name: '', phone: '', addr: '', notes: '' };
 function cartHTML() {
@@ -567,17 +573,23 @@ function cartHTML() {
     return '<div class="ci"><img src="' + p.img + '" alt=""><div><b>' + L(p.ar, p.en) + '</b><div class="sub">' + (p.kg ? fmt(p.p) + ' ' + t('perKg') : L(p.uar, p.uen)) + '</div><select data-opt="' + id + '" class="' + (o ? 'set' : '') + '" aria-label="' + t('ifOut') + '"><option value="">' + t('ifOutQ') + '</option>' + ['swap', 'call', 'drop'].map((k) => '<option value="' + k + '"' + (o === k ? ' selected' : '') + '>' + t(k) + '</option>').join('') + '</select></div>' +
       '<div class="rt"><span class="pr num">' + fmt(lineTotal(id)) + '</span><span class="mini"><button type="button" data-dec="' + id + '">−</button><span class="num">' + qtyTxt(p, cart[id]) + '</span><button type="button" data-inc="' + id + '">+</button></span></div></div>' }).join('');
   const st = subtotal(), fe = fee();
-  const sl = slotList();
   return '<div>' + items + '</div>' +
     '<div class="tot num"><div><span>' + t('sub') + '</span><span>' + fmt(st) + '</span></div><div><span>' + t('delivery') + ' (' + L(AREAS[area][0], AREAS[area][1]) + ')</span><span>' + (fe ? fmt(fe) : '<b style="color:var(--brand)">' + t('free') + '</b>') + '</span></div><div class="big"><span>' + t('total') + '</span><span>' + fmt(st + fe) + '</span></div><div class="alt">≈ ' + fmt(st + fe, cur === 'usd' ? 'lbp' : 'usd') + '</div></div>' +
     '<div class="fld"><label>' + t('where') + '</label><select class="in" data-area>' + AREAS.map((a, i) => '<option value="' + i + '"' + (i === area ? ' selected' : '') + '>' + L(a[0], a[1]) + ' · ' + t('areaFee') + ' ' + fmt(a[2]) + '</option>').join('') + '</select></div>' +
-    '<div class="fld"><label>' + t('when') + '</label><div class="slots">' + sl.map((s) => '<button type="button" data-slot="' + s[0] + '" class="' + (slot === s[0] ? 'on' : '') + '">' + s[1] + '<small class="num">' + s[2] + '</small></button>').join('') + '</div></div>' +
+    slotsHTML() +
     '<div class="two"><div class="fld"><label>' + t('nameL') + '</label><input class="in" data-f="name" value="' + esc(form.name) + '" autocomplete="name"></div><div class="fld"><label>' + t('phoneL') + '</label><input class="in" data-f="phone" value="' + esc(form.phone) + '" inputmode="tel" autocomplete="tel"></div></div>' +
     '<div class="fld"><label>' + t('addrL') + '</label><input class="in" data-f="addr" value="' + esc(form.addr) + '" placeholder="' + t('addrPh') + '" autocomplete="street-address"></div>' +
     '<div class="fld"><label>' + t('payL') + '</label><div class="pay"><button type="button" data-pay="cash" class="' + (pay === 'cash' ? 'on' : '') + '">' + t('cash') + '</button><button type="button" data-pay="whish" class="' + (pay === 'whish' ? 'on' : '') + '">' + t('whish') + '</button></div></div>' +
     '<div class="fld"><label>' + t('notesL') + '</label><input class="in" data-f="notes" value="' + esc(form.notes) + '" placeholder="' + t('notesPh') + '"></div>' +
     (missNotes.length ? '<div class="miss">' + t('miss') + missNotes.join('، ') + t('missNote') + '</div>' : '') +
     '<button class="send" type="button" data-send><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2z"/></svg>' + t('send') + '</button><p class="note">' + L('ما بيوصل شي قبل ما تكبس إرسال جوّا الواتساب.', 'Nothing is sent until you press send inside WhatsApp.') + '</p>';
+}
+function slotsHTML() {
+  const ts = pickTimes(); if (slot === 'pick' && (!ts.length || !ts.includes(pickT))) { pickT = ts[0] || ''; if (!pickT) slot = 'asap' }
+  return '<div class="fld"><label>' + t('when') + '</label><div class="slots two-s">' +
+    '<button type="button" data-slot="asap" class="' + (slot === 'asap' ? 'on' : '') + '">' + t('asap') + '<small class="num">' + t('asapS') + '</small></button>' +
+    '<button type="button" data-slot="pick" class="' + (slot === 'pick' ? 'on' : '') + '"' + (ts.length ? '' : ' disabled') + '>' + L('حدّد الوقت', 'Pick a time') + '<small>' + (ts.length ? L('اليوم بس', 'Today only') : L('ما في أوقات اليوم', 'No times left today')) + '</small></button></div>' +
+    (slot === 'pick' && ts.length ? '<select class="in pickt num" data-pickt aria-label="' + L('الساعة', 'Time') + '">' + ts.map((x) => '<option' + (x === pickT ? ' selected' : '') + '>' + x + '</option>').join('') + '</select>' : '') + '</div>';
 }
 const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
 function renderCart() {
@@ -591,14 +603,13 @@ function renderCart() {
 
 function sendOrder() {
   if (!form.name.trim() || !form.addr.trim()) { toast(t('fill')); const el = document.querySelector((window.innerWidth >= 1000 ? '#cartp' : '#cartSB') + ' [data-f="' + (!form.name.trim() ? 'name' : 'addr') + '"]'); el && el.focus(); return }
-  const sl = slotList().find((s) => s[0] === slot) || slotList()[0];
   const lines = Object.keys(cart).map((id) => { const p = byId[id]; return '• ' + L(p.ar, p.en) + ' × ' + qtyTxt(p, cart[id]) + ' = ' + fmt(lineTotal(id), 'usd') + (opts[id] ? ' (' + t('ifOut') + ' ' + t(opts[id]) + ')' : '') });
   const st = subtotal(), fe = fee();
   const msg = [L('طلب جديد من موقع حسيب مهتار سوبر ماركت', 'New order from Hasib Mohtar Super Market website'), '',
     ...lines, '',
     t('sub') + ': ' + fmt(st, 'usd'), t('delivery') + ': ' + (fe ? fmt(fe, 'usd') : t('free')), t('total') + ': ' + fmt(st + fe, 'usd') + ' (≈ ' + fmt(st + fe, 'lbp') + ')', '',
     t('nameL') + ': ' + form.name, form.phone ? t('phoneL') + ': ' + form.phone : null, t('where') + ': ' + L(AREAS[area][0], AREAS[area][1]) + ' - ' + form.addr,
-    t('when') + ': ' + sl[1] + ' ' + sl[2], L('الدفع', 'Payment') + ': ' + t(pay), form.notes ? t('notesL') + ': ' + form.notes : null,
+    t('when') + ': ' + slotText(), L('الدفع', 'Payment') + ': ' + t(pay), form.notes ? t('notesL') + ': ' + form.notes : null,
     missNotes.length ? L('أغراض ما لقيناها بالموقع: ', 'Items not found on the site: ') + missNotes.join('، ') : null].filter((x) => x !== null).join('\n');
   try { localStorage.setItem('hs_last', JSON.stringify({ cart, total: st, d: Date.now() })) } catch (e) {}
   window.open('https://wa.me/' + WA + '?text=' + encodeURIComponent(msg), '_blank');
@@ -679,6 +690,7 @@ document.addEventListener('input', (e) => { const el = e.target;
 document.addEventListener('change', (e) => { const el = e.target;
   if (el.dataset.opt) { if (el.value) opts[el.dataset.opt] = el.value; else delete opts[el.dataset.opt]; renderCart() }
   if ('area' in el.dataset) { area = +el.value; save(); refresh() }
+  if ('pickt' in el.dataset) { pickT = el.value; renderCart() }
 });
 renderStatic(); refresh();
 loadSt(); setInterval(loadSt, 60000); document.addEventListener('visibilitychange', () => { if (!document.hidden) loadSt() });
