@@ -89,6 +89,14 @@ p { margin: 0 }
 .hero h1 { font-size: clamp(38px, 6.4vw, 66px); line-height: 1.22 }
 .hero .lead { font-size: 19px; color: #D5E6E4; margin-top: 20px; max-width: 34em }
 .hero .cta { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 30px }
+.from { display: inline-block; margin-top: 16px; color: #E8F1F0; font-size: 15px; text-decoration: underline; text-decoration-color: rgba(226,176,74,.6); text-underline-offset: 5px }
+.from b { color: var(--gold); font-size: 17px }
+.stats { background: var(--teal-deep); color: #fff; border-top: 1px solid rgba(255,255,255,.08) }
+.stats ul { list-style: none; margin: 0; padding: 22px 0; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px }
+@media (max-width: 700px) { .stats ul { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px 12px } }
+.stats li { text-align: center }
+.stats b { display: block; font-family: var(--display); font-size: clamp(28px, 4.4vw, 38px); color: var(--gold); line-height: 1.2; direction: ltr; unicode-bidi: isolate }
+.stats span { font-size: 14px; color: #D5E6E4 }
 .assure { list-style: none; padding: 0; margin: 34px 0 0; display: grid; grid-template-columns: repeat(2, minmax(0, max-content)); gap: 10px 28px; font-size: 15.5px; color: #E8F1F0 }
 @media (max-width: 520px) { .assure { grid-template-columns: minmax(0, 1fr) } }
 .assure li { display: flex; align-items: center; gap: 10px }
@@ -408,11 +416,14 @@ input, select, textarea { min-width: 0; max-width: 100% }
           <a class="btn btn-gold" href="#contact" data-t="cta1"></a>
           <a class="btn btn-line" href="#work" data-t="cta2"></a>
         </div>
+        <a class="from" href="#pricing" id="fromPrice"></a>
         <ul class="assure" id="assure"></ul>
       </div>
       <a class="heroshot" href="preview/"><img src="media/preview-card.webp" alt="" width="900" height="976"><span data-t="heroShot"></span></a>
     </div>
   </section>
+
+  <section class="stats" aria-label="Nafetha in numbers"><div class="wrap"><ul id="stats"></ul></div></section>
 
   <section class="blk work" id="work">
     <div class="wrap">
@@ -530,7 +541,9 @@ const ICONS = {
   pin: '<path d="M12 21s-7-6.2-7-11a7 7 0 0 1 14 0c0 4.8-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/>',
   globe: '<circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.7 2.5 15.3 0 18M12 3c-2.5 2.7-2.5 15.3 0 18"/>',
   edit: '<path d="M4 20h4L19 9l-4-4L4 16v4z"/><path d="m13.5 6.5 4 4"/>',
-  cloud: '<path d="M7 18h10a4 4 0 0 0 .5-8 6 6 0 0 0-11.5 1.5A3.3 3.3 0 0 0 7 18z"/>'
+  cloud: '<path d="M7 18h10a4 4 0 0 0 .5-8 6 6 0 0 0-11.5 1.5A3.3 3.3 0 0 0 7 18z"/>',
+  sheet: '<rect x="4" y="3" width="16" height="18" rx="2"/><path d="M4 9h16M4 15h16M10 3v18"/>',
+  phone: '<rect x="7" y="2.5" width="10" height="19" rx="2.5"/><path d="M11 18.5h2"/>'
 };
 const ico = (k, s) => '<svg width="' + (s || 22) + '" height="' + (s || 22) + '" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' + ICONS[k] + '</svg>';
 const tick = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5 10 17 19 7"/></svg>';
@@ -564,6 +577,8 @@ const T = {
       { img: 'rayhan', tag: 'مطعم', t: 'مطعم مع طلب وحجز', d: 'تصفّح القائمة، وأضف أطباقًا، وراجع طلبك قبل إرساله.', href: 'rayhan.html' }],
     tryLive: 'جرّب النموذج', likeThis: 'أريد موقعًا مثله',
     waLike: (x) => 'مرحبًا نافذة، أعجبني نموذج «' + x + '» وأريد موقعًا مثله لنشاطي.',
+    fromPrice: 'ابتداءً من <b>25$</b> شهريًا، بدون عمولة على طلباتك',
+    stats: [['0%', 'عمولة على طلباتك'], ['2', 'لغتان: عربي وإنجليزي'], ['3–5', 'أيام عمل ويكون جاهزًا'], ['$25', 'ابتداءً من، شهريًا']],
     assure: ['نموذج مجاني قبل أي دفع', 'جاهز خلال 3 إلى 5 أيام عمل', 'بدون عقود طويلة', 'نردّ خلال ساعة'],
     demoRest: 'باقة المطعم', demoBasic: 'الباقة الأساسية',
     wcap: { 'rayhan.html': 'نموذج يعمل فعلًا: تصفّح القائمة، وأضف أطباقًا، وراجع طلبك.' },
@@ -574,7 +589,9 @@ const T = {
       ['pin', 'عنوانك على الخريطة', 'العنوان وساعات العمل ورابط مباشر إلى خرائط Google.'],
       ['globe', 'بالعربية والإنجليزية', 'موقع بلغتين، مصمَّم أولًا للهاتف لأن معظم زبائنك سيفتحونه منه.'],
       ['edit', 'تعديلات مشمولة', 'تريد تغيير سعر أو إضافة صنف؟ أرسل لنا رسالة ونعدّله.'],
-      ['cloud', 'استضافة ورابط خاص', 'لا خوادم ولا تجديدات تقلق بشأنها، فكل ذلك ضمن الاشتراك.']],
+      ['cloud', 'استضافة ورابط خاص', 'لا خوادم ولا تجديدات تقلق بشأنها، فكل ذلك ضمن الاشتراك.'],
+      ['sheet', 'منتجاتك من ملف Excel', 'أرسل لائحة منتجاتك وأسعارك بملف Excel، ونرفعها كلها دفعة واحدة مهما كان عددها.'],
+      ['phone', 'تطبيق ولوحة تحكّم مع Pro', 'ينزّل زبائنك تطبيقك على هواتفهم ويصلهم كل عرض جديد، وتدير أسعارك ومخزونك بنفسك من هاتفك.']],
     howTitle: 'طريقة العمل', howSub: 'ثلاث خطوات، ولا تدفع شيئًا قبل أن ترى موقعك.',
     steps: [['نصمّم لك نموذجًا مجانيًا', 'نجهّز موقعًا تجريبيًا باسم نشاطك وبمحتواك، قبل أن تدفع شيئًا.'],
       ['تراجعه وتعطينا رأيك', 'نرسل لك الرابط عبر واتساب، ونعدّله حتى يصبح كما تريد.'],
@@ -664,6 +681,8 @@ const T = {
       { img: 'rayhan', tag: 'Restaurant', t: 'Ordering and booking', d: 'Browse the menu, add dishes and review your order before sending.', href: 'rayhan.html' }],
     tryLive: 'Try it live', likeThis: 'I want one like this',
     waLike: (x) => 'Hello Nafetha, I liked the "' + x + '" demo and would like a site like it for my business.',
+    fromPrice: 'From <b>$25</b> a month, with zero commission on your orders',
+    stats: [['0%', 'Commission on your orders'], ['2', 'Languages: Arabic & English'], ['3–5', 'Working days to go live'], ['$25', 'Starting price, monthly']],
     assure: ['Free demo before you pay', 'Ready in 3 to 5 working days', 'No long contracts', 'We reply within an hour'],
     demoRest: 'Restaurant plan', demoBasic: 'Basic plan',
     wcap: { 'rayhan.html': 'A working demo: browse the menu, add dishes and review your order.' },
@@ -674,7 +693,9 @@ const T = {
       ['pin', 'On the map', 'Address, opening hours and a direct Google Maps link.'],
       ['globe', 'Arabic and English', 'A bilingual site built for phones first, because most customers will open it there.'],
       ['edit', 'Updates included', 'New price or a new item? Send us a message and we update it.'],
-      ['cloud', 'Hosting and your own link', 'No servers or renewals to worry about. It is all in the plan.']],
+      ['cloud', 'Hosting and your own link', 'No servers or renewals to worry about. It is all in the plan.'],
+      ['sheet', 'Products from an Excel file', 'Send your product and price list as an Excel file and we upload it all at once, however long it is.'],
+      ['phone', 'App and control panel with Pro', 'Customers install your app and get every new offer, and you manage prices and stock yourself from your phone.']],
     howTitle: 'How it works', howSub: 'Three steps, and you pay nothing before you see your site.',
     steps: [['We build a free demo', 'A sample site with your name and content, before you pay anything.'],
       ['You review it', 'We send the link on WhatsApp and adjust it until it is right.'],
@@ -751,6 +772,8 @@ function render() {
   document.documentElement.lang = lang; document.documentElement.dir = t.dir;
   document.querySelectorAll('[data-t]').forEach(el => { const v = t[el.dataset.t]; if (typeof v === 'string') el.textContent = v });
   $('langBtn').textContent = t.langBtn;
+  $('fromPrice').innerHTML = t.fromPrice;
+  $('stats').innerHTML = t.stats.map(x => '<li><b>' + x[0] + '</b><span>' + x[1] + '</span></li>').join('');
   $('assure').innerHTML = t.assure.map(a => '<li>' + tick + '<span>' + a + '</span></li>').join('');
   $('feats').innerHTML = t.feats.map(f => '<div class="feat"><span class="ic">' + ico(f[0]) + '</span><h3>' + f[1] + '</h3><p>' + f[2] + '</p></div>').join('');
   $('steps').innerHTML = t.steps.map(s => '<li><h3>' + s[0] + '</h3><p>' + s[1] + '</p></li>').join('');
