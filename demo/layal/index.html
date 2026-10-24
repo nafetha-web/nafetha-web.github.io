@@ -1,0 +1,845 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, maximum-scale=1">
+<title>ميزون ليال | Maison Layal</title>
+<meta name="description" content="بوتيك ميزون ليال ثلاثي الأبعاد: تجوّل في المحل، جرّب القطع على مجسّم بمقاساتك، ونسّق إطلالتك واطلبها عبر واتساب.">
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#1B1512">
+<meta property="og:title" content="ميزون ليال | بوتيك ثلاثي الأبعاد">
+<meta property="og:description" content="تجوّل في المحل، جرّب القطع على مجسّم بمقاساتك، ونسّق إطلالتك.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;1,500&family=Readex+Pro:wght@400;500;600;700&family=IBM+Plex+Sans+Arabic:wght@400;500;600&display=swap">
+<style>
+:root {
+  --bg: #1B1512; --bg2: #241C18; --card: #FBF7F1; --ink: #211915; --mute: #7A6C61; --line: #E7DDD0;
+  --gold: #C9A35B; --gold2: #E3C27F; --cream: #F4EDE3; --wa: #1F8A4C;
+  --hf: 'Readex Pro', 'IBM Plex Sans Arabic', system-ui, sans-serif; --bf: 'IBM Plex Sans Arabic', 'Readex Pro', system-ui, sans-serif;
+  --brand: 'Playfair Display', Georgia, serif;
+}
+* { box-sizing: border-box; -webkit-tap-highlight-color: transparent }
+html, body { margin: 0; height: 100%; background: var(--bg); color: var(--cream); font-family: var(--bf); overflow: hidden; overscroll-behavior: none }
+button, input, select { font: inherit; color: inherit }
+button { cursor: pointer; border: 0; background: none; padding: 0 }
+[hidden] { display: none !important }
+canvas { display: block; touch-action: none }
+#stage { position: fixed; inset: 0 }
+.demo { position: fixed; top: 0; inset-inline: 0; z-index: 50; background: #0F0B09; color: #D9CCBD; font-size: 12px; text-align: center; padding: 5px 12px; padding-top: max(5px, env(safe-area-inset-top)) }
+.demo a { color: var(--gold2); font-weight: 600; text-decoration: underline; text-underline-offset: 2px }
+.top { position: fixed; z-index: 20; top: calc(28px + env(safe-area-inset-top)); inset-inline: 10px; display: flex; align-items: center; gap: 8px; pointer-events: none }
+.top > * { pointer-events: auto }
+.logo { display: flex; flex-direction: column; line-height: 1; padding: 8px 14px; border-radius: 14px; background: rgba(20,15,12,.72); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border: 1px solid rgba(201,163,91,.25) }
+.logo b { font-family: var(--brand); font-weight: 500; font-size: 19px; letter-spacing: .5px; color: var(--gold2); direction: ltr }
+.logo small { font-size: 11px; color: #CDBFAF; margin-top: 3px }
+.sp { flex: 1 }
+.ib { height: 42px; min-width: 42px; padding: 0 12px; border-radius: 14px; background: rgba(20,15,12,.72); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border: 1px solid rgba(201,163,91,.25); display: inline-flex; align-items: center; justify-content: center; gap: 6px; font-size: 14px; font-weight: 600; position: relative }
+.ib .n { position: absolute; top: -5px; inset-inline-end: -5px; min-width: 19px; height: 19px; border-radius: 99px; background: var(--gold); color: #1B1512; font-size: 11px; font-weight: 700; display: grid; place-items: center; padding: 0 5px }
+.zones { position: fixed; z-index: 20; bottom: calc(14px + env(safe-area-inset-bottom)); inset-inline: 0; display: flex; gap: 8px; justify-content: center; padding: 0 10px; flex-wrap: wrap }
+.zones button { padding: 10px 15px; border-radius: 99px; background: rgba(20,15,12,.78); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border: 1px solid rgba(201,163,91,.3); font-size: 14px; font-weight: 600; white-space: nowrap }
+.zones button.fitb { background: linear-gradient(135deg, var(--gold2), var(--gold)); color: #1B1512; border-color: transparent }
+.hint { position: fixed; z-index: 19; top: calc(92px + env(safe-area-inset-top)); left: 50%; transform: translateX(-50%); background: rgba(20,15,12,.8); border: 1px solid rgba(201,163,91,.25); border-radius: 99px; padding: 8px 16px; font-size: 13px; white-space: nowrap; transition: opacity .5s; pointer-events: none }
+.toast { position: fixed; z-index: 90; left: 50%; bottom: calc(80px + env(safe-area-inset-bottom)); transform: translate(-50%, 20px); background: var(--cream); color: var(--ink); font-weight: 600; font-size: 14px; padding: 10px 18px; border-radius: 99px; opacity: 0; transition: .3s; pointer-events: none; box-shadow: 0 10px 30px rgba(0,0,0,.35); white-space: nowrap }
+.toast.on { opacity: 1; transform: translate(-50%, 0) }
+
+/* sheets */
+.ov { position: fixed; inset: 0; z-index: 60; background: rgba(10,7,5,.5); opacity: 0; pointer-events: none; transition: opacity .25s }
+.ov.on { opacity: 1; pointer-events: auto }
+.sheet { position: fixed; z-index: 61; inset-inline: 0; bottom: 0; max-height: 88vh; overflow-y: auto; background: var(--card); color: var(--ink); border-radius: 24px 24px 0 0; padding: 18px 18px calc(20px + env(safe-area-inset-bottom)); transform: translateY(105%); transition: transform .32s cubic-bezier(.2,.8,.2,1); max-width: 560px; margin: 0 auto; box-shadow: 0 -20px 60px rgba(0,0,0,.4) }
+.sheet.on { transform: none }
+.sheet .grab { width: 42px; height: 4px; border-radius: 9px; background: var(--line); margin: -6px auto 12px }
+.sheet h2 { font-family: var(--hf); font-size: 21px; margin: 0 }
+.sheet .x { position: absolute; top: 14px; inset-inline-end: 14px; width: 36px; height: 36px; border-radius: 50%; border: 1px solid var(--line); display: grid; place-items: center; font-size: 18px; color: var(--mute) }
+.tag { display: inline-block; font-size: 12px; color: var(--mute); margin-bottom: 4px }
+.price { font-family: var(--hf); font-size: 20px; font-weight: 700; color: #8A6A2E; margin-top: 4px }
+.desc { color: var(--mute); font-size: 14px; margin: 8px 0 0; line-height: 1.6 }
+.lbl { font-size: 13px; font-weight: 600; margin: 16px 0 8px; display: flex; justify-content: space-between; align-items: baseline }
+.lbl small { font-weight: 400; color: var(--mute) }
+.sw { display: flex; gap: 10px; flex-wrap: wrap }
+.sw button { width: 38px; height: 38px; border-radius: 50%; border: 2px solid #fff; box-shadow: 0 0 0 1px var(--line); position: relative }
+.sw button.on { box-shadow: 0 0 0 2px var(--gold) }
+.sz { display: flex; gap: 8px; flex-wrap: wrap }
+.sz button { min-width: 46px; height: 40px; border-radius: 12px; border: 1.5px solid var(--line); font-weight: 600; font-size: 14px; padding: 0 10px; position: relative }
+.sz button.on { border-color: var(--ink); background: var(--ink); color: #fff }
+.sz button.sug::after { content: ''; position: absolute; top: -4px; inset-inline-end: -4px; width: 10px; height: 10px; border-radius: 50%; background: var(--gold) }
+.row { display: flex; gap: 10px; margin-top: 18px }
+.btn { flex: 1; height: 50px; border-radius: 15px; font-weight: 700; font-size: 15px; display: inline-flex; align-items: center; justify-content: center; gap: 8px; font-family: var(--hf) }
+.btn.dark { background: var(--ink); color: #fff }
+.btn.gold { background: linear-gradient(135deg, var(--gold2), var(--gold)); color: #1B1512 }
+.btn.line { border: 1.5px solid var(--line); color: var(--ink) }
+.btn.wa { background: var(--wa); color: #fff }
+.note { font-size: 12px; color: var(--mute); text-align: center; margin: 10px 0 0 }
+.fld { display: grid; gap: 6px; margin-top: 12px }
+.fld label { font-size: 13px; font-weight: 600 }
+.in { width: 100%; height: 46px; border-radius: 12px; border: 1.5px solid var(--line); background: #fff; padding: 0 12px; font-size: 15px }
+.two { display: grid; grid-template-columns: 1fr 1fr; gap: 10px }
+.seg { display: flex; gap: 6px; background: #F1E9DE; padding: 4px; border-radius: 14px }
+.seg button { flex: 1; height: 40px; border-radius: 11px; font-weight: 600; font-size: 14px; color: var(--mute) }
+.seg button.on { background: #fff; color: var(--ink); box-shadow: 0 2px 8px rgba(0,0,0,.08) }
+.chips { display: flex; gap: 8px; flex-wrap: wrap }
+.chips button { padding: 9px 13px; border-radius: 99px; border: 1.5px solid var(--line); font-size: 13.5px; font-weight: 600 }
+.chips button.on { border-color: var(--ink); background: var(--ink); color: #fff }
+details.more { margin-top: 14px; border: 1px dashed var(--line); border-radius: 14px; padding: 4px 12px 12px }
+details.more summary { cursor: pointer; font-weight: 600; font-size: 14px; padding: 8px 0; list-style: none }
+.rangev { font-weight: 700; font-family: var(--hf) }
+input[type=range] { width: 100%; accent-color: #8A6A2E }
+.ci { display: flex; gap: 12px; align-items: center; padding: 12px 0; border-bottom: 1px solid var(--line) }
+.ci .dot { width: 40px; height: 40px; border-radius: 12px; flex: none; border: 1px solid rgba(0,0,0,.08) }
+.ci div { flex: 1; min-width: 0 }
+.ci b { display: block; font-size: 14.5px }
+.ci small { color: var(--mute); font-size: 12.5px }
+.ci .p { font-weight: 700; font-family: var(--hf) }
+.ci .rm { width: 32px; height: 32px; border-radius: 50%; border: 1px solid var(--line); color: var(--mute) }
+.tot { display: flex; justify-content: space-between; font-family: var(--hf); font-size: 18px; font-weight: 700; padding: 14px 0 4px }
+
+/* intro */
+.intro { position: fixed; inset: 0; z-index: 70; display: grid; place-items: center; padding: 24px; background: radial-gradient(80% 60% at 50% 35%, rgba(201,163,91,.18), transparent 70%), rgba(15,11,9,.92); text-align: center; transition: opacity .6s }
+.intro.off { opacity: 0; pointer-events: none }
+.intro .m { font-family: var(--brand); font-size: clamp(40px, 11vw, 64px); font-weight: 500; color: var(--gold2); direction: ltr; line-height: 1 }
+.intro .m i { font-style: italic }
+.intro .ar { font-family: var(--hf); font-size: 18px; letter-spacing: 2px; color: #CDBFAF; margin-top: 8px }
+.intro p { color: #CDBFAF; max-width: 30em; margin: 18px auto 0; line-height: 1.7; font-size: 15px }
+.intro ul { list-style: none; padding: 0; margin: 20px auto 0; display: grid; gap: 10px; max-width: 320px; text-align: start; font-size: 14px; color: var(--cream) }
+.intro li { display: flex; gap: 10px; align-items: center }
+.intro li i { font-style: normal; width: 32px; height: 32px; border-radius: 10px; background: rgba(201,163,91,.15); display: grid; place-items: center; flex: none }
+.intro .go { margin-top: 26px; height: 54px; padding: 0 34px; border-radius: 99px; background: linear-gradient(135deg, var(--gold2), var(--gold)); color: #1B1512; font-weight: 700; font-size: 16px; font-family: var(--hf); box-shadow: 0 12px 34px rgba(201,163,91,.35) }
+.intro .go:disabled { opacity: .5 }
+.intro .ld { font-size: 12px; color: #9C8E80; margin-top: 12px }
+
+/* fitting room */
+.fit { position: fixed; inset: 0; z-index: 40; display: none; pointer-events: none }
+.fit > * { pointer-events: auto }
+.fit.on { display: block }
+.fit .fbar { position: absolute; top: calc(28px + env(safe-area-inset-top)); inset-inline: 10px; display: flex; gap: 8px; align-items: center; z-index: 2 }
+.fit .ftitle { font-family: var(--hf); font-weight: 600; font-size: 15px; padding: 0 6px; flex: 1; text-shadow: 0 1px 6px rgba(0,0,0,.5) }
+.fpanel { position: absolute; inset-inline: 0; bottom: 0; z-index: 2; background: linear-gradient(to top, rgba(18,13,10,.97) 70%, rgba(18,13,10,0)); padding: 34px 12px calc(12px + env(safe-area-inset-bottom)) }
+.pieces { display: flex; gap: 8px; overflow-x: auto; scrollbar-width: none; padding-bottom: 2px }
+.pieces::-webkit-scrollbar { display: none }
+.pc { flex: none; display: flex; align-items: center; gap: 8px; padding: 6px 8px 6px 6px; border-radius: 14px; background: rgba(255,255,255,.07); border: 1.5px solid rgba(255,255,255,.08); font-size: 13px; font-weight: 600; max-width: 210px }
+[dir=rtl] .pc { padding: 6px 6px 6px 8px }
+.pc.on { border-color: var(--gold) }
+.pc i { width: 26px; height: 26px; border-radius: 8px; flex: none; border: 1px solid rgba(255,255,255,.2) }
+.pc span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap }
+.pc .rm { width: 22px; height: 22px; border-radius: 50%; background: rgba(255,255,255,.1); font-size: 13px; line-height: 22px; flex: none; text-align: center }
+.pc.add { border-style: dashed; color: var(--gold2) }
+.fsw { display: flex; gap: 10px; margin: 12px 2px 0; overflow-x: auto; scrollbar-width: none; align-items: center }
+.fsw button { width: 34px; height: 34px; border-radius: 50%; flex: none; border: 2px solid rgba(255,255,255,.6) }
+.fsw button.on { box-shadow: 0 0 0 2px var(--gold); border-color: #fff }
+.fsw small { color: #B8A999; font-size: 12px; white-space: nowrap }
+.ffoot { display: flex; align-items: center; gap: 10px; margin-top: 12px }
+.ffoot .t { font-family: var(--hf); font-weight: 700; font-size: 18px; color: var(--gold2) }
+.ffoot .t small { display: block; font-weight: 400; font-size: 11.5px; color: #B8A999 }
+.ffoot .btn { height: 46px }
+.fhelp { position: absolute; z-index: 2; top: 50%; inset-inline-end: 12px; display: grid; gap: 8px }
+.fhelp button { width: 42px; height: 42px; border-radius: 50%; background: rgba(20,15,12,.7); border: 1px solid rgba(201,163,91,.3); font-size: 17px }
+.sizeb { font-size: 12.5px; color: #D9CCBD; line-height: 1.5; margin: 0 2px 10px }
+.sizeb b { color: var(--gold2) }
+.cat-list { display: grid; gap: 4px; margin-top: 6px }
+.cat-h { font-size: 12px; color: var(--mute); font-weight: 600; margin: 14px 0 2px }
+.it { display: flex; gap: 12px; align-items: center; padding: 9px 4px; border-radius: 12px; text-align: start; width: 100% }
+.it:active { background: #F3ECE2 }
+.it i { width: 38px; height: 38px; border-radius: 10px; flex: none }
+.it div { flex: 1 } .it b { display: block; font-size: 14.5px } .it small { color: var(--mute) }
+.it .p { font-weight: 700; font-family: var(--hf); font-size: 14px }
+@media (min-width: 900px) { .fpanel { max-width: 560px; margin: 0 auto; border-radius: 20px 20px 0 0 } }
+</style>
+</head>
+<body>
+<div class="demo"><span data-t="demo"></span> <a id="demoA" target="_blank" rel="noopener" data-t="demoCta"></a></div>
+<div id="stage"></div>
+
+<header class="top" id="top">
+  <div class="logo"><b>Maison Layal</b><small data-t="sub"></small></div>
+  <div class="sp"></div>
+  <button class="ib" id="langB" type="button"></button>
+  <button class="ib" id="bagB" type="button" aria-label="bag"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 7h12l1 13H5z"/><path d="M9 7a3 3 0 0 1 6 0"/></svg><span class="n" id="bagN" hidden>0</span></button>
+</header>
+<div class="hint" id="hint"></div>
+<nav class="zones" id="zones">
+  <button type="button" data-zone="women" data-t="zW"></button>
+  <button type="button" data-zone="men" data-t="zM"></button>
+  <button type="button" data-zone="shoes" data-t="zS"></button>
+  <button type="button" class="fitb" data-openfit data-t="zF"></button>
+</nav>
+
+<!-- fitting room -->
+<section class="fit" id="fit">
+  <div class="fbar">
+    <button class="ib" type="button" id="fitBack"><span data-t="back"></span></button>
+    <div class="ftitle" data-t="fitT"></div>
+    <button class="ib" type="button" id="meB" data-t="me"></button>
+  </div>
+    <div class="fhelp"><button type="button" id="rotL" aria-label="rotate">↺</button><button type="button" id="rotR" aria-label="rotate">↻</button><button type="button" id="zoomB" aria-label="zoom">⤢</button></div>
+  <div class="fpanel">
+    <div class="sizeb" id="sizeb"></div>
+    <div class="pieces" id="pieces"></div>
+    <div class="fsw" id="fsw"></div>
+    <div class="ffoot"><div class="t" id="ftot"></div><button class="btn line" style="background:#fff" type="button" id="lookBag" data-t="lookBag"></button><button class="btn wa" type="button" id="lookWa" data-t="lookWa"></button></div>
+  </div>
+</section>
+
+<div class="ov" id="ov"></div>
+<section class="sheet" id="sheet" role="dialog" aria-modal="true"><div class="grab"></div><button class="x" type="button" data-close>✕</button><div id="sheetB"></div></section>
+
+<div class="intro" id="intro">
+  <div>
+    <div class="m">Maison <i>Layal</i></div>
+    <div class="ar" data-t="arName"></div>
+    <p data-t="introP"></p>
+    <ul>
+      <li><i>👆</i><span data-t="i1"></span></li>
+      <li><i>👗</i><span data-t="i2"></span></li>
+      <li><i>🪞</i><span data-t="i3"></span></li>
+    </ul>
+    <button class="go" id="goB" type="button" disabled data-t="enter"></button>
+    <div class="ld" id="ld"></div>
+  </div>
+</div>
+<div class="toast" id="toast"></div>
+
+<script type="module">
+import * as THREE from './lib/three.module.min.js';
+
+/* ---------------- data ---------------- */
+const WA = '96171163991'; // demo: orders go to Nafetha
+const C = (hex, ar, en) => ({ hex, ar, en });
+const COL = {
+  ivory: C('#F2EBDD', 'عاجي', 'Ivory'), blush: C('#E7B9AE', 'وردي ناعم', 'Blush'), black: C('#1E1C1D', 'أسود', 'Black'), emerald: C('#1F5B48', 'زمردي', 'Emerald'),
+  burgundy: C('#6B1E2E', 'خمري', 'Burgundy'), champagne: C('#D8C29A', 'شامبانيا', 'Champagne'), navy: C('#1F2A44', 'كحلي', 'Navy'), camel: C('#B48A5A', 'جملي', 'Camel'),
+  cream: C('#EDE3D0', 'كريمي', 'Cream'), grey: C('#8D8C8A', 'رمادي', 'Grey'), rose: C('#C99A9A', 'زهري غامق', 'Dusty rose'), beige: C('#CDB792', 'بيج', 'Beige'),
+  olive: C('#5B5E3C', 'زيتي', 'Olive'), sage: C('#9AA88F', 'أخضر مريمية', 'Sage'), nude: C('#D4AE93', 'نود', 'Nude'), red: C('#9E1B22', 'أحمر', 'Red'),
+  white: C('#F7F6F3', 'أبيض', 'White'), sky: C('#AFC6DE', 'سماوي', 'Light blue'), pink: C('#E9C3C6', 'زهري', 'Pink'), charcoal: C('#3A3B3E', 'فحمي', 'Charcoal'),
+  indigo: C('#2C3E63', 'نيلي', 'Indigo'), wash: C('#7F9BB8', 'جينز فاتح', 'Light wash'), brown: C('#5A3A24', 'بني', 'Brown')
+};
+// slot: top | bottom | outer | dress | shoes ; kind drives the 3D shape
+const ITEMS = [
+  { id: 'blouse', g: 'w', slot: 'top', kind: 'blouse', ar: 'بلوزة حرير', en: 'Silk blouse', p: 59, c: ['ivory', 'blush', 'black', 'emerald'], dar: 'حرير ناعم بقصّة مريحة وأكمام طويلة.', den: 'Soft silk with a relaxed cut and long sleeves.' },
+  { id: 'knit', g: 'w', slot: 'top', kind: 'knit', ar: 'كنزة صوف ناعمة', en: 'Soft wool knit', p: 79, c: ['camel', 'cream', 'grey', 'rose'], dar: 'مزيج صوف وكشمير، دافية وخفيفة.', den: 'Wool and cashmere blend, warm and light.' },
+  { id: 'dress', g: 'w', slot: 'dress', kind: 'dress', ar: 'فستان سهرة ميدي', en: 'Midi evening dress', p: 129, c: ['black', 'burgundy', 'champagne', 'navy'], dar: 'قصّة محدّدة عالخصر وطول ميدي أنيق.', den: 'Fitted waist and an elegant midi length.' },
+  { id: 'trench', g: 'w', slot: 'outer', kind: 'trench', ar: 'معطف ترنش', en: 'Trench coat', p: 169, c: ['beige', 'black', 'olive'], dar: 'ترنش كلاسيكي مع حزام، لكل المواسم.', den: 'Classic belted trench for every season.' },
+  { id: 'wtrouser', g: 'w', slot: 'bottom', kind: 'wide', ar: 'بنطلون واسع', en: 'Wide-leg trousers', p: 69, c: ['black', 'cream', 'camel'], dar: 'خصر عالي ورجل واسعة بتطيح بشكل جميل.', den: 'High waist and a wide leg that drapes beautifully.' },
+  { id: 'skirt', g: 'w', slot: 'bottom', kind: 'skirt', ar: 'تنورة بليسيه', en: 'Pleated midi skirt', p: 65, c: ['black', 'sage', 'champagne', 'burgundy'], dar: 'بليسيه ناعم بيتحرّك مع كل خطوة.', den: 'Soft pleats that move with every step.' },
+  { id: 'heels', g: 'w', slot: 'shoes', kind: 'heels', ar: 'كعب كلاسيك', en: 'Classic heels', p: 99, c: ['black', 'nude', 'red'], dar: 'جلد طبيعي وكعب 7 سم مريح.', den: 'Genuine leather with a comfortable 7 cm heel.' },
+  { id: 'oxford', g: 'm', slot: 'top', kind: 'shirt', ar: 'قميص أكسفورد', en: 'Oxford shirt', p: 49, c: ['white', 'sky', 'pink', 'navy'], dar: 'قطن أكسفورد بياقة بأزرار.', den: 'Oxford cotton with a button-down collar.' },
+  { id: 'tee', g: 'm', slot: 'top', kind: 'tee', ar: 'تيشيرت قطن فاخر', en: 'Premium cotton tee', p: 29, c: ['white', 'black', 'navy', 'olive'], dar: 'قطن ثقيل بقصّة نظيفة.', den: 'Heavyweight cotton with a clean cut.' },
+  { id: 'hoodie', g: 'm', slot: 'top', kind: 'hoodie', ar: 'هودي', en: 'Hoodie', p: 55, c: ['grey', 'black', 'cream'], dar: 'قطن مبطّن ناعم مع كبّوس.', den: 'Soft brushed cotton with a hood.' },
+  { id: 'blazer', g: 'm', slot: 'outer', kind: 'blazer', ar: 'بليزر صوف', en: 'Wool blazer', p: 189, c: ['navy', 'charcoal', 'camel'], dar: 'صوف إيطالي بقصّة مفصّلة.', den: 'Italian wool with a tailored cut.' },
+  { id: 'chinos', g: 'm', slot: 'bottom', kind: 'chino', ar: 'بنطلون تشينو', en: 'Chinos', p: 59, c: ['beige', 'navy', 'olive', 'grey'], dar: 'قطن مرن بقصّة مستقيمة.', den: 'Stretch cotton with a straight cut.' },
+  { id: 'jeans', g: 'm', slot: 'bottom', kind: 'jeans', ar: 'جينز سليم', en: 'Slim jeans', p: 69, c: ['indigo', 'black', 'wash'], dar: 'دنيم مرن بقصّة سليم.', den: 'Stretch denim with a slim fit.' },
+  { id: 'loafers', g: 'm', slot: 'shoes', kind: 'loafer', ar: 'حذاء لوفر جلد', en: 'Leather loafers', p: 119, c: ['brown', 'black'], dar: 'جلد مصقول بخياطة يدوية.', den: 'Polished leather, hand stitched.' },
+  { id: 'sneaker', g: 'u', slot: 'shoes', kind: 'sneaker', ar: 'سنيكرز جلد', en: 'Leather sneakers', p: 89, c: ['white', 'black'], dar: 'جلد ناعم ونعل مريح لكل يوم.', den: 'Soft leather and an all-day comfortable sole.' }
+];
+const byId = Object.fromEntries(ITEMS.map((i) => [i.id, i]));
+const SIZES = ['XS', 'S', 'M', 'L', 'XL', 'XXL'], SHOE = { w: ['36', '37', '38', '39', '40', '41'], m: ['40', '41', '42', '43', '44', '45'] };
+
+/* ---------------- i18n ---------------- */
+let lang = 'ar'; try { lang = localStorage.getItem('ly_lang') || 'ar' } catch (e) {}
+const TT = {
+  demo: ['نموذج تجريبي من نافذة لمحل ملابس ثلاثي الأبعاد.', 'A Nafetha demo of a 3D clothing boutique.'], demoCta: ['بدّي موقع متله', 'I want one'],
+  sub: ['بوتيك · بيروت', 'Boutique · Beirut'], arName: ['ميــزون ليــال', 'BOUTIQUE · BEIRUT'],
+  introP: ['ادخل البوتيك متل كأنك فيه: تمشّى بين الرفوف، اختار القطعة يلي بتعجبك، وجرّبها على مجسّم بمقاساتك.', 'Step inside as if you were there: walk the racks, pick what you love, and try it on a model with your measurements.'],
+  i1: ['اسحب لتتلفّت، واكبس عالأرض لتمشي', 'Drag to look around, tap the floor to walk'], i2: ['اكبس على أي قطعة لتشوف تفاصيلها', 'Tap any piece to see its details'], i3: ['جرّبها بغرفة القياس ونسّق إطلالتك', 'Try it in the fitting room and style a look'],
+  enter: ['ادخل البوتيك', 'Enter the boutique'], loading: ['عم نجهّز المحل…', 'Preparing the boutique…'],
+  zW: ['👗 نسائي', '👗 Women'], zM: ['👔 رجالي', '👔 Men'], zS: ['👠 أحذية', '👠 Shoes'], zF: ['🪞 غرفة القياس', '🪞 Fitting room'],
+  hint: ['اسحب لتتلفّت · اكبس عالأرض لتمشي', 'Drag to look · tap the floor to walk'],
+  colour: ['اللون', 'Colour'], size: ['المقاس', 'Size'], sugg: ['● مقاس مقترح حسب مقاساتك', '● Suggested from your measurements'], setMe: ['سجّل مقاساتك لنقترحلك مقاس', 'Add your measurements for a size tip'],
+  tryOn: ['🪞 جرّبها', '🪞 Try it on'], addBag: ['أضف للسلّة', 'Add to bag'], added: ['انضافت للسلّة ✓', 'Added to bag ✓'], pickSize: ['اختار المقاس أوّل', 'Pick a size first'],
+  back: ['← المحل', '← Store'], fitT: ['غرفة القياس', 'Fitting room'], me: ['📏 مقاساتي', '📏 My size'], addPiece: ['+ قطعة', '+ Piece'],
+  lookBag: ['للسلّة', 'To bag'], lookWa: ['اطلب الإطلالة', 'Order the look'], lookTot: ['مجموع الإطلالة', 'Look total'], emptyLook: ['اختار قطعة لتبلّش', 'Pick a piece to start'],
+  meT: ['مقاساتك', 'Your measurements'], meS: ['اختياري: بنعمل المجسّم متلك وبنقترحلك المقاس. بينحفظوا على تلفونك بس.', 'Optional: we shape the model like you and suggest sizes. Saved on your phone only.'],
+  gW: ['امرأة', 'Woman'], gM: ['رجل', 'Man'], height: ['الطول', 'Height'], weight: ['الوزن', 'Weight'], shape: ['شكل الجسم', 'Body shape'], skin: ['لون المجسّم', 'Model tone'],
+  more: ['مقاسات أدق (اختياري)', 'Exact measurements (optional)'], chest: ['الصدر (سم)', 'Chest (cm)'], waist: ['الخصر (سم)', 'Waist (cm)'], hip: ['الورك (سم)', 'Hips (cm)'],
+  save: ['احفظ وشوف المجسّم', 'Save and see the model'], skip: ['تخطّى، استعمل مجسّم عادي', 'Skip, use a standard model'],
+  bag: ['سلّتك', 'Your bag'], bagEmpty: ['السلّة فاضية. تمشّى بالمحل واختار شي بيعجبك 🤍', 'Your bag is empty. Walk the store and pick something 🤍'], total: ['المجموع', 'Total'],
+  name: ['الاسم', 'Name'], addr: ['العنوان', 'Address'], send: ['أرسل الطلب عالواتساب', 'Send order on WhatsApp'], fill: ['اكتب اسمك وعنوانك', 'Add your name and address'],
+  waNote: ['ما بيوصل شي قبل ما تكبس إرسال جوّا الواتساب.', 'Nothing is sent until you press send in WhatsApp.'],
+  sizeTip: ['المجسّم بيعطيك فكرة عن الشكل والتنسيق، مش قياس دقيق.', 'The model shows look and styling, not an exact fit.'],
+  yourSize: ['مقاسك المقترح', 'Your suggested size'], tops: ['فوق', 'Tops'], bottoms: ['تحت', 'Bottoms'], stdModel: ['مجسّم عادي · سجّل مقاساتك', 'Standard model · add your size'],
+  catTop: ['قطع علوية', 'Tops'], catBottom: ['بناطيل وتنانير', 'Trousers & skirts'], catDress: ['فساتين', 'Dresses'], catOuter: ['جاكيتات ومعاطف', 'Jackets & coats'], catShoes: ['أحذية', 'Shoes'],
+  chooseP: ['أضف قطعة للإطلالة', 'Add a piece to the look'], women: ['نسائي', 'Women'], men: ['رجالي', 'Men'], unisex: ['للجنسين', 'Unisex'], lookAdded: ['انضافت الإطلالة للسلّة ✓', 'Look added to bag ✓'],
+  sizeQ: ['المقاس: ', 'Size: ']
+};
+const t = (k) => (TT[k] || [k, k])[lang === 'ar' ? 0 : 1];
+const L = (a, e) => (lang === 'ar' ? a : e);
+const nm = (it) => L(it.ar, it.en), cn = (k) => L(COL[k].ar, COL[k].en);
+const SHAPES = { w: [['hour', 'ساعة رملية', 'Hourglass'], ['pear', 'كمّثرى', 'Pear'], ['apple', 'تفاحة', 'Apple'], ['rect', 'مستقيم', 'Straight']], m: [['slim', 'نحيف', 'Slim'], ['athl', 'رياضي', 'Athletic'], ['avg', 'متوسّط', 'Average'], ['broad', 'عريض', 'Broad']] };
+const SKINS = [['#EDE4D8', 'porcelain'], ['#D2A47C', 'sand'], ['#9A6A47', 'bronze'], ['#5E3D2A', 'espresso']];
+function applyLang() {
+  document.documentElement.lang = lang; document.documentElement.dir = lang === 'ar' ? 'rtl' : 'ltr';
+  document.querySelectorAll('[data-t]').forEach((e) => { e.textContent = t(e.dataset.t) });
+  $('#langB').textContent = lang === 'ar' ? 'EN' : 'ع';
+  $('#demoA').href = 'https://wa.me/' + WA + '?text=' + encodeURIComponent(L('مرحبًا نافذة، شفت نموذج البوتيك ثلاثي الأبعاد وبدّي موقع متله.', 'Hi Nafetha, I saw the 3D boutique demo and want one like it.'));
+  $('#hint').textContent = t('hint');
+  document.title = L('ميزون ليال | Maison Layal', 'Maison Layal | ميزون ليال');
+}
+const $ = (s) => document.querySelector(s);
+const fmt = (n) => '$' + (Math.round(n * 100) / 100).toFixed(0);
+let toastT; function toast(m) { const e = $('#toast'); e.textContent = m; e.classList.add('on'); clearTimeout(toastT); toastT = setTimeout(() => e.classList.remove('on'), 2200) }
+
+/* ---------------- state ---------------- */
+let profile = null, bag = [], look = {}, activeSlot = null;
+try { profile = JSON.parse(localStorage.getItem('ly_prof') || 'null'); bag = JSON.parse(localStorage.getItem('ly_bag') || '[]'); look = JSON.parse(localStorage.getItem('ly_look') || '{}') } catch (e) {}
+bag = bag.filter((b) => byId[b.id]); Object.keys(look).forEach((k) => { if (!look[k] || !byId[look[k].id]) delete look[k] });
+const saveSt = () => { try { localStorage.setItem('ly_bag', JSON.stringify(bag)); localStorage.setItem('ly_look', JSON.stringify(look)); if (profile) localStorage.setItem('ly_prof', JSON.stringify(profile)) } catch (e) {} };
+const lowEnd = (navigator.hardwareConcurrency || 4) <= 4 || (navigator.deviceMemory || 4) <= 3 || /Android [4-8]\b/.test(navigator.userAgent);
+
+/* body numbers from the profile */
+function body() {
+  const p = profile || {}, g = p.g || 'w';
+  const H = (p.h || (g === 'w' ? 165 : 178)) / 100, W = p.w || (g === 'w' ? 60 : 78);
+  const bmi = W / (H * H), k = bmi / 22;
+  let ch = g === 'w' ? 90 : 100, wa = g === 'w' ? 71 : 85, hi = g === 'w' ? 97 : 98, sh = g === 'w' ? 39 : 46;
+  ch *= Math.pow(k, .6); wa *= Math.pow(k, .95); hi *= Math.pow(k, .6); sh *= Math.pow(k, .25);
+  const s = p.s || (g === 'w' ? 'hour' : 'avg');
+  const M = { hour: [1.03, .94, 1.03, 1], pear: [.95, .98, 1.08, .96], apple: [1.03, 1.12, .98, 1], rect: [.98, 1.06, .97, 1], slim: [.95, .93, .96, .97], athl: [1.07, .95, .98, 1.07], avg: [1, 1, 1, 1], broad: [1.08, 1.06, 1.04, 1.08] }[s] || [1, 1, 1, 1];
+  ch *= M[0]; wa *= M[1]; hi *= M[2]; sh *= M[3];
+  if (p.ch) ch = +p.ch; if (p.wa) wa = +p.wa; if (p.hi) hi = +p.hi;
+  return { g, H, ch, wa, hi, sh: sh / 100, skin: p.skin || SKINS[0][0], hasProfile: !!profile };
+}
+function sizeFor(it) {
+  const b = body();
+  if (it.slot === 'shoes') { const est = b.g === 'w' ? Math.round(36 + (b.H * 100 - 155) / 7) : Math.round(40 + (b.H * 100 - 165) / 6); const arr = SHOE[it.g === 'u' ? b.g : it.g]; return arr[Math.max(0, Math.min(arr.length - 1, arr.indexOf(String(est)) >= 0 ? arr.indexOf(String(est)) : (est < +arr[0] ? 0 : arr.length - 1)))] }
+  const w = b.g === 'w', v = it.slot === 'bottom' ? Math.max(b.wa + (w ? 26 : 13), b.hi) : b.ch;
+  const steps = it.slot === 'bottom' ? (w ? [88, 93, 98, 104, 110] : [90, 96, 102, 108, 114]) : (w ? [82, 87, 92, 98, 104] : [90, 96, 102, 108, 116]);
+  let i = 0; while (i < steps.length && v > steps[i]) i++; return SIZES[i];
+}
+
+/* ---------------- three: renderer ---------------- */
+const renderer = new THREE.WebGLRenderer({ antialias: !lowEnd, powerPreference: 'high-performance' });
+renderer.setPixelRatio(Math.min(devicePixelRatio, lowEnd ? 1 : 1.75));
+renderer.setSize(innerWidth, innerHeight);
+renderer.outputColorSpace = THREE.SRGBColorSpace;
+renderer.toneMapping = THREE.ACESFilmicToneMapping; renderer.toneMappingExposure = 1.05;
+renderer.shadowMap.enabled = !lowEnd; renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+$('#stage').appendChild(renderer.domElement);
+
+/* canvas textures */
+function canvasTex(w, h, draw, rep) { const c = document.createElement('canvas'); c.width = w; c.height = h; draw(c.getContext('2d'), w, h); const tx = new THREE.CanvasTexture(c); tx.colorSpace = THREE.SRGBColorSpace; if (rep) { tx.wrapS = tx.wrapT = THREE.RepeatWrapping; tx.repeat.set(rep[0], rep[1]) } tx.anisotropy = 4; return tx }
+const rnd = (() => { let s = 7; return () => (s = (s * 16807) % 2147483647) / 2147483647 })();
+const floorTex = canvasTex(512, 512, (g, w, h) => {
+  const tones = ['#5E412C', '#674731', '#573C29', '#6E4D35', '#62452F'];
+  const pw = 64, ph = 16;
+  for (let y = -2; y < h / ph + 2; y++) for (let x = -2; x < w / pw + 2; x++) {
+    g.save(); g.translate(x * pw + (y % 2) * pw / 2, y * ph); g.fillStyle = tones[Math.floor(rnd() * tones.length)]; g.fillRect(0, 0, pw - 1, ph - 1);
+    g.globalAlpha = .08; for (let i = 0; i < 5; i++) { g.fillStyle = '#2E1E13'; g.fillRect(0, rnd() * ph, pw, .6) } g.restore();
+  }
+}, [7, 9]);
+const weave = canvasTex(128, 128, (g, w, h) => { g.fillStyle = '#fff'; g.fillRect(0, 0, w, h); for (let i = 0; i < w; i += 2) { g.fillStyle = 'rgba(0,0,0,' + (0.012 + rnd() * 0.018) + ')'; g.fillRect(i, 0, 1, h); g.fillStyle = 'rgba(0,0,0,' + (0.01 + rnd() * 0.015) + ')'; g.fillRect(0, i, w, 1) } }, [6, 6]);
+const marble = canvasTex(512, 512, (g, w, h) => { g.fillStyle = '#EFE9E1'; g.fillRect(0, 0, w, h); g.strokeStyle = 'rgba(120,105,90,.18)'; for (let i = 0; i < 26; i++) { g.lineWidth = .5 + rnd() * 2; g.beginPath(); let x = rnd() * w, y = 0; g.moveTo(x, y); while (y < h) { x += (rnd() - .5) * 40; y += 20 + rnd() * 30; g.lineTo(x, y) } g.stroke() } });
+function signTex(lines) { return canvasTex(1024, 256, (g, w, h) => { g.clearRect(0, 0, w, h); g.textAlign = 'center'; g.fillStyle = '#E3C27F'; g.shadowColor = 'rgba(227,194,127,.6)'; g.shadowBlur = 18; g.font = '500 110px "Playfair Display", Georgia, serif'; g.fillText(lines[0], w / 2, 130); g.shadowBlur = 0; g.font = '600 46px "Readex Pro", sans-serif'; g.fillStyle = '#CDBFAF'; g.fillText(lines[1], w / 2, 215) }) }
+function labelTex(txt) { return canvasTex(512, 128, (g, w, h) => { g.fillStyle = 'rgba(27,21,18,.88)'; g.beginPath(); g.roundRect(8, 8, w - 16, h - 16, 40); g.fill(); g.strokeStyle = '#C9A35B'; g.lineWidth = 3; g.stroke(); g.fillStyle = '#E3C27F'; g.textAlign = 'center'; g.font = '600 60px "Readex Pro", sans-serif'; g.fillText(txt, w / 2, 86) }) }
+
+/* materials */
+const mat = {};
+const M = (k, o) => mat[k] || (mat[k] = new THREE.MeshStandardMaterial(o));
+const fabric = (hex, rough) => M('f' + hex + (rough || ''), { color: hex, map: weave, roughness: rough || .86, metalness: 0 });
+const leather = (hex) => M('l' + hex, { color: hex, roughness: .38, metalness: .05 });
+const brass = M('brass', { color: '#C9A35B', metalness: .85, roughness: .32 });
+const chrome = M('chrome', { color: '#D8D4CC', metalness: .9, roughness: .22 });
+const wood = M('wood', { color: '#4A3022', roughness: .55 });
+const woodL = M('woodL', { color: '#6B4A33', roughness: .5 });
+const wall = M('wall', { color: '#D8C7B1', roughness: .92 });
+const panel = M('panel', { color: '#CDB99F', roughness: .85 });
+
+/* ---------------- store scene ---------------- */
+const scene = new THREE.Scene();
+scene.background = new THREE.Color('#2A201B'); scene.fog = new THREE.Fog('#2A201B', 18, 34);
+const cam = new THREE.PerspectiveCamera(62, innerWidth / innerHeight, .05, 60);
+const RW = 8, RD = 11, RH = 4.2; // half width, half depth, height
+scene.add(new THREE.HemisphereLight('#FFE9CF', '#3B2A20', 1.1));
+const amb = new THREE.AmbientLight('#FFDDB8', .35); scene.add(amb);
+const lightsAt = lowEnd ? [[0, 0], [5.5, -3], [-5.5, -3]] : [[0, 2], [0, -6], [5.5, 2], [5.5, -6], [-5.5, 2], [-5.5, -6]];
+lightsAt.forEach(([x, z]) => { const l = new THREE.PointLight('#FFD3A1', lowEnd ? 22 : 15, 11, 1.6); l.position.set(x, RH - .4, z); scene.add(l) });
+
+const box = (w, h, d, m, x, y, z, p) => { const o = new THREE.Mesh(new THREE.BoxGeometry(w, h, d), m); o.position.set(x, y, z); (p || scene).add(o); return o };
+const cyl = (rt, rb, h, m, x, y, z, seg, p) => { const o = new THREE.Mesh(new THREE.CylinderGeometry(rt, rb, h, seg || 20), m); o.position.set(x, y, z); (p || scene).add(o); return o };
+
+// floor, ceiling, walls
+const floor = new THREE.Mesh(new THREE.PlaneGeometry(RW * 2, RD * 2), M('floor', { map: floorTex, roughness: .48, metalness: .05 }));
+floor.rotation.x = -Math.PI / 2; floor.receiveShadow = true; floor.name = 'floor'; scene.add(floor);
+const ceil = new THREE.Mesh(new THREE.PlaneGeometry(RW * 2, RD * 2), M('ceil', { color: '#2B211C', roughness: 1 })); ceil.rotation.x = Math.PI / 2; ceil.position.y = RH; scene.add(ceil);
+[[0, RH / 2, -RD, 0], [0, RH / 2, RD, Math.PI], [RW, RH / 2, 0, -Math.PI / 2], [-RW, RH / 2, 0, Math.PI / 2]].forEach(([x, y, z, r], i) => {
+  const w = new THREE.Mesh(new THREE.PlaneGeometry(i < 2 ? RW * 2 : RD * 2, RH), wall); w.position.set(x, y, z); w.rotation.y = r; scene.add(w);
+});
+// wainscot + crown + skirting on side walls
+[-1, 1].forEach((sx) => {
+  box(.04, 1.0, RD * 2, panel, sx * (RW - .02), .5, 0); box(.06, .05, RD * 2, woodL, sx * (RW - .03), 1.02, 0);
+  box(.08, .14, RD * 2, wood, sx * (RW - .04), .07, 0); box(.12, .14, RD * 2, M('crown', { color: '#E9DCC9', roughness: .7 }), sx * (RW - .06), RH - .07, 0);
+});
+box(RW * 2, .14, .12, wood, 0, .07, -RD + .06); box(RW * 2, .14, .12, M('crown'), 0, RH - .07, -RD + .06);
+// ceiling coves with glowing strips
+const glow = M('glow', { color: '#FFE2B8', emissive: '#FFC983', emissiveIntensity: 1.6 });
+[-1, 1].forEach((sx) => box(.05, .03, RD * 2 - 1, glow, sx * (RW - .5), RH - .02, 0));
+box(RW * 2 - 1, .03, .05, glow, 0, RH - .02, -RD + .5);
+// recessed downlights
+for (let z = -8; z <= 8; z += 4) [-5.5, 0, 5.5].forEach((x) => { const d = new THREE.Mesh(new THREE.CircleGeometry(.13, 20), glow); d.rotation.x = Math.PI / 2; d.position.set(x, RH - .01, z); scene.add(d) });
+// rug + round table with folded stacks + vase
+const rug = new THREE.Mesh(new THREE.CircleGeometry(2.6, 48), M('rug', { color: '#B9A58A', roughness: 1, map: weave })); rug.rotation.x = -Math.PI / 2; rug.position.set(0, .005, 1); scene.add(rug);
+const rug2 = new THREE.Mesh(new THREE.RingGeometry(2.35, 2.5, 48), M('rugB', { color: '#7C5B3C', roughness: 1 })); rug2.rotation.x = -Math.PI / 2; rug2.position.set(0, .007, 1); scene.add(rug2);
+cyl(1.1, 1.1, .06, M('marble', { map: marble, roughness: .25, metalness: .05 }), 0, .86, 1, 48);
+cyl(.12, .3, .83, brass, 0, .42, 1, 24);
+[['#EDE3D0', -.45, .55], ['#B48A5A', .45, .55], ['#1F2A44', 0, .2], ['#8D8C8A', -.4, 1.55], ['#6B1E2E', .4, 1.55]].forEach(([c, x, z], i) => {
+  for (let k = 0; k < 4; k++) { const b = box(.36, .06, .28, fabric(c), x, .92 + k * .062, z + 1 - 1); b.rotation.y = (i * .4 + k * .05); }
+});
+const vase = new THREE.Mesh(new THREE.LatheGeometry([[0, 0], [.09, 0], [.13, .1], [.11, .28], [.06, .36], [.07, .4]].map(([r, y]) => new THREE.Vector2(r, y)), 28), M('vase', { color: '#E9E1D3', roughness: .3 })); vase.position.set(0, .89, 1); scene.add(vase);
+for (let i = 0; i < 7; i++) { const s = cyl(.006, .006, .45, M('stem', { color: '#6E7A55' }), Math.sin(i) * .05, 1.4, 1 + Math.cos(i) * .05, 5); s.rotation.z = (i - 3) * .12; const f = new THREE.Mesh(new THREE.SphereGeometry(.05, 10, 8), M('flw', { color: i % 2 ? '#F2E6DA' : '#E7C3B5', roughness: .8 })); f.position.set(Math.sin(i) * .05 + (i - 3) * -.05, 1.62, 1 + Math.cos(i) * .05); scene.add(f) }
+// chandelier ring over table
+const ring = new THREE.Mesh(new THREE.TorusGeometry(1.1, .03, 10, 64), brass); ring.rotation.x = Math.PI / 2; ring.position.set(0, RH - .9, 1); scene.add(ring);
+const ringG = new THREE.Mesh(new THREE.TorusGeometry(1.1, .012, 6, 64), glow); ringG.rotation.x = Math.PI / 2; ringG.position.set(0, RH - .93, 1); scene.add(ringG);
+[0, 1, 2, 3].forEach((i) => { const a = i * Math.PI / 2; cyl(.006, .006, .9, brass, Math.cos(a) * 1.1, RH - .45, 1 + Math.sin(a) * 1.1, 4) });
+// back wall: brand sign, fitting arch, mirror
+const sign = new THREE.Mesh(new THREE.PlaneGeometry(3.2, .8), new THREE.MeshBasicMaterial({ map: signTex(['Maison Layal', 'BOUTIQUE · BEIRUT']), transparent: true })); sign.position.set(0, 3.78, -RD + .03); scene.add(sign);
+const archShape = new THREE.Shape(); archShape.moveTo(-1.5, 0); archShape.lineTo(-1.5, 1.6); archShape.absarc(0, 1.6, 1.5, Math.PI, 0, true); archShape.lineTo(1.5, 0); archShape.lineTo(1.75, 0); archShape.lineTo(1.75, 1.6); archShape.absarc(0, 1.6, 1.75, 0, Math.PI, false); archShape.lineTo(-1.75, 0);
+const arch = new THREE.Mesh(new THREE.ExtrudeGeometry(archShape, { depth: .12, bevelEnabled: false }), brass); arch.position.set(0, 0, -RD + .01); scene.add(arch);
+const inner = new THREE.Shape(); inner.moveTo(-1.5, 0); inner.lineTo(-1.5, 1.6); inner.absarc(0, 1.6, 1.5, Math.PI, 0, true); inner.lineTo(1.5, 0);
+const fitWall = new THREE.Mesh(new THREE.ShapeGeometry(inner), M('fitw', { color: '#3A2A22', roughness: .9 })); fitWall.position.set(0, 0, -RD + .02); scene.add(fitWall);
+const curtainTex = canvasTex(256, 64, (g, w, h) => { for (let x = 0; x < w; x++) { const v = 120 + Math.sin(x / 6) * 40 + Math.sin(x / 2.3) * 10; g.fillStyle = 'rgb(' + (v * .62 | 0) + ',' + (v * .2 | 0) + ',' + (v * .24 | 0) + ')'; g.fillRect(x, 0, 1, h) } });
+[-1, 1].forEach((sx) => { const c = new THREE.Mesh(new THREE.PlaneGeometry(1.5, 3.1), M('curtain', { map: curtainTex, roughness: .9 })); c.position.set(sx * .75, 1.55, -RD + .06); scene.add(c) });
+const fitLabel = new THREE.Mesh(new THREE.PlaneGeometry(1.9, .47), new THREE.MeshBasicMaterial({ map: labelTex('Fitting Room · غرفة القياس'), transparent: true })); fitLabel.position.set(0, 1.55, -RD + .1); fitLabel.userData.fit = true; scene.add(fitLabel);
+const fitHit = box(3, 3.4, .2, new THREE.MeshBasicMaterial({ visible: false }), 0, 1.7, -RD + .2); fitHit.userData.fit = true;
+const podium = cyl(.9, .95, .12, M('marble'), 0, .06, -RD + 1.4, 40); podium.userData.fit = true;
+
+/* hanging garment silhouettes */
+function silhouette(kind) {
+  const s = new THREE.Shape(), P = [];
+  const sym = (pts) => { const all = pts.concat(pts.slice().reverse().map(([x, y]) => [-x, y])); s.moveTo(all[0][0], all[0][1]); all.slice(1).forEach(([x, y]) => s.lineTo(x, y)); s.closePath(); return s };
+  switch (kind) {
+    case 'tee': return sym([[-.08, 0], [-.22, -.03], [-.33, -.19], [-.26, -.25], [-.2, -.2], [-.21, -.7]]);
+    case 'shirt': case 'blouse': case 'knit': case 'hoodie': return sym([[-.08, 0], [-.21, -.03], [-.26, -.1], [-.29, -.64], [-.23, -.65], [-.205, -.24], [-.205, kind === 'knit' ? -.66 : -.74]]);
+    case 'blazer': return sym([[-.08, 0], [-.23, -.03], [-.28, -.1], [-.31, -.68], [-.24, -.69], [-.22, -.25], [-.23, -.8]]);
+    case 'trench': return sym([[-.08, 0], [-.23, -.03], [-.28, -.1], [-.31, -.7], [-.24, -.71], [-.22, -.25], [-.27, -1.12]]);
+    case 'dress': return sym([[-.07, 0], [-.11, -.02], [-.17, -.3], [-.13, -.42], [-.31, -1.08]]);
+    case 'wide': { const sh = new THREE.Shape(); [[-.18, 0], [-.2, -.2], [-.25, -1.02], [-.03, -1.02], [0, -.32], [.03, -1.02], [.25, -1.02], [.2, -.2], [.18, 0]].forEach(([x, y], i) => i ? sh.lineTo(x, y) : sh.moveTo(x, y)); sh.closePath(); return sh }
+    case 'chino': case 'jeans': { const sh = new THREE.Shape(); [[-.18, 0], [-.2, -.2], [-.17, -1.0], [-.035, -1.0], [0, -.32], [.035, -1.0], [.17, -1.0], [.2, -.2], [.18, 0]].forEach(([x, y], i) => i ? sh.lineTo(x, y) : sh.moveTo(x, y)); sh.closePath(); return sh }
+    case 'skirt': return sym([[-.16, 0], [-.33, -.72]]);
+  }
+  return sym([[-.2, 0], [-.2, -.6]]);
+}
+const silGeo = {};
+function silGeometry(kind) { if (silGeo[kind]) return silGeo[kind]; const g = new THREE.ExtrudeGeometry(silhouette(kind), { depth: .035, bevelEnabled: true, bevelThickness: .018, bevelSize: .014, bevelSegments: 2, curveSegments: 4 }); g.translate(0, 0, -.017); g.computeVertexNormals(); return (silGeo[kind] = g) }
+const hangerGeo = new THREE.TorusGeometry(.2, .008, 6, 24, Math.PI * .8);
+const hookGeo = new THREE.TorusGeometry(.035, .005, 6, 14, Math.PI * 1.4);
+function hanging(it, ck) {
+  const g = new THREE.Group(), kind = it.kind;
+  const m = new THREE.Mesh(silGeometry(kind), fabric(COL[ck].hex, kind === 'blouse' || kind === 'dress' ? .5 : kind === 'jeans' ? .95 : .86));
+  const isBottom = it.slot === 'bottom';
+  m.position.y = isBottom ? -.06 : -.035; m.castShadow = !lowEnd; g.add(m);
+  if (isBottom) { const bar = new THREE.Mesh(new THREE.BoxGeometry(.42, .02, .02), chrome); bar.position.y = -.05; g.add(bar) }
+  else { const h = new THREE.Mesh(hangerGeo, woodL); h.rotation.z = Math.PI * .1; h.scale.set(1.15, .35, 1); h.position.y = -.07; g.add(h) }
+  const hook = new THREE.Mesh(hookGeo, chrome); hook.position.y = .0; hook.rotation.z = -.3; g.add(hook);
+  // collars / details
+  if (kind === 'shirt' || kind === 'blouse') { const c = new THREE.Mesh(new THREE.ConeGeometry(.09, .08, 3), fabric(COL[ck].hex)); c.rotation.set(Math.PI, 0, 0); c.scale.z = .3; c.position.set(0, -.07, .03); g.add(c) }
+  if (kind === 'blazer' || kind === 'trench') { const l = new THREE.Mesh(new THREE.ConeGeometry(.11, .34, 3), fabric(shade(COL[ck].hex, -.12))); l.rotation.set(Math.PI, 0, 0); l.scale.z = .25; l.position.set(0, -.2, .035); g.add(l);
+    [-.38, -.5].forEach((y) => { const b = new THREE.Mesh(new THREE.SphereGeometry(.012, 8, 6), brass); b.position.set(.02, y, .04); g.add(b) }) }
+  if (kind === 'trench') { const belt = new THREE.Mesh(new THREE.BoxGeometry(.5, .04, .07), fabric(shade(COL[ck].hex, -.08))); belt.position.y = -.45; g.add(belt) }
+  if (kind === 'hoodie') { const h = new THREE.Mesh(new THREE.SphereGeometry(.11, 12, 8, 0, Math.PI * 2, 0, Math.PI / 2), fabric(COL[ck].hex)); h.scale.set(1, .6, .4); h.position.set(0, -.07, -.02); h.rotation.x = Math.PI; g.add(h) }
+  g.traverse((o) => { if (o.isMesh) o.userData.item = { id: it.id, c: ck } });
+  return g;
+}
+function shade(hex, a) { const c = new THREE.Color(hex); const hsl = {}; c.getHSL(hsl); c.setHSL(hsl.h, hsl.s, Math.max(0, Math.min(1, hsl.l + a))); return '#' + c.getHexString() }
+
+/* wall bays: face-out bars with garments in each colour */
+const pickables = [scene.children.find((o) => o.name === 'floor'), fitHit, fitLabel, podium];
+function bay(it, x, z, ry, width) {
+  const g = new THREE.Group(); g.position.set(x, 0, z); g.rotation.y = ry; scene.add(g);
+  const top = it.kind === 'trench' || it.kind === 'dress' ? 2.05 : it.slot === 'bottom' ? 1.85 : 1.95;
+  // back panel + bar + brackets
+  const bp = box(width + .3, 2.6, .04, M('bayp', { color: '#E8DCCB', roughness: .85 }), 0, 1.55, -.32, g);
+  box(width + .3, .04, .06, brass, 0, 2.86, -.3, g); box(width + .3, .04, .06, brass, 0, .25, -.3, g);
+  const bar = cyl(.014, .014, width, chrome, 0, top, -.02, 10, g); bar.rotation.z = Math.PI / 2;
+  [-1, 1].forEach((s) => { const br = box(.025, .025, .32, chrome, s * width / 2, top, -.17, g) });
+  const n = it.c.length, per = n <= 3 ? 2 : 1, cnt = n * per, gap = width / cnt;
+  let k = 0;
+  it.c.forEach((ck) => { for (let r = 0; r < per; r++) { const h = hanging(it, ck); h.position.set(-width / 2 + gap * (k + .5), top, .0 + (k % 2) * .03); h.rotation.y = (rnd() - .5) * .12; g.add(h); pickables.push(h); k++ } });
+  // label
+  const lab = new THREE.Mesh(new THREE.PlaneGeometry(.9, .22), new THREE.MeshBasicMaterial({ map: labelTex(nm(it) + ' · ' + fmt(it.p)), transparent: true })); lab.position.set(0, top + .55, -.29); lab.userData.label = it.id; g.add(lab); labels.push([lab, it]);
+  // spotlight glow puddle
+  const spot = new THREE.Mesh(new THREE.CircleGeometry(.9, 28), new THREE.MeshBasicMaterial({ color: '#FFD9A6', transparent: true, opacity: .08, depthWrite: false })); spot.rotation.x = -Math.PI / 2; spot.position.set(0, .006, .6); g.add(spot);
+  return g;
+}
+const labels = [];
+// women: right wall (x = +RW), men: left wall
+const wIt = ['blouse', 'knit', 'dress', 'trench'], mIt = ['oxford', 'tee', 'hoodie', 'blazer'];
+wIt.forEach((id, i) => bay(byId[id], RW - .4, 6 - i * 3.6, -Math.PI / 2, 2.6));
+mIt.forEach((id, i) => bay(byId[id], -RW + .4, 6 - i * 3.6, Math.PI / 2, 2.6));
+// freestanding rails for bottoms
+function freeRail(ids, x, z, ry) {
+  const g = new THREE.Group(); g.position.set(x, 0, z); g.rotation.y = ry; scene.add(g);
+  const W = 3.4; const top = 1.75;
+  [-1, 1].forEach((s) => { cyl(.018, .018, top, brass, s * W / 2, top / 2, 0, 10, g); cyl(.2, .2, .03, wood, s * W / 2, .015, 0, 20, g) });
+  const bar = cyl(.016, .016, W, brass, 0, top, 0, 10, g); bar.rotation.z = Math.PI / 2;
+  let k = 0; const all = []; ids.forEach((id) => byId[id].c.forEach((ck) => all.push([byId[id], ck])));
+  const gap = W / all.length;
+  all.forEach(([it, ck]) => { const h = hanging(it, ck); h.position.set(-W / 2 + gap * (k + .5), top, 0); h.rotation.y = (rnd() - .5) * .1; g.add(h); pickables.push(h); k++ });
+  ids.forEach((id, i) => { const it = byId[id]; const lab = new THREE.Mesh(new THREE.PlaneGeometry(.9, .22), new THREE.MeshBasicMaterial({ map: labelTex(nm(it) + ' · ' + fmt(it.p)), transparent: true })); lab.position.set((i ? 1 : -1) * W / 4, top + .32, 0); g.add(lab); labels.push([lab, it]) });
+}
+freeRail(['wtrouser', 'skirt'], 4.1, -1.2, -Math.PI / 2);
+freeRail(['chinos', 'jeans'], -4.1, -1.2, Math.PI / 2);
+
+/* shoes */
+function shoeMesh(kind, hex) {
+  const g = new THREE.Group(), m = leather(hex);
+  if (kind === 'sneaker') {
+    const sole = new THREE.Mesh(new THREE.CapsuleGeometry(.045, .2, 4, 10), M('sole', { color: '#F4F1EA', roughness: .6 })); sole.rotation.x = Math.PI / 2; sole.scale.set(1.05, 1, .45); sole.position.y = .02; g.add(sole);
+    const up = new THREE.Mesh(new THREE.CapsuleGeometry(.042, .17, 4, 10), m); up.rotation.x = Math.PI / 2; up.scale.set(1, 1, .8); up.position.set(0, .055, -.015); g.add(up);
+  } else if (kind === 'loafer') {
+    const up = new THREE.Mesh(new THREE.CapsuleGeometry(.04, .2, 4, 10), m); up.rotation.x = Math.PI / 2; up.scale.set(1, 1, .6); up.position.y = .035; g.add(up);
+    const sole = new THREE.Mesh(new THREE.BoxGeometry(.085, .015, .27), M('lsole', { color: '#2A1C14', roughness: .5 })); sole.position.y = .008; g.add(sole);
+  } else {
+    const up = new THREE.Mesh(new THREE.CapsuleGeometry(.032, .16, 4, 10), m); up.rotation.x = Math.PI / 2 - .35; up.scale.set(1, 1, .55); up.position.set(0, .05, .01); g.add(up);
+    const heel = new THREE.Mesh(new THREE.CylinderGeometry(.008, .014, .07, 8), m); heel.position.set(0, .035, -.09); g.add(heel);
+  }
+  g.traverse((o) => { if (o.isMesh) o.castShadow = !lowEnd });
+  return g;
+}
+function shoeWall(ids, x0) {
+  const g = new THREE.Group(); g.position.set(x0, 0, -RD + .3); scene.add(g);
+  box(2.6, 2.4, .04, M('bayp'), 0, 1.4, -.25, g);
+  [.5, .95, 1.4, 1.85].forEach((y) => box(2.4, .03, .4, woodL, 0, y, -.05, g));
+  let k = 0; const all = []; ids.forEach((id) => byId[id].c.forEach((ck) => all.push([byId[id], ck])));
+  all.forEach(([it, ck], i) => {
+    const row = i % 4, col = Math.floor(i / 4);
+    const s = shoeMesh(it.kind, COL[ck].hex); s.position.set(-.9 + col * .65 + (row % 2) * .25, [.5, .95, 1.4, 1.85][row] + .016, .0); s.rotation.y = -.5; s.scale.setScalar(1.5);
+    const s2 = s.clone(); s2.position.x += .14; s2.position.z -= .05; g.add(s); g.add(s2);
+    [s, s2].forEach((o) => { o.traverse((m) => { if (m.isMesh) m.userData.item = { id: it.id, c: ck } }); pickables.push(o) });
+  });
+  const lab = new THREE.Mesh(new THREE.PlaneGeometry(1.1, .27), new THREE.MeshBasicMaterial({ map: labelTex(L('أحذية', 'Shoes')), transparent: true })); lab.position.set(0, 2.85, -.2); g.add(lab);
+}
+shoeWall(['heels'], 4.6); shoeWall(['loafers', 'sneaker'], -4.6);
+// entrance: glass doors frame
+box(3.2, .08, .1, brass, 0, 3.0, RD - .05); [-1.6, 1.6].forEach((x) => box(.08, 3, .1, brass, x, 1.5, RD - .05));
+const glass = new THREE.Mesh(new THREE.PlaneGeometry(3.1, 2.95), new THREE.MeshStandardMaterial({ color: '#9FB3B8', transparent: true, opacity: .18, roughness: .05, metalness: .3 })); glass.position.set(0, 1.5, RD - .06); glass.rotation.y = Math.PI; scene.add(glass);
+// potted plants
+[[-6.8, 9.6], [6.8, 9.6], [-2.4, -9.8], [2.4, -9.8]].forEach(([x, z]) => {
+  cyl(.28, .22, .55, M('pot', { color: '#2E2420', roughness: .4 }), x, .275, z, 20);
+  for (let i = 0; i < 9; i++) { const l = new THREE.Mesh(new THREE.SphereGeometry(.18, 8, 6), M('leaf', { color: '#4E6B45', roughness: .8 })); l.scale.set(.5, 1.6, .25); l.position.set(x + Math.sin(i * 2.4) * .14, .95 + (i % 3) * .18, z + Math.cos(i * 2.4) * .14); l.rotation.set(Math.sin(i) * .5, i, Math.cos(i) * .6); scene.add(l) }
+});
+// benches
+[[-2.6, 4.5], [2.6, 4.5]].forEach(([x, z]) => { box(1.3, .12, .5, M('velvet', { color: '#5E2A33', roughness: .9, map: weave }), x, .45, z); [-1, 1].forEach((s) => cyl(.02, .02, .4, brass, x + s * .55, .2, z, 6)) });
+
+/* ---------------- walking camera ---------------- */
+let yaw = 0, pitch = -.16; const pos = new THREE.Vector3(0, 1.6, 9.3); let target = null, lookTarget = null;
+const ZONES = { women: [3.2, 1.2, -Math.PI / 2 + 0.0, -.05], men: [-3.2, 1.2, Math.PI / 2, -.05], shoes: [0, -6.5, 0, -.12] };
+function setYawTo(v) { const tx = v.x - pos.x, tz = v.z - pos.z; return Math.atan2(-tx, -tz) }
+function goZone(k) { const z = ZONES[k]; target = new THREE.Vector3(z[0], 1.6, z[1]); lookTarget = { yaw: z[2], pitch: z[3] } }
+const clampPos = (v) => { v.x = Math.max(-RW + 1.3, Math.min(RW - 1.3, v.x)); v.z = Math.max(-RD + 1.6, Math.min(RD - .8, v.z)); const dx = v.x, dz = v.z - 1; const d = Math.hypot(dx, dz); if (d < 1.6) { v.x = dx / (d || 1) * 1.6; v.z = 1 + dz / (d || 1) * 1.6 } return v };
+const keys = {};
+addEventListener('keydown', (e) => { keys[e.key.toLowerCase()] = true }); addEventListener('keyup', (e) => { keys[e.key.toLowerCase()] = false });
+const angDiff = (a, b) => { let d = b - a; while (d > Math.PI) d -= Math.PI * 2; while (d < -Math.PI) d += Math.PI * 2; return d };
+function updateWalk(dt) {
+  const sp = 2.4 * dt; let mx = 0, mz = 0;
+  if (keys.w || keys.arrowup) mz -= 1; if (keys.s || keys.arrowdown) mz += 1; if (keys.a) mx -= 1; if (keys.d) mx += 1;
+  if (keys.arrowleft) yaw += 1.8 * dt; if (keys.arrowright) yaw -= 1.8 * dt;
+  if (mx || mz) { target = null; const v = new THREE.Vector3(mx, 0, mz).applyAxisAngle(new THREE.Vector3(0, 1, 0), yaw).multiplyScalar(sp); clampPos(pos.add(v)) }
+  if (target) { const d = target.clone().sub(pos); d.y = 0; const len = d.length(); if (len < .05) target = null; else pos.add(d.multiplyScalar(Math.min(1, sp * 1.2 / len))) ; clampPos(pos) }
+  if (lookTarget) { yaw += angDiff(yaw, lookTarget.yaw) * Math.min(1, dt * 4); pitch += (lookTarget.pitch - pitch) * Math.min(1, dt * 4); if (Math.abs(angDiff(yaw, lookTarget.yaw)) < .01 && Math.abs(lookTarget.pitch - pitch) < .01) lookTarget = null }
+  pos.y = 1.6 + (target ? Math.sin(performance.now() / 140) * .012 : 0);
+  cam.position.copy(pos); cam.rotation.set(0, 0, 0); cam.rotateY(yaw); cam.rotateX(pitch);
+}
+
+/* pointer: drag to look, tap to walk/pick */
+const ray = new THREE.Raycaster(), ndc = new THREE.Vector2();
+let pd = null; const el = renderer.domElement;
+el.addEventListener('pointerdown', (e) => { pd = { x: e.clientX, y: e.clientY, yaw, pitch, moved: false, id: e.pointerId }; el.setPointerCapture(e.pointerId) });
+el.addEventListener('pointermove', (e) => {
+  if (!pd) return; const dx = e.clientX - pd.x, dy = e.clientY - pd.y;
+  if (Math.abs(dx) + Math.abs(dy) > 7) pd.moved = true;
+  if (pd.moved) {
+    if (fitOn) { fit.rotY = pd.fy + dx * .01; return }
+    lookTarget = null; yaw = pd.yaw + dx * .0055; pitch = Math.max(-.7, Math.min(.5, pd.pitch + dy * .004));
+  }
+});
+el.addEventListener('pointerdown', () => { if (fitOn && pd) pd.fy = fit.rotY });
+el.addEventListener('pointerup', (e) => {
+  const p = pd; pd = null; if (!p || p.moved || fitOn) return;
+  ndc.set(e.clientX / innerWidth * 2 - 1, -(e.clientY / innerHeight) * 2 + 1); ray.setFromCamera(ndc, cam);
+  const hits = ray.intersectObjects(pickables, true); if (!hits.length) return;
+  const h = hits[0], o = h.object;
+  if (o.userData.item) { const it = byId[o.userData.item.id]; const wp = new THREE.Vector3(); o.getWorldPosition(wp); lookTarget = { yaw: setYawTo(wp), pitch: Math.max(-.4, Math.min(.2, Math.atan2(wp.y - 1.6, Math.hypot(wp.x - pos.x, wp.z - pos.z)) * .8)) }; openItem(it.id, o.userData.item.c); return }
+  if (o.userData.fit) { openFit(); return }
+  if (o.name === 'floor') { const p2 = h.point.clone(); p2.y = 1.6; target = clampPos(p2); hideHint() }
+});
+el.addEventListener('wheel', (e) => { if (fitOn) { fit.dist = Math.max(1.6, Math.min(4.2, fit.dist + e.deltaY * .002)); e.preventDefault() } }, { passive: false });
+let hintOff = false; function hideHint() { if (hintOff) return; hintOff = true; $('#hint').style.opacity = 0 }
+
+/* ---------------- fitting room scene ---------------- */
+const fscene = new THREE.Scene(); fscene.background = new THREE.Color('#2A1F1A');
+const fcam = new THREE.PerspectiveCamera(36, innerWidth / innerHeight, .05, 40);
+fscene.add(new THREE.HemisphereLight('#FFF1DF', '#3a2a20', .9));
+const key = new THREE.DirectionalLight('#FFE3C2', 2.2); key.position.set(2.2, 4, 3); key.castShadow = !lowEnd; key.shadow.mapSize.set(1024, 1024); key.shadow.camera.left = -1.5; key.shadow.camera.right = 1.5; key.shadow.camera.top = 2.4; key.shadow.camera.bottom = -.3; key.shadow.bias = -.0004; fscene.add(key);
+const rim = new THREE.DirectionalLight('#C9D6FF', 1.1); rim.position.set(-3, 3, -3); fscene.add(rim);
+const fill = new THREE.DirectionalLight('#FFD2A8', .6); fill.position.set(-2.5, 1.5, 2.5); fscene.add(fill);
+const back = new THREE.Mesh(new THREE.CylinderGeometry(4.5, 4.5, 6, 48, 1, true, Math.PI * .6, Math.PI * .8), new THREE.MeshStandardMaterial({ color: '#4A362C', roughness: 1, side: THREE.BackSide })); back.position.set(0, 3, 0); fscene.add(back);
+const fFloor = new THREE.Mesh(new THREE.CircleGeometry(6, 48), new THREE.MeshStandardMaterial({ map: floorTex, roughness: .5 })); fFloor.rotation.x = -Math.PI / 2; fFloor.receiveShadow = true; fscene.add(fFloor);
+const fPod = new THREE.Mesh(new THREE.CylinderGeometry(.75, .8, .1, 48), M('marble')); fPod.position.y = .05; fPod.receiveShadow = true; fscene.add(fPod);
+const fRing = new THREE.Mesh(new THREE.TorusGeometry(.78, .012, 8, 64), brass); fRing.rotation.x = Math.PI / 2; fRing.position.y = .1; fscene.add(fRing);
+const mirror = new THREE.Mesh(new THREE.PlaneGeometry(1.1, 2.3), new THREE.MeshStandardMaterial({ color: '#B9C2C4', metalness: .9, roughness: .12 })); mirror.position.set(-1.9, 1.35, -1.6); mirror.rotation.y = .6; fscene.add(mirror);
+const mframe = new THREE.Mesh(new THREE.BoxGeometry(1.2, 2.4, .04), brass); mframe.position.copy(mirror.position).add(new THREE.Vector3(.015, 0, -.02)); mframe.rotation.y = .6; fscene.add(mframe);
+const fit = { rotY: .35, dist: 3.1, group: null };
+
+/* ---------------- parametric avatar ---------------- */
+const lerp = (a, b, k) => a + (b - a) * k;
+function torsoR(b, y) { // half-width radius at height y (metres)
+  const H = b.H, R = (cm) => cm / 100 / (Math.PI * 1.72);
+  const pts = [[.465, R(b.hi) * .86], [.52, R(b.hi)], [.6, lerp(R(b.hi), R(b.wa), .8)], [.625, R(b.wa)], [.68, lerp(R(b.wa), R(b.ch), .7)], [.72, R(b.ch)], [.75, R(b.ch) * 1.01], [.79, b.sh / 2 * .97], [.815, b.sh / 2 * .8], [.835, .062], [.86, .056]];
+  const f = y / H; if (f <= pts[0][0]) return pts[0][1]; if (f >= pts[pts.length - 1][0]) return pts[pts.length - 1][1];
+  for (let i = 1; i < pts.length; i++) if (f <= pts[i][0]) { const k = (f - pts[i - 1][0]) / (pts[i][0] - pts[i - 1][0]); const s = k * k * (3 - 2 * k); return lerp(pts[i - 1][1], pts[i][1], s) }
+}
+const DK = [[.4, .84], [.55, .82], [.62, .76], [.7, .72], [.76, .69], [.8, .6], [.83, .74], [.87, .9]];
+function depthK(b, y) { const f = y / b.H; if (f <= DK[0][0]) return DK[0][1]; for (let i = 1; i < DK.length; i++) if (f <= DK[i][0]) return lerp(DK[i - 1][1], DK[i][1], (f - DK[i - 1][0]) / (DK[i][0] - DK[i - 1][0])); return DK[DK.length - 1][1] }
+function shapeVerts(geo, b, opts) { // squash to ellipse + female bust + seat
+  const p = geo.attributes.position, H = b.H;
+  for (let i = 0; i < p.count; i++) {
+    const x = p.getX(i), y = p.getY(i); let z = p.getZ(i);
+    const r = Math.hypot(x, z) || 1e-6, cz = z / r;
+    z *= depthK(b, y);
+    if (b.g === 'w' && opts.bust !== false) { const by = H * .715, bw = H * .045; const gy = Math.exp(-Math.pow((y - by) / bw, 2)); const ax = Math.abs(x) / r; const gx = Math.exp(-Math.pow((ax - .42) / .32, 2)); z += Math.max(0, cz) * gy * gx * (b.ch - b.wa) / 100 * .19 * (opts.cover ? .95 : 1) }
+    const gy2 = Math.exp(-Math.pow((y - H * .5) / (H * .05), 2)); z -= Math.max(0, -cz) * gy2 * (b.g === 'w' ? .022 : .012) * (b.hi / 98);
+    p.setZ(i, z);
+  }
+  geo.computeVertexNormals(); return geo;
+}
+function lathe(b, y0, y1, off, n, extra) { // torso-following lathe between heights
+  const pts = []; for (let i = 0; i <= n; i++) { const y = lerp(y0, y1, i / n); let r = torsoR(b, y) + off; if (extra) r = extra(y, r); pts.push(new THREE.Vector2(Math.max(.001, r), y)) }
+  return new THREE.LatheGeometry(pts, lowEnd ? 28 : 44);
+}
+function legGeo(b, y0, y1, off, flare) { // one leg, local origin at leg centre
+  const H = b.H, th = torsoR(b, H * .5) * .56, k = Math.pow(b.hi / 98, .7);
+  const pr = [[.0, .028], [.035, .03], [.11, .043 * k], [.19, .054 * k], [.285, .046 * k], [.36, th * .82], [.44, th * .97], [.49, th * 1.04]];
+  const R = (f) => { if (f <= pr[0][0]) return pr[0][1]; for (let i = 1; i < pr.length; i++) if (f <= pr[i][0]) { const q = (f - pr[i - 1][0]) / (pr[i][0] - pr[i - 1][0]); return lerp(pr[i - 1][1], pr[i][1], q) } return pr[pr.length - 1][1] };
+  const pts = []; const n = 22; for (let i = 0; i <= n; i++) { const y = lerp(y0, y1, i / n); let r = R(y / H) + off; if (flare) r = flare(y / H, r); pts.push(new THREE.Vector2(r, y)) }
+  const g = new THREE.LatheGeometry(pts, lowEnd ? 20 : 30); const p = g.attributes.position; for (let i = 0; i < p.count; i++) p.setZ(i, p.getZ(i) * .9); g.computeVertexNormals(); return g;
+}
+function armGeo(b, len0, len1, off) { // hangs down local -y from shoulder
+  const H = b.H, k = Math.pow(b.ch / (b.g === 'w' ? 90 : 100), .8) * (b.g === 'w' ? .9 : 1);
+  const pr = [[0, .052 * k], [.03, .047 * k], [.12, .043 * k], [.19, .034 * k], [.24, .036 * k], [.33, .025 * k], [.345, .024 * k]];
+  const R = (f) => { for (let i = 1; i < pr.length; i++) if (f <= pr[i][0]) { const q = (f - pr[i - 1][0]) / (pr[i][0] - pr[i - 1][0]); return lerp(pr[i - 1][1], pr[i][1], q) } return pr[pr.length - 1][1] };
+  const pts = []; const n = 16; for (let i = n; i >= 0; i--) { const f = lerp(len0, len1, i / n); pts.push(new THREE.Vector2(R(f) + off, -f * H)) }
+  return new THREE.LatheGeometry(pts, lowEnd ? 16 : 24);
+}
+function buildAvatar() {
+  const b = body(), H = b.H, g = new THREE.Group();
+  const skin = new THREE.MeshStandardMaterial({ color: b.skin, roughness: .55, metalness: 0 });
+  const add = (geo, m, parent, cast = true) => { const o = new THREE.Mesh(geo, m); o.castShadow = cast && !lowEnd; o.receiveShadow = !lowEnd; (parent || g).add(o); return o };
+  // torso + neck
+  add(shapeVerts(lathe(b, H * .46, H * .86, 0, 40), b, {}), skin);
+  // head
+  const hr = H * (b.g === 'w' ? .066 : .07);
+  const head = add(new THREE.SphereGeometry(hr, 32, 24), skin); head.scale.set(.84, 1.08, .94); head.position.set(0, H * .865 + hr * .95, .005);
+  const jaw = add(new THREE.SphereGeometry(hr * .7, 24, 16), skin); jaw.scale.set(.9, .8, .9); jaw.position.set(0, H * .865 + hr * .45, .02);
+  // legs
+  const lx = torsoR(b, H * .5) * .46, legs = [];
+  [-1, 1].forEach((s) => { const lg = add(legGeo(b, H * .035, H * .49, 0), skin); lg.position.x = s * lx; legs.push(lg);
+    const ft = add(new THREE.SphereGeometry(.05, 16, 10), skin); ft.scale.set(.85, .55, 2.2); ft.position.set(s * lx, .035, .055); ft.userData.foot = true });
+  // arms (A-pose)
+  const arms = [-1, 1].map((s) => { const a = new THREE.Group(); a.position.set(s * (b.sh / 2 - .035), H * .8, -.005); a.rotation.z = s * .16; g.add(a);
+    add(armGeo(b, 0, .345, 0), skin, a); const hand = add(new THREE.SphereGeometry(.045, 16, 12), skin, a); hand.scale.set(.55, 1.5, 1); hand.position.y = -H * .375;
+    const sh = add(new THREE.SphereGeometry(.055 * Math.pow(b.ch / 95, .8), 18, 12), skin, a); sh.position.y = -.01; return a });
+  // garments
+  const F = (id, c, rough) => fabric(COL[c].hex, rough);
+  const slots = look;
+  const top = slots.dress ? null : slots.top, bot = slots.dress ? null : slots.bottom;
+  const sleeve = (len, off, m) => arms.forEach((a) => { add(armGeo(b, 0, len, off), m, a); const cap = add(new THREE.SphereGeometry(.055 * Math.pow(b.ch / 95, .8) + off, 18, 12), m, a); cap.position.y = -.01 });
+  if (slots.dress) { const it = byId[slots.dress.id], m = F(it.id, slots.dress.c, .45);
+    add(shapeVerts(lathe(b, H * .22, H * .755, .009, 46, (y, r) => { const f = y / H; if (f < .6) { const q = (0.6 - f) / (0.6 - .22); return Math.max(r, lerp(torsoR(b, H * .6) + .01, torsoR(b, H * .52) * 1.55, Math.pow(q, 1.2))) } return r }), b, { cover: true }), m);
+    arms.forEach((a, i) => { const st = add(new THREE.CylinderGeometry(.008, .008, H * .08, 6), m, g); st.position.set((i ? 1 : -1) * torsoR(b, H * .76) * .55, H * .79, 0) });
+  }
+  if (bot) { const it = byId[bot.id], m = F(it.id, bot.c, it.kind === 'jeans' ? .95 : .85);
+    if (it.kind === 'skirt') { const geo = lathe(b, H * .27, H * .625, .012, 34, (y, r) => { const f = y / H; if (f < .52) { const q = (.52 - f) / (.52 - .27); r = lerp(torsoR(b, H * .52) + .015, torsoR(b, H * .52) * 1.42, q) } return r });
+      const p = geo.attributes.position; for (let i = 0; i < p.count; i++) { const x = p.getX(i), z = p.getZ(i), y = p.getY(i); if (y < H * .52) { const a = Math.atan2(x, z), k = 1 + .045 * Math.sin(a * 22) * ((H * .52 - y) / (H * .25)); p.setX(i, x * k); p.setZ(i, z * k) } }
+      add(shapeVerts(geo, b, { bust: false }), m);
+    } else {
+      add(shapeVerts(lathe(b, H * .45, H * (it.kind === 'wide' ? .64 : .615), .012, 18), b, { bust: false }), m);
+      const wide = it.kind === 'wide', slim = it.kind === 'jeans';
+      legs.forEach((lg) => { const o = add(legGeo(b, H * .03, H * .49, slim ? .008 : .014, wide ? (f, r) => Math.max(r, lerp(.09, .075, f / .49) * (b.H / 1.65)) : it.kind === 'chino' ? (f, r) => Math.max(r, .052) : null), m); o.position.x = lg.position.x });
+      if (it.kind !== 'wide') { const belt = add(shapeVerts(lathe(b, H * .6, H * .618, .016, 2), b, { bust: false }), leather(it.kind === 'jeans' ? '#3A2A1E' : '#2A1E17')) }
+    }
+  }
+  if (top) { const it = byId[top.id], k = it.kind, m = F(it.id, top.c, k === 'blouse' ? .45 : k === 'knit' ? .95 : .85);
+    const off = k === 'knit' ? .016 : k === 'hoodie' ? .022 : .011, y0 = bot ? H * .56 : H * (k === 'knit' ? .53 : .5);
+    add(shapeVerts(lathe(b, y0, H * .845, off, 40, (y, r) => y / H > .832 ? Math.max(r, .07) : r), b, { cover: true }), m);
+    sleeve(k === 'tee' ? .12 : .335, off * .9, m);
+    if (k === 'shirt' || k === 'blouse') { const col = add(new THREE.TorusGeometry(.068, .012, 8, 26), m); col.rotation.x = Math.PI / 2 - .2; col.scale.z = .8; col.position.set(0, H * .845, 0);
+      for (let i = 0; i < 4; i++) { const bt = add(new THREE.SphereGeometry(.006, 8, 6), M('btn', { color: '#EDE6DA', roughness: .4 }), g, false); bt.position.set(0, H * (.8 - i * .055), torsoR(b, H * (.8 - i * .055)) * depthK(b, H * (.8 - i * .055)) + .012 + (b.g === 'w' && i === 1 ? .03 : 0)) } }
+    if (k === 'hoodie') { const hood = add(new THREE.TorusGeometry(.085, .04, 10, 24, Math.PI * 1.3), m); hood.rotation.set(Math.PI / 2 + .3, 0, Math.PI * -.15 + Math.PI); hood.position.set(0, H * .85, -.03); }
+    if (k === 'knit') { const rib = add(shapeVerts(lathe(b, y0, y0 + H * .03, off + .004, 2), b, { bust: false }), M('rib' + top.c, { color: shade(COL[top.c].hex, -.04), roughness: 1 })) }
+  }
+  if (slots.outer) { const it = byId[slots.outer.id], k = it.kind, m = F(it.id, slots.outer.c, .8);
+    const long = k === 'trench', off = long ? .034 : .028, y0 = long ? H * .3 : H * .44;
+    add(shapeVerts(lathe(b, y0, H * .84, off, 48, (y, r) => { const f = y / H; if (f > .825) r = Math.max(r, .085); if (long && f < .52) r = Math.max(r, lerp(torsoR(b, H * .52) + off, torsoR(b, H * .52) * 1.32, (.52 - f) / .22)); if (!long && f < .55) r = Math.max(r, torsoR(b, H * .52) + off + .005); return r }), b, { cover: true }), m);
+    sleeve(.33, off * .8, m);
+    const lap = add(new THREE.ConeGeometry(.06, H * .13, 3), M('lap' + slots.outer.c, { color: shade(COL[slots.outer.c].hex, -.1), roughness: .7 })); lap.rotation.x = Math.PI; lap.scale.z = .2; lap.position.set(0, H * .765, torsoR(b, H * .74) * depthK(b, H * .74) + off + (b.g === 'w' ? .045 : .012));
+    if (long) { const belt = add(shapeVerts(lathe(b, H * .6, H * .625, off + .01, 2), b, { bust: false }), M('blt' + slots.outer.c, { color: shade(COL[slots.outer.c].hex, -.06), roughness: .8, map: weave })) }
+    [.66, .59].forEach((f) => { const bt = add(new THREE.SphereGeometry(.011, 10, 8), long ? M('hb', { color: '#3A2A1E', roughness: .4 }) : brass, g, false); bt.position.set(.015, H * f, torsoR(b, H * f) * depthK(b, H * f) + off + .008) });
+  }
+  if (slots.shoes) { const it = byId[slots.shoes.id]; g.children.filter((o) => o.userData.foot).forEach((f) => f.visible = false);
+    legs.forEach((lg) => { const s = shoeMesh(it.kind, COL[slots.shoes.c].hex); s.position.set(lg.position.x, 0, .045); s.scale.setScalar(H / 1.7); g.add(s) }) }
+  g.position.y = .1; return g;
+}
+function rebuildAvatar() { if (fit.group) { fscene.remove(fit.group); fit.group.traverse((o) => { if (o.geometry && !Object.values(silGeo).includes(o.geometry)) o.geometry.dispose() }) } fit.group = buildAvatar(); fscene.add(fit.group); fit.group.rotation.y = fit.rotY }
+
+/* ---------------- UI: product sheet ---------------- */
+let cur = null;
+function openSheet(html) { $('#sheetB').innerHTML = html; $('#ov').classList.add('on'); $('#sheet').classList.add('on'); $('#sheet').scrollTop = 0 }
+function closeSheet() { $('#ov').classList.remove('on'); $('#sheet').classList.remove('on'); cur = null }
+function sizesOf(it) { return it.slot === 'shoes' ? SHOE[it.g === 'u' ? body().g : it.g] : SIZES }
+function openItem(id, c) {
+  const it = byId[id]; cur = { id, c: c || it.c[0], s: profile ? sizeFor(it) : null }; drawItem();
+}
+function drawItem() {
+  const it = byId[cur.id], sug = profile ? sizeFor(it) : null;
+  openSheet('<span class="tag">' + (it.g === 'w' ? t('women') : it.g === 'm' ? t('men') : t('unisex')) + '</span><h2>' + nm(it) + '</h2><div class="price">' + fmt(it.p) + '</div><p class="desc">' + L(it.dar, it.den) + '</p>' +
+    '<div class="lbl">' + t('colour') + ' <small>' + cn(cur.c) + '</small></div><div class="sw">' + it.c.map((k) => '<button type="button" data-col="' + k + '" class="' + (k === cur.c ? 'on' : '') + '" style="background:' + COL[k].hex + '" aria-label="' + cn(k) + '"></button>').join('') + '</div>' +
+    '<div class="lbl">' + t('size') + ' <small>' + (sug ? t('sugg') : '<a href="#" data-me style="color:#8A6A2E">' + t('setMe') + '</a>') + '</small></div><div class="sz">' + sizesOf(it).map((s) => '<button type="button" data-size="' + s + '" class="' + (s === cur.s ? 'on ' : '') + (s === sug ? 'sug' : '') + '">' + s + '</button>').join('') + '</div>' +
+    '<div class="row"><button class="btn gold" type="button" data-try>' + t('tryOn') + '</button><button class="btn dark" type="button" data-add>' + t('addBag') + '</button></div>');
+}
+
+/* ---------------- UI: profile ---------------- */
+let draft = null;
+function openMe(after) {
+  const b = profile || {}; draft = { g: b.g || 'w', h: b.h || 165, w: b.w || 60, s: b.s || 'hour', skin: b.skin || SKINS[0][0], ch: b.ch || '', wa: b.wa || '', hi: b.hi || '', after };
+  if (!profile) { draft.h = 165; draft.w = 60 } drawMe();
+}
+function drawMe() {
+  const d = draft;
+  openSheet('<h2>' + t('meT') + '</h2><p class="desc">' + t('meS') + '</p>' +
+    '<div class="lbl"></div><div class="seg">' + [['w', t('gW')], ['m', t('gM')]].map(([k, v]) => '<button type="button" data-g="' + k + '" class="' + (d.g === k ? 'on' : '') + '">' + v + '</button>').join('') + '</div>' +
+    '<div class="lbl">' + t('height') + ' <span class="rangev" id="hv">' + d.h + ' cm</span></div><input type="range" min="145" max="205" value="' + d.h + '" data-r="h">' +
+    '<div class="lbl">' + t('weight') + ' <span class="rangev" id="wv">' + d.w + ' kg</span></div><input type="range" min="40" max="140" value="' + d.w + '" data-r="w">' +
+    '<div class="lbl">' + t('shape') + '</div><div class="chips">' + SHAPES[d.g].map(([k, a, e]) => '<button type="button" data-s="' + k + '" class="' + (d.s === k ? 'on' : '') + '">' + L(a, e) + '</button>').join('') + '</div>' +
+    '<div class="lbl">' + t('skin') + '</div><div class="sw">' + SKINS.map(([c]) => '<button type="button" data-skin="' + c + '" class="' + (d.skin === c ? 'on' : '') + '" style="background:' + c + '"></button>').join('') + '</div>' +
+    '<details class="more"' + (d.ch || d.wa || d.hi ? ' open' : '') + '><summary>' + t('more') + '</summary><div class="two" style="grid-template-columns:1fr 1fr 1fr">' +
+    [['ch', 'chest'], ['wa', 'waist'], ['hi', 'hip']].map(([k, l]) => '<div class="fld"><label>' + t(l) + '</label><input class="in" inputmode="numeric" data-m="' + k + '" value="' + (d[k] || '') + '" placeholder="—"></div>').join('') + '</div></details>' +
+    '<div class="row"><button class="btn gold" type="button" data-saveme>' + t('save') + '</button></div>' + (profile ? '' : '<div class="row" style="margin-top:8px"><button class="btn line" type="button" data-skipme>' + t('skip') + '</button></div>'));
+}
+
+/* ---------------- UI: fitting room ---------------- */
+let fitOn = false;
+function openFit(withItem) {
+  if (withItem) wear(withItem.id, withItem.c);
+  if (!profile && !openFit.asked) { openFit.asked = true; openMe('fit'); return }
+  closeSheet(); fitOn = true; $('#fit').classList.add('on'); $('#top').hidden = true; $('#zones').hidden = true; $('#hint').hidden = true;
+  rebuildAvatar(); drawFit(); onResize();
+}
+function closeFit() { fitOn = false; $('#fit').classList.remove('on'); $('#top').hidden = false; $('#zones').hidden = false; $('#hint').hidden = false; onResize() }
+function wear(id, c) {
+  const it = byId[id];
+  if (it.slot === 'dress') { delete look.top; delete look.bottom }
+  if (it.slot === 'top' || it.slot === 'bottom') delete look.dress;
+  look[it.slot] = { id, c: c || it.c[0] }; activeSlot = it.slot; saveSt();
+}
+const ORDER = ['outer', 'top', 'dress', 'bottom', 'shoes'];
+function drawFit() {
+  const ks = ORDER.filter((k) => look[k]);
+  if (!look[activeSlot]) activeSlot = ks[0] || null;
+  $('#pieces').innerHTML = ks.map((k) => { const it = byId[look[k].id]; return '<button type="button" class="pc ' + (k === activeSlot ? 'on' : '') + '" data-slot="' + k + '"><i style="background:' + COL[look[k].c].hex + '"></i><span>' + nm(it) + '</span><b class="rm" data-unwear="' + k + '">×</b></button>' }).join('') +
+    '<button type="button" class="pc add" data-addpiece>' + t('addPiece') + '</button>';
+  if (activeSlot && look[activeSlot]) { const it = byId[look[activeSlot].id]; $('#fsw').innerHTML = it.c.map((k) => '<button type="button" data-fcol="' + k + '" class="' + (k === look[activeSlot].c ? 'on' : '') + '" style="background:' + COL[k].hex + '" aria-label="' + cn(k) + '"></button>').join('') + '<small>' + nm(it) + ' · ' + cn(look[activeSlot].c) + '</small>' }
+  else $('#fsw').innerHTML = '<small>' + t('emptyLook') + '</small>';
+  const tot = ks.reduce((s, k) => s + byId[look[k].id].p, 0);
+  $('#ftot').innerHTML = fmt(tot) + '<small>' + t('lookTot') + '</small>';
+  const b = body();
+  $('#sizeb').innerHTML = profile ? t('yourSize') + ': ' + t('tops') + ' <b>' + sizeFor({ slot: 'top' }) + '</b> · ' + t('bottoms') + ' <b>' + sizeFor({ slot: 'bottom' }) + '</b> <small style="opacity:.7">· ' + t('sizeTip') + '</small>' : t('stdModel');
+}
+function openAddPiece() {
+  const cats = [['top', 'catTop'], ['bottom', 'catBottom'], ['dress', 'catDress'], ['outer', 'catOuter'], ['shoes', 'catShoes']];
+  const b = body();
+  openSheet('<h2>' + t('chooseP') + '</h2>' + cats.map(([slot, lk]) => { const its = ITEMS.filter((i) => i.slot === slot).sort((a, c) => (c.g === b.g || c.g === 'u') - (a.g === b.g || a.g === 'u'));
+    return '<div class="cat-h">' + t(lk) + '</div><div class="cat-list">' + its.map((i) => '<button type="button" class="it" data-wear="' + i.id + '"><i style="background:' + COL[i.c[0]].hex + '"></i><div><b>' + nm(i) + '</b><small>' + (i.g === 'w' ? t('women') : i.g === 'm' ? t('men') : t('unisex')) + '</small></div><span class="p">' + fmt(i.p) + '</span></button>').join('') + '</div>' }).join(''));
+}
+
+/* ---------------- UI: bag ---------------- */
+let form = { name: '', addr: '' }; try { form = Object.assign(form, JSON.parse(localStorage.getItem('ly_form') || '{}')) } catch (e) {}
+function updBag() { const n = bag.length; $('#bagN').hidden = !n; $('#bagN').textContent = n }
+function openBag() {
+  if (!bag.length) { openSheet('<h2>' + t('bag') + '</h2><p class="desc" style="margin:14px 0 6px">' + t('bagEmpty') + '</p>'); return }
+  const tot = bag.reduce((s, b) => s + byId[b.id].p, 0);
+  openSheet('<h2>' + t('bag') + '</h2>' + bag.map((b, i) => { const it = byId[b.id]; return '<div class="ci"><span class="dot" style="background:' + COL[b.c].hex + '"></span><div><b>' + nm(it) + '</b><small>' + cn(b.c) + ' · ' + t('sizeQ') + b.s + '</small></div><span class="p">' + fmt(it.p) + '</span><button class="rm" type="button" data-rmbag="' + i + '">✕</button></div>' }).join('') +
+    '<div class="tot"><span>' + t('total') + '</span><span>' + fmt(tot) + '</span></div>' +
+    '<div class="fld"><label>' + t('name') + '</label><input class="in" data-ff="name" value="' + (form.name || '').replace(/"/g, '&quot;') + '"></div><div class="fld"><label>' + t('addr') + '</label><input class="in" data-ff="addr" value="' + (form.addr || '').replace(/"/g, '&quot;') + '"></div>' +
+    '<div class="row"><button class="btn wa" type="button" data-send>' + t('send') + '</button></div><p class="note">' + t('waNote') + '</p>');
+}
+function sendWA(lines, tot) {
+  const msg = [L('طلب جديد من موقع ميزون ليال', 'New order from Maison Layal'), '', ...lines, '', t('total') + ': ' + fmt(tot), form.name ? t('name') + ': ' + form.name : null, form.addr ? t('addr') + ': ' + form.addr : null].filter((x) => x !== null).join('\n');
+  window.open('https://wa.me/' + WA + '?text=' + encodeURIComponent(msg), '_blank');
+}
+
+/* ---------------- events ---------------- */
+document.addEventListener('click', (e) => {
+  const b = e.target.closest('button, a, [data-close]'); if (!b) { if (e.target.id === 'ov') closeSheet(); return }
+  const d = b.dataset;
+  if ('close' in d) return closeSheet();
+  if (d.zone) { goZone(d.zone); hideHint(); return }
+  if ('openfit' in d) return openFit();
+  if (d.col) { cur.c = d.col; return drawItem() }
+  if (d.size) { cur.s = d.size; return drawItem() }
+  if ('me' in d) { e.preventDefault(); return openMe('item') }
+  if ('try' in d) { const c = { id: cur.id, c: cur.c }; return openFit(c) }
+  if ('add' in d) { if (!cur.s) { toast(t('pickSize')); return } bag.push({ id: cur.id, c: cur.c, s: cur.s }); saveSt(); updBag(); toast(t('added')); return closeSheet() }
+  if (d.g) { draft.g = d.g; draft.s = SHAPES[d.g][0][0]; if (!profile) { draft.h = d.g === 'w' ? 165 : 178; draft.w = d.g === 'w' ? 60 : 78 } return drawMe() }
+  if (d.s) { draft.s = d.s; return drawMe() }
+  if (d.skin) { draft.skin = d.skin; return drawMe() }
+  if ('saveme' in d || 'skipme' in d) {
+    if ('saveme' in d) { const { after, ...p } = draft; ['ch', 'wa', 'hi'].forEach((k) => { p[k] = +p[k] || 0; if (p[k] && (p[k] < 50 || p[k] > 180)) p[k] = 0 }); profile = p; saveSt() }
+    const after = draft.after; draft = null;
+    if (after === 'item' && cur) return drawItem();
+    return openFit();
+  }
+  if (b.id === 'bagB') return openBag();
+  if (b.id === 'langB') { lang = lang === 'ar' ? 'en' : 'ar'; try { localStorage.setItem('ly_lang', lang) } catch (x) {} applyLang(); relabel(); if (fitOn) drawFit(); return }
+  if (b.id === 'fitBack') return closeFit();
+  if (b.id === 'meB') return openMe('fit');
+  if (b.id === 'rotL') { fit.rotY -= .6; return } if (b.id === 'rotR') { fit.rotY += .6; return }
+  if (b.id === 'zoomB') { fit.dist = fit.dist > 2.4 ? 1.8 : 3.1; return }
+  if (d.unwear) { e.stopPropagation(); delete look[d.unwear]; saveSt(); rebuildAvatar(); return drawFit() }
+  if (d.slot && b.classList.contains('pc')) { activeSlot = d.slot; return drawFit() }
+  if ('addpiece' in d) return openAddPiece();
+  if (d.wear) { wear(d.wear); closeSheet(); rebuildAvatar(); return drawFit() }
+  if (d.fcol) { look[activeSlot].c = d.fcol; saveSt(); rebuildAvatar(); return drawFit() }
+  if (b.id === 'lookBag' || b.id === 'lookWa') {
+    const ks = ORDER.filter((k) => look[k]); if (!ks.length) { toast(t('emptyLook')); return }
+    const items = ks.map((k) => ({ id: look[k].id, c: look[k].c, s: sizeFor(byId[look[k].id]) }));
+    if (b.id === 'lookBag') { bag.push(...items); saveSt(); updBag(); toast(t('lookAdded')); return }
+    const lines = items.map((x) => '• ' + nm(byId[x.id]) + ' (' + cn(x.c) + ', ' + t('sizeQ') + x.s + ') ' + fmt(byId[x.id].p));
+    if (profile) lines.push('', L('مقاسات الزبون: ', 'Customer: ') + profile.h + 'cm · ' + profile.w + 'kg');
+    return sendWA([L('إطلالة من غرفة القياس:', 'Look from the fitting room:'), ...lines], items.reduce((s, x) => s + byId[x.id].p, 0));
+  }
+  if (d.rmbag) { bag.splice(+d.rmbag, 1); saveSt(); updBag(); return openBag() }
+  if ('send' in d) { if (!form.name.trim() || !form.addr.trim()) { toast(t('fill')); return } const tot = bag.reduce((s, x) => s + byId[x.id].p, 0); return sendWA(bag.map((x) => '• ' + nm(byId[x.id]) + ' (' + cn(x.c) + ', ' + t('sizeQ') + x.s + ') ' + fmt(byId[x.id].p)), tot) }
+});
+$('#ov').addEventListener('click', closeSheet);
+document.addEventListener('input', (e) => {
+  const d = e.target.dataset;
+  if (d.r) { draft[d.r] = +e.target.value; const v = $(d.r === 'h' ? '#hv' : '#wv'); if (v) v.textContent = draft[d.r] + (d.r === 'h' ? ' cm' : ' kg') }
+  if (d.m) draft[d.m] = e.target.value.replace(/[^\d.]/g, '');
+  if (d.ff) { form[d.ff] = e.target.value; try { localStorage.setItem('ly_form', JSON.stringify(form)) } catch (x) {} }
+});
+function relabel() { labels.forEach(([m, it]) => { m.material.map.dispose(); m.material.map = labelTex(nm(it) + ' · ' + fmt(it.p)); m.material.needsUpdate = true }) }
+
+/* ---------------- loop ---------------- */
+function onResize() { const w = innerWidth, h = innerHeight; renderer.setSize(w, h); cam.aspect = fcam.aspect = w / h; cam.fov = w < h ? 70 : 60; cam.updateProjectionMatrix(); fcam.updateProjectionMatrix() }
+addEventListener('resize', onResize); onResize();
+const clock = new THREE.Clock();
+renderer.setAnimationLoop(() => {
+  const dt = Math.min(.05, clock.getDelta());
+  if (fitOn) {
+    const b = body(), cy = b.H * .5 + .1, portrait = innerWidth < innerHeight;
+    if (fit.group) fit.group.rotation.y += (fit.rotY - fit.group.rotation.y) * Math.min(1, dt * 8);
+    const near = fit.dist < 2.4, dist = (near ? 2.2 : portrait ? 4.7 : 3.6) * (b.H / 1.7);
+    const zoomY = near ? b.H * .74 : cy - (portrait ? .2 : .12);
+    fcam.position.lerp(new THREE.Vector3(0, zoomY + .15, dist), Math.min(1, dt * 5)); fcam.lookAt(0, zoomY, 0);
+    renderer.render(fscene, fcam);
+  } else { updateWalk(dt); renderer.render(scene, cam) }
+});
+
+/* ---------------- start ---------------- */
+applyLang(); updBag();
+$('#ld').textContent = t('loading');
+document.fonts && document.fonts.ready.then(() => relabel());
+requestAnimationFrame(() => { $('#goB').disabled = false; $('#ld').textContent = '' });
+$('#goB').addEventListener('click', () => { $('#intro').classList.add('off'); setTimeout(() => $('#intro').remove(), 700); setTimeout(hideHint, 7000) });
+window.__ly = { openItem, openFit, closeSheet, wear, look: () => look, goZone, body, setProfile: (p) => { profile = p; saveSt() } };
+</script>
+</body>
+</html>
