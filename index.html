@@ -486,6 +486,7 @@ input, select, textarea { min-width: 0; max-width: 100% }
       <div class="tiers" id="tiers" role="group" aria-label="packages"></div>
       <div class="plans" id="plans"></div>
       <div class="sysg" id="sysg"></div>
+      <div class="sys" id="addon"></div>
       <ul class="pextra" id="pextra"></ul>
     </div>
   </section>
@@ -632,6 +633,11 @@ const T = {
           after: 'ثم 90$ سنويًا للاستضافة والخدمات، ابتداءً من السنة الثانية',
           f: ['كل مزايا Basic', 'نظام Pro الخاص بقطاعك', 'تطبيق مع إشعارات ولوحة تحكّم وإحصائيات', 'نطاق خاص (.com) مسجّل باسمك', 'باقة تعديلات اختيارية: 5$ شهريًا'] }]
     },
+    addon: { tag: 'إضافة جديدة', name: '⭐ نظام نقاط الولاء', for: 'لزبائن يرجعون ويطلبون أكثر. للمطاعم.', add: 'تُضاف إلى أي باقة', cols: [
+      ['🙋', 'للزبون', ['يدخل بحساب Gmail بضغطة واحدة', 'يجمع نقطة عن كل 1$ يطلبه', '100 نقطة = قسيمة بقيمة 5$', 'يرى نقاطه وقسائمه في أي وقت']],
+      ['🎁', 'هدايا تلقائية', ['مستوى ذهبي بعد 10 طلبات بنقاط مضاعفة', 'هدية 50 نقطة في عيد الميلاد', '50 نقطة لكل صديق يدعوه', 'النقاط تنتهي بعد 6 أشهر بلا طلب']],
+      ['📲', 'لصاحب المطعم', ['رابط في رسالة الطلب على واتساب', 'تأكيد التسليم بضغطة فتُضاف النقاط', 'تطبيق يُثبَّت على الهاتف', 'قائمة الزبائن ونقاطهم، وتعديل كل الأرقام']]],
+      try: 'جرّبه على مطبخ الريحان', ask: 'أريد نظام النقاط', msg: 'مرحبًا، أريد إضافة نظام نقاط الولاء (+10$ شهريًا) لمطعمي.' },
     extra: ['<b>مشترك شهريًا وتريد الشراء؟</b> تحصل على خصم 20% على سعر الشراء.', '<b>مشترك شهريًا وتريد نطاقًا خاصًا؟</b> أضف نطاق (.com) باسم نشاطك بـ 20$ سنويًا.', '<b>الدفع:</b> عبر Whish Money أو USDT (شبكة TRC20).', '<b>شركة أو مشروع كبير؟</b> <a href="#contact">اطلب عرض سعر</a> حسب حاجتك.'],
     faqTitle: 'أسئلة شائعة', faqSub: 'لم تجد جوابك؟ راسلنا عبر واتساب.',
     faq: [['كم يستغرق تجهيز الموقع؟', 'بين 3 و5 أيام عمل من تاريخ استلامنا للقائمة والصور.'],
@@ -736,6 +742,11 @@ const T = {
           after: 'Then $90 a year for hosting and services, from the second year',
           f: ['Everything in Basic', 'The Pro system for your sector', 'App, notifications, control panel and stats', 'Your own domain (.com) in your name', 'Optional updates pack: $5/month'] }]
     },
+    addon: { tag: 'New add-on', name: '⭐ Loyalty points', for: 'Bring customers back and get more orders. For restaurants.', add: 'added to any plan', cols: [
+      ['🙋', 'For the customer', ['Signs in with Gmail in one tap', 'Earns 1 point for every $1 ordered', '100 points = a $5 voucher', 'Sees points and vouchers anytime']],
+      ['🎁', 'Automatic rewards', ['Gold level after 10 orders: double points', '50 points birthday gift', '50 points for every friend invited', 'Points expire after 6 months without an order']],
+      ['📲', 'For the owner', ['A link inside the WhatsApp order message', 'One tap to confirm delivery and add points', 'An app that installs on the phone', 'Customer list with points; edit every number']]],
+      try: 'Try it on Rayhan Kitchen', ask: 'I want loyalty points', msg: 'Hi, I want to add the loyalty points system (+$10/month) to my restaurant.' },
     extra: ['<b>On the monthly plan and want to buy?</b> You get 20% off the purchase price.', '<b>On the monthly plan and want your own domain?</b> Add a .com with your business name for $20 a year.', '<b>Payment:</b> by Whish Money or USDT (TRC20 network).', '<b>A company or a large project?</b> <a href="#contact">Request a quote</a> for what you need.'],
     faqTitle: 'Frequently asked questions', faqSub: 'Did not find your answer? Message us on WhatsApp.',
     faq: [['How long does it take?', 'Between 3 and 5 working days from when we receive your menu and photos.'],
@@ -794,6 +805,8 @@ function renderPlans() {
   $('tiers').innerHTML = ['basic', 'pro'].map(k => '<button type="button" class="' + k + '" data-tier="' + k + '" aria-pressed="' + (tier === k) + '"><b>' + (k === 'pro' ? t.tierP + '<span class="pb">★</span>' : t.tierB) + '</b><span>' + (k === 'pro' ? t.tierPsub : t.tierBsub) + '</span></button>').join('');
   $('sysg').innerHTML = '<h3>' + t.sysTitle + '</h3><p>' + t.sysSub + '</p><div class="sgrid">' + t.systems.map(y => '<article class="scard' + (y.live ? ' live' : '') + '"><div class="sh4"><h4><span aria-hidden="true">' + y.ic + '</span>' + y.name + '</h4><span class="st">' + (y.live ? t.avail : t.soon) + '</span></div><ul>' + y.f.map(x => '<li>' + tick + '<span>' + x + '</span></li>').join('') + '</ul>' + (y.live ? '<a href="' + y.live + '" target="_blank" rel="noopener">' + t.tryIt + ' ↗</a>' : '') + '</article>').join('') + '</div>';
   $('sysg').hidden = tier !== 'pro';
+  const a = t.addon;
+  $('addon').innerHTML = '<span class="stag">' + a.tag + '</span><h3>' + a.name + '</h3><p class="sfor">' + a.for + '</p><div class="sprice"><div class="price">+' + money(10) + '<small>' + t.perMonth + '</small></div><span class="alt">' + a.add + '</span></div><div class="scols">' + a.cols.map(c => '<div class="scol"><h4><span aria-hidden="true">' + c[0] + '</span>' + c[1] + '</h4><ul>' + c[2].map(x => '<li>' + tick + '<span>' + x + '</span></li>').join('') + '</ul></div>').join('') + '</div><div class="sbtns"><a class="btn btn-gold" href="demo/rayhan/" target="_blank" rel="noopener">' + a.try + '</a><a class="btn btn-ghost" href="https://wa.me/' + WA + '?text=' + encodeURIComponent(a.msg) + '" target="_blank" rel="noopener">' + a.ask + '</a></div>';
   $('plans').innerHTML = t.plans[tier].map(p => {
     const now = p.offer || p.price;
     const price = '<div class="price">' + (p.offer ? '<span class="was">' + money(p.price) + '</span>' : '') + money(now) + '<small>' + t[p.unit] + '</small></div>';
