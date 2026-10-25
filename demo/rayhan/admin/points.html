@@ -100,7 +100,7 @@ h2.sec .n { background: var(--tomato); color: #fff; font-size: 13px; border-radi
 .kv span { font-size: 12px; color: var(--mute) }
 .qs { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px }
 .qs button { border: 1.5px solid var(--line); background: var(--card); border-radius: 12px; padding: 8px 14px; font-weight: 700; font-size: 14px; font-family: var(--hf); direction: ltr }
-.toast { position: fixed; z-index: 80; left: 50%; bottom: calc(24px + env(safe-area-inset-bottom, 0px)); transform: translate(-50%, 20px); background: var(--ink); color: #fff; padding: 10px 16px; border-radius: 99px; font-size: 14px; opacity: 0; transition: opacity .25s, transform .25s; pointer-events: none; white-space: nowrap }
+.toast { position: fixed; z-index: 80; left: 50%; bottom: calc(24px + env(safe-area-inset-bottom, 0px)); transform: translate(-50%, 20px); background: var(--ink); color: #fff; padding: 10px 16px; border-radius: 99px; font-size: 14px; opacity: 0; transition: opacity .25s, transform .25s; pointer-events: none; width: max-content; max-width: calc(100vw - 32px); text-align: center; border-radius: 16px }
 .toast.on { opacity: 1; transform: translate(-50%, 0) }
 .lng, .inst { background: var(--sun) !important; color: var(--ink) !important; border-color: var(--sun) !important }
 .ord .who { font-family: var(--hf); font-size: 18px }
@@ -171,7 +171,7 @@ const L = {
       ['ref', 'Invite-a-friend points', 'When the friend orders for the first time'], ['expireDays', 'Points expire after (days)', 'With no orders at all, 0 = never']],
     spent: 'Spent', bday: 'Birthday', joined: (d) => 'joined ' + d, adj: 'Add or remove points', adjH: 'For example, if the customer forgot to sign in before ordering.', added: (n) => n + ' points added', removed: (n) => n + ' points removed',
     cfT: 'Confirm order', cfDone: 'This order is already confirmed or cancelled.', cfDoneT: 'Already handled', close: 'Close',
-    ago: (m) => m < 1 ? 'just now' : m < 60 ? m + ' min ago' : m < 1440 ? Math.round(m / 60) + ' h ago' : Math.round(m / 1440) + ' d ago', iosHelp: 'On iPhone: tap Share, then “Add to Home Screen”.'
+    ago: (m) => m < 1 ? 'just now' : m < 60 ? m + ' min ago' : m < 1440 ? Math.round(m / 60) + ' h ago' : Math.round(m / 1440) + ' d ago', iosHelp: 'On iPhone: tap Share, then “Add to Home Screen”.', menuHelp: 'Open the browser menu ⋮ and tap “Install app” or “Add to Home screen”.'
   },
   ar: {
     dir: 'rtl', other: 'English', title: 'النقاط | مطبخ الريحان', brand: '⭐ نقاط الريحان',
@@ -191,7 +191,7 @@ const L = {
       ['ref', 'نقاط دعوة صديق', 'عندما يطلب الصديق أول مرة'], ['expireDays', 'تنتهي النقاط بعد (يوم)', 'إن لم يطلب أي طلب، 0 = لا تنتهي']],
     spent: 'أنفق', bday: 'عيد الميلاد', joined: (d) => 'سجّل ' + d, adj: 'أضف نقاطًا أو اخصمها', adjH: 'مثلًا إذا نسي الزبون تسجيل الدخول قبل الطلب.', added: (n) => 'أُضيفت ' + n + ' نقطة', removed: (n) => 'خُصمت ' + n + ' نقطة',
     cfT: 'تأكيد الطلب', cfDone: 'هذا الطلب تم تأكيده أو إلغاؤه من قبل.', cfDoneT: 'تمت معالجته', close: 'إغلاق',
-    ago: (m) => m < 1 ? 'الآن' : m < 60 ? 'منذ ' + m + ' دقيقة' : m < 1440 ? 'منذ ' + Math.round(m / 60) + ' ساعة' : 'منذ ' + Math.round(m / 1440) + ' يوم', iosHelp: 'على آيفون: اضغط «مشاركة» ثم «إضافة إلى الشاشة الرئيسية».'
+    ago: (m) => m < 1 ? 'الآن' : m < 60 ? 'منذ ' + m + ' دقيقة' : m < 1440 ? 'منذ ' + Math.round(m / 60) + ' ساعة' : 'منذ ' + Math.round(m / 1440) + ' يوم', iosHelp: 'على آيفون: اضغط «مشاركة» ثم «إضافة إلى الشاشة الرئيسية».', menuHelp: 'افتح قائمة المتصفح ⋮ واضغط «تثبيت التطبيق» أو «إضافة إلى الشاشة الرئيسية».'
   }
 };
 const $ = (s) => document.querySelector(s);
@@ -200,7 +200,7 @@ const usd = (n) => '$' + (Math.round(n * 100) / 100).toFixed(2).replace(/\.00$/,
 let pass = '', data = null, q = '', cur = null, lang = 'en', want = '';
 try { pass = localStorage.getItem('rh_admin') || ''; lang = localStorage.getItem('nf_panel_lang') === 'ar' ? 'ar' : 'en' } catch (e) {}
 const t = () => L[lang], loc = () => (lang === 'ar' ? 'ar-LB' : 'en-GB');
-function toast(m) { const e = $('#toast'); e.textContent = m; e.classList.add('on'); clearTimeout(e._t); e._t = setTimeout(() => e.classList.remove('on'), 2400) }
+function toast(m) { const e = $('#toast'); e.textContent = m; e.classList.add('on'); clearTimeout(e._t); e._t = setTimeout(() => e.classList.remove('on'), m.length > 60 ? 6000 : 2400) }
 const ago = (ms) => t().ago(Math.round((Date.now() - ms) / 60000));
 const day = (ms) => ms ? new Date(ms).toLocaleDateString(loc(), { day: 'numeric', month: 'short' }) : '—';
 /* the WhatsApp order links here with #c=CODE: open that order ready to confirm */
@@ -307,8 +307,9 @@ let deferredI = null;
 if ('serviceWorker' in navigator) navigator.serviceWorker.register('points-sw.js', { scope: './points' }).catch(() => {});
 window.addEventListener('beforeinstallprompt', (e) => { e.preventDefault(); deferredI = e; $('#instB').hidden = false });
 const standalone = () => matchMedia('(display-mode: standalone)').matches || navigator.standalone;
-if (/iphone|ipad/i.test(navigator.userAgent) && !standalone()) $('#instB').hidden = false;
-$('#instB').addEventListener('click', async () => { if (!deferredI) return toast(t().iosHelp); deferredI.prompt(); await deferredI.userChoice; deferredI = null; $('#instB').hidden = true });
+/* some browsers never fire the install prompt: keep the button and explain the menu steps instead */
+if (!standalone()) $('#instB').hidden = false;
+$('#instB').addEventListener('click', async () => { if (!deferredI) return toast(/iphone|ipad/i.test(navigator.userAgent) ? t().iosHelp : t().menuHelp); deferredI.prompt(); await deferredI.userChoice; deferredI = null; $('#instB').hidden = true });
 
 applyLang();
 if (pass) enter();
