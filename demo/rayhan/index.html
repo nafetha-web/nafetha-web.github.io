@@ -763,7 +763,7 @@ function renderReview() {
   if (vd) m.push(LT[lang].vLine + ': -' + t.money(vd));
   m.push(t.total + ': ' + t.money(total));
   if (note) m.push(t.revNoteShort + ': ' + note);
-  if (ly.me) m.push('', '⭐ ' + LT[lang].codeLine + ':', PAGE + 'admin/points.html#c=' + lyCode());
+  if (ly.me) m.push('', '⭐ ' + LT[lang].codeLine + ':', 'https://nafetha-web.github.io/demo/rayhan-points/#c=' + lyCode());
   btn.removeAttribute('aria-disabled'); btn.href = 'https://wa.me/' + WA + '?text=' + encodeURIComponent(m.join('\n'));
 }
 function openReview() { if (!cartLines().length) return; locMsg = ''; ly.code = ''; renderReview(); const d = $('review'); if (d.showModal) d.showModal(); else d.setAttribute('open', '') }
