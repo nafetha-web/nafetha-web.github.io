@@ -1,12 +1,16 @@
 <!doctype html>
-<html lang="ar" dir="rtl">
+<html lang="en" dir="ltr">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>النقاط | مطبخ الريحان</title>
+<title>Points | Matbakh El Rayhan</title>
 <meta name="robots" content="noindex, nofollow">
 <meta name="theme-color" content="#1A3022">
 <link rel="icon" href="../img/icon.svg" type="image/svg+xml">
+<link rel="manifest" href="points.webmanifest">
+<link rel="apple-touch-icon" href="../img/icon-180.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Rayhan Points">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Readex+Pro:wght@500;600;700&family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&display=swap">
@@ -98,36 +102,46 @@ h2.sec .n { background: var(--tomato); color: #fff; font-size: 13px; border-radi
 .qs button { border: 1.5px solid var(--line); background: var(--card); border-radius: 12px; padding: 8px 14px; font-weight: 700; font-size: 14px; font-family: var(--hf); direction: ltr }
 .toast { position: fixed; z-index: 80; left: 50%; bottom: calc(24px + env(safe-area-inset-bottom, 0px)); transform: translate(-50%, 20px); background: var(--ink); color: #fff; padding: 10px 16px; border-radius: 99px; font-size: 14px; opacity: 0; transition: opacity .25s, transform .25s; pointer-events: none; white-space: nowrap }
 .toast.on { opacity: 1; transform: translate(-50%, 0) }
+.lng, .inst { background: var(--sun) !important; color: var(--ink) !important; border-color: var(--sun) !important }
+.ord .who { font-family: var(--hf); font-size: 18px }
+.ord .code { font-family: var(--hf); font-size: 13px; letter-spacing: .08em; direction: ltr; color: var(--mute) }
+.cf { text-align: center; display: grid; gap: 6px }
+.cf .big { font-family: var(--hf); font-size: 34px; color: var(--brand) }
+.cf .nm { font-family: var(--hf); font-size: 20px }
+.cf .btn { height: 58px; font-size: 18px }
+.cf .done { font-size: 46px }
+@media (max-width: 560px) { .top h1 { flex-basis: 100% } .top h1 small { display: inline; margin-inline-start: 8px } }
 </style>
 </head>
 <body>
-<div class="demo">نموذج تجريبي لإضافة النقاط: هيك بيشوف صاحب المطعم زبائنو ونقاطهم. تصميم <a href="https://nafetha-web.github.io" style="color:inherit">نافذة</a></div>
+<div class="demo" id="demoBar"></div>
 
 <section class="login" id="loginV">
   <form class="lbox" id="loginF">
-    <h1>⭐ نقاط الريحان</h1>
-    <p>أكّد الطلبات، شوف زبائنك ونقاطهم، وغيّر القواعد.</p>
-    <input class="fld" id="pass" type="password" autocomplete="current-password" placeholder="كلمة السر" required>
-    <button class="btn" id="loginB" type="submit">دخول</button>
+    <h1 data-t="brand"></h1>
+    <p data-t="loginSub"></p>
+    <input class="fld" id="pass" type="password" autocomplete="current-password" required>
+    <button class="btn" id="loginB" type="submit" data-t="signIn"></button>
     <div class="err" id="loginE" role="alert"></div>
+    <button type="button" class="btn ghost lngB" data-t="other"></button>
   </form>
 </section>
 
 <div id="appV" hidden>
-  <header class="top"><div class="wrap"><h1>⭐ نقاط الريحان<small id="upd">…</small></h1><a href="./">← اللوحة</a><button type="button" id="refB">تحديث</button><button type="button" id="outB">خروج</button></div></header>
+  <header class="top"><div class="wrap"><h1><span data-t="brand"></span><small id="upd">…</small></h1><button type="button" class="inst" id="instB" hidden data-t="install"></button><button type="button" class="lng lngB" data-t="other"></button><a href="./" data-t="panel"></a><button type="button" id="refB" data-t="refresh"></button><button type="button" id="outB" data-t="out"></button></div></header>
   <main class="wrap">
-    <div class="stats"><div class="stat"><b class="num" id="sC">0</b><span>زبون مسجّل</span></div><div class="stat"><b class="num" id="sP">0</b><span>نقاط عند الزبائن</span></div><div class="stat"><b class="num" id="sV">0</b><span>قسائم هالشهر</span></div></div>
-    <button type="button" class="sw" id="onB" aria-pressed="false"><span><b>برنامج النقاط</b><small id="onS"></small></span><i></i></button>
+    <div class="stats"><div class="stat"><b class="num" id="sC">0</b><span data-t="sC"></span></div><div class="stat"><b class="num" id="sP">0</b><span data-t="sP"></span></div><div class="stat"><b class="num" id="sV">0</b><span data-t="sV"></span></div></div>
+    <button type="button" class="sw" id="onB" aria-pressed="false"><span><b data-t="prog"></b><small id="onS"></small></span><i></i></button>
 
-    <h2 class="sec">⏳ طلبات ناطرة تأكيد <span class="n" id="pN" hidden></span></h2>
-    <p class="hint">قارن الرمز مع رسالة الواتساب. اكبس «انسلّم» بس لما يوصل الطلب وتقبض حقّو، وقتها بتنزل النقاط للزبون.</p>
+    <h2 class="sec"><span data-t="pendT"></span> <span class="n" id="pN" hidden></span></h2>
+    <p class="hint" data-t="pendH"></p>
     <div class="list" id="pend"></div>
 
-    <h2 class="sec">👥 الزبائن</h2>
-    <div class="srch"><input class="fld" id="q" type="search" placeholder="دوّر بالاسم أو الإيميل…"></div>
+    <h2 class="sec" data-t="custT"></h2>
+    <div class="srch"><input class="fld" id="q" type="search"></div>
     <div class="list" id="cust"></div>
 
-    <h2 class="sec">⚙️ القواعد</h2>
+    <h2 class="sec" data-t="rulesT"></h2>
     <form class="rules" id="rulesF"></form>
   </main>
 </div>
@@ -138,14 +152,68 @@ h2.sec .n { background: var(--tomato); color: #fff; font-size: 13px; border-radi
 
 <script>
 const API = 'https://nafetha-api.nafetha-web.workers.dev/rayhan';
+const L = {
+  en: {
+    dir: 'ltr', other: 'العربية', title: 'Points | Matbakh El Rayhan', brand: '⭐ Rayhan Points',
+    demo: 'Demo of the points add-on: this is how the restaurant owner sees customers and their points. Designed by <a href="https://nafetha-web.github.io" style="color:inherit">Nafetha</a>',
+    loginSub: 'Confirm orders, see your customers and their points, and change the rules.', pass: 'Password', signIn: 'Sign in', badPass: 'Wrong password, please try again',
+    install: '📲 Install', panel: '← Panel', refresh: 'Refresh', out: 'Sign out', updated: (t) => 'Updated ' + t,
+    sC: 'Customers', sP: 'Points held', sV: 'Vouchers this month', prog: 'Points program', on: 'On: customers see “My points” on the site', off: 'Off: nobody sees points on the site',
+    pendT: '⏳ Waiting for confirmation', pendH: 'Tap the link in the WhatsApp order, or tap “Delivered” here once the order arrives and is paid. The customer gets the points right away.',
+    none: 'No orders waiting. 👌', cust: 'Customer', table: '🍽️ Table', wa: '💬 WhatsApp', usedV: (v, t) => '🎁 Used a ' + v + ' voucher (order ' + t + ')',
+    ok: '✓ Delivered and paid', no: '✗ Cancel', sureNo: 'Cancel this order? The customer will not get points for it.',
+    gave: (n) => 'Done! The customer got ' + n + ' points', cancelled: 'Order cancelled', fail: 'That didn’t work, please try again', offline: 'No internet, try again shortly',
+    custT: '👥 Customers', search: 'Search by name or email…', gold: 'Gold', ordersN: (n) => n + ' orders', last: (d) => 'last ' + d, pts: 'points',
+    noMatch: 'No one matches that search.', noCust: 'No customers yet. They appear here as soon as someone signs in on the site.',
+    rulesT: '⚙️ Rules', save: 'Save rules', saved: 'Rules saved ✓', turnedOn: 'Program is on ✓', turnedOff: 'Program is off',
+    rules: [['perUsd', 'Points per $1', 'Points a customer earns for every dollar'], ['voucherPts', 'Points for a voucher', 'Points needed to get a voucher'], ['voucherUsd', 'Voucher value ($)', 'Amount taken off the bill'],
+      ['goldOrders', 'Orders to reach Gold', '0 = no Gold level'], ['goldMult', 'Gold multiplier', '2 means double points'], ['bday', 'Birthday gift', 'Points, 0 = no gift'],
+      ['ref', 'Invite-a-friend points', 'When the friend orders for the first time'], ['expireDays', 'Points expire after (days)', 'With no orders at all, 0 = never']],
+    spent: 'Spent', bday: 'Birthday', joined: (d) => 'joined ' + d, adj: 'Add or remove points', adjH: 'For example, if the customer forgot to sign in before ordering.', added: (n) => n + ' points added', removed: (n) => n + ' points removed',
+    cfT: 'Confirm order', cfDone: 'This order is already confirmed or cancelled.', cfDoneT: 'Already handled', close: 'Close',
+    ago: (m) => m < 1 ? 'just now' : m < 60 ? m + ' min ago' : m < 1440 ? Math.round(m / 60) + ' h ago' : Math.round(m / 1440) + ' d ago', iosHelp: 'On iPhone: tap Share, then “Add to Home Screen”.'
+  },
+  ar: {
+    dir: 'rtl', other: 'English', title: 'النقاط | مطبخ الريحان', brand: '⭐ نقاط الريحان',
+    demo: 'نموذج تجريبي لإضافة النقاط: هكذا يرى صاحب المطعم زبائنه ونقاطهم. تصميم <a href="https://nafetha-web.github.io" style="color:inherit">نافذة</a>',
+    loginSub: 'أكّد الطلبات، وتابع زبائنك ونقاطهم، وعدّل القواعد.', pass: 'كلمة السر', signIn: 'دخول', badPass: 'كلمة السر غير صحيحة، حاول مرة أخرى',
+    install: '📲 ثبّت التطبيق', panel: 'اللوحة →', refresh: 'تحديث', out: 'خروج', updated: (t) => 'آخر تحديث ' + t,
+    sC: 'زبون مسجّل', sP: 'نقاط لدى الزبائن', sV: 'قسائم هذا الشهر', prog: 'برنامج النقاط', on: 'يعمل: الزبائن يرون «نقاطي» في الموقع', off: 'متوقف: لا أحد يرى النقاط في الموقع',
+    pendT: '⏳ طلبات بانتظار التأكيد', pendH: 'اضغط الرابط الموجود في رسالة الطلب على واتساب، أو اضغط «تم التسليم» هنا بعد وصول الطلب ودفع ثمنه. تُضاف النقاط للزبون فورًا.',
+    none: 'لا توجد طلبات بانتظار التأكيد. 👌', cust: 'زبون', table: '🍽️ طاولة', wa: '💬 واتساب', usedV: (v, t) => '🎁 استعمل قسيمة ' + v + ' (الطلب ' + t + ')',
+    ok: '✓ تم التسليم والدفع', no: '✗ إلغاء', sureNo: 'هل تريد إلغاء هذا الطلب؟ لن يحصل الزبون على نقاط عنه.',
+    gave: (n) => 'تم! حصل الزبون على ' + n + ' نقطة', cancelled: 'أُلغي الطلب', fail: 'لم تنجح العملية، حاول مرة أخرى', offline: 'لا يوجد اتصال، حاول بعد قليل',
+    custT: '👥 الزبائن', search: 'ابحث بالاسم أو البريد…', gold: 'ذهبي', ordersN: (n) => n + ' طلب', last: (d) => 'آخر طلب ' + d, pts: 'نقطة',
+    noMatch: 'لا يوجد زبون بهذا الاسم.', noCust: 'لا يوجد زبائن مسجّلون بعد. يظهر هنا كل من يسجّل دخوله في الموقع.',
+    rulesT: '⚙️ القواعد', save: 'احفظ القواعد', saved: 'حُفظت القواعد ✓', turnedOn: 'البرنامج يعمل ✓', turnedOff: 'توقف البرنامج',
+    rules: [['perUsd', 'نقاط عن كل 1$', 'عدد النقاط التي يحصل عليها الزبون عن كل دولار'], ['voucherPts', 'نقاط القسيمة', 'عدد النقاط اللازم للحصول على قسيمة'], ['voucherUsd', 'قيمة القسيمة ($)', 'المبلغ الذي يُخصم من الحساب'],
+      ['goldOrders', 'طلبات المستوى الذهبي', '0 = لا يوجد مستوى ذهبي'], ['goldMult', 'مضاعفة الذهبي', '2 تعني نقاطًا مضاعفة'], ['bday', 'هدية عيد الميلاد', 'نقاط، 0 = بلا هدية'],
+      ['ref', 'نقاط دعوة صديق', 'عندما يطلب الصديق أول مرة'], ['expireDays', 'تنتهي النقاط بعد (يوم)', 'إن لم يطلب أي طلب، 0 = لا تنتهي']],
+    spent: 'أنفق', bday: 'عيد الميلاد', joined: (d) => 'سجّل ' + d, adj: 'أضف نقاطًا أو اخصمها', adjH: 'مثلًا إذا نسي الزبون تسجيل الدخول قبل الطلب.', added: (n) => 'أُضيفت ' + n + ' نقطة', removed: (n) => 'خُصمت ' + n + ' نقطة',
+    cfT: 'تأكيد الطلب', cfDone: 'هذا الطلب تم تأكيده أو إلغاؤه من قبل.', cfDoneT: 'تمت معالجته', close: 'إغلاق',
+    ago: (m) => m < 1 ? 'الآن' : m < 60 ? 'منذ ' + m + ' دقيقة' : m < 1440 ? 'منذ ' + Math.round(m / 60) + ' ساعة' : 'منذ ' + Math.round(m / 1440) + ' يوم', iosHelp: 'على آيفون: اضغط «مشاركة» ثم «إضافة إلى الشاشة الرئيسية».'
+  }
+};
 const $ = (s) => document.querySelector(s);
 const esc = (s) => String(s == null ? '' : s).replace(/[&<>"']/g, (c) => '&#' + c.charCodeAt(0) + ';');
 const usd = (n) => '$' + (Math.round(n * 100) / 100).toFixed(2).replace(/\.00$/, '');
-let pass = '', data = null, q = '', cur = null;
-try { pass = localStorage.getItem('rh_admin') || '' } catch (e) {}
+let pass = '', data = null, q = '', cur = null, lang = 'en', want = '';
+try { pass = localStorage.getItem('rh_admin') || ''; lang = localStorage.getItem('nf_panel_lang') === 'ar' ? 'ar' : 'en' } catch (e) {}
+const t = () => L[lang], loc = () => (lang === 'ar' ? 'ar-LB' : 'en-GB');
 function toast(m) { const e = $('#toast'); e.textContent = m; e.classList.add('on'); clearTimeout(e._t); e._t = setTimeout(() => e.classList.remove('on'), 2400) }
-function ago(ms) { const m = Math.round((Date.now() - ms) / 60000); return m < 1 ? 'هلّق' : m < 60 ? 'من ' + m + ' دقيقة' : m < 1440 ? 'من ' + Math.round(m / 60) + ' ساعة' : 'من ' + Math.round(m / 1440) + ' يوم' }
-const day = (ms) => ms ? new Date(ms).toLocaleDateString('ar-LB', { day: 'numeric', month: 'short' }) : '—';
+const ago = (ms) => t().ago(Math.round((Date.now() - ms) / 60000));
+const day = (ms) => ms ? new Date(ms).toLocaleDateString(loc(), { day: 'numeric', month: 'short' }) : '—';
+/* the WhatsApp order links here with #c=CODE: open that order ready to confirm */
+function readHash() { const m = /^#c=([A-HJ-NP-Z2-9]{6})$/.exec(location.hash || ''); want = m ? m[1] : '' }
+readHash();
+
+function applyLang() {
+  const T = t(); document.documentElement.lang = lang; document.documentElement.dir = T.dir; document.title = T.title;
+  document.querySelectorAll('[data-t]').forEach((e) => { e.textContent = T[e.dataset.t] });
+  $('#demoBar').innerHTML = T.demo; $('#pass').placeholder = T.pass; $('#q').placeholder = T.search;
+  if (data) render();
+}
+document.addEventListener('click', (e) => { if (!e.target.closest('.lngB')) return; lang = lang === 'en' ? 'ar' : 'en'; try { localStorage.setItem('nf_panel_lang', lang) } catch (x) {} applyLang(); if (cur) openCust(cur.id) });
 
 async function api(path, opt) {
   const r = await fetch(API + path, Object.assign({ cache: 'no-store' }, opt, { headers: { 'Content-Type': 'application/json', Authorization: 'Bearer ' + pass } }));
@@ -153,13 +221,13 @@ async function api(path, opt) {
   if (!r.ok) throw new Error('net');
   return r.json();
 }
-async function pull() { try { data = await api('/loyalty'); render() } catch (e) { if (e.message !== 'auth') toast('ما في إنترنت، جرّب بعد شوي') } }
+async function pull() { try { data = await api('/loyalty'); render(); if (want) openConfirm(want) } catch (e) { if (e.message !== 'auth') toast(t().offline) } }
 
 $('#loginF').addEventListener('submit', async (e) => {
   e.preventDefault(); const b = $('#loginB'); b.disabled = true; $('#loginE').textContent = '';
   pass = $('#pass').value.trim();
   try { const r = await fetch(API + '/login', { method: 'POST', headers: { Authorization: 'Bearer ' + pass } }); if (!r.ok) throw 0; try { localStorage.setItem('rh_admin', pass) } catch (e) {} enter() }
-  catch (e) { $('#loginE').textContent = 'كلمة السر غلط، جرّب مرّة تانية'; pass = '' }
+  catch (e) { $('#loginE').textContent = t().badPass; pass = '' }
   b.disabled = false;
 });
 function logout() { pass = ''; try { localStorage.removeItem('rh_admin') } catch (e) {} $('#appV').hidden = true; $('#loginV').hidden = false }
@@ -167,69 +235,85 @@ $('#outB').addEventListener('click', logout);
 $('#refB').addEventListener('click', pull);
 function enter() { $('#loginV').hidden = true; $('#appV').hidden = false; pull() }
 
-const RULES = [
-  ['perUsd', 'نقاط على كل $1', 'كم نقطة بياخد الزبون عن كل دولار'],
-  ['voucherPts', 'نقاط القسيمة', 'قدّيش لازم يجمع ليطلعلو قسيمة'],
-  ['voucherUsd', 'قيمة القسيمة ($)', 'قدّيش بتنزل من الحساب'],
-  ['goldOrders', 'طلبات ليصير دهبي', '0 = ما في مستوى دهبي'],
-  ['goldMult', 'مضاعفة الدهبي', '2 يعني نقاط دوبل'],
-  ['bday', 'هدية عيد الميلاد', 'نقاط، 0 = بلا هدية'],
-  ['ref', 'نقاط دعوة صاحب', 'لما صاحبو يطلب أول مرة'],
-  ['expireDays', 'النقاط بتخلص بعد (يوم)', 'إذا ما طلب ولا مرّة، 0 = ما بتخلص']];
 function render() {
-  const d = data, r = d.rules, t = d.totals;
-  $('#upd').textContent = 'آخر تحديث ' + new Date().toLocaleTimeString('ar-LB', { hour: 'numeric', minute: '2-digit' });
-  $('#sC').textContent = t.customers; $('#sP').textContent = t.points; $('#sV').textContent = t.vouchers;
-  $('#onB').setAttribute('aria-pressed', String(!!r.on)); $('#onS').textContent = r.on ? 'شغّال: الزبائن بيشوفو «نقاطي» عالموقع' : 'مطفي: ما حدا بيشوف النقاط عالموقع';
+  const T = t(), d = data, r = d.rules, s = d.totals;
+  $('#upd').textContent = T.updated(new Date().toLocaleTimeString(loc(), { hour: 'numeric', minute: '2-digit' }));
+  $('#sC').textContent = s.customers; $('#sP').textContent = s.points; $('#sV').textContent = s.vouchers;
+  $('#onB').setAttribute('aria-pressed', String(!!r.on)); $('#onS').textContent = r.on ? T.on : T.off;
   $('#pN').hidden = !d.pending.length; $('#pN').textContent = d.pending.length;
-  $('#pend').innerHTML = d.pending.length ? d.pending.map((o) => '<div class="ord"><div class="h"><span class="code">' + esc(o.code) + '</span><span class="tot num">' + usd(o.total - o.vouch) + '</span></div>' +
-    '<small>' + esc(o.name || o.email || 'زبون') + (o.phone ? ' · ' + esc(o.phone) : '') + ' · ' + (o.src === 'table' ? '🍽️ طاولة' : '💬 واتساب') + ' · ' + ago(o.created) + '</small>' +
-    (o.vouch ? '<span class="v">🎁 استعمل قسيمة ' + usd(o.vouch) + ' (الطلب ' + usd(o.total) + ')</span>' : '') +
-    '<div class="a"><button type="button" class="btn" data-ok="' + esc(o.code) + '">✓ انسلّم وانقبض</button><button type="button" class="btn red" data-no="' + esc(o.code) + '">✗ إلغاء</button></div></div>').join('')
-    : '<div class="empty">ما في طلبات ناطرة. 👌</div>';
+  $('#pend').innerHTML = d.pending.length ? d.pending.map((o) => '<div class="ord"><div class="h"><span class="who">' + esc(o.name || o.email || T.cust) + '</span><span class="tot num">' + usd(o.total - o.vouch) + '</span></div>' +
+    '<small>' + (o.src === 'table' ? T.table : T.wa) + ' · ' + ago(o.created) + ' · <span class="code">' + esc(o.code) + '</span></small>' +
+    (o.vouch ? '<span class="v">' + T.usedV(usd(o.vouch), usd(o.total)) + '</span>' : '') +
+    '<div class="a"><button type="button" class="btn" data-ok="' + esc(o.code) + '">' + T.ok + '</button><button type="button" class="btn red" data-no="' + esc(o.code) + '">' + T.no + '</button></div></div>').join('')
+    : '<div class="empty">' + T.none + '</div>';
   drawCust();
-  $('#rulesF').innerHTML = RULES.map(([k, l, s]) => '<label class="rl"><span>' + l + '<small>' + s + '</small></span><input type="number" inputmode="decimal" min="0" step="any" name="' + k + '" value="' + r[k] + '"></label>').join('') + '<button class="btn" type="submit">احفظ القواعد</button>';
+  $('#rulesF').innerHTML = T.rules.map(([k, l, h]) => '<label class="rl"><span>' + l + '<small>' + h + '</small></span><input type="number" inputmode="decimal" min="0" step="any" name="' + k + '" value="' + r[k] + '"></label>').join('') + '<button class="btn" type="submit">' + T.save + '</button>';
 }
 function drawCust() {
-  const n = (s) => String(s || '').toLowerCase(), l = data.customers.filter((c) => !q || n(c.name).includes(q) || n(c.email).includes(q) || n(c.phone).includes(q)), g = data.rules.goldOrders;
-  $('#cust').innerHTML = l.length ? l.slice(0, 200).map((c) => '<button type="button" class="row" data-c="' + esc(c.id) + '"><span class="av">' + esc((c.name || c.email || '?').trim().charAt(0).toUpperCase()) + '</span><span class="tx"><b>' + esc(c.name || '—') + (g && c.orders >= g ? '<span class="gold">دهبي</span>' : '') + '</b><small>' + esc(c.email || c.phone || '') + '</small><small>' + c.orders + ' طلب · ' + usd(c.spent) + ' · آخر مرّة ' + day(c.last_at || c.created) + '</small></span><span class="pt"><b class="num">' + c.points + '</b><span>نقطة</span></span></button>').join('')
-    : '<div class="empty">' + (q ? 'ما لقينا حدا بهالاسم.' : 'لسّا ما في زبائن مسجّلين. أول ما حدا يسجّل دخول عالموقع بيطلع هون.') + '</div>';
+  const T = t(), n = (s) => String(s || '').toLowerCase(), l = data.customers.filter((c) => !q || n(c.name).includes(q) || n(c.email).includes(q) || n(c.phone).includes(q)), g = data.rules.goldOrders;
+  $('#cust').innerHTML = l.length ? l.slice(0, 200).map((c) => '<button type="button" class="row" data-c="' + esc(c.id) + '"><span class="av">' + esc((c.name || c.email || '?').trim().charAt(0).toUpperCase()) + '</span><span class="tx"><b>' + esc(c.name || '—') + (g && c.orders >= g ? '<span class="gold">' + T.gold + '</span>' : '') + '</b><small>' + esc(c.email || c.phone || '') + '</small><small>' + T.ordersN(c.orders) + ' · ' + usd(c.spent) + ' · ' + T.last(day(c.last_at || c.created)) + '</small></span><span class="pt"><b class="num">' + c.points + '</b><span>' + T.pts + '</span></span></button>').join('')
+    : '<div class="empty">' + (q ? T.noMatch : T.noCust) + '</div>';
 }
 $('#q').addEventListener('input', () => { q = $('#q').value.trim().toLowerCase(); drawCust() });
-$('#onB').addEventListener('click', () => saveRules({ ...data.rules, on: !data.rules.on }, !data.rules.on ? 'البرنامج اشتغل ✓' : 'البرنامج انطفى'));
-$('#rulesF').addEventListener('submit', (e) => { e.preventDefault(); const f = new FormData(e.target), r = { on: data.rules.on }; RULES.forEach(([k]) => { r[k] = Number(f.get(k)) }); saveRules(r, 'انحفظت القواعد ✓') });
-async function saveRules(r, msg) { try { const j = await api('/lrules', { method: 'PUT', body: JSON.stringify(r) }); data.rules = j.rules; render(); toast(msg) } catch (e) { if (e.message !== 'auth') toast('ما زبط، جرّب مرّة تانية') } }
-$('#pend').addEventListener('click', async (e) => {
-  const b = e.target.closest('[data-ok],[data-no]'); if (!b) return;
-  const ok = !!b.dataset.ok, code = b.dataset.ok || b.dataset.no;
-  if (!ok && !confirm('أكيد بدك تلغي هالطلب؟ ما رح ياخد نقاط عليه.')) return;
-  b.disabled = true;
-  try { const j = await api('/lconfirm', { method: 'POST', body: JSON.stringify({ code, ok }) }); toast(ok ? 'تمام! نزلو ' + (j.earned || 0) + ' نقطة للزبون' : 'انلغى الطلب'); pull() }
-  catch (e) { b.disabled = false; if (e.message !== 'auth') toast('ما زبط، جرّب مرّة تانية') }
-});
+$('#onB').addEventListener('click', () => saveRules({ ...data.rules, on: !data.rules.on }, !data.rules.on ? t().turnedOn : t().turnedOff));
+$('#rulesF').addEventListener('submit', (e) => { e.preventDefault(); const f = new FormData(e.target), r = { on: data.rules.on }; t().rules.forEach(([k]) => { r[k] = Number(f.get(k)) }); saveRules(r, t().saved) });
+async function saveRules(r, msg) { try { const j = await api('/lrules', { method: 'PUT', body: JSON.stringify(r) }); data.rules = j.rules; render(); toast(msg) } catch (e) { if (e.message !== 'auth') toast(t().fail) } }
+async function settle(code, ok, btn) {
+  if (!ok && !confirm(t().sureNo)) return false;
+  if (btn) btn.disabled = true;
+  try { const j = await api('/lconfirm', { method: 'POST', body: JSON.stringify({ code, ok }) }); toast(ok ? t().gave(j.earned || 0) : t().cancelled); pull(); return true }
+  catch (e) { if (btn) btn.disabled = false; if (e.message !== 'auth') toast(t().fail); return false }
+}
+$('#pend').addEventListener('click', (e) => { const b = e.target.closest('[data-ok],[data-no]'); if (b) settle(b.dataset.ok || b.dataset.no, !!b.dataset.ok, b) });
+
+function openSh(html) { $('#sh').innerHTML = html; $('#ov').classList.add('on'); $('#sh').classList.add('on'); document.body.style.overflow = 'hidden' }
+function closeSh() { $('#ov').classList.remove('on'); $('#sh').classList.remove('on'); document.body.style.overflow = ''; cur = null }
+/* one order from a WhatsApp link: one big button */
+function openConfirm(code) {
+  const T = t(), o = data.pending.find((x) => x.code === code); want = '';
+  history.replaceState(null, '', location.pathname);
+  const head = '<div class="hd"><h2 id="shH">' + T.cfT + '</h2><button type="button" class="x" data-x aria-label="close">×</button></div>';
+  if (!o) return openSh(head + '<div class="cf"><span class="done">✅</span><b>' + T.cfDoneT + '</b><p class="hint">' + T.cfDone + '</p><button type="button" class="btn ghost" data-x>' + T.close + '</button></div>');
+  openSh(head + '<div class="cf"><span class="nm">' + esc(o.name || o.email || T.cust) + '</span><span class="big num">' + usd(o.total - o.vouch) + '</span><small class="hint">' + (o.src === 'table' ? T.table : T.wa) + ' · ' + ago(o.created) + ' · ' + esc(o.code) + '</small>' +
+    (o.vouch ? '<span class="v" style="margin:0 auto">' + T.usedV(usd(o.vouch), usd(o.total)) + '</span>' : '') +
+    '<button type="button" class="btn" data-cok="' + esc(o.code) + '">' + T.ok + '</button><button type="button" class="btn red" data-cno="' + esc(o.code) + '">' + T.no + '</button></div>');
+}
+window.addEventListener('hashchange', () => { readHash(); if (want && data) openConfirm(want) });
 /* one customer: details and manual points */
 function openCust(id) {
-  cur = data.customers.find((c) => c.id === id); if (!cur) return;
+  const T = t(); cur = data.customers.find((c) => c.id === id); if (!cur) return;
   const c = cur;
-  $('#sh').innerHTML = '<div class="hd"><h2 id="shH">' + esc(c.name || c.email) + '</h2><button type="button" class="x" data-x aria-label="close">×</button></div>' +
-    '<div class="kv"><div><b class="num">' + c.points + '</b><span>نقطة</span></div><div><b class="num">' + c.orders + '</b><span>طلب</span></div><div><b class="num">' + usd(c.spent) + '</b><span>صرف</span></div><div><b>' + (c.bday ? c.bday.split('-').reverse().join('/') : '—') + '</b><span>عيد الميلاد</span></div></div>' +
-    '<p class="hint">' + esc(c.email || '') + (c.phone ? ' · ' + esc(c.phone) : '') + ' · مسجّل ' + day(c.created) + '</p>' +
-    '<b>زيد أو نقّص نقاط</b><div class="qs">' + [10, 25, 50, 100, -10, -50].map((n) => '<button type="button" data-d="' + n + '">' + (n > 0 ? '+' : '') + n + '</button>').join('') + '</div>' +
-    '<p class="hint" style="margin-top:8px">مثلاً إذا الزبون نسي يسجّل دخول قبل ما يطلب.</p>';
-  $('#ov').classList.add('on'); $('#sh').classList.add('on'); document.body.style.overflow = 'hidden';
+  openSh('<div class="hd"><h2 id="shH">' + esc(c.name || c.email) + '</h2><button type="button" class="x" data-x aria-label="close">×</button></div>' +
+    '<div class="kv"><div><b class="num">' + c.points + '</b><span>' + T.pts + '</span></div><div><b class="num">' + c.orders + '</b><span>' + T.ordersN('').trim() + '</span></div><div><b class="num">' + usd(c.spent) + '</b><span>' + T.spent + '</span></div><div><b>' + (c.bday ? c.bday.split('-').reverse().join('/') : '—') + '</b><span>' + T.bday + '</span></div></div>' +
+    '<p class="hint">' + esc(c.email || '') + (c.phone ? ' · ' + esc(c.phone) : '') + ' · ' + T.joined(day(c.created)) + '</p>' +
+    '<b>' + T.adj + '</b><div class="qs">' + [10, 25, 50, 100, -10, -50].map((n) => '<button type="button" data-d="' + n + '">' + (n > 0 ? '+' : '') + n + '</button>').join('') + '</div>' +
+    '<p class="hint" style="margin-top:8px">' + T.adjH + '</p>');
+  $('#sh').dataset.c = id;
 }
-function closeSh() { $('#ov').classList.remove('on'); $('#sh').classList.remove('on'); document.body.style.overflow = ''; cur = null }
 $('#cust').addEventListener('click', (e) => { const b = e.target.closest('[data-c]'); if (b) openCust(b.dataset.c) });
 $('#ov').addEventListener('click', closeSh);
 $('#sh').addEventListener('click', async (e) => {
   if (e.target.closest('[data-x]')) return closeSh();
+  const k = e.target.closest('[data-cok],[data-cno]');
+  if (k) { if (await settle(k.dataset.cok || k.dataset.cno, !!k.dataset.cok, k)) closeSh(); return }
   const b = e.target.closest('[data-d]'); if (!b || !cur) return;
   const delta = Number(b.dataset.d), id = cur.id;
-  try { await api('/ladjust', { method: 'POST', body: JSON.stringify({ cust: id, delta }) }); toast((delta > 0 ? 'زدنا ' : 'نقّصنا ') + Math.abs(delta) + ' نقطة'); await pull(); openCust(id) }
-  catch (e) { if (e.message !== 'auth') toast('ما زبط، جرّب مرّة تانية') }
+  try { await api('/ladjust', { method: 'POST', body: JSON.stringify({ cust: id, delta }) }); toast(delta > 0 ? t().added(delta) : t().removed(-delta)); await pull(); openCust(id) }
+  catch (e) { if (e.message !== 'auth') toast(t().fail) }
 });
+
+/* installable on the phone, like the kitchen screen */
+let deferredI = null;
+if ('serviceWorker' in navigator) navigator.serviceWorker.register('points-sw.js', { scope: './points' }).catch(() => {});
+window.addEventListener('beforeinstallprompt', (e) => { e.preventDefault(); deferredI = e; $('#instB').hidden = false });
+const standalone = () => matchMedia('(display-mode: standalone)').matches || navigator.standalone;
+if (/iphone|ipad/i.test(navigator.userAgent) && !standalone()) $('#instB').hidden = false;
+$('#instB').addEventListener('click', async () => { if (!deferredI) return toast(t().iosHelp); deferredI.prompt(); await deferredI.userChoice; deferredI = null; $('#instB').hidden = true });
+
+applyLang();
 if (pass) enter();
 setInterval(() => { if (!$('#appV').hidden && !document.hidden) pull() }, 60000);
+document.addEventListener('visibilitychange', () => { if (!document.hidden && !$('#appV').hidden) pull() });
 </script>
 </body>
 </html>

@@ -763,7 +763,7 @@ function renderReview() {
   if (vd) m.push(LT[lang].vLine + ': -' + t.money(vd));
   m.push(t.total + ': ' + t.money(total));
   if (note) m.push(t.revNoteShort + ': ' + note);
-  if (ly.me) m.push('', '⭐ ' + LT[lang].codeLine + ': ' + lyCode());
+  if (ly.me) m.push('', '⭐ ' + LT[lang].codeLine + ':', PAGE + 'admin/points.html#c=' + lyCode());
   btn.removeAttribute('aria-disabled'); btn.href = 'https://wa.me/' + WA + '?text=' + encodeURIComponent(m.join('\n'));
 }
 function openReview() { if (!cartLines().length) return; locMsg = ''; ly.code = ''; renderReview(); const d = $('review'); if (d.showModal) d.showModal(); else d.setAttribute('open', '') }
@@ -1072,7 +1072,7 @@ const LT = {
     refMsg: (u) => 'جرّب مطبخ الريحان واجمع نقاط على كل طلب: ' + u, histT: 'آخر الحركات', out: 'تسجيل الخروج',
     why: { order: 'طلب', order2: 'طلب (ذهبي)', voucher: 'قسيمة', refund: 'إرجاع قسيمة', bday: 'هدية عيد الميلاد', ref: 'دعوة صديق', expire: 'انتهاء الصلاحية', owner: 'من المطعم' },
     earn: (n) => '⭐ ستحصل على <b>' + n + ' نقطة</b> عند استلام هذا الطلب', earnOut: (n) => '⭐ سجّل دخولك واجمع <b>' + n + ' نقطة</b> على هذا الطلب', login: 'سجّل الدخول',
-    useV: (v, p) => 'استعمل قسيمة ' + v + '$ (−' + p + ' نقطة)', vLine: 'قسيمة النقاط', codeLine: 'رمز النقاط', welcome: 'أهلًا بك! بدأت تجمع النقاط'
+    useV: (v, p) => 'استعمل قسيمة ' + v + '$ (−' + p + ' نقطة)', vLine: 'قسيمة النقاط', codeLine: 'للمطعم، تأكيد النقاط بعد التسليم', welcome: 'أهلًا بك! بدأت تجمع النقاط'
   },
   en: {
     btn: 'My points', title: 'Rayhan Rewards', pts: 'points', silver: 'Silver member', gold: 'Gold member ✦',
@@ -1086,7 +1086,7 @@ const LT = {
     refMsg: (u) => 'Try Matbakh El Rayhan and collect points on every order: ' + u, histT: 'Recent activity', out: 'Sign out',
     why: { order: 'Order', order2: 'Order (Gold)', voucher: 'Voucher', refund: 'Voucher returned', bday: 'Birthday gift', ref: 'Friend invite', expire: 'Expired', owner: 'From the restaurant' },
     earn: (n) => '⭐ You will earn <b>' + n + ' points</b> once this order is delivered', earnOut: (n) => '⭐ Sign in and earn <b>' + n + ' points</b> on this order', login: 'Sign in',
-    useV: (v, p) => 'Use a $' + v + ' voucher (−' + p + ' points)', vLine: 'Points voucher', codeLine: 'Points code', welcome: 'Welcome! You are now collecting points'
+    useV: (v, p) => 'Use a $' + v + ' voucher (−' + p + ' points)', vLine: 'Points voucher', codeLine: 'For the restaurant, confirm points after delivery', welcome: 'Welcome! You are now collecting points'
   }
 };
 const ly = { on: false, rules: null, token: '', me: null, code: '', useV: false, busy: false };
