@@ -249,7 +249,7 @@ button.btn { font-family: inherit }
 .sheet-head { display: flex; justify-content: space-between; align-items: center }
 .sheet-head h2 { margin: 0; font-family: var(--display); font-size: 28px }
 .x { width: 40px; height: 40px; border-radius: 50%; border: 1px solid var(--line); background: var(--bg); color: var(--fg); font-size: 22px; cursor: pointer }
-.revlist { display: flex; flex-direction: column; gap: 8px; overflow-y: auto; max-height: 42vh }
+.revlist { display: flex; flex-direction: column; gap: 8px; overflow-y: auto; max-height: 34vh }
 .rev { display: flex; align-items: center; gap: 10px; border: 1px solid var(--line); border-radius: 14px; padding: 8px }
 .rev .ph { width: 52px; height: 52px; border-radius: 10px; flex: none }
 .rev .ph .fb { font-size: 20px }
@@ -259,6 +259,34 @@ button.btn { font-family: inherit }
 .revtotal strong { font-size: 22px; font-variant-numeric: tabular-nums }
 .back { background: transparent; color: var(--fg); border: 1.5px solid var(--line) }
 @media (prefers-reduced-motion: no-preference) { html { scroll-behavior: smooth } }
+/* sizes and extras, delivery or pickup, order again */
+.sheet { overflow-y: auto; overscroll-behavior: contain }
+.dish .optn { font-size: 12px; font-weight: 600; color: var(--saffron-ink) }
+.rev .nm .ro { display: block; font-size: 12px; font-weight: 500; color: var(--muted) }
+.og { border: 1px solid var(--line); border-radius: 14px; padding: 8px 12px; margin: 0; display: flex; flex-direction: column }
+.og legend { font-weight: 700; padding: 0 6px }
+.og legend small { color: var(--muted); font-weight: 400; margin-inline-start: 6px }
+.og label { display: flex; align-items: center; gap: 10px; min-height: 44px; cursor: pointer }
+.og input { width: 20px; height: 20px; accent-color: var(--basil); flex: none; margin: 0 }
+.og label span { flex: 1 }
+.og label em { font-style: normal; font-weight: 700; color: var(--saffron-ink); font-variant-numeric: tabular-nums }
+.optfoot { display: flex; align-items: center; gap: 12px }
+.optfoot .btn { flex: 1 }
+.ship, .shipdel { display: flex; flex-direction: column; gap: 10px }
+.ship[hidden], .shipdel[hidden], .again[hidden], .hhbar[hidden], .tablebar[hidden] { display: none }
+.seg { display: grid; grid-template-columns: 1fr 1fr; gap: 4px; background: var(--bg); border: 1px solid var(--line); border-radius: 14px; padding: 4px }
+.seg button { min-height: 42px; border: 0; border-radius: 10px; background: transparent; color: var(--fg); font-weight: 700; cursor: pointer }
+.seg button[aria-checked="true"] { background: var(--basil); color: var(--basil-ink) }
+.locb { min-height: 44px; font-size: 15px }
+.locb.ok { border-color: var(--wa); color: var(--wa) }
+.revrow { display: flex; justify-content: space-between; font-size: 15px; color: var(--muted) }
+.revrow b { color: var(--fg); font-variant-numeric: tabular-nums }
+.revrow.free b { color: var(--wa) }
+.again { display: flex; align-items: center; gap: 10px; background: var(--saffron-soft); border-radius: 16px; padding: 10px 12px; margin-bottom: 12px }
+.again div { flex: 1; min-width: 0; font-size: 14px; line-height: 1.45 }
+.again b { display: block }
+.again small { display: block; color: var(--muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis }
+.again .btn { flex: none; min-height: 42px; padding: 0 14px; font-size: 14px }
 </style>
 </head>
 <body>
@@ -300,6 +328,7 @@ button.btn { font-family: inherit }
     <div class="appc" id="appc"><img src="img/icon-192.png" alt=""><div><b id="appT"></b><small id="appS"></small></div><button type="button" class="get" id="appGo"></button><button type="button" class="no" id="appNo" aria-label="close">×</button></div>
     <div class="hhbar" id="hhbar" hidden></div>
     <div id="dotd" hidden></div>
+    <div class="again" id="again" hidden></div>
     <nav class="tabs" id="tabs" aria-label="Menu sections"></nav>
     <div id="cats"></div>
     <p class="note"><span id="priceNote"></span> <button type="button" class="howb" id="howB"></button></p>
@@ -367,6 +396,16 @@ button.btn { font-family: inherit }
   <div class="sheet-in">
     <div class="sheet-head"><h2 id="revTitle"></h2><button type="button" class="x" id="revClose" aria-label="close">×</button></div>
     <div class="revlist" id="revList"></div>
+    <div class="ship" id="ship">
+      <div class="seg" id="shipSeg" role="radiogroup"><button type="button" role="radio" data-mode="del"></button><button type="button" role="radio" data-mode="pick"></button></div>
+      <div class="shipdel" id="shipDel">
+        <div class="field"><label for="shipZone" id="lZone"></label><select id="shipZone"></select></div>
+        <div class="field"><label for="shipAddr" id="lAddrD"></label><textarea id="shipAddr" rows="2" autocomplete="street-address"></textarea></div>
+        <button type="button" class="btn back locb" id="shipLoc"></button>
+      </div>
+      <p class="hint" id="shipHint"></p>
+    </div>
+    <div id="revSum"></div>
     <div class="revtotal"><span id="revTotalLbl"></span><strong id="revTotal"></strong></div>
     <div class="field"><label for="revNote" id="revNoteLbl"></label><textarea id="revNote" rows="2"></textarea></div>
     <a class="btn wa" id="revSend" target="_blank" rel="noopener"></a>
@@ -390,6 +429,17 @@ button.btn { font-family: inherit }
     <div class="gnav"><button type="button" class="skip" id="gSkip"></button><button type="button" class="btn btn-saffron" id="gNext"></button></div>
   </div>
 </dialog>
+<dialog class="sheet" id="opt" aria-labelledby="optTitle">
+  <div class="sheet-in">
+    <div class="sheet-head"><h2 id="optTitle"></h2><button type="button" class="x" id="optClose" aria-label="close">×</button></div>
+    <p class="hint" id="optDesc"></p>
+    <div id="optGroups"></div>
+    <div class="optfoot">
+      <div class="qty"><button type="button" class="qbtn" id="optMinus" aria-label="-">−</button><span class="qn" id="optQn">1</span><button type="button" class="qbtn add" id="optPlus" aria-label="+">+</button></div>
+      <button type="button" class="btn wa" id="optAdd"></button>
+    </div>
+  </div>
+</dialog>
 <div class="toast" id="toast" role="status"></div>
 <script src="data.js"></script>
 <script>
@@ -404,6 +454,9 @@ const GALLERY = [
 const HERO = 'photo-1743674453093-592bed88018e';
 const HOURS = [ { ar: 'يوميًا', en: 'Every day', h: '12:00 - 00:00', o: 12, c: 24, days: [0,1,2,3,4,5,6] } ];
 const TIMES = ['13:00','14:00','15:00','19:00','20:00','21:00','22:00'];
+/* delivery: fee per area, minimum order, free delivery from (0 = never), pickup time */
+const DELIVERY = { min: 10, free: 40, pickupMins: 20, zones: [
+  { ar: 'خلدة', en: 'Khaldeh', fee: 1 }, { ar: 'عرمون', en: 'Aramoun', fee: 2 }, { ar: 'الشويفات', en: 'Choueifat', fee: 2 }, { ar: 'بيروت', en: 'Beirut', fee: 4 } ] };
 const T = {
   ar: { dir: 'rtl', lang: 'English', brand: 'مطبخ الريحان',
     demo: 'موقع تجريبي لمطعم وهمي ضمن <b>باقة Pro</b> من <a href="https://nafetha-web.github.io" target="_blank" rel="noopener">نافذة</a>: طلب من الطاولة، وشاشة للمطبخ، ولوحة تحكّم لصاحب المطعم. الصور توضيحية من Unsplash.',
@@ -428,6 +481,14 @@ const T = {
     items: (n) => n === 1 ? 'صنف واحد' : n === 2 ? 'صنفان' : (n >= 3 && n <= 10) ? n + ' أصناف' : n + (n === 0 ? ' أصناف' : ' صنفًا'), go: 'اطلب عبر واتساب',
     add: 'أضف', remove: 'احذف', money: (n) => n + '$',
     revTitle: 'مراجعة الطلب', revNote: 'ملاحظة للمطبخ (اختياري)', revNoteShort: 'ملاحظة', revSend: 'تأكيد وإرسال عبر واتساب', revBack: 'متابعة الاختيار',
+    custom: 'أحجام وإضافات', optOne: 'اختر واحدًا', optAny: 'اختياري', optAdd: (p) => 'أضف إلى الطلب · ' + p,
+    del: '🛵 توصيل', pick: '🛍️ استلام', lZone: 'منطقة التوصيل', zonePick: 'اختر منطقتك', lAddrD: 'العنوان بالتفصيل', addrPh: 'المبنى، الطابق، وأقرب معلم',
+    loc: '📍 أرسل موقعي الحالي', locOk: '✓ حدّدنا موقعك، اضغط للتحديث', locWait: 'جارٍ تحديد موقعك…', locFail: 'تعذّر تحديد موقعك، اكتب العنوان بالتفصيل',
+    sub: 'المجموع الفرعي', fee: 'التوصيل', freeFee: 'مجاني',
+    minLeft: (m) => 'أضف ' + m + ' لتصل إلى الحد الأدنى للتوصيل', needZone: 'اختر منطقة التوصيل', needAddr: 'اكتب عنوانك أو أرسل موقعك',
+    delHint: (m) => 'الحد الأدنى لطلبات التوصيل ' + m + '.', freeHint: (m) => 'أضف ' + m + ' واحصل على توصيل مجاني.', freeOk: 'التوصيل مجاني لطلبك 🎉', pickHint: (n) => 'يجهز طلبك للاستلام من المطعم خلال ' + n + ' دقيقة تقريبًا.',
+    msgDel: '🛵 توصيل إلى', msgAddr: 'العنوان', msgLoc: 'الموقع', msgPick: '🛍️ استلام من المطعم',
+    againT: '🔁 طلبك الماضي', againB: 'اطلبه مرة أخرى',
     hello: 'مرحبًا مطبخ الريحان، أودّ أن أطلب:', total: 'المجموع', tableLine: (n) => 'الطاولة رقم ' + n,
     tableBar: (n) => 'أنت على الطاولة رقم ' + n + '. يصل طلبك مباشرة إلى شاشة المطبخ.',
     gTitle: 'أهلًا بك في مطبخ الريحان', gSkip: 'تخطَّ', gNext: 'التالي', gGo: 'ابدأ الطلب', gGoMenu: 'تصفّح القائمة', howB: 'كيف أطلب؟',
@@ -472,6 +533,14 @@ const T = {
     foot: 'Site designed by <a href="https://nafetha-web.github.io" target="_blank" rel="noopener">Nafetha</a>',
     items: (n) => n + (n === 1 ? ' item' : ' items'), go: 'Order on WhatsApp',
     revTitle: 'Review your order', revNote: 'Note for the kitchen (optional)', revNoteShort: 'Note', revSend: 'Confirm and send on WhatsApp', revBack: 'Keep browsing',
+    custom: 'Sizes and extras', optOne: 'Pick one', optAny: 'Optional', optAdd: (p) => 'Add to order · ' + p,
+    del: '🛵 Delivery', pick: '🛍️ Pickup', lZone: 'Delivery area', zonePick: 'Choose your area', lAddrD: 'Full address', addrPh: 'Building, floor and nearest landmark',
+    loc: '📍 Send my current location', locOk: '✓ Location set, tap to update', locWait: 'Finding your location…', locFail: 'Could not get your location, please type your address',
+    sub: 'Subtotal', fee: 'Delivery', freeFee: 'Free',
+    minLeft: (m) => 'Add ' + m + ' to reach the delivery minimum', needZone: 'Choose your delivery area', needAddr: 'Type your address or send your location',
+    delHint: (m) => 'The minimum for delivery orders is ' + m + '.', freeHint: (m) => 'Add ' + m + ' for free delivery.', freeOk: 'Delivery is free for your order 🎉', pickHint: (n) => 'Your order will be ready for pickup in about ' + n + ' minutes.',
+    msgDel: '🛵 Delivery to', msgAddr: 'Address', msgLoc: 'Location', msgPick: '🛍️ Pickup from the restaurant',
+    againT: '🔁 Your last order', againB: 'Order it again',
     add: 'Add', remove: 'Remove', money: (n) => '$' + n,
     hello: 'Hello Matbakh El Rayhan, I would like to order:', total: 'Total', tableLine: (n) => 'Table ' + n,
     tableBar: (n) => 'You are at table ' + n + '. Your order goes straight to the kitchen screen.',
@@ -500,6 +569,34 @@ const T = {
 let lang = 'ar', activeCat = MENU[0].id, qrTable = 5;
 const cart = {};
 const ALL = MENU.flatMap(c => c.items);
+const byId = Object.fromEntries(ALL.map(i => [i.id, i]));
+const round2 = (n) => Math.round(n * 100) / 100;
+/* cart keys: "id" for plain dishes, "id~1-0.2" for dishes with sizes/extras (picked choice indexes per group) */
+function lineOf(k) {
+  const [id, s] = String(k).split('~'), i = byId[id]; if (!i) return null;
+  const sel = s === undefined ? [] : s.split('-').map(x => x ? x.split('.').map(Number) : []);
+  const picks = (i.o || []).flatMap((g, gi) => (sel[gi] || []).map(ci => g.ch[ci]).filter(Boolean));
+  return { k, i, picks, unit: round2(i.p + picks.reduce((a, c) => a + c[2], 0)) };
+}
+const optText = (L, lg) => L.picks.map(c => c[lg === 'ar' ? 0 : 1]).join(lg === 'ar' ? '، ' : ', ');
+const lineName = (L, lg) => L.i[lg] + (L.picks.length ? ' (' + optText(L, lg) + ')' : '');
+const idOf = (k) => k.split('~')[0];
+const cartLines = () => Object.keys(cart).map(lineOf).filter(L => L && !L.i.out && cart[L.k] > 0);
+const itemQty = (id) => Object.keys(cart).reduce((a, k) => a + (idOf(k) === id ? cart[k] : 0), 0);
+let ship = { mode: 'del', zone: null, addr: '', loc: '' }, locMsg = '';
+try { const v = JSON.parse(localStorage.getItem('rh_ship') || 'null'); if (v) ship = { mode: v.mode === 'pick' ? 'pick' : 'del', zone: DELIVERY.zones[v.zone] ? v.zone : null, addr: String(v.addr || ''), loc: '' } } catch (e) {}
+const saveShip = () => { try { localStorage.setItem('rh_ship', JSON.stringify({ mode: ship.mode, zone: ship.zone, addr: ship.addr })) } catch (e) {} };
+
+/* usage counters: app opens/installs and WhatsApp orders, shown in the owner's stats */
+const API = 'https://nafetha-api.nafetha-web.workers.dev/rayhan';
+function devId() { let d = ''; try { d = localStorage.getItem('rh_dev') || ''; if (!d) { d = crypto.randomUUID ? crypto.randomUUID() : Date.now().toString(36) + Math.random().toString(36).slice(2); localStorage.setItem('rh_dev', d) } } catch (e) {} return d }
+function hit(type, total) {
+  try {
+    if (type === 'wa') { if (Date.now() - (+localStorage.getItem('rh_wa_t') || 0) < 3 * 60e3) return; localStorage.setItem('rh_wa_t', Date.now()) }
+    else { const k = type === 'install' ? 'rh_inst' : 'rh_open_' + new Date().toDateString(); if (localStorage.getItem(k)) return; localStorage.setItem(k, '1') }
+  } catch (e) { return }
+  const d = devId(); if (d.length >= 8) fetch(API + '/hit', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ type, dev: d, total }), keepalive: true }).catch(() => {});
+}
 const tableFromHash = (() => { const m = /^#t(\d{1,2})$/.exec(location.hash || ''); return m ? Number(m[1]) : null })();
 try { const s = localStorage.getItem('rayhan-lang'); if (s === 'en' || s === 'ar') lang = s } catch (e) {}
 const $ = (id) => document.getElementById(id);
@@ -512,9 +609,14 @@ function priceHTML(i) { const t = T[lang]; return '<span class="price">' + t.mon
 function tagHTML(i) { const t = T[lang], dd = liveSt && liveSt.dotd && liveSt.dotd.id === i.id; return i.hh ? '<span class="tag hh">' + t.hhTag + '</span>' : dd ? '<span class="tag dd">' + t.dotdK + '</span>' : i.old ? '<span class="tag">-' + Math.round((1 - i.p / i.old) * 100) + '%</span>' : i.pop ? '<span class="tag">' + t.popular + '</span>' : '' }
 function qtyHTML(i) {
   if (i.out) return '<span class="soldout">' + T[lang].soldOut + '</span>';
-  const t = T[lang], q = cart[i.id] || 0;
+  const t = T[lang], q = itemQty(i.id);
   return '<div class="qty">' + (q ? '<button type="button" class="qbtn" data-dec="' + i.id + '" aria-label="' + t.remove + ' ' + i[lang] + '">−</button><span class="qn">' + q + '</span>' : '') +
     '<button type="button" class="qbtn add" data-inc="' + i.id + '" aria-label="' + t.add + ' ' + i[lang] + '">+</button></div>';
+}
+function lineQtyHTML(L) {
+  const t = T[lang], nm = L.i[lang];
+  return '<div class="qty"><button type="button" class="qbtn" data-decl="' + L.k + '" aria-label="' + t.remove + ' ' + nm + '">−</button><span class="qn">' + cart[L.k] + '</span>' +
+    '<button type="button" class="qbtn add" data-incl="' + L.k + '" aria-label="' + t.add + ' ' + nm + '">+</button></div>';
 }
 function setTabs() {
   let on = null; document.querySelectorAll('.tab').forEach(x => { const a = x.dataset.cat === activeCat; x.setAttribute('aria-pressed', String(a)); if (a) on = x });
@@ -550,13 +652,13 @@ function renderStatic() {
 let io = null;
 function renderMenu() {
   const t = T[lang];
-  renderLive();
+  renderLive(); renderAgain();
   $('tabs').innerHTML = MENU.map(c => '<button type="button" class="tab" data-cat="' + c.id + '" aria-pressed="' + (c.id === activeCat) + '">' + c[lang] + '</button>').join('');
   $('cats').innerHTML = MENU.map(c => '<div class="cat" id="cat-' + c.id + '"><h3 class="ch">' + c[lang] + ' <small>' + t.count(c.items.length) + '</small></h3><div class="list">' +
     c.items.map(i => {
       const d = i['d' + lang];
       return '<article class="dish' + (i.out ? ' out' : '') + '"><div class="ph">' + photo(i.ph, 208, 208, i[lang]) + tagHTML(i) + '</div>' +
-        '<div class="body"><h4>' + i[lang] + '</h4>' + (d ? '<p>' + d + '</p>' : '') + '<div class="row">' + priceHTML(i) + qtyHTML(i) + '</div></div></article>';
+        '<div class="body"><h4>' + i[lang] + '</h4>' + (d ? '<p>' + d + '</p>' : '') + (i.o ? '<span class="optn">' + t.custom + '</span>' : '') + '<div class="row">' + priceHTML(i) + qtyHTML(i) + '</div></div></article>';
     }).join('') + '</div></div>').join('');
   if ('IntersectionObserver' in window) {
     if (io) io.disconnect();
@@ -567,28 +669,60 @@ function renderMenu() {
 
 function renderOrder() {
   const t = T[lang];
-  const lines = ALL.filter(i => cart[i.id]);
-  const count = lines.reduce((a, i) => a + cart[i.id], 0), total = lines.reduce((a, i) => a + cart[i.id] * i.p, 0);
+  const lines = cartLines();
+  const count = lines.reduce((a, L) => a + cart[L.k], 0), total = round2(lines.reduce((a, L) => a + cart[L.k] * L.unit, 0));
   $('sum').innerHTML = (tableFromHash ? t.tableLine(tableFromHash) + ' · ' : '') + t.items(count) + '<strong>' + t.money(total) + '</strong>';
   const go = $('goBtn'); go.textContent = tableFromHash ? t.goTable : t.go;
   if (count) go.removeAttribute('aria-disabled'); else go.setAttribute('aria-disabled', 'true');
   if ($('review').open) renderReview();
 }
 
+function shipFee(sub) { const z = DELIVERY.zones[ship.zone]; return ship.mode !== 'del' || !z || (DELIVERY.free && sub >= DELIVERY.free) ? 0 : z.fee }
+function shipProblem(sub) {
+  const t = T[lang]; if (tableFromHash || ship.mode !== 'del') return '';
+  if (sub < DELIVERY.min) return t.minLeft(t.money(round2(DELIVERY.min - sub)));
+  if (!DELIVERY.zones[ship.zone]) return t.needZone;
+  if (!ship.addr.trim() && !ship.loc) return t.needAddr;
+  return '';
+}
+function renderShip(sub, fee) {
+  const t = T[lang], del = ship.mode === 'del', z = DELIVERY.zones[ship.zone];
+  $('ship').hidden = !!tableFromHash;
+  if (tableFromHash) { $('revSum').innerHTML = ''; return }
+  document.querySelectorAll('#shipSeg [data-mode]').forEach(b => { b.textContent = t[b.dataset.mode]; b.setAttribute('aria-checked', String(b.dataset.mode === ship.mode)) });
+  $('shipDel').hidden = !del;
+  $('lZone').textContent = t.lZone; $('lAddrD').textContent = t.lAddrD; $('shipAddr').placeholder = t.addrPh;
+  if ($('shipZone').dataset.l !== lang) { $('shipZone').innerHTML = '<option value="">' + t.zonePick + '</option>' + DELIVERY.zones.map((x, k) => '<option value="' + k + '">' + x[lang] + ' · ' + t.money(x.fee) + '</option>').join(''); $('shipZone').dataset.l = lang }
+  $('shipZone').value = z ? String(ship.zone) : '';
+  $('shipLoc').textContent = ship.loc ? t.locOk : t.loc; $('shipLoc').classList.toggle('ok', !!ship.loc);
+  const left = DELIVERY.free ? round2(DELIVERY.free - sub) : 0;
+  $('shipHint').textContent = locMsg || (!del ? t.pickHint(DELIVERY.pickupMins) : sub < DELIVERY.min ? t.delHint(t.money(DELIVERY.min)) : left > 0 ? t.freeHint(t.money(left)) : t.freeOk);
+  const row = (a, b, c) => '<div class="revrow' + (c ? ' ' + c : '') + '"><span>' + a + '</span><b>' + b + '</b></div>';
+  $('revSum').innerHTML = del ? row(t.sub, t.money(sub)) + row(t.fee, !z ? '—' : fee ? t.money(fee) : t.freeFee, z && !fee ? 'free' : '') : '';
+}
+
 function renderReview() {
   const t = T[lang];
-  const lines = ALL.filter(i => cart[i.id]);
+  const lines = cartLines();
   if (!lines.length) { closeReview(); return }
-  const total = lines.reduce((a, i) => a + cart[i.id] * i.p, 0);
+  const sub = round2(lines.reduce((a, L) => a + cart[L.k] * L.unit, 0)), fee = tableFromHash ? 0 : shipFee(sub), total = round2(sub + fee);
   $('revTitle').textContent = t.revTitle; $('revTotalLbl').textContent = t.total; $('revTotal').textContent = t.money(total);
   $('revNoteLbl').textContent = t.revNote; $('revBack').textContent = t.revBack; $('revSend').textContent = t.revSend;
-  $('revList').innerHTML = lines.map(i => '<div class="rev"><div class="ph">' + photo(i.ph, 104, 104, i[lang]) + '</div><div class="nm">' + i[lang] + '<small>' + t.money(cart[i.id] * i.p) + '</small></div>' + qtyHTML(i) + '</div>').join('');
-  const note = $('revNote').value.trim();
-  const msg = t.hello + (tableFromHash ? '\n' + t.tableLine(tableFromHash) : '') + '\n' + lines.map(i => '- ' + cart[i.id] + ' × ' + i[lang] + ' (' + t.money(cart[i.id] * i.p) + ')').join('\n') + '\n' + t.total + ': ' + t.money(total) + (note ? '\n' + t.revNoteShort + ': ' + note : '');
-  if (tableFromHash) { $('revSend').removeAttribute('href'); $('revSend').removeAttribute('target'); $('revSend').textContent = sendingNow ? t.sending : t.sendKitchen; $('revSend').setAttribute('role', 'button') }
-  else $('revSend').href = 'https://wa.me/' + WA + '?text=' + encodeURIComponent(msg);
+  $('revList').innerHTML = lines.map(L => '<div class="rev"><div class="ph">' + photo(L.i.ph, 104, 104, L.i[lang]) + '</div><div class="nm">' + L.i[lang] + (L.picks.length ? '<span class="ro">' + optText(L, lang) + '</span>' : '') + '<small>' + t.money(round2(cart[L.k] * L.unit)) + '</small></div>' + lineQtyHTML(L) + '</div>').join('');
+  renderShip(sub, fee);
+  if (tableFromHash) { $('revSend').removeAttribute('href'); $('revSend').removeAttribute('target'); $('revSend').textContent = sendingNow ? t.sending : t.sendKitchen; $('revSend').setAttribute('role', 'button'); return }
+  const bad = shipProblem(sub), btn = $('revSend');
+  if (bad) { btn.removeAttribute('href'); btn.setAttribute('aria-disabled', 'true'); btn.textContent = bad; return }
+  const note = $('revNote').value.trim(), z = DELIVERY.zones[ship.zone], m = [t.hello];
+  if (ship.mode === 'del') { m.push(t.msgDel + ': ' + z[lang]); if (ship.addr.trim()) m.push(t.msgAddr + ': ' + ship.addr.trim()); if (ship.loc) m.push(t.msgLoc + ': ' + ship.loc) }
+  else m.push(t.msgPick);
+  m.push('', ...lines.map(L => '- ' + cart[L.k] + ' × ' + lineName(L, lang) + ' (' + t.money(round2(cart[L.k] * L.unit)) + ')'), '');
+  if (ship.mode === 'del') m.push(t.sub + ': ' + t.money(sub), t.fee + ': ' + (fee ? t.money(fee) : t.freeFee));
+  m.push(t.total + ': ' + t.money(total));
+  if (note) m.push(t.revNoteShort + ': ' + note);
+  btn.removeAttribute('aria-disabled'); btn.href = 'https://wa.me/' + WA + '?text=' + encodeURIComponent(m.join('\n'));
 }
-function openReview() { if (!ALL.some(i => cart[i.id])) return; renderReview(); const d = $('review'); if (d.showModal) d.showModal(); else d.setAttribute('open', '') }
+function openReview() { if (!cartLines().length) return; locMsg = ''; renderReview(); const d = $('review'); if (d.showModal) d.showModal(); else d.setAttribute('open', '') }
 function closeReview() { const d = $('review'); if (d.open) { if (d.close) d.close(); else d.removeAttribute('open') } }
 
 function renderBooking() {
@@ -596,6 +730,26 @@ function renderBooking() {
   if (!name) { btn.textContent = t.fillName; btn.href = '#book'; btn.setAttribute('aria-disabled', 'true'); return }
   const b = { name: name, date: $('bDate').value || '-', time: $('bTime').value, people: $('bPeople').selectedOptions[0].textContent, seat: $('bSeat').selectedOptions[0].textContent, note: $('bNote').value.trim() };
   btn.textContent = t.bookBtn; btn.href = 'https://wa.me/' + WA + '?text=' + encodeURIComponent(t.bookMsg(b)); btn.removeAttribute('aria-disabled');
+}
+
+let optItem = null, optQ = 1;
+const optKey = () => optItem.id + '~' + optItem.o.map((g, gi) => [...document.querySelectorAll('#optGroups input[name="og' + gi + '"]:checked')].map(x => x.value).join('.')).join('-');
+function openOpt(id) {
+  const t = T[lang], i = byId[id]; if (!i || !i.o) return; optItem = i; optQ = 1;
+  $('optTitle').textContent = i[lang]; $('optDesc').textContent = i['d' + lang] || '';
+  $('optGroups').innerHTML = i.o.map((g, gi) => '<fieldset class="og"><legend>' + g[lang] + '<small>' + (g.one ? t.optOne : t.optAny) + '</small></legend>' +
+    g.ch.map((c, ci) => '<label><input type="' + (g.one ? 'radio' : 'checkbox') + '" name="og' + gi + '" value="' + ci + '"' + (g.one && !ci ? ' checked' : '') + '><span>' + c[lang === 'ar' ? 0 : 1] + '</span>' + (c[2] ? '<em>+' + t.money(c[2]) + '</em>' : '') + '</label>').join('') + '</fieldset>').join('');
+  renderOpt(); const d = $('opt'); if (d.showModal) d.showModal(); else d.setAttribute('open', '');
+}
+function renderOpt() { $('optQn').textContent = optQ; $('optAdd').textContent = T[lang].optAdd(T[lang].money(round2(lineOf(optKey()).unit * optQ))) }
+function closeOpt() { const d = $('opt'); if (d.open) { if (d.close) d.close(); else d.removeAttribute('open') } }
+
+function lastOrder() { try { const l = JSON.parse(localStorage.getItem('rh_last') || 'null'); return l && l.c ? l.c : null } catch (e) { return null } }
+function againLines() { const c = lastOrder() || {}; return Object.keys(c).map(lineOf).filter(L => L && !L.i.out).map(L => [L, Math.min(50, Math.round(c[L.k]) || 0)]).filter(x => x[1] > 0) }
+function renderAgain() {
+  const box = $('again'), A = tableFromHash ? [] : againLines(); box.hidden = !A.length; if (!A.length) return;
+  const t = T[lang];
+  box.innerHTML = '<div><b>' + t.againT + '</b><small>' + A.map(([L, q]) => q + '× ' + L.i[lang]).join(lang === 'ar' ? '، ' : ', ') + '</small></div><button type="button" class="btn btn-saffron" id="againB">' + t.againB + '</button>';
 }
 
 function renderQR() {
@@ -615,12 +769,38 @@ $('tabs').addEventListener('click', (e) => {
 function onQty(e) {
   const inc = e.target.closest('[data-inc]'), dec = e.target.closest('[data-dec]'); if (!inc && !dec) return;
   const id = inc ? inc.dataset.inc : dec.dataset.dec;
-  if (inc) cart[id] = (cart[id] || 0) + 1; else { cart[id] = Math.max(0, (cart[id] || 0) - 1); if (!cart[id]) delete cart[id] }
+  if (inc && byId[id] && byId[id].o) return openOpt(id);
+  if (inc) cart[id] = (cart[id] || 0) + 1;
+  else { const k = Object.keys(cart).filter(x => idOf(x) === id).pop(); if (k) { cart[k]--; if (cart[k] <= 0) delete cart[k] } }
   const y = window.scrollY; renderMenu(); renderOrder(); window.scrollTo(0, y);
 }
 $('cats').addEventListener('click', onQty);
 $('goBtn').addEventListener('click', openReview);
-$('revList').addEventListener('click', (e) => { const inc = e.target.closest('[data-inc]'), dec = e.target.closest('[data-dec]'); if (!inc && !dec) return; const id = inc ? inc.dataset.inc : dec.dataset.dec; if (inc) cart[id] = (cart[id] || 0) + 1; else { cart[id] = Math.max(0, (cart[id] || 0) - 1); if (!cart[id]) delete cart[id] } const y = window.scrollY; renderMenu(); renderOrder(); window.scrollTo(0, y) });
+$('revList').addEventListener('click', (e) => { const inc = e.target.closest('[data-incl]'), dec = e.target.closest('[data-decl]'); if (!inc && !dec) return; const k = inc ? inc.dataset.incl : dec.dataset.decl; if (inc) cart[k] = Math.min(50, (cart[k] || 0) + 1); else { cart[k] = (cart[k] || 0) - 1; if (cart[k] <= 0) delete cart[k] } const y = window.scrollY; renderMenu(); renderOrder(); window.scrollTo(0, y) });
+$('optGroups').addEventListener('change', renderOpt);
+$('optMinus').addEventListener('click', () => { optQ = Math.max(1, optQ - 1); renderOpt() });
+$('optPlus').addEventListener('click', () => { optQ = Math.min(20, optQ + 1); renderOpt() });
+$('optAdd').addEventListener('click', () => { const k = optKey(); cart[k] = Math.min(50, (cart[k] || 0) + optQ); closeOpt(); const y = window.scrollY; renderMenu(); renderOrder(); window.scrollTo(0, y) });
+$('optClose').addEventListener('click', closeOpt);
+$('opt').addEventListener('click', (e) => { if (e.target === $('opt')) closeOpt() });
+$('shipSeg').addEventListener('click', (e) => { const b = e.target.closest('[data-mode]'); if (!b) return; ship.mode = b.dataset.mode; saveShip(); renderReview() });
+$('shipZone').addEventListener('change', () => { const v = $('shipZone').value; ship.zone = v === '' ? null : Number(v); saveShip(); renderReview() });
+$('shipAddr').value = ship.addr;
+$('shipAddr').addEventListener('input', () => { ship.addr = $('shipAddr').value; saveShip(); renderReview() });
+$('shipLoc').addEventListener('click', () => {
+  const t = T[lang]; if (!navigator.geolocation) { locMsg = t.locFail; return renderReview() }
+  locMsg = t.locWait; renderReview();
+  navigator.geolocation.getCurrentPosition((p) => { ship.loc = 'https://maps.google.com/?q=' + p.coords.latitude.toFixed(5) + ',' + p.coords.longitude.toFixed(5); locMsg = ''; renderReview() },
+    () => { locMsg = T[lang].locFail; renderReview() }, { enableHighAccuracy: true, timeout: 12000, maximumAge: 300000 });
+});
+$('revSend').addEventListener('click', () => {
+  if (tableFromHash || $('revSend').getAttribute('aria-disabled') === 'true') return;
+  const lines = cartLines(); if (!lines.length) return;
+  const sub = round2(lines.reduce((a, L) => a + cart[L.k] * L.unit, 0));
+  try { localStorage.setItem('rh_last', JSON.stringify({ c: Object.fromEntries(lines.map(L => [L.k, cart[L.k]])), ts: Date.now() })) } catch (e) {}
+  hit('wa', round2(sub + shipFee(sub))); renderAgain();
+});
+$('again').addEventListener('click', (e) => { if (!e.target.closest('#againB')) return; const A = againLines(); Object.keys(cart).forEach(k => delete cart[k]); A.forEach(([L, q]) => { cart[L.k] = q }); renderMenu(); renderOrder(); openReview() });
 $('revNote').addEventListener('input', renderReview);
 $('revClose').addEventListener('click', closeReview); $('revBack').addEventListener('click', closeReview);
 $('review').addEventListener('click', (e) => { if (e.target === $('review')) closeReview() });
@@ -630,7 +810,6 @@ $('bookForm').addEventListener('submit', (e) => e.preventDefault());
 (function () { const d = new Date(); d.setDate(d.getDate() + 1); $('bDate').value = d.toISOString().slice(0, 10) })();
 
 /* ===== Pro: live menu state, table ordering, order tracking, app ===== */
-const API = 'https://nafetha-api.nafetha-web.workers.dev/rayhan';
 const catOf = Object.fromEntries(MENU.flatMap((c) => c.items.map((i) => [i.id, c.id])));
 ALL.forEach((i) => { i.bp = i.p });
 let liveSt = null, sendingNow = false;
@@ -646,7 +825,7 @@ function applySt(st) {
     i.p = i.bp; i.old = 0; i.hh = false; i.out = out.has(i.id);
     const o = (liveSt.offers || {})[i.id]; if (o && (!o.until || o.until > Date.now())) { i.p = o.price; if (o.price < i.bp) i.old = i.bp }
     if (hh && (!hh.cats.length || hh.cats.includes(catOf[i.id]))) { const np = Math.round(i.p * (1 - hh.pct / 100) * 2) / 2; if (np < i.p) { i.old = i.old || i.p; i.p = np; i.hh = true } }
-    if (i.out) delete cart[i.id];
+    if (i.out) Object.keys(cart).forEach((k) => { if (idOf(k) === i.id) delete cart[k] });
   });
 }
 try { const c = JSON.parse(localStorage.getItem('rh_state') || 'null'); if (c) applySt(c) } catch (e) {}
@@ -671,14 +850,14 @@ const saveMine = (l) => { try { localStorage.setItem(MYK, JSON.stringify(l.slice
 function renderMine() { const l = myOrders(); $('myOrd').hidden = !l.length; $('myOrd').textContent = '📋 ' + T[lang].myOrders + (l.length ? ' (' + l.length + ')' : '') }
 async function sendKitchen() {
   const t = T[lang]; if (sendingNow) return;
-  const lines = ALL.filter((i) => cart[i.id]); if (!lines.length) return;
+  const lines = cartLines(); if (!lines.length) return;
   sendingNow = true; renderReview();
   try {
-    const r = await fetch(API + '/order', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ table: tableFromHash, ep: await myEndpoint(), note: $('revNote').value.trim(), items: lines.map((i) => ({ id: i.id, n: i.ar, q: cart[i.id], p: i.p })) }) });
+    const r = await fetch(API + '/order', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ table: tableFromHash, ep: await myEndpoint(), note: $('revNote').value.trim(), items: lines.map((L) => ({ id: L.i.id, n: lineName(L, 'ar').slice(0, 60), q: cart[L.k], p: L.unit })) }) });
     const j = await r.json().catch(() => ({}));
     if (r.status === 429) throw new Error('busy');
     if (!r.ok || !j.id) throw new Error('net');
-    const l = myOrders(); l.push({ id: j.id, ts: Date.now(), items: lines.map((i) => [cart[i.id], i.id]), st: 'new' }); saveMine(l);
+    const l = myOrders(); l.push({ id: j.id, ts: Date.now(), items: lines.map((L) => [cart[L.k], L.k]), st: 'new' }); saveMine(l);
     Object.keys(cart).forEach((k) => delete cart[k]); $('revNote').value = ''; sendingNow = false;
     closeReview(); renderMenu(); renderOrder(); renderMine(); openTrack();
   } catch (e) { sendingNow = false; renderReview(); toast(e.message === 'busy' ? t.busy : t.failSend) }
@@ -697,7 +876,7 @@ function drawTrack() {
   const t = T[lang], l = myOrders().slice().reverse();
   $('trkTitle').textContent = t.trkTitle;
   $('trkList').innerHTML = l.map((o, k) => { const n = ORDER_ST.indexOf(o.st);
-    return '<div class="o' + (o.st === 'ready' ? ' ready' : '') + '"><h4>' + t.orderN(l.length - k) + '<small>' + new Date(o.ts).toLocaleTimeString(lang === 'ar' ? 'ar-LB' : 'en-GB', { hour: '2-digit', minute: '2-digit' }) + '</small></h4><ul>' + o.items.map((x) => { const i = ALL.find((y) => y.id === x[1]); return '<li>' + x[0] + ' × ' + (i ? i[lang] : x[1]) + '</li>' }).join('') + '</ul>' +
+    return '<div class="o' + (o.st === 'ready' ? ' ready' : '') + '"><h4>' + t.orderN(l.length - k) + '<small>' + new Date(o.ts).toLocaleTimeString(lang === 'ar' ? 'ar-LB' : 'en-GB', { hour: '2-digit', minute: '2-digit' }) + '</small></h4><ul>' + o.items.map((x) => { const L = lineOf(x[1]); return '<li>' + x[0] + ' × ' + (L ? lineName(L, lang) : x[1]) + '</li>' }).join('') + '</ul>' +
       (o.st === 'cancel' ? '' : '<div class="steps">' + ORDER_ST.map((s, q) => '<div class="' + (q <= n ? 'on' : '') + (q === n ? ' cur' : '') + '"><span>' + t.stepI[q] + '</span><i></i>' + t.stepL[q] + '</div>').join('') + '</div>') + '<div class="st">' + (t.st[o.st] || '') + '</div></div>' }).join('');
   drawNotify();
 }
@@ -783,12 +962,6 @@ $('appGo').addEventListener('click', async () => {
 $('appNo').addEventListener('click', () => { try { localStorage.setItem('rh_card_no', Date.now()) } catch (e) {} $('appc').classList.remove('on'); toast(T[lang].later) });
 addEventListener('beforeinstallprompt', (e) => { e.preventDefault(); deferredI = e; appCard() });
 addEventListener('appinstalled', () => { hit('install'); appCard() });
-function devId() { let d = ''; try { d = localStorage.getItem('rh_dev') || ''; if (!d) { d = crypto.randomUUID ? crypto.randomUUID() : Date.now().toString(36) + Math.random().toString(36).slice(2); localStorage.setItem('rh_dev', d) } } catch (e) {} return d }
-function hit(type) {
-  const k = type === 'install' ? 'rh_inst' : 'rh_open_' + new Date().toDateString();
-  try { if (localStorage.getItem(k)) return; localStorage.setItem(k, '1') } catch (e) { return }
-  const d = devId(); if (d.length >= 8) fetch(API + '/hit', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ type, dev: d }), keepalive: true }).catch(() => {});
-}
 if (standalone()) { hit('install'); hit('open') }
 try { if (localStorage.getItem('rh_push') === '1' && 'Notification' in window && Notification.permission === 'granted' && 'serviceWorker' in navigator) subPush(true) } catch (e) {}
 if ('serviceWorker' in navigator && (location.protocol === 'https:' || location.hostname === 'localhost')) addEventListener('load', () => navigator.serviceWorker.register('sw.js').catch(() => {}));

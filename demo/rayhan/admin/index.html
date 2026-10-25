@@ -290,11 +290,13 @@ function drawDr() {
   const u = usage, v = (x) => (u ? x : '…');
   const since = u && u.since ? new Date(u.since).toLocaleDateString('ar-LB', { day: 'numeric', month: 'long', year: 'numeric' }) : '';
   const od = u && u.orders;
+  const wa = (u && u.wa) || { month: { n: 0, s: 0 }, last: { n: 0, s: 0 } };
   $('#drB').innerHTML = '<div class="kg"><h3>🍽️ طلبات الطاولات اليوم</h3><div class="r3" style="grid-template-columns:1fr 1fr"><div><b class="num">' + (u ? (od ? od.today : 0) : '…') + '</b><span>طلب</span></div><div><b class="num">' + (u ? usd(od ? od.sales : 0) : '…') + '</b><span>مجموع المبيعات</span></div></div></div>' +
+    '<div class="kg"><h3>💬 طلبات واتساب</h3><div class="r3"><div><b class="num">' + v(u && wa.month.n) + '</b><span>هالشهر</span></div><div><b class="num">' + (u ? usd(wa.month.s) : '…') + '</b><span>قيمتها هالشهر</span></div><div><b class="num">' + v(u && wa.last.n) + '</b><span>الشهر الماضي</span></div></div></div>' +
     '<div class="kc"><i>🔔</i><div><b class="num">' + v(u && u.subs) + '</b><span>مشتركين بالإشعارات</span></div></div>' +
     '<div class="kc"><i>📲</i><div><b class="num">' + v(u && u.installs) + '</b><span>نزّلوا التطبيق على تلفونهم</span></div></div>' +
     '<div class="kg"><h3>👆 فاتوا من التطبيق</h3><div class="r3"><div><b class="num">' + v(u && u.today) + '</b><span>اليوم</span></div><div><b class="num">' + v(u && u.week) + '</b><span>آخر 7 أيام</span></div><div><b class="num">' + v(u && u.total) + '</b><span>من أول ما اشتغل التطبيق</span></div></div></div>' +
-    '<p class="dnote">' + (since ? 'التطبيق شغّال من ' + since + '. ' : '') + 'كل زبون بينحسب مرّة وحدة باليوم، حتى لو فات أكتر من مرّة. «من أول ما اشتغل» هوّي مجموع الزيارات اليومية كلها.</p>';
+    '<p class="dnote">' + (since ? 'التطبيق شغّال من ' + since + '. ' : '') + 'كل زبون بينحسب مرّة وحدة باليوم، حتى لو فات أكتر من مرّة. «من أول ما اشتغل» هوّي مجموع الزيارات اليومية كلها. طلبات واتساب هيّي الطلبات اللي انبعتت من الموقع عالواتساب.</p>';
 }
 function openDr() { drawDr(); $('#dr').classList.add('on'); $('#dr').setAttribute('aria-hidden', 'false'); $('#ov').classList.add('on'); document.body.style.overflow = 'hidden'; api('/stats').then((u) => { usage = u; subs = u.subs; drawDr() }).catch(() => {}) }
 function closeDr() { $('#dr').classList.remove('on'); $('#dr').setAttribute('aria-hidden', 'true'); $('#ov').classList.remove('on'); document.body.style.overflow = '' }
