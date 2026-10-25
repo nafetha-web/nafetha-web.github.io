@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex">
+<title>تقرير الطلبات</title>
+<meta name="theme-color" content="#0E4D4A">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;600;700&display=swap">
+<style>
+/* Nafetha internal tool: monthly WhatsApp-orders report for a client */
+:root { --bg: #F7F5F0; --card: #FFFFFF; --fg: #1B2423; --mute: #5F6B69; --line: #E3DED3; --brand: #0E4D4A; --gold: #E2B04A; --wa: #1F7A45 }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) { --bg: #101716; --card: #18211F; --fg: #ECEFEA; --mute: #A3AEAB; --line: #2A3532; --brand: #5FB3AC; --wa: #2B9A5A; color-scheme: dark } }
+:root[data-theme="dark"] { --bg: #101716; --card: #18211F; --fg: #ECEFEA; --mute: #A3AEAB; --line: #2A3532; --brand: #5FB3AC; --wa: #2B9A5A; color-scheme: dark }
+* { box-sizing: border-box }
+body { margin: 0; background: var(--bg); color: var(--fg); font-family: 'IBM Plex Sans Arabic', Tahoma, Arial, sans-serif; font-size: 16px; line-height: 1.6 }
+main { max-width: 520px; margin: 0 auto; padding: 20px 16px 40px; display: flex; flex-direction: column; gap: 14px }
+h1 { margin: 0; font-size: 24px; color: var(--brand) }
+p { margin: 0 }
+.card { background: var(--card); border: 1px solid var(--line); border-radius: 18px; padding: 16px; display: flex; flex-direction: column; gap: 12px }
+label { display: flex; flex-direction: column; gap: 6px; font-size: 14px; font-weight: 600 }
+input, select, textarea { font: inherit; font-weight: 400; border: 1.5px solid var(--line); background: var(--bg); color: var(--fg); border-radius: 12px; padding: 10px 12px; min-height: 46px; width: 100% }
+.two { display: grid; grid-template-columns: 1fr 1fr; gap: 10px }
+.btn { display: flex; align-items: center; justify-content: center; min-height: 48px; border: 0; border-radius: 14px; font: inherit; font-weight: 700; text-decoration: none; cursor: pointer; background: var(--brand); color: #fff }
+.btn.wa { background: var(--wa) }
+.btn[aria-disabled="true"] { opacity: .5; pointer-events: none }
+.nums { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; text-align: center }
+.nums div { background: var(--bg); border-radius: 12px; padding: 10px 4px }
+.nums b { display: block; font-size: 22px; color: var(--brand); font-variant-numeric: tabular-nums }
+.nums span { font-size: 12px; color: var(--mute) }
+.mute { color: var(--mute); font-size: 13px }
+.err { color: #B42318; font-size: 14px }
+[hidden] { display: none !important }
+</style>
+</head>
+<body>
+<main>
+  <h1>تقرير طلبات واتساب</h1>
+  <p class="mute">للاستعمال الداخلي: بتجيب عدد الطلبات اللي بعتها موقع الزبون عالواتساب، وبتجهّزلك رسالة الشهر تبعتها له.</p>
+
+  <form class="card" id="f">
+    <div class="two">
+      <label>رمز المتجر<input id="store" placeholder="rayhan" autocomplete="off" autocapitalize="off" spellcheck="false" required></label>
+      <label>كلمة السر<input id="pass" type="password" autocomplete="current-password" required></label>
+    </div>
+    <button class="btn" type="submit" id="go">جيب الأرقام</button>
+    <p class="err" id="err" hidden></p>
+  </form>
+
+  <section class="card" id="res" hidden>
+    <div class="nums">
+      <div><b id="nNow">0</b><span>طلبات هالشهر</span></div>
+      <div><b id="sNow">0</b><span>قيمتها</span></div>
+      <div><b id="nLast">0</b><span>الشهر الماضي</span></div>
+    </div>
+    <p class="mute" id="opens"></p>
+    <div class="two">
+      <label>اسم الزبون<input id="name" placeholder="مطبخ الريحان"></label>
+      <label>واتساب الزبون<input id="phone" inputmode="tel" placeholder="96171123456"></label>
+    </div>
+    <label>التقرير عن<select id="which"><option value="last">الشهر الماضي</option><option value="month">هالشهر لهلّق</option></select></label>
+    <label>الرسالة<textarea id="msg" rows="7"></textarea></label>
+    <a class="btn wa" id="send" target="_blank" rel="noopener">ابعت الرسالة عالواتساب</a>
+  </section>
+</main>
+<script>
+const API = 'https://nafetha-api.nafetha-web.workers.dev/';
+const $ = (id) => document.getElementById(id);
+const MONTHS = ['كانون الثاني', 'شباط', 'آذار', 'نيسان', 'أيار', 'حزيران', 'تموز', 'آب', 'أيلول', 'تشرين الأول', 'تشرين الثاني', 'كانون الأول'];
+let data = null, touched = false;
+const saved = (() => { try { return JSON.parse(localStorage.getItem('nf_report') || '{}') } catch (e) { return {} } })();
+$('store').value = saved.store || '';
+const book = saved.book || {};
+const usd = (n) => '$' + (Math.round(n * 100) / 100).toLocaleString('en-US');
+
+$('f').addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const store = $('store').value.trim().toLowerCase(), pass = $('pass').value;
+  $('err').hidden = true; $('go').disabled = true; $('go').textContent = 'عم جيب…';
+  try {
+    const r = await fetch(API + encodeURIComponent(store) + '/stats', { headers: { Authorization: 'Bearer ' + pass }, cache: 'no-store' });
+    if (r.status === 401) throw new Error('كلمة السر غلط، أو المتجر مش مسجّل بجدول stores');
+    if (!r.ok) throw new Error('ما زبط، جرّب كمان مرة');
+    data = await r.json(); data.store = store;
+    if (!data.wa) throw new Error('الـ API لسّا ما فيه عدّاد واتساب، لازم يندمج التحديث');
+    try { localStorage.setItem('nf_report', JSON.stringify({ store, book })) } catch (x) {}
+    const b = book[store] || {}; $('name').value = b.name || ''; $('phone').value = b.phone || '';
+    $('which').value = new Date().getDate() <= 7 ? 'last' : 'month'; touched = false;
+    show();
+  } catch (x) { $('err').textContent = x.message; $('err').hidden = false; $('res').hidden = true }
+  $('go').disabled = false; $('go').textContent = 'جيب الأرقام';
+});
+
+function show() {
+  const w = data.wa;
+  $('nNow').textContent = w.month.n; $('sNow').textContent = usd(w.month.s); $('nLast').textContent = w.last.n;
+  $('opens').textContent = data.week ? 'زوّار التطبيق آخر 7 أيام: ' + data.week : '';
+  $('res').hidden = false;
+  if (!touched) $('msg').value = draft();
+  link();
+}
+function draft() {
+  const last = $('which').value === 'last', d = new Date(); if (last) d.setMonth(d.getMonth() - 1, 1);
+  const w = last ? data.wa.last : data.wa.month, name = $('name').value.trim();
+  return 'مرحبا' + (name ? ' ' + name : '') + ' 👋\n' +
+    'هيدا تقرير موقعك من نافذة عن شهر ' + MONTHS[d.getMonth()] + (last ? '' : ' (لليوم)') + ':\n\n' +
+    '💬 ' + w.n + ' طلب انبعت من الموقع عالواتساب\n' +
+    '💵 قيمتهم تقريبًا ' + usd(w.s) + '\n\n' +
+    'إذا بدّك تعرف شو أكتر صنف بينطلب، وتعلّن عن عرض أو تسكّر صنف خلصان من تلفونك، فيك ترقّي لباقة Pro. خبّرني وبفرجيك ياها 🙏';
+}
+function link() {
+  const p = $('phone').value.replace(/\D/g, ''), m = $('msg').value.trim();
+  $('send').href = 'https://wa.me/' + p + '?text=' + encodeURIComponent(m);
+  if (p.length >= 8 && m) $('send').removeAttribute('aria-disabled'); else $('send').setAttribute('aria-disabled', 'true');
+}
+['name', 'phone'].forEach((id) => $(id).addEventListener('input', () => {
+  if (data) { book[data.store] = { name: $('name').value.trim(), phone: $('phone').value.trim() }; try { localStorage.setItem('nf_report', JSON.stringify({ store: data.store, book })) } catch (e) {} }
+  if (id === 'name' && !touched) $('msg').value = draft();
+  link();
+}));
+$('which').addEventListener('change', () => { touched = false; $('msg').value = draft(); link() });
+$('msg').addEventListener('input', () => { touched = true; link() });
+</script>
+</body>
+</html>
