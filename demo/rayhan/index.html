@@ -287,6 +287,40 @@ button.btn { font-family: inherit }
 .again b { display: block }
 .again small { display: block; color: var(--muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis }
 .again .btn { flex: none; min-height: 42px; padding: 0 14px; font-size: 14px }
+/* loyalty points */
+.pts { display: inline-flex; align-items: center; gap: 4px; border-color: var(--saffron); color: #FFE2B5 }
+.pts[hidden] { display: none }
+.lyl { display: flex; flex-direction: column; gap: 8px; background: var(--saffron-soft); border-radius: 14px; padding: 10px 12px; font-size: 14px }
+.lyl[hidden] { display: none }
+.lyl b { color: var(--saffron-ink) }
+.lyl label { display: flex; align-items: center; gap: 10px; min-height: 40px; font-weight: 700; cursor: pointer }
+.lyl input { width: 20px; height: 20px; accent-color: var(--basil); flex: none; margin: 0 }
+.lyl button { background: none; border: 0; padding: 0; color: var(--basil); font-weight: 700; text-decoration: underline; cursor: pointer; text-align: start; font-size: 14px }
+.revrow.vch b { color: var(--wa) }
+.rwc { display: flex; flex-direction: column; gap: 14px }
+.rwhero { background: var(--basil); color: var(--basil-ink); border-radius: 20px; padding: 18px; display: flex; flex-direction: column; gap: 6px }
+.rwhero .big { font-size: 44px; font-weight: 700; line-height: 1.1; font-variant-numeric: tabular-nums }
+.rwhero .big small { font-size: 16px; font-weight: 600; opacity: .85; margin-inline-start: 6px }
+.rwhero .tier { width: fit-content; border-radius: 999px; padding: 2px 12px; font-size: 13px; font-weight: 700; background: rgba(255,255,255,.16) }
+.rwhero .tier.gold { background: #E8B84A; color: #1E2A22 }
+.bar2 { height: 10px; border-radius: 999px; background: rgba(255,255,255,.2); overflow: hidden }
+.bar2 i { display: block; height: 100%; background: #E8B84A; border-radius: inherit }
+.rwhero p { margin: 0; font-size: 14px; opacity: .92 }
+.rwbox { border: 1px solid var(--line); border-radius: 16px; padding: 12px 14px; display: flex; flex-direction: column; gap: 8px; font-size: 14px }
+.rwbox h3 { margin: 0; font-size: 15px }
+.rwbox p { margin: 0; color: var(--muted) }
+.rwbox .row2 { display: flex; gap: 8px; flex-wrap: wrap }
+.rwbox .row2 .btn { flex: 1; min-height: 44px; font-size: 15px; padding: 0 12px }
+.rwbox select { min-height: 44px; border-radius: 12px; border: 1px solid var(--line); background: var(--surface); color: var(--fg); padding: 0 10px; font: inherit; flex: 1 }
+.rwhow { margin: 0; padding: 0; list-style: none; display: grid; gap: 8px }
+.rwhow li { display: flex; gap: 10px; align-items: flex-start; font-size: 15px }
+.rwhow li i { font-style: normal; flex: none; width: 30px; height: 30px; border-radius: 50%; background: var(--saffron-soft); display: grid; place-items: center }
+.rwhist { margin: 0; padding: 0; list-style: none; display: grid; gap: 6px }
+.rwhist li { display: flex; justify-content: space-between; gap: 8px; font-size: 14px; border-bottom: 1px dashed var(--line); padding-bottom: 6px }
+.rwhist li b { font-variant-numeric: tabular-nums; color: var(--wa) }
+.rwhist li b.neg { color: var(--muted) }
+.rwhist li small { color: var(--muted) }
+#gBtn { min-height: 44px; display: flex; justify-content: center }
 </style>
 </head>
 <body>
@@ -303,6 +337,7 @@ button.btn { font-family: inherit }
     </div>
     <nav class="nav" aria-label="Sections">
       <a href="#menu" id="navMenu"></a><a href="#book" id="navBook"></a><a href="#gallery" id="navGallery"></a>
+      <button class="lang pts" id="ptsBtn" type="button" hidden></button>
       <button class="lang" id="langBtn" type="button"></button>
     </nav>
   </div>
@@ -405,6 +440,7 @@ button.btn { font-family: inherit }
       </div>
       <p class="hint" id="shipHint"></p>
     </div>
+    <div class="lyl" id="lyl" hidden></div>
     <div id="revSum"></div>
     <div class="revtotal"><span id="revTotalLbl"></span><strong id="revTotal"></strong></div>
     <div class="field"><label for="revNote" id="revNoteLbl"></label><textarea id="revNote" rows="2"></textarea></div>
@@ -438,6 +474,12 @@ button.btn { font-family: inherit }
       <div class="qty"><button type="button" class="qbtn" id="optMinus" aria-label="-">−</button><span class="qn" id="optQn">1</span><button type="button" class="qbtn add" id="optPlus" aria-label="+">+</button></div>
       <button type="button" class="btn wa" id="optAdd"></button>
     </div>
+  </div>
+</dialog>
+<dialog class="sheet" id="rw" aria-labelledby="rwTitle">
+  <div class="sheet-in">
+    <div class="sheet-head"><h2 id="rwTitle"></h2><button type="button" class="x" id="rwClose" aria-label="close">×</button></div>
+    <div class="rwc" id="rwBody"></div>
   </div>
 </dialog>
 <div class="toast" id="toast" role="status"></div>
@@ -705,11 +747,11 @@ function renderReview() {
   const t = T[lang];
   const lines = cartLines();
   if (!lines.length) { closeReview(); return }
-  const sub = round2(lines.reduce((a, L) => a + cart[L.k] * L.unit, 0)), fee = tableFromHash ? 0 : shipFee(sub), total = round2(sub + fee);
+  const sub = round2(lines.reduce((a, L) => a + cart[L.k] * L.unit, 0)), fee = tableFromHash ? 0 : shipFee(sub), vd = lyVouch(sub), total = round2(sub + fee - vd);
   $('revTitle').textContent = t.revTitle; $('revTotalLbl').textContent = t.total; $('revTotal').textContent = t.money(total);
   $('revNoteLbl').textContent = t.revNote; $('revBack').textContent = t.revBack; $('revSend').textContent = t.revSend;
   $('revList').innerHTML = lines.map(L => '<div class="rev"><div class="ph">' + photo(L.i.ph, 104, 104, L.i[lang]) + '</div><div class="nm">' + L.i[lang] + (L.picks.length ? '<span class="ro">' + optText(L, lang) + '</span>' : '') + '<small>' + t.money(round2(cart[L.k] * L.unit)) + '</small></div>' + lineQtyHTML(L) + '</div>').join('');
-  renderShip(sub, fee);
+  renderShip(sub, fee); renderLyl(sub, vd);
   if (tableFromHash) { $('revSend').removeAttribute('href'); $('revSend').removeAttribute('target'); $('revSend').textContent = sendingNow ? t.sending : t.sendKitchen; $('revSend').setAttribute('role', 'button'); return }
   const bad = shipProblem(sub), btn = $('revSend');
   if (bad) { btn.removeAttribute('href'); btn.setAttribute('aria-disabled', 'true'); btn.textContent = bad; return }
@@ -718,11 +760,13 @@ function renderReview() {
   else m.push(t.msgPick);
   m.push('', ...lines.map(L => '- ' + cart[L.k] + ' × ' + lineName(L, lang) + ' (' + t.money(round2(cart[L.k] * L.unit)) + ')'), '');
   if (ship.mode === 'del') m.push(t.sub + ': ' + t.money(sub), t.fee + ': ' + (fee ? t.money(fee) : t.freeFee));
+  if (vd) m.push(LT[lang].vLine + ': -' + t.money(vd));
   m.push(t.total + ': ' + t.money(total));
   if (note) m.push(t.revNoteShort + ': ' + note);
+  if (ly.me) m.push('', '⭐ ' + LT[lang].codeLine + ': ' + lyCode());
   btn.removeAttribute('aria-disabled'); btn.href = 'https://wa.me/' + WA + '?text=' + encodeURIComponent(m.join('\n'));
 }
-function openReview() { if (!cartLines().length) return; locMsg = ''; renderReview(); const d = $('review'); if (d.showModal) d.showModal(); else d.setAttribute('open', '') }
+function openReview() { if (!cartLines().length) return; locMsg = ''; ly.code = ''; renderReview(); const d = $('review'); if (d.showModal) d.showModal(); else d.setAttribute('open', '') }
 function closeReview() { const d = $('review'); if (d.open) { if (d.close) d.close(); else d.removeAttribute('open') } }
 
 function renderBooking() {
@@ -798,7 +842,7 @@ $('revSend').addEventListener('click', () => {
   const lines = cartLines(); if (!lines.length) return;
   const sub = round2(lines.reduce((a, L) => a + cart[L.k] * L.unit, 0));
   try { localStorage.setItem('rh_last', JSON.stringify({ c: Object.fromEntries(lines.map(L => [L.k, cart[L.k]])), ts: Date.now() })) } catch (e) {}
-  hit('wa', round2(sub + shipFee(sub))); renderAgain();
+  const vd = lyVouch(sub); hit('wa', round2(sub + shipFee(sub) - vd)); renderAgain(); lySent(sub, vd);
 });
 $('again').addEventListener('click', (e) => { if (!e.target.closest('#againB')) return; const A = againLines(); Object.keys(cart).forEach(k => delete cart[k]); A.forEach(([L, q]) => { cart[L.k] = q }); renderMenu(); renderOrder(); openReview() });
 $('revNote').addEventListener('input', renderReview);
@@ -853,12 +897,12 @@ async function sendKitchen() {
   const lines = cartLines(); if (!lines.length) return;
   sendingNow = true; renderReview();
   try {
-    const r = await fetch(API + '/order', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ table: tableFromHash, ep: await myEndpoint(), note: $('revNote').value.trim(), items: lines.map((L) => ({ id: L.i.id, n: lineName(L, 'ar').slice(0, 60), q: cart[L.k], p: L.unit })) }) });
+    const r = await fetch(API + '/order', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ table: tableFromHash, ep: await myEndpoint(), lt: ly.token || undefined, vouch: ly.useV || undefined, note: $('revNote').value.trim(), items: lines.map((L) => ({ id: L.i.id, n: lineName(L, 'ar').slice(0, 60), q: cart[L.k], p: L.unit })) }) });
     const j = await r.json().catch(() => ({}));
     if (r.status === 429) throw new Error('busy');
     if (!r.ok || !j.id) throw new Error('net');
     const l = myOrders(); l.push({ id: j.id, ts: Date.now(), items: lines.map((L) => [cart[L.k], L.k]), st: 'new' }); saveMine(l);
-    Object.keys(cart).forEach((k) => delete cart[k]); $('revNote').value = ''; sendingNow = false;
+    Object.keys(cart).forEach((k) => delete cart[k]); $('revNote').value = ''; sendingNow = false; ly.useV = false; setTimeout(lyMe, 1500);
     closeReview(); renderMenu(); renderOrder(); renderMine(); openTrack();
   } catch (e) { sendingNow = false; renderReview(); toast(e.message === 'busy' ? t.busy : t.failSend) }
 }
@@ -1012,6 +1056,131 @@ $('gTrack').addEventListener('click', async (e) => {
   const keep = gIdx; renderGuide(); gIdx = keep; setGNext();
   requestAnimationFrame(() => { const sl = document.querySelectorAll('#gTrack .gs'); sl[keep] && sl[keep].scrollIntoView({ block: 'nearest', inline: 'center' }) });
 });
+/* ===== Loyalty add-on: points, vouchers, gold tier, birthday gift, invite a friend ===== */
+/* Google sign-in client id (one for all Nafetha sites); empty = sign-in shows "soon" */
+const GOOGLE_ID = '';
+const LT = {
+  ar: {
+    btn: 'نقاطي', title: 'نقاط الريحان', pts: 'نقطة', silver: 'عضو فضي', gold: 'عضو ذهبي ✦',
+    how: [['🛵', (r) => 'اطلب كالعادة، وخذ ' + r.perUsd + ' نقطة عن كل 1$'], ['✅', () => 'تُضاف النقاط حين يؤكد المطعم استلام طلبك'], ['🎁', (r) => 'كل ' + r.voucherPts + ' نقطة = قسيمة ' + r.voucherUsd + '$'], ['✦', (r) => 'بعد ' + r.goldOrders + ' طلبات تصبح عضوًا ذهبيًا ونقاطك ×' + r.goldMult], ['🎂', (r) => r.bday + ' نقطة هدية في عيد ميلادك'], ['🤝', (r) => r.ref + ' نقطة عندما يطلب صديق دعوته']],
+    join: 'سجّل دخولك واجمع النقاط', soon: 'تسجيل الدخول سيتوفر قريبًا.', phoneSoon: 'الدخول برقم الهاتف عبر واتساب: قريبًا.', signing: 'جارٍ تسجيل الدخول…', fail: 'لم ينجح تسجيل الدخول، حاول مرة أخرى',
+    hi: (n) => 'أهلًا ' + (n || ''), toV: (n, v) => 'باقي ' + n + ' نقطة لقسيمة ' + v + '$', haveV: (v) => '🎁 لديك قسيمة ' + v + '$، استعملها في طلبك القادم',
+    toGold: (n, m) => 'باقي ' + n + ' طلبات لتصبح ذهبيًا (نقاط ×' + m + ')', isGold: (m) => 'أنت عضو ذهبي: نقاطك ×' + m + ' على كل طلب',
+    exp: (d) => 'نقاطك صالحة حتى ' + d + '. أي طلب جديد يمدّد صلاحيتها.', pend: 'بانتظار تأكيد المطعم', pendHint: 'تُضاف النقاط حين يؤكد المطعم الاستلام.',
+    bdT: '🎂 عيد ميلادك', bdQ: 'أضف عيد ميلادك لتصلك هدية كل سنة (يُحفظ مرة واحدة).', bdSave: 'احفظ', bdIs: (d) => 'عيد ميلادك: ' + d, month: 'الشهر', day: 'اليوم',
+    refT: '🤝 ادعُ صديقًا', refQ: (n) => 'تحصل على ' + n + ' نقطة عندما يطلب صديقك أول مرة.', share: 'شارك عبر واتساب', copy: 'انسخ الرابط', copied: 'تم نسخ الرابط',
+    refMsg: (u) => 'جرّب مطبخ الريحان واجمع نقاط على كل طلب: ' + u, histT: 'آخر الحركات', out: 'تسجيل الخروج',
+    why: { order: 'طلب', order2: 'طلب (ذهبي)', voucher: 'قسيمة', refund: 'إرجاع قسيمة', bday: 'هدية عيد الميلاد', ref: 'دعوة صديق', expire: 'انتهاء الصلاحية', owner: 'من المطعم' },
+    earn: (n) => '⭐ ستحصل على <b>' + n + ' نقطة</b> عند استلام هذا الطلب', earnOut: (n) => '⭐ سجّل دخولك واجمع <b>' + n + ' نقطة</b> على هذا الطلب', login: 'سجّل الدخول',
+    useV: (v, p) => 'استعمل قسيمة ' + v + '$ (−' + p + ' نقطة)', vLine: 'قسيمة النقاط', codeLine: 'رمز النقاط', welcome: 'أهلًا بك! بدأت تجمع النقاط'
+  },
+  en: {
+    btn: 'My points', title: 'Rayhan Rewards', pts: 'points', silver: 'Silver member', gold: 'Gold member ✦',
+    how: [['🛵', (r) => 'Order as usual and get ' + r.perUsd + ' point for every $1'], ['✅', () => 'Points are added once the restaurant confirms delivery'], ['🎁', (r) => 'Every ' + r.voucherPts + ' points = a $' + r.voucherUsd + ' voucher'], ['✦', (r) => 'After ' + r.goldOrders + ' orders you go Gold: points ×' + r.goldMult], ['🎂', (r) => r.bday + ' bonus points on your birthday'], ['🤝', (r) => r.ref + ' points when a friend you invite orders']],
+    join: 'Sign in and start collecting', soon: 'Sign-in is coming soon.', phoneSoon: 'Phone sign-in via WhatsApp: coming soon.', signing: 'Signing in…', fail: 'Sign-in failed, please try again',
+    hi: (n) => 'Hi ' + (n || ''), toV: (n, v) => n + ' points to a $' + v + ' voucher', haveV: (v) => '🎁 You have a $' + v + ' voucher, use it on your next order',
+    toGold: (n, m) => n + ' more orders to go Gold (points ×' + m + ')', isGold: (m) => 'You are Gold: points ×' + m + ' on every order',
+    exp: (d) => 'Your points are valid until ' + d + '. Any new order extends them.', pend: 'Waiting for the restaurant', pendHint: 'Points are added once the restaurant confirms delivery.',
+    bdT: '🎂 Your birthday', bdQ: 'Add your birthday to get a gift every year (saved once).', bdSave: 'Save', bdIs: (d) => 'Your birthday: ' + d, month: 'Month', day: 'Day',
+    refT: '🤝 Invite a friend', refQ: (n) => 'Get ' + n + ' points when your friend places their first order.', share: 'Share on WhatsApp', copy: 'Copy link', copied: 'Link copied',
+    refMsg: (u) => 'Try Matbakh El Rayhan and collect points on every order: ' + u, histT: 'Recent activity', out: 'Sign out',
+    why: { order: 'Order', order2: 'Order (Gold)', voucher: 'Voucher', refund: 'Voucher returned', bday: 'Birthday gift', ref: 'Friend invite', expire: 'Expired', owner: 'From the restaurant' },
+    earn: (n) => '⭐ You will earn <b>' + n + ' points</b> once this order is delivered', earnOut: (n) => '⭐ Sign in and earn <b>' + n + ' points</b> on this order', login: 'Sign in',
+    useV: (v, p) => 'Use a $' + v + ' voucher (−' + p + ' points)', vLine: 'Points voucher', codeLine: 'Points code', welcome: 'Welcome! You are now collecting points'
+  }
+};
+const ly = { on: false, rules: null, token: '', me: null, code: '', useV: false, busy: false };
+try { ly.token = localStorage.getItem('rh_lt') || ''; const r = new URLSearchParams(location.search).get('ref'); if (/^[a-z0-9]{8}$/.test(r || '')) localStorage.setItem('rh_ref', r) } catch (e) {}
+const esc = (s) => String(s == null ? '' : s).replace(/[&<>"']/g, (c) => '&#' + c.charCodeAt(0) + ';');
+const lyCode = () => ly.code || (ly.code = [...crypto.getRandomValues(new Uint8Array(6))].map((x) => 'ABCDEFGHJKMNPQRSTUVWXYZ23456789'[x % 31]).join(''));
+const canV = (sub) => !!(ly.me && ly.rules && ly.me.points >= ly.rules.voucherPts && sub >= ly.rules.voucherUsd);
+function lyVouch(sub) { return ly.useV && canV(sub) ? ly.rules.voucherUsd : 0 }
+function lyEarn(paid) { const r = ly.rules; return r ? Math.floor(paid * r.perUsd) * (ly.me && ly.me.gold ? r.goldMult : 1) : 0 }
+async function lyApi(path, opt) {
+  const r = await fetch(API + path, Object.assign({ cache: 'no-store' }, opt, { headers: Object.assign({ 'Content-Type': 'application/json' }, ly.token ? { Authorization: 'Bearer ' + ly.token } : {}) }));
+  const j = await r.json().catch(() => ({}));
+  if (r.status === 401 && path !== '/lauth') lyForget();
+  if (!r.ok) throw new Error(j.error || 'net');
+  return j;
+}
+function lyForget() { ly.token = ''; ly.me = null; ly.useV = false; try { localStorage.removeItem('rh_lt') } catch (e) {} lyRender() }
+async function lyMe() { if (!ly.on || !ly.token) return; try { ly.me = (await lyApi('/lme')).me } catch (e) {} lyRender() }
+async function lyInit() {
+  try { const j = await lyApi('/lrules'); ly.on = !!j.on; ly.rules = j.rules } catch (e) { ly.on = false }
+  if (ly.on) await lyMe(); lyRender();
+}
+function lyRender() {
+  const b = $('ptsBtn'); b.hidden = !ly.on;
+  b.textContent = '⭐ ' + (ly.me ? ly.me.points : LT[lang].btn);
+  if ($('rw').open) drawRw();
+  if ($('review').open) renderReview();
+}
+function renderLyl(sub, vd) {
+  const box = $('lyl'), L = LT[lang]; box.hidden = !ly.on; if (!ly.on) return;
+  if (!ly.me) { box.innerHTML = '<span>' + L.earnOut(lyEarn(sub)) + '</span><button type="button" data-ly="open">' + L.login + '</button>'; return }
+  box.innerHTML = '<span>' + L.earn(lyEarn(sub - vd)) + '</span>' + (canV(sub) ? '<label><input type="checkbox" id="lyV"' + (ly.useV ? ' checked' : '') + '><span>' + L.useV(ly.rules.voucherUsd, ly.rules.voucherPts) + '</span></label>' : '');
+  if (vd) $('revSum').insertAdjacentHTML('beforeend', '<div class="revrow vch"><span>' + L.vLine + '</span><b>-' + T[lang].money(vd) + '</b></div>');
+}
+/* the order went out on WhatsApp: tell the API so the owner can confirm it and the points land */
+function lySent(sub, vd) {
+  if (!ly.me) return;
+  const code = lyCode();
+  try { fetch(API + '/lorder', { method: 'POST', keepalive: true, headers: { 'Content-Type': 'text/plain' }, body: JSON.stringify({ t: ly.token, code, total: sub, vouch: !!vd }) }).catch(() => {}) } catch (e) {}
+  if (vd) ly.me.points -= ly.rules.voucherPts;
+  ly.useV = false; ly.code = ''; setTimeout(lyMe, 2500);
+}
+let gsiP = null;
+function loadGsi() { return gsiP || (gsiP = new Promise((ok, no) => { const s = document.createElement('script'); s.src = 'https://accounts.google.com/gsi/client'; s.async = true; s.onload = ok; s.onerror = () => { gsiP = null; no() }; document.head.appendChild(s) })) }
+async function lyGoogle(resp) {
+  const L = LT[lang]; toast(L.signing);
+  let ref = ''; try { ref = localStorage.getItem('rh_ref') || '' } catch (e) {}
+  try {
+    const j = await lyApi('/lauth', { method: 'POST', body: JSON.stringify({ g: resp.credential, ref }) });
+    ly.token = j.token; ly.me = j.me; try { localStorage.setItem('rh_lt', j.token); localStorage.removeItem('rh_ref') } catch (e) {}
+    toast(L.welcome); lyRender();
+  } catch (e) { toast(L.fail) }
+}
+async function drawGBtn() {
+  const box = $('gBtn'); if (!box) return;
+  if (!GOOGLE_ID) { box.innerHTML = '<p class="hint">' + LT[lang].soon + '</p>'; return }
+  try { await loadGsi(); google.accounts.id.initialize({ client_id: GOOGLE_ID, callback: lyGoogle }); google.accounts.id.renderButton(box, { theme: 'outline', size: 'large', shape: 'pill', text: 'continue_with', locale: lang, width: Math.min(320, box.clientWidth || 300) }) }
+  catch (e) { box.innerHTML = '<p class="hint">' + LT[lang].fail + '</p>' }
+}
+function drawRw() {
+  const L = LT[lang], r = ly.rules || {}, me = ly.me, t = T[lang];
+  $('rwTitle').textContent = L.title;
+  const how = '<ul class="rwhow">' + L.how.filter((h, i) => (i !== 3 || r.goldOrders) && (i !== 4 || r.bday) && (i !== 5 || r.ref)).map(([i, f]) => '<li><i>' + i + '</i><span>' + f(r) + '</span></li>').join('') + '</ul>';
+  if (!me) { $('rwBody').innerHTML = '<div class="rwbox"><h3>' + L.join + '</h3>' + how + '</div><div id="gBtn"></div><p class="hint">' + L.phoneSoon + '</p>'; drawGBtn(); return }
+  const fmt = (ms) => new Date(ms).toLocaleDateString(lang === 'ar' ? 'ar-LB' : 'en-GB', { day: 'numeric', month: 'long', year: 'numeric' });
+  const v = r.voucherPts || 100, pct = Math.min(100, Math.round((me.points % v) / v * 100)), hasV = me.points >= v;
+  let h = '<div class="rwhero"><span class="tier' + (me.gold ? ' gold' : '') + '">' + (me.gold ? L.gold : L.silver) + '</span><span>' + esc(L.hi(me.name)) + '</span><div class="big">' + me.points + '<small>' + L.pts + '</small></div>' +
+    '<div class="bar2"><i style="width:' + (hasV ? 100 : pct) + '%"></i></div><p>' + (hasV ? L.haveV(r.voucherUsd) : L.toV(v - me.points, r.voucherUsd)) + '</p>' +
+    (r.goldOrders ? '<p>' + (me.gold ? L.isGold(r.goldMult) : L.toGold(me.toGold, r.goldMult)) + '</p>' : '') + (me.expires ? '<p>' + L.exp(fmt(me.expires)) + '</p>' : '') + '</div>';
+  if (me.pending.length) h += '<div class="rwbox"><h3>⏳ ' + L.pend + '</h3>' + me.pending.map((o) => '<div class="revrow"><span>' + esc(o.code) + ' · ' + fmt(o.created) + '</span><b>' + t.money(o.total) + '</b></div>').join('') + '<p>' + L.pendHint + '</p></div>';
+  if (r.bday) {
+    if (me.bday) h += '<div class="rwbox"><h3>' + L.bdT + '</h3><p>' + L.bdIs(me.bday.split('-').reverse().join('/')) + '</p></div>';
+    else h += '<div class="rwbox"><h3>' + L.bdT + '</h3><p>' + L.bdQ + '</p><div class="row2"><select id="bdD" aria-label="' + L.day + '"><option value="">' + L.day + '</option>' + [...Array(31)].map((_, i) => '<option>' + String(i + 1).padStart(2, '0') + '</option>').join('') + '</select><select id="bdM" aria-label="' + L.month + '"><option value="">' + L.month + '</option>' + [...Array(12)].map((_, i) => '<option value="' + String(i + 1).padStart(2, '0') + '">' + new Date(2000, i, 1).toLocaleDateString(lang === 'ar' ? 'ar-LB' : 'en-GB', { month: 'long' }) + '</option>').join('') + '</select><button type="button" class="btn btn-saffron" data-ly="bday">' + L.bdSave + '</button></div></div>';
+  }
+  if (r.ref) h += '<div class="rwbox"><h3>' + L.refT + '</h3><p>' + L.refQ(r.ref) + '</p><div class="row2"><a class="btn wa" target="_blank" rel="noopener" href="https://wa.me/?text=' + encodeURIComponent(L.refMsg(PAGE + '?ref=' + me.ref)) + '">' + L.share + '</a><button type="button" class="btn back" data-ly="copy">' + L.copy + '</button></div></div>';
+  if (me.history.length) h += '<div class="rwbox"><h3>' + L.histT + '</h3><ul class="rwhist">' + me.history.map((x) => '<li><span>' + (L.why[x.why] || x.why) + ' <small>' + fmt(x.created) + '</small></span><b' + (x.delta < 0 ? ' class="neg"' : '') + '>' + (x.delta > 0 ? '+' : '') + x.delta + '</b></li>').join('') + '</ul></div>';
+  h += '<p class="hint">' + esc(me.email || me.phone || '') + '</p><button type="button" class="btn back" data-ly="out">' + L.out + '</button>';
+  $('rwBody').innerHTML = h;
+}
+function openRw() { drawRw(); const d = $('rw'); if (!d.open) { if (d.showModal) d.showModal(); else d.setAttribute('open', '') } lyMe() }
+function closeRw() { const d = $('rw'); if (d.open) { if (d.close) d.close(); else d.removeAttribute('open') } }
+$('ptsBtn').addEventListener('click', openRw);
+$('rwClose').addEventListener('click', closeRw);
+$('rw').addEventListener('click', async (e) => {
+  if (e.target === $('rw')) return closeRw();
+  const a = e.target.closest('[data-ly]'); if (!a) return;
+  if (a.dataset.ly === 'out') { lyApi('/lout', { method: 'POST' }).catch(() => {}); lyForget() }
+  if (a.dataset.ly === 'copy') { try { await navigator.clipboard.writeText(PAGE + '?ref=' + ly.me.ref); toast(LT[lang].copied) } catch (e) {} }
+  if (a.dataset.ly === 'bday') { const d = $('bdD').value, m = $('bdM').value; if (!d || !m) return; try { ly.me = (await lyApi('/lme', { method: 'POST', body: JSON.stringify({ bday: m + '-' + d }) })).me; lyRender() } catch (e) { toast(T[lang].failSend) } }
+});
+$('lyl').addEventListener('click', (e) => { if (e.target.closest('[data-ly="open"]')) { closeReview(); openRw() } });
+$('lyl').addEventListener('change', (e) => { if (e.target.id === 'lyV') { ly.useV = e.target.checked; renderReview() } });
+$('langBtn').addEventListener('click', lyRender);
+lyInit();
 renderAll();
 appCard();
 (() => { let seen = null; try { seen = localStorage.getItem(GK) } catch (e) {} if (!seen && !/[?&]order=/.test(location.search)) setTimeout(openGuide, 700) })();
