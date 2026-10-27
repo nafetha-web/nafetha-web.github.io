@@ -380,6 +380,84 @@ input, select, textarea { min-width: 0; max-width: 100% }
 }
 @keyframes bob { 0%,100% { transform: translateY(0) } 50% { transform: translateY(-5px) } }
 @keyframes ping { 0% { box-shadow: 0 0 0 0 rgba(224,69,47,.7) } 100% { box-shadow: 0 0 0 10px rgba(224,69,47,0) } }
+
+/* hero on phones: show the phones image right under the buttons */
+@media (max-width: 900px) {
+  .hero .wrap { gap: 0 }
+  .hero .wrap > div { display: contents }
+  .hero .eyebrow { justify-self: start; order: 1 } .hero h1 { order: 2 } .hero .lead { order: 3; font-size: 17px } .hero .cta { order: 4 }
+  .hero .heroshot { display: flex; order: 5; margin-top: 30px } .hero .from { order: 6; margin-top: 24px; justify-self: start } .hero .assure { order: 7 }
+  .heroshot img { max-width: 300px }
+  .tryband img { display: none } .tryband { padding-bottom: 32px }
+}
+/* live phone: try every demo without leaving the page */
+.live { background: var(--mint-soft) }
+.lgrid { display: grid; grid-template-columns: minmax(0, 1fr) auto; grid-template-areas: "head phone" "pick phone" "info phone"; gap: 0 56px; align-items: start }
+.lgrid .head { grid-area: head; margin-bottom: 24px }
+.kick2 { display: inline-block; font-size: 14px; font-weight: 700; color: var(--teal-deep); background: var(--gold); border-radius: 999px; padding: 3px 14px; margin-bottom: 12px }
+.lpick { grid-area: pick; display: flex; flex-wrap: wrap; gap: 8px }
+.lpick button { display: inline-flex; align-items: center; gap: 6px; min-height: 42px; padding: 0 16px; border-radius: 999px; border: 1.5px solid var(--line); background: #FFFFFF; color: var(--teal-deep); font: inherit; font-size: 15px; font-weight: 600; cursor: pointer; white-space: nowrap; transition: background .2s, border-color .2s }
+.lpick button:hover { border-color: var(--teal) }
+.lpick button[aria-pressed="true"] { background: var(--teal); border-color: var(--teal); color: #FFFFFF }
+.linfo { grid-area: info; margin-top: 24px }
+.linfo h3 { font-size: 22px; color: var(--teal-deep) }
+.linfo p { color: var(--muted); margin: 6px 0 18px; max-width: 34em }
+.lbtns { display: flex; flex-wrap: wrap; gap: 10px }
+.lbtns .btn { min-height: 48px; font-size: 16px }
+.lphone { grid-area: phone; display: flex; justify-content: center; align-self: center }
+.lphone .phone { height: 620px }
+.lphone .notch { position: absolute; top: 18px; left: 50%; transform: translateX(-50%); width: 84px; height: 22px; border-radius: 99px; background: var(--teal-deep); z-index: 3 }
+.lphone iframe { position: absolute; top: 0; left: 0; border: 0; max-width: none; transform-origin: 0 0; background: #FFFFFF }
+.lload { position: absolute; inset: 0; display: grid; place-items: center; background: #FFFFFF; color: var(--teal); font-weight: 600; z-index: 2; transition: opacity .3s }
+.lload::before { content: ""; width: 34px; height: 34px; border-radius: 50%; border: 3px solid var(--mint); border-top-color: var(--teal); animation: spin .8s linear infinite; margin-bottom: 56px; grid-area: 1 / 1 }
+.lload span { grid-area: 1 / 1; margin-top: 40px }
+.lload.off { opacity: 0; pointer-events: none }
+@keyframes spin { to { transform: rotate(360deg) } }
+@media (max-width: 900px) {
+  .lgrid { grid-template-columns: minmax(0, 1fr); grid-template-areas: "head" "pick" "phone" "info" }
+  .lpick { flex-wrap: nowrap; overflow-x: auto; margin-inline: -20px; padding: 2px 20px 8px; scrollbar-width: none }
+  .lpick::-webkit-scrollbar { display: none }
+  .lphone { margin-top: 18px }
+  .linfo { text-align: center } .linfo p { margin-inline: auto } .lbtns { justify-content: center }
+}
+@media (max-width: 520px) { .lphone .phone { width: 280px; height: 560px } .lphone .notch { width: 70px; height: 18px; top: 16px } }
+/* savings calculator */
+.cbox { background: var(--teal); color: #FFFFFF; border-radius: 28px; padding: 44px 48px; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 28px 48px; position: relative; overflow: hidden }
+.cbox::before { content: ""; position: absolute; inset: -30% -10% auto auto; width: 460px; height: 460px; border-radius: 50%; background: radial-gradient(closest-side, rgba(226,176,74,.2), transparent); pointer-events: none }
+.cbox > * { position: relative }
+.chead { grid-column: 1 / -1 }
+.chead h2 { font-size: clamp(28px, 4vw, 42px) }
+.chead p { color: #D5E6E4; font-size: 18px; margin-top: 10px; max-width: 34em }
+.cin { display: grid; gap: 22px; align-content: start }
+.rng { display: grid; gap: 10px }
+.rng > span { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; font-weight: 600 }
+.rng output { font-family: var(--display); font-size: 24px; color: var(--gold); direction: ltr; unicode-bidi: isolate }
+.rng input { width: 100%; accent-color: var(--gold); height: 28px; cursor: pointer }
+.cout { display: grid; gap: 12px; align-content: start }
+.cout > div { display: grid; grid-template-columns: 1fr auto; align-items: baseline; gap: 2px 12px; border-radius: 18px; padding: 16px 20px; background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.14) }
+.cout b { font-family: var(--display); font-size: 30px; line-height: 1.2; direction: ltr; unicode-bidi: isolate }
+.cout small { grid-column: 1 / -1; color: #D5E6E4; font-size: 14px }
+.cout .cbad b { color: #FFB4A8 }
+.cout .csave { background: var(--gold); color: var(--teal-deep); border-color: var(--gold) }
+.cout .csave b { font-size: 38px } .cout .csave small { color: var(--teal-deep); font-weight: 600 }
+.cfoot { grid-column: 1 / -1; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 14px }
+.cfoot p { color: #BFD6D3; font-size: 14px; max-width: 36em }
+@media (max-width: 860px) { .cbox { grid-template-columns: minmax(0, 1fr); padding: 32px 22px } .cfoot .btn { width: 100% } }
+/* shorter page on phones */
+@media (max-width: 700px) {
+  .work .feature { display: none }
+  .feats { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px }
+  .feat { display: block; border: 1px solid var(--line); border-radius: 16px; padding: 14px }
+  .feat .ic { width: 36px; height: 36px; margin-bottom: 10px }
+  .feat h3 { font-size: 15.5px; line-height: 1.35 } .feat p { font-size: 13.5px; margin-top: 4px; line-height: 1.5 }
+  .steps { gap: 18px } .steps::before { display: none }
+  .steps li { display: grid; grid-template-columns: 48px 1fr; gap: 2px 14px } .steps li::before { width: 48px; height: 48px; font-size: 20px; grid-row: span 2; margin: 0 }
+}
+.sys details.smore summary { list-style: none; cursor: pointer; display: inline-flex; align-items: center; gap: 8px; font-weight: 600; color: var(--gold); margin: 18px 0 4px }
+.sys details.smore summary::-webkit-details-marker { display: none }
+.sys details.smore summary::after { content: "+"; font-size: 22px; line-height: 1 }
+.sys details.smore[open] summary::after { content: "−" }
+@media (min-width: 761px) { .sys details.smore summary { display: none } }
 </style>
 </head>
 <body>
@@ -424,6 +502,16 @@ input, select, textarea { min-width: 0; max-width: 100% }
   </section>
 
   <section class="stats" aria-label="Nafetha in numbers"><div class="wrap"><ul id="stats"></ul></div></section>
+
+  <section class="blk live" id="live">
+    <div class="wrap lgrid">
+      <div class="head rv"><span class="kick2" data-t="liveK"></span><h2 data-t="liveT"></h2><p data-t="liveS"></p></div>
+      <div class="lpick" id="lpick"></div>
+      <div class="lphone"><div class="phone"><span class="notch" aria-hidden="true"></span><div class="screen" id="lscreen"><iframe id="lframe" tabindex="0"></iframe><div class="lload" id="lload"><span data-t="liveLoad"></span></div></div></div></div>
+      <div class="linfo" aria-live="polite"><h3 id="ltitle"></h3><p id="ldesc"></p>
+        <div class="lbtns"><a class="btn btn-teal" id="lWant" target="_blank" rel="noopener"></a><a class="btn btn-ghost" id="lOpen" target="_blank" rel="noopener"></a></div></div>
+    </div>
+  </section>
 
   <section class="blk work" id="work">
     <div class="wrap">
@@ -472,6 +560,25 @@ input, select, textarea { min-width: 0; max-width: 100% }
     <div class="wrap">
       <div class="head"><h2 data-t="howTitle"></h2><p data-t="howSub"></p></div>
       <ol class="steps" id="steps"></ol>
+    </div>
+  </section>
+
+  <section class="blk calc" id="calc" style="padding-top: 0">
+    <div class="wrap">
+      <div class="cbox rv">
+        <div class="chead"><span class="kick2" data-t="calcK"></span><h2 data-t="calcT"></h2><p data-t="calcS"></p></div>
+        <div class="cin">
+          <label class="rng"><span><span data-t="cOrders"></span><output id="oOrders"></output></span><input type="range" id="cOrders" min="1" max="100" value="15"></label>
+          <label class="rng"><span><span data-t="cAvg"></span><output id="oAvg"></output></span><input type="range" id="cAvg" min="3" max="60" value="15"></label>
+          <label class="rng"><span><span data-t="cRate"></span><output id="oRate"></output></span><input type="range" id="cRate" min="10" max="35" value="20"></label>
+        </div>
+        <div class="cout">
+          <div class="cbad"><span data-t="cApps"></span><b id="vApps"></b><small data-t="cAppsNote"></small></div>
+          <div class="cgood"><span data-t="cUs"></span><b>$25</b><small data-t="cUsNote"></small></div>
+          <div class="csave"><span data-t="cSave"></span><b id="vSave"></b><small id="vYear"></small></div>
+        </div>
+        <div class="cfoot"><p data-t="cNote"></p><a class="btn btn-gold" href="#contact" data-t="cta1"></a></div>
+      </div>
     </div>
   </section>
 
@@ -598,6 +705,10 @@ const T = {
       ['تراجعه وتعطينا رأيك', 'نرسل لك الرابط عبر واتساب، ونعدّله حتى يصبح كما تريد.'],
       ['تختار طريقة الدفع وينطلق موقعك', 'اشتراك شهري، أو شراء الموقع مرة واحدة.']],
     priceTitle: 'الأسعار', priceSub: 'باقتان لكل نشاط: Basic لموقع كامل، وPro لنظام متكامل خاص بقطاعك. وفي كل باقة تختار الدفع شهريًا أو الشراء مرة واحدة.',
+    liveK: 'جرّبه بنفسك', liveT: 'استخدم مواقعنا كما يستخدمها زبونك', liveS: 'اختر نشاطًا وجرّب موقعه مباشرة على الهاتف: اضغط، تصفّح واطلب.', liveLoad: 'جارٍ التحميل…', renleyTag: 'شركة تشطيبات',
+    calcK: 'حاسبة التوفير', calcT: 'كم تأخذ منك تطبيقات التوصيل؟', calcS: 'حرّك المؤشرات حسب نشاطك، وشاهد كم يبقى لك مع موقعك الخاص.',
+    cOrders: 'عدد الطلبات يوميًا', cAvg: 'متوسط قيمة الطلب', cRate: 'عمولة التطبيق', cApps: 'تأخذ التطبيقات منك', cAppsNote: 'كل شهر، من أرباحك', cUs: 'مع نافذة', cUsNote: 'شهريًا، بلا أي عمولة على طلباتك',
+    cSave: 'يبقى لك', cYear: (n) => 'كل شهر، أي ' + n + ' في السنة', cNote: 'تقدير تقريبي فقط. تختلف العمولة من تطبيق إلى آخر ومن عقد إلى آخر.',
     perMonth: 'شهريًا', once: 'مرة واحدة',
     promo: 'عرض نهاية السنة حتى 31 كانون الأول: أول أسبوعين مجانًا على أي اشتراك شهري، وشراء موقع Basic بـ 199$ بدل 249$.',
     offerBtn: 'عرض نهاية السنة',
@@ -637,7 +748,7 @@ const T = {
       ['🙋', 'للزبون', ['يدخل بحساب Gmail بضغطة واحدة', 'يجمع نقطة عن كل 1$ يطلبه', '100 نقطة = قسيمة بقيمة 5$', 'يرى نقاطه وقسائمه في أي وقت']],
       ['🎁', 'هدايا تلقائية', ['مستوى ذهبي بعد 10 طلبات بنقاط مضاعفة', 'هدية 50 نقطة في عيد الميلاد', '50 نقطة لكل صديق يدعوه', 'النقاط تنتهي بعد 6 أشهر بلا طلب']],
       ['📲', 'لصاحب المطعم', ['رابط في رسالة الطلب على واتساب', 'تأكيد التسليم بضغطة فتُضاف النقاط', 'تطبيق يُثبَّت على الهاتف', 'قائمة الزبائن ونقاطهم، وتعديل كل الأرقام']]],
-      try: 'جرّبه على مطبخ الريحان', ask: 'أريد نظام النقاط', msg: 'مرحبًا، أريد إضافة نظام نقاط الولاء (+10$ شهريًا) لمطعمي.' },
+      more: 'اعرف ماذا يتضمّن', try: 'جرّبه على مطبخ الريحان', ask: 'أريد نظام النقاط', msg: 'مرحبًا، أريد إضافة نظام نقاط الولاء (+10$ شهريًا) لمطعمي.' },
     extra: ['<b>مشترك شهريًا وتريد الشراء؟</b> تحصل على خصم 20% على سعر الشراء.', '<b>مشترك شهريًا وتريد نطاقًا خاصًا؟</b> أضف نطاق (.com) باسم نشاطك بـ 20$ سنويًا.', '<b>الدفع:</b> عبر Whish Money أو USDT (شبكة TRC20).', '<b>شركة أو مشروع كبير؟</b> <a href="#contact">اطلب عرض سعر</a> حسب حاجتك.'],
     faqTitle: 'أسئلة شائعة', faqSub: 'لم تجد جوابك؟ راسلنا عبر واتساب.',
     faq: [['كم يستغرق تجهيز الموقع؟', 'بين 3 و5 أيام عمل من تاريخ استلامنا للقائمة والصور.'],
@@ -707,6 +818,10 @@ const T = {
       ['You review it', 'We send the link on WhatsApp and adjust it until it is right.'],
       ['Choose how to pay and go live', 'Subscribe monthly, or buy your site once.']],
     priceTitle: 'Pricing', priceSub: 'Two packages for every business: Basic for a complete website, and Pro for a full system built for your sector. In each one you pay monthly or buy once.',
+    liveK: 'Try it yourself', liveT: 'Use our sites like your customer would', liveS: 'Pick a business and try its site live on the phone: tap, browse and order.', liveLoad: 'Loading…', renleyTag: 'Finishing company',
+    calcK: 'Savings calculator', calcT: 'How much do delivery apps take from you?', calcS: 'Move the sliders to match your business and see what you keep with your own website.',
+    cOrders: 'Orders a day', cAvg: 'Average order', cRate: 'App commission', cApps: 'Apps take from you', cAppsNote: 'every month, out of your profit', cUs: 'With Nafetha', cUsNote: 'a month, with zero commission on your orders',
+    cSave: 'You keep', cYear: (n) => 'every month, that is ' + n + ' a year', cNote: 'An estimate only. Commission differs from one app and contract to another.',
     perMonth: '/ month', once: 'one time',
     promo: 'End-of-year offer until December 31: the first two weeks free on any monthly plan, and buy a Basic site for $199 instead of $249.',
     offerBtn: 'End-of-year offer',
@@ -746,7 +861,7 @@ const T = {
       ['🙋', 'For the customer', ['Signs in with Gmail in one tap', 'Earns 1 point for every $1 ordered', '100 points = a $5 voucher', 'Sees points and vouchers anytime']],
       ['🎁', 'Automatic rewards', ['Gold level after 10 orders: double points', '50 points birthday gift', '50 points for every friend invited', 'Points expire after 6 months without an order']],
       ['📲', 'For the owner', ['A link inside the WhatsApp order message', 'One tap to confirm delivery and add points', 'An app that installs on the phone', 'Customer list with points; edit every number']]],
-      try: 'Try it on Rayhan Kitchen', ask: 'I want loyalty points', msg: 'Hi, I want to add the loyalty points system (+$10/month) to my restaurant.' },
+      more: 'See what is included', try: 'Try it on Rayhan Kitchen', ask: 'I want loyalty points', msg: 'Hi, I want to add the loyalty points system (+$10/month) to my restaurant.' },
     extra: ['<b>On the monthly plan and want to buy?</b> You get 20% off the purchase price.', '<b>On the monthly plan and want your own domain?</b> Add a .com with your business name for $20 a year.', '<b>Payment:</b> by Whish Money or USDT (TRC20 network).', '<b>A company or a large project?</b> <a href="#contact">Request a quote</a> for what you need.'],
     faqTitle: 'Frequently asked questions', faqSub: 'Did not find your answer? Message us on WhatsApp.',
     faq: [['How long does it take?', 'Between 3 and 5 working days from when we receive your menu and photos.'],
@@ -793,7 +908,7 @@ function render() {
   $('heroTitle').innerHTML = t.heroTitle;
   $('fChips').innerHTML = t.fChips.map(c => '<li>' + c + '</li>').join('');
   $('fCta').textContent = t.likeThis; $('fCta').href = 'https://wa.me/' + WA + '?text=' + encodeURIComponent(t.waLike(t.fName));
-  renderPlans(); renderWork(); renderForm();
+  renderPlans(); renderWork(); renderForm(); renderLive(); renderCalc();
   $('secLinks').innerHTML = t.sectors.map(x => '<a href="for/' + x[0] + '/">' + x[1] + '</a>').join('');
   $('waFloat').href = 'https://wa.me/' + WA + '?text=' + encodeURIComponent(t.waHello);
 }
@@ -806,7 +921,7 @@ function renderPlans() {
   $('sysg').innerHTML = '<h3>' + t.sysTitle + '</h3><p>' + t.sysSub + '</p><div class="sgrid">' + t.systems.map(y => '<article class="scard' + (y.live ? ' live' : '') + '"><div class="sh4"><h4><span aria-hidden="true">' + y.ic + '</span>' + y.name + '</h4><span class="st">' + (y.live ? t.avail : t.soon) + '</span></div><ul>' + y.f.map(x => '<li>' + tick + '<span>' + x + '</span></li>').join('') + '</ul>' + (y.live ? '<a href="' + y.live + '" target="_blank" rel="noopener">' + t.tryIt + ' ↗</a>' : '') + '</article>').join('') + '</div>';
   $('sysg').hidden = tier !== 'pro';
   const a = t.addon;
-  $('addon').innerHTML = '<span class="stag">' + a.tag + '</span><h3>' + a.name + '</h3><p class="sfor">' + a.for + '</p><div class="sprice"><div class="price">+' + money(10) + '<small>' + t.perMonth + '</small></div><span class="alt">' + a.add + '</span></div><div class="scols">' + a.cols.map(c => '<div class="scol"><h4><span aria-hidden="true">' + c[0] + '</span>' + c[1] + '</h4><ul>' + c[2].map(x => '<li>' + tick + '<span>' + x + '</span></li>').join('') + '</ul></div>').join('') + '</div><div class="sbtns"><a class="btn btn-gold" href="demo/rayhan/" target="_blank" rel="noopener">' + a.try + '</a><a class="btn btn-ghost" href="https://wa.me/' + WA + '?text=' + encodeURIComponent(a.msg) + '" target="_blank" rel="noopener">' + a.ask + '</a></div>';
+  $('addon').innerHTML = '<span class="stag">' + a.tag + '</span><h3>' + a.name + '</h3><p class="sfor">' + a.for + '</p><div class="sprice"><div class="price">+' + money(10) + '<small>' + t.perMonth + '</small></div><span class="alt">' + a.add + '</span></div><details class="smore"' + (matchMedia('(min-width: 761px)').matches ? ' open' : '') + '><summary>' + a.more + '</summary><div class="scols">' + a.cols.map(c => '<div class="scol"><h4><span aria-hidden="true">' + c[0] + '</span>' + c[1] + '</h4><ul>' + c[2].map(x => '<li>' + tick + '<span>' + x + '</span></li>').join('') + '</ul></div>').join('') + '</div></details><div class="sbtns"><a class="btn btn-gold" href="demo/rayhan/" target="_blank" rel="noopener">' + a.try + '</a><a class="btn btn-ghost" href="https://wa.me/' + WA + '?text=' + encodeURIComponent(a.msg) + '" target="_blank" rel="noopener">' + a.ask + '</a></div>';
   $('plans').innerHTML = t.plans[tier].map(p => {
     const now = p.offer || p.price;
     const price = '<div class="price">' + (p.offer ? '<span class="was">' + money(p.price) + '</span>' : '') + money(now) + '<small>' + t[p.unit] + '</small></div>';
@@ -833,6 +948,47 @@ document.querySelectorAll('.rv, section.blk .head, .about').forEach(el => { el.c
 const arrow = (dir) => { const r = $('rail'), w = r.querySelector('.wk'); if (!w) return; r.scrollBy({ left: dir * (lang === 'ar' ? -1 : 1) * (w.offsetWidth + 22), behavior: 'smooth' }) };
 $('prevW').addEventListener('click', () => arrow(-1)); $('nextW').addEventListener('click', () => arrow(1));
 new IntersectionObserver(([e]) => { const v = $('featVid'); if (e.isIntersecting && !RM) { v.preload = 'auto'; v.play().catch(() => {}) } else v.pause() }, { threshold: .3 }).observe($('featVid'));
+/* live phone */
+const LIVE_IC = { rayhanpro: '🍽️', khayrat: '🛒', renley: '🎨', artisan: '🎁', pitstop: '🚗', asas: '🏗️', pulse: '🏋️', mizan: '📊', lamsa: '💅', ibtisama: '🦷', prime: '🏠', rayhan: '🥙' };
+let liveSel = 'rayhanpro', liveOn = false;
+function liveList() {
+  const t = T[lang], ws = t.works.filter(w => w.href);
+  ws.splice(2, 0, { img: 'renley', tag: t.renleyTag, t: t.fTitle, d: t.fText, href: 'demo/renley/', wa: t.fName });
+  return ws;
+}
+function renderLive() {
+  const t = T[lang], ws = liveList(), w = ws.find(x => x.img === liveSel) || ws[0];
+  $('lpick').innerHTML = ws.map(x => '<button type="button" data-live="' + x.img + '" aria-pressed="' + (x === w) + '"><span aria-hidden="true">' + (LIVE_IC[x.img] || '✨') + '</span>' + x.tag + '</button>').join('');
+  $('ltitle').textContent = w.t; $('ldesc').textContent = w.d;
+  $('lWant').textContent = t.likeThis; $('lWant').href = 'https://wa.me/' + WA + '?text=' + encodeURIComponent(t.waLike(w.wa || w.t));
+  $('lOpen').textContent = t.openFull + ' ↗'; $('lOpen').href = w.href;
+  $('lframe').title = w.t;
+  if (liveOn && $('lframe').dataset.src !== w.href) { $('lload').classList.remove('off'); $('lframe').dataset.src = w.href; $('lframe').src = w.href }
+}
+function fitLive() {
+  const sc = $('lscreen'), f = $('lframe'), W = sc.clientWidth, H = sc.clientHeight, k = W / 390;
+  f.style.width = '390px'; f.style.height = Math.round(H / k) + 'px'; f.style.transform = 'scale(' + k + ')';
+}
+$('lframe').addEventListener('load', () => { if ($('lframe').dataset.src) $('lload').classList.add('off') });
+$('lpick').addEventListener('click', (e) => { const b = e.target.closest('[data-live]'); if (!b) return; liveSel = b.dataset.live; renderLive(); b.scrollIntoView({ block: 'nearest', inline: 'center', behavior: RM ? 'auto' : 'smooth' }) });
+new IntersectionObserver(([e], o) => { if (e.isIntersecting) { liveOn = true; o.disconnect(); renderLive() } }, { rootMargin: '400px 0px' }).observe($('live'));
+fitLive(); addEventListener('resize', fitLive);
+/* savings calculator */
+let calcShown = { a: 0, s: 0 };
+function renderCalc() {
+  const t = T[lang], n = +$('cOrders').value, v = +$('cAvg').value, r = +$('cRate').value;
+  $('oOrders').textContent = n; $('oAvg').textContent = '$' + v; $('oRate').textContent = r + '%';
+  const apps = Math.round(n * v * 30 * r / 100), save = Math.max(0, apps - 25);
+  const fmt = (x) => '$' + x.toLocaleString('en-US');
+  const from = { ...calcShown }, t0 = performance.now(), d = RM ? 0 : 450;
+  calcShown = { a: apps, s: save };
+  const step = (now) => { const k = d ? Math.min(1, (now - t0) / d) : 1, e = 1 - Math.pow(1 - k, 3);
+    $('vApps').textContent = fmt(Math.round(from.a + (apps - from.a) * e)); $('vSave').textContent = fmt(Math.round(from.s + (save - from.s) * e));
+    if (k < 1) requestAnimationFrame(step) };
+  requestAnimationFrame(step);
+  $('vYear').textContent = t.cYear(fmt(save * 12));
+}
+['cOrders', 'cAvg', 'cRate'].forEach(id => $(id).addEventListener('input', renderCalc));
 function renderForm() {
   const t = T[lang], shop = $('fShop').value.trim(), btn = $('fSend');
   if (!shop) { btn.textContent = t.fillShop; btn.removeAttribute('href'); btn.setAttribute('aria-disabled', 'true'); btn.style.opacity = '.6'; return }
