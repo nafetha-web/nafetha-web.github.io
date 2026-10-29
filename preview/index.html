@@ -28,6 +28,21 @@
 .grid { display: grid; grid-template-columns: minmax(0, .95fr) minmax(0, 1.05fr); gap: 40px; align-items: start; position: relative }
 @media (max-width: 960px) { .grid { grid-template-columns: minmax(0, 1fr); gap: 28px } }
 
+/* draft label + real sites */
+.draft { display: inline-flex; align-items: center; gap: 8px; margin: 0 auto 12px; padding: 8px 16px; border-radius: 999px; background: #FFF4D6; color: #7A5A12; font-weight: 700; font-size: 14px; border: 1px solid #F0DDA3 }
+.stage { text-align: center }
+.dev { text-align: initial }
+.real { background: #FFFFFF }
+.rgrid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 18px }
+@media (max-width: 960px) { .rgrid { grid-template-columns: repeat(2, minmax(0, 1fr)) } }
+.rc { position: relative; display: block; border: 1.5px solid var(--line); border-radius: 22px; overflow: hidden; background: #FFFFFF; transition: transform .2s, box-shadow .2s }
+.rc:hover { transform: translateY(-3px); box-shadow: 0 18px 36px -24px rgba(10,56,54,.5) }
+.rc img { display: block; width: 100%; aspect-ratio: 4 / 5; object-fit: cover; object-position: top; background: var(--mint-soft) }
+.rc div { padding: 14px 16px 16px; display: flex; flex-direction: column; gap: 2px }
+.rc b { font-size: 16.5px }
+.rc span { color: var(--teal); font-weight: 700; font-size: 14px }
+.rc.on { border-color: var(--gold, #E2B04A); box-shadow: 0 0 0 3px rgba(226,176,74,.35) }
+.rc em { position: absolute; top: 10px; inset-inline-start: 10px; font-style: normal; font-size: 12.5px; font-weight: 700; background: #E2B04A; color: #2b1e04; padding: 4px 10px; border-radius: 999px }
 /* controls */
 .ctl { background: #FFFFFF; border: 1px solid var(--line); border-radius: 24px; padding: 26px; box-shadow: 0 20px 40px -30px rgba(10,56,54,.35) }
 @media (max-width: 520px) { .ctl { padding: 20px 18px } }
@@ -273,6 +288,7 @@
         </div>
         <div class="stage">
           <div class="views" role="group"><button type="button" id="vPhone" aria-pressed="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="6" y="2" width="12" height="20" rx="3"/></svg><span data-t="vPhone"></span></button><button type="button" id="vDesk" aria-pressed="false"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="12" rx="2"/><path d="M2 20h20"/></svg><span data-t="vDesk"></span></button></div>
+          <p class="draft" id="draft"></p>
           <div class="dev" id="dev"></div>
           <p class="hint" data-t="hint"></p>
           <div class="act">
@@ -282,6 +298,13 @@
           </div>
         </div>
       </div>
+    </div>
+  </section>
+
+  <section class="blk real" id="real">
+    <div class="wrap">
+      <div class="head rv"><h2 data-t="realT"></h2><p data-t="realS"></p></div>
+      <div class="rgrid" id="rgrid"></div>
     </div>
   </section>
 
@@ -356,10 +379,10 @@ const STYLES = [['modern', 'عصري', 'Modern', 'نظيف وواضح', 'Clean &
 
 const T = {
   ar: { dir: 'rtl', langBtn: 'English', brand: 'نافذة', navWork: 'أعمالنا', navPricing: 'الأسعار', navFaq: 'الأسئلة', navContact: 'تواصل معنا',
-    kick: 'جديد: معاينة فورية', h1: 'شاهد <em>موقعك</em> قبل أن تطلبه', sub: 'اكتب اسم نشاطك واختر نوعه ولونه، ونرسم لك واجهة موقعك خلال ثوانٍ. أعجبك؟ نجهّز لك النموذج الكامل مجانًا.',
+    kick: 'جديد: رسم أولي سريع', h1: 'شاهد <em>موقعك</em> قبل أن تطلبه', sub: 'اكتب اسم نشاطك واختر نوعه ولونه، ونرسم لك مسودة سريعة خلال ثوانٍ. هذا رسم أولي بالشكل العام فقط، والموقع الحقيقي أغنى بكثير. شاهد أمثلة مواقعنا الحقيقية أسفل الصفحة.', draft: 'رسم أولي سريع. موقعك الحقيقي أغنى بكثير', realT: 'هكذا تبدو مواقعنا الحقيقية', realS: 'نماذج كاملة شغّالة: صور حقيقية وحجز وطلب أونلاين وتفاصيل كاملة. اضغط على أي نموذج لتجربته.', realOpen: 'جرّب الموقع ↗', realNear: 'الأقرب لاختيارك',
     q1: 'اسم نشاطك', q2: 'نوع النشاط', q3: 'اللون الأساسي', q4: 'الطابع', q5: 'شعارك', optional: 'اختياري', upB: 'ارفع الشعار', upS: 'ليظهر في المعاينة', priv: 'يبقى شعارك على جهازك فقط ولا يُرفع إلى أي مكان.',
     vPhone: 'هاتف', vDesk: 'كمبيوتر', hint: 'مرّر داخل الشاشة لترى باقي الموقع', jump: 'شاهد موقعك ↓', want: 'أريد هذا الموقع — النموذج الكامل مجانًا', demo: (x) => 'نموذج كامل: ' + x, copy: 'انسخ رابط المعاينة', copied: 'تم نسخ الرابط',
-    actNote: 'هذه معاينة سريعة. النموذج المجاني يكون بمحتواك الحقيقي: قائمتك وصورك وأسعارك.', building: ['نختار الصور…', 'نرتّب الأقسام…', 'نضبط الألوان…'],
+    actNote: 'هذا رسم أولي سريع، وليس مستوى الموقع النهائي. النموذج المجاني يكون كاملاً بمحتواك الحقيقي: قائمتك وصورك وأسعارك، بنفس جودة النماذج أدناه.', building: ['نختار الصور…', 'نرتّب الأقسام…', 'نضبط الألوان…'],
     getT: 'ماذا يحدث بعد أن تضغط؟', getS: 'لا تدفع شيئًا قبل أن ترى موقعك كاملًا وتوافق عليه.',
     get: [['نتواصل معك عبر واتساب', 'نطلب منك القائمة أو الخدمات والصور، أو نجهّزها معك.'], ['نجهّز نموذجك الكامل', 'موقع حقيقي باسمك ومحتواك خلال 3 إلى 5 أيام عمل.'], ['تقرّر بعد أن تراه', 'إن أعجبك تختار الاشتراك الشهري أو شراء الموقع. وإن لم يعجبك فلا شيء عليك.']],
     offer: 'عرض نهاية السنة حتى 31 كانون الأول: <b>الاشتراك الشهري أول أسبوعين مجانًا</b>، وشراء الموقع بـ <b>199$ بدل 249$</b>.', seePrices: 'شاهد الأسعار',
@@ -368,10 +391,10 @@ const T = {
     waMsg: (o) => 'مرحبًا نافذة، جرّبت المعاينة على موقعكم وأريد النموذج الكامل مجانًا.\nاسم النشاط: ' + o.n + '\nالنوع: ' + o.s + '\nاللون: ' + o.c + '\nالطابع: ' + o.st + '\nرابط المعاينة: ' + o.u,
     title: 'شاهد موقعك قبل أن تطلبه | نافذة' },
   en: { dir: 'ltr', langBtn: 'عربي', brand: 'Nafetha', navWork: 'Our work', navPricing: 'Pricing', navFaq: 'FAQ', navContact: 'Contact us',
-    kick: 'New: instant preview', h1: 'See <em>your website</em> before you order it', sub: 'Type your business name, pick your type and colour, and we draw your homepage in seconds. Like it? We build the full sample for free.',
+    kick: 'New: quick sketch', h1: 'See <em>your website</em> before you order it', sub: 'Type your business name, pick your type and colour, and we sketch a quick draft in seconds. This is only a rough outline: the real site is far richer. See our real sites further down.', draft: 'Quick sketch. Your real site is far richer', realT: 'This is what our real sites look like', realS: 'Full working samples: real photos, booking, online ordering and every detail. Tap any one to try it.', realOpen: 'Try the site ↗', realNear: 'Closest to your pick',
     q1: 'Business name', q2: 'Business type', q3: 'Main colour', q4: 'Style', q5: 'Your logo', optional: 'optional', upB: 'Upload logo', upS: 'to see it in the preview', priv: 'Your logo stays on your device and is never uploaded.',
     vPhone: 'Phone', vDesk: 'Desktop', hint: 'Scroll inside the screen to see the rest', jump: 'See your site ↓', want: 'I want this site — free full sample', demo: (x) => 'Full demo: ' + x, copy: 'Copy preview link', copied: 'Link copied',
-    actNote: 'This is a quick preview. Your free sample uses your real content: your menu, photos and prices.', building: ['Picking photos…', 'Arranging sections…', 'Tuning colours…'],
+    actNote: 'This is a quick sketch, not the level of the final site. Your free sample is complete with your real content: your menu, photos and prices, at the same quality as the samples below.', building: ['Picking photos…', 'Arranging sections…', 'Tuning colours…'],
     getT: 'What happens after you tap?', getS: 'You pay nothing until you have seen your full site and approved it.',
     get: [['We reach you on WhatsApp', 'We ask for your menu or services and photos, or prepare them with you.'], ['We build your full sample', 'A real site with your name and content in 3 to 5 working days.'], ['You decide after seeing it', 'Like it? Choose monthly or buy it. If not, you owe nothing.']],
     offer: 'End-of-year offer until December 31: <b>monthly plan free for the first two weeks</b>, and buy your site for <b>$199 instead of $249</b>.', seePrices: 'See pricing',
@@ -448,7 +471,14 @@ function updateLinks() {
   try { history.replaceState(null, '', '?' + shareURL().split('?')[1]) } catch (e) {}
 }
 
+const REAL = [['rest', 'rayhan'], ['clinic', 'ibtisama'], ['salon', 'lamsa'], ['gym', 'pulse'], ['office', 'mizan'], ['build', 'asas'], ['garage', 'pitstop'], ['gift', 'artisan']];
+function renderReal() {
+  const t = T[lang], cur = st.sec === 'cafe' ? 'rest' : st.sec;
+  $('rgrid').innerHTML = REAL.map(([k, d]) => '<a class="rc' + (k === cur ? ' on' : '') + '" href="../demo/' + d + '/" target="_blank" rel="noopener">' + (k === cur ? '<em>' + t.realNear + '</em>' : '') + '<img src="real/' + d + '.webp" alt="' + esc(L(S[k].name)) + '" loading="lazy"><div><b>' + esc(L(S[k].name)) + '</b><span>' + t.realOpen + '</span></div></a>').join('');
+  $('draft').textContent = t.draft;
+}
 function controls() {
+  renderReal();
   const t = T[lang];
   $('secs').innerHTML = ORDER.map((k) => '<button type="button" class="sec" data-k="' + k + '" aria-pressed="' + (k === st.sec) + '">' + ico(k, 22) + '<span>' + L(S[k].name) + '</span></button>').join('');
   $('secs').querySelectorAll('.sec').forEach((b) => b.onclick = () => { if (st.sec === b.dataset.k) return; st.sec = b.dataset.k; if (!st.custom) st.color = S[st.sec].c; controls(); paint(true); window.nfOnce && nfOnce('sec', 'PreviewSector', { sector: st.sec }, true) });
