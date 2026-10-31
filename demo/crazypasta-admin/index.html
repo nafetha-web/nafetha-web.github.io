@@ -84,15 +84,16 @@ textarea.fld{height:auto;padding:10px 12px;resize:vertical}
 
 <section class="login" id="loginV">
   <form class="lbox" id="loginF">
-    <div class="bd">🍝</div><h1>لوحة التحكم</h1><p>Crazy Pasta</p>
+    <div class="bd">🍝</div><h1 id="lt">لوحة التحكم</h1><p>Crazy Pasta</p>
     <input class="fld" id="pass" type="password" autocomplete="current-password" placeholder="كلمة السر" required>
     <button class="btn" id="loginB" type="submit">دخول</button>
+    <button class="btn ghost" type="button" data-lang="1" style="margin-top:10px">EN</button>
     <div class="err" id="loginE" role="alert"></div>
   </form>
 </section>
 
 <div id="appV" hidden>
-  <header class="top"><div class="wrap"><h1 id="topT">Crazy Pasta</h1><a id="viewB" href="../crazypasta-new/" target="_blank" rel="noopener">عاين الموقع ↗</a></div></header>
+  <header class="top"><div class="wrap"><h1 id="topT">Crazy Pasta</h1><button type="button" class="tb" data-lang="1">EN</button><a id="viewB" href="../crazypasta-new/" target="_blank" rel="noopener">عاين الموقع ↗</a></div></header>
   <main class="wrap" id="main"></main>
   <div class="pub" id="pub" hidden><div class="in"><span id="pubT">في تعديلات غير منشورة</span><button class="u" id="pubU" type="button">تراجع</button><button id="pubB" type="button">نشر عالموقع</button></div></div>
   <nav class="tabs" id="tabs" aria-label="tabs"></nav>
@@ -106,6 +107,18 @@ const LIB = ['alfredo', 'arrabbiata', 'pesto', 'steak', 'caesar', 'salad'];
 const LIBURL = (k) => '../crazypasta/img/' + k + '.jpg';
 const $ = (id) => document.getElementById(id);
 const esc = (s) => String(s == null ? '' : s).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+const EN = {"الزبون بيلفّ الدولاب والجائزة بتنضاف عطلبو. بتقدر تقفّلها": "The customer spins the wheel and the prize is added to their order. You can turn it off", "كل مرة بتنشر، منحفظ النسخة اللي قبلها. فيك ترجّع أي وحدة": "Every time you publish, the previous version is saved. You can restore any of them", "بعد ما تعدّل، دوس «نشر عالموقع» لتظهر التغييرات للزباين": "After editing, tap “Publish to site” so customers see the changes", "المنيو: دوس على الصنف لتعدّل السعر والصورة والوصف": "Menu: tap an item to edit its price, photo and description", "بدك تتراجع عن كل التعديلات اللي ما نشرتها؟": "Discard all the changes you have not published?", "اللعبة بدها جائزتين على الأقل، أو قفّلها": "The game needs at least 2 prizes, or turn it off", "في تعديلات غير منشورة رح تنمحى. كمّل؟": "Unpublished changes will be lost. Continue?", "«نفد» بيخلّي الصنف ظاهر بس ما بينطلب": "“Sold out” keeps the item visible but not orderable", "لازم جائزتين على الأقل لتشتغل اللعبة": "At least 2 prizes are needed for the game to work", "بدك ترجّع هالنسخة وتنشرها عالموقع؟": "Restore this version and publish it to the site?", "ما انرفعت الصورة، جرّب صورة تانية": "Photo upload failed, try another photo", "رقم الواتساب (مع رمز الدولة، بدون": "WhatsApp number (with country code, without", "سعر العرض لازم يكون أقل من السعر": "The offer price must be lower than the price", "؟ (فيك ترجّعو من النسخ السابقة": "? (you can restore it from previous versions", "اختار نمط جاهز أو عدّل كل لون": "Pick a preset or adjust each color", "انتهت الجلسة، فوت مرة تانية": "Session expired, please sign in again", "ما في اتصال، جرّب مرة تانية": "No connection, please try again", "محاولات كتير. جرّب بعد شوي": "Too many attempts. Try again shortly", "لعبة «وقّف وشوف شو طلعلك»": "Game “Stop and see what you get”", "بالإنكليزي (بيطلع باللوغو": "In English (shown in the logo", "بيظهر عالموقع خلال ثواني": "It appears on the site within seconds", "رقم الواتساب ناقص أو غلط": "WhatsApp number is missing or wrong", "اكتب إيموجي للصنف (مثلًا": "Type an emoji for the item (e.g.", "إخفاء القسم عن الموقع": "Hide section from site", "حذف القسم بكل أصنافو": "Delete section with all its items", "إظهار القسم عالموقع": "Show section on site", "كلمة السر غير صحيحة": "Wrong password", "لسا ما في نسخ سابقة": "No previous versions yet", "صوّر أو اختار صورة": "Take or choose a photo", "شرط (مثلًا مع طلبك": "Condition (e.g. with your order", "بدون صورة (إيموجي": "No photo (emoji", "لازم يضل قسم واحد": "At least one section must remain", "نص التوصيل (عربي": "Delivery text (Arabic", "التواصل والعنوان": "Contact & address", "تعديل اسم القسم": "Rename section", "اسم الصنف (عربي": "Item name (Arabic", "اكتب اسم المطعم": "Enter the restaurant name", "اكتب اسم الصنف": "Enter the item name", "اكتب اسم القسم": "Enter the section name", "مخفي عن الموقع": "Hidden from site", "جرّب مرة تانية": "try again", "الاسم بالعربي": "Name in Arabic", "العنوان (عربي": "Address (Arabic", "بدون وقت محدد": "No end time", "دوّر على صنف…": "Search items…", "الصور الجاهزة": "Ready photos", "النسخ السابقة": "Previous versions", "اللون الرئيسي": "Main color", "أخضر وبرتقالي": "Green & orange", "الجائزة (عربي": "Prize (Arabic", "انتهت الجلسة": "Session expired", "خيارات القسم": "Section options", "مساعدة سريعة": "Quick help", "الأكثر طلبًا": "Most popular", "لون التمييز": "Accent color", "صنف جديد بـ": "New item in ", "حسب المحفوظ": "As saved", "تعديل الصنف": "Edit item", "حذف الجائزة": "Delete prize", "نشر عالموقع": "Publish to site", "أحمر وكريمي": "Red & cream", "إضافة الصنف": "Add item", "جائزة جديدة": "New prize", "رجعت النسخة": "Version restored", "الوصف (عربي": "Description (Arabic", "هو آخر صنف": "Already the last item", "هو أول صنف": "Already the first item", "اكتب السعر": "Enter the price", "اسم المطعم": "Restaurant name", "تسجيل خروج": "Sign out", "، اختياري": ", optional", "أزرق وأحمر": "Blue & red", "اسم القسم": "Section name", "حذف الصنف": "Delete item", "ما انحفظ:": "Not saved:", "سعر العرض": "Offer price", "بدون عرض": "no offer", "قسم جديد": "New section", "(اختياري": "(optional", "لون النص": "Text color", "صنف جديد": "New item", "تم النشر": "Published", "نقل لفوق": "Move up", "نقل لتحت": "Move down", "بالعربي": "Arabic", "الخلفية": "Background", "الألوان": "Colors", "الجوائز": "Prizes", "عم نرفع": "Uploading", "ما زبطت": "Failed", "الأصلي": "Original", "إيموجي": "Emoji", "المظهر": "Look", "بنفسجي": "Purple", "٣ أيام": "3 days", "مقفّلة": "Off", "شغّالة": "On", "المنيو": "Menu", "السعر": "Price", "القسم": "Section", "اليوم": "Today", "أسبوع": "1 week", "داكن": "Dark", "أكتر": "More", "مخفي": "Hidden", "صنف؟": "items?", "رجّع": "Restore", "فاضي": "empty", "تحت": "Down", "حذف": "Delete", "حار": "Spicy", "فوق": "Up", "نفد": "Sold out", "عرض": "Offer", "حفظ": "Save", "مع": "with", "لوحة التحكم": "Control panel", "كلمة السر": "Password", "دخول": "Sign in", "عاين الموقع ↗": "View site ↗", "في تعديلات غير منشورة": "You have unpublished changes", "تراجع": "Undo", "اللغة": "Language"};
+let lang = 'ar'; try { lang = localStorage.getItem('cp_lang') === 'en' ? 'en' : 'ar' } catch (e) {}
+const T = (a) => (lang === 'en' && EN[a] != null ? EN[a] : a);
+function applyLang() {
+  document.documentElement.lang = lang; document.documentElement.dir = lang === 'en' ? 'ltr' : 'rtl';
+  document.title = T('لوحة التحكم') + ' | Crazy Pasta';
+  $('lt').textContent = T('لوحة التحكم'); $('pass').placeholder = T('كلمة السر'); $('loginB').textContent = T('دخول');
+  $('viewB').textContent = T('عاين الموقع ↗'); $('pubT').textContent = T('في تعديلات غير منشورة'); $('pubU').textContent = T('تراجع'); $('pubB').textContent = T('نشر عالموقع');
+  document.querySelectorAll('[data-lang]').forEach((b) => { b.textContent = lang === 'en' ? 'عربي' : 'EN'; b.setAttribute('aria-label', T('اللغة')) });
+  if (cfg) render(true);
+}
+function setLang(l) { lang = l; try { localStorage.setItem('cp_lang', l) } catch (e) {} applyLang() }
 const rid = () => Math.random().toString(36).slice(2, 8);
 let pass = '', cfg = null, saved = '', tab = 'menu', q = '', busy = false;
 try { pass = localStorage.getItem('cp_admin') || '' } catch (e) {}
@@ -123,7 +136,7 @@ function logout() { pass = ''; try { localStorage.removeItem('cp_admin') } catch
 $('loginF').addEventListener('submit', async (e) => {
   e.preventDefault(); $('loginB').disabled = true; $('loginE').textContent = ''; pass = $('pass').value.trim();
   try { await api('/login', { method: 'POST' }); try { localStorage.setItem('cp_admin', pass) } catch (x) {} await enter() }
-  catch (x) { $('loginE').textContent = x.message === 'many' ? 'محاولات كتير. جرّب بعد شوي.' : x.message === 'auth' ? 'كلمة السر غير صحيحة' : 'ما في اتصال، جرّب مرة تانية'; if (x.message !== 'auth') pass = '' }
+  catch (x) { $('loginE').textContent = x.message === 'many' ? (T('محاولات كتير. جرّب بعد شوي') + '.') : x.message === 'auth' ? T('كلمة السر غير صحيحة') : T('ما في اتصال، جرّب مرة تانية'); if (x.message !== 'auth') pass = '' }
   $('loginB').disabled = false;
 });
 async function enter() {
@@ -131,6 +144,7 @@ async function enter() {
   const j = await r.json(); cfg = j.config; saved = JSON.stringify(cfg);
   $('loginV').hidden = true; $('appV').hidden = false; render();
 }
+applyLang();
 if (pass) enter().catch(() => logout());
 
 /* ---------- helpers ---------- */
@@ -141,51 +155,51 @@ function thumbHTML(i) { return (i.pic ? '<img src="' + API + i.pic + '" alt="">'
 function mark() { render(true) }
 
 /* ---------- main render ---------- */
-const TABS = [['menu', '🍽️', 'المنيو'], ['look', '🎨', 'المظهر'], ['game', '🎁', 'الجوائز'], ['more', '⚙️', 'أكتر']];
+const TABS = () => [['menu', '🍽️', T('المنيو')], ['look', '🎨', T('المظهر')], ['game', '🎁', T('الجوائز')], ['more', '⚙️', T('أكتر')]];
 function render(keep) {
   const y = scrollY;
   $('topT').textContent = cfg.brand.ar;
-  $('tabs').innerHTML = TABS.map(([k, ic, l]) => '<button type="button" data-tab="' + k + '" aria-pressed="' + (tab === k) + '"><i>' + ic + '</i>' + l + '</button>').join('');
+  $('tabs').innerHTML = TABS().map(([k, ic, l]) => '<button type="button" data-tab="' + k + '" aria-pressed="' + (tab === k) + '"><i>' + ic + '</i>' + l + '</button>').join('');
   $('main').innerHTML = tab === 'menu' ? menuV() : tab === 'look' ? lookV() : tab === 'game' ? gameV() : moreV();
   const d = dirty(); $('pub').hidden = !d; document.body.style.paddingBottom = d ? 'calc(190px + env(safe-area-inset-bottom))' : '';
   if (keep) scrollTo(0, y);
 }
 function menuV() {
   const n = cfg.menu.reduce((a, c) => a + c.items.length, 0), ql = q.trim().toLowerCase();
-  let h = '<div class="sr"><i>🔍</i><input class="fld" id="q" type="search" placeholder="دوّر على صنف… (' + n + ')" value="' + esc(q) + '"></div>';
+  let h = ('<div class="sr"><i>🔍</i><input class="fld" id="q" type="search" placeholder="' + T('دوّر على صنف…') + ' (') + n + ')" value="' + esc(q) + '"></div>';
   cfg.menu.forEach((c, ci) => {
     const items = c.items.filter((i) => !ql || (i.ar + ' ' + i.en).toLowerCase().includes(ql)); if (ql && !items.length) return;
-    h += '<section class="cat' + (c.hid ? ' hid' : '') + '"><div class="ch"><h2>' + esc(c.ar) + '</h2><button class="cm" type="button" data-cm="' + c.id + '" aria-label="خيارات القسم">⋯</button></div>';
+    h += '<section class="cat' + (c.hid ? ' hid' : '') + '"><div class="ch"><h2>' + esc(c.ar) + '</h2><button class="cm" type="button" data-cm="' + c.id + ('" aria-label="' + T('خيارات القسم') + '">⋯</button></div>');
     h += items.map((i) => {
-      const chips = (i.out ? '<span class="chip o">نفد</span>' : '') + (i.hid ? '<span class="chip">مخفي</span>' : '') + (offerOn(i) ? '<span class="chip g">عرض</span>' : '') + (i.pop ? '<span class="chip y">الأكثر طلبًا</span>' : '') + (i.hot ? '<span class="chip y">حار</span>' : '');
-      return '<div class="it' + (i.hid ? ' dim' : '') + '"><button type="button" class="th" data-ed="' + i.id + '" style="padding:0;border:0">' + thumbHTML(i) + '</button><button type="button" class="tx" data-ed="' + i.id + '" style="text-align:start"><b>' + esc(i.ar) + '</b><span class="pr">' + (offerOn(i) ? money(i.off) + '<s>' + money(i.p) + '</s>' : money(i.p)) + '</span><span class="chips">' + chips + '</span></button><div class="swl"><button type="button" class="sw" data-out="' + i.id + '" aria-pressed="' + !!i.out + '" aria-label="نفد"></button>نفد</div></div>';
+      const chips = (i.out ? ('<span class="chip o">' + T('نفد') + '</span>') : '') + (i.hid ? ('<span class="chip">' + T('مخفي') + '</span>') : '') + (offerOn(i) ? ('<span class="chip g">' + T('عرض') + '</span>') : '') + (i.pop ? ('<span class="chip y">' + T('الأكثر طلبًا') + '</span>') : '') + (i.hot ? ('<span class="chip y">' + T('حار') + '</span>') : '');
+      return '<div class="it' + (i.hid ? ' dim' : '') + '"><button type="button" class="th" data-ed="' + i.id + '" style="padding:0;border:0">' + thumbHTML(i) + '</button><button type="button" class="tx" data-ed="' + i.id + '" style="text-align:start"><b>' + esc(i.ar) + '</b><span class="pr">' + (offerOn(i) ? money(i.off) + '<s>' + money(i.p) + '</s>' : money(i.p)) + '</span><span class="chips">' + chips + '</span></button><div class="swl"><button type="button" class="sw" data-out="' + i.id + '" aria-pressed="' + !!i.out + ('" aria-label="' + T('نفد') + '"></button>' + T('نفد') + '</div></div>');
     }).join('');
-    if (!ql) h += '<button type="button" class="add" data-add="' + c.id + '">＋ صنف جديد بـ«' + esc(c.ar) + '»</button>';
+    if (!ql) h += '<button type="button" class="add" data-add="' + c.id + ('">＋ ' + T('صنف جديد بـ') + '«') + esc(c.ar) + '»</button>';
     h += '</section>';
   });
-  if (!ql) h += '<button type="button" class="add" data-addcat="1" style="margin-top:14px;background:var(--y)">＋ قسم جديد</button>';
+  if (!ql) h += ('<button type="button" class="add" data-addcat="1" style="margin-top:14px;background:var(--y)">＋ ' + T('قسم جديد') + '</button>');
   return h;
 }
 function lookV() {
   const b = cfg.brand, k = cfg.colors;
-  const P = [['الأصلي', '#fbce00', '#e21f26', '#1a1410', '#fffdf5'], ['أخضر وبرتقالي', '#7bd389', '#e8590c', '#10331f', '#fbfff8'], ['أزرق وأحمر', '#4cc9f0', '#e63946', '#0b2545', '#f7fcff'], ['بنفسجي', '#ffd166', '#7b2cbf', '#2b1055', '#fffaf0'], ['أحمر وكريمي', '#f5d0a9', '#b5121a', '#2a0f0f', '#fff8ef'], ['داكن', '#ffb703', '#fb5607', '#111111', '#fffdf5']];
-  return '<div class="card"><h3>اسم المطعم</h3><label class="lb" for="b_ar">بالعربي</label><input class="fld" id="b_ar" data-b="ar" value="' + esc(b.ar) + '" maxlength="40"><label class="lb" for="b_en">بالإنكليزي (بيطلع باللوغو)</label><input class="fld" id="b_en" dir="ltr" data-b="en" value="' + esc(b.en) + '" maxlength="40"></div>' +
-    '<div class="card"><h3>التواصل والعنوان</h3><label class="lb" for="b_wa">رقم الواتساب (مع رمز الدولة، بدون +)</label><input class="fld" id="b_wa" dir="ltr" inputmode="numeric" data-b="wa" value="' + esc(b.wa) + '" placeholder="96170000000"><div class="row2"><div><label class="lb">العنوان (عربي)</label><input class="fld" data-b="addr.ar" value="' + esc(b.addr.ar) + '"></div><div><label class="lb">Address</label><input class="fld" dir="ltr" data-b="addr.en" value="' + esc(b.addr.en) + '"></div></div>' +
-    '<div class="row2"><div><label class="lb">نص التوصيل (عربي)</label><textarea class="fld" rows="2" data-b="del.ar">' + esc(b.del.ar) + '</textarea></div><div><label class="lb">Delivery text</label><textarea class="fld" dir="ltr" rows="2" data-b="del.en">' + esc(b.del.en) + '</textarea></div></div></div>' +
-    '<div class="card"><h3>الألوان</h3><p class="s">اختار نمط جاهز أو عدّل كل لون.</p><div class="pal">' + P.map((p, i) => '<button type="button" data-pal="' + i + '" aria-pressed="' + (p[1] === k.y && p[2] === k.red) + '"><i>' + p.slice(1).map((c) => '<b style="background:' + c + '"></b>').join('') + '</i>' + p[0] + '</button>').join('') + '</div>' +
-    '<div class="cols" style="margin-top:12px">' + [['y', 'اللون الرئيسي'], ['red', 'لون التمييز'], ['ink', 'لون النص'], ['paper', 'الخلفية']].map(([c, l]) => '<label class="cp"><input type="color" data-col="' + c + '" value="' + k[c] + '">' + l + '</label>').join('') + '</div></div>' +
+  const P = [[T('الأصلي'), '#fbce00', '#e21f26', '#1a1410', '#fffdf5'], [T('أخضر وبرتقالي'), '#7bd389', '#e8590c', '#10331f', '#fbfff8'], [T('أزرق وأحمر'), '#4cc9f0', '#e63946', '#0b2545', '#f7fcff'], [T('بنفسجي'), '#ffd166', '#7b2cbf', '#2b1055', '#fffaf0'], [T('أحمر وكريمي'), '#f5d0a9', '#b5121a', '#2a0f0f', '#fff8ef'], [T('داكن'), '#ffb703', '#fb5607', '#111111', '#fffdf5']];
+  return ('<div class="card"><h3>' + T('اسم المطعم') + '</h3><label class="lb" for="b_ar">' + T('بالعربي') + '</label><input class="fld" id="b_ar" data-b="ar" value="') + esc(b.ar) + ('" maxlength="40"><label class="lb" for="b_en">' + T('بالإنكليزي (بيطلع باللوغو') + ')</label><input class="fld" id="b_en" dir="ltr" data-b="en" value="') + esc(b.en) + '" maxlength="40"></div>' +
+    ('<div class="card"><h3>' + T('التواصل والعنوان') + '</h3><label class="lb" for="b_wa">' + T('رقم الواتساب (مع رمز الدولة، بدون') + ' +)</label><input class="fld" id="b_wa" dir="ltr" inputmode="numeric" data-b="wa" value="') + esc(b.wa) + ('" placeholder="96170000000"><div class="row2"><div><label class="lb">' + T('العنوان (عربي') + ')</label><input class="fld" data-b="addr.ar" value="') + esc(b.addr.ar) + '"></div><div><label class="lb">Address</label><input class="fld" dir="ltr" data-b="addr.en" value="' + esc(b.addr.en) + '"></div></div>' +
+    ('<div class="row2"><div><label class="lb">' + T('نص التوصيل (عربي') + ')</label><textarea class="fld" rows="2" data-b="del.ar">') + esc(b.del.ar) + '</textarea></div><div><label class="lb">Delivery text</label><textarea class="fld" dir="ltr" rows="2" data-b="del.en">' + esc(b.del.en) + '</textarea></div></div></div>' +
+    ('<div class="card"><h3>' + T('الألوان') + '</h3><p class="s">' + T('اختار نمط جاهز أو عدّل كل لون') + '.</p><div class="pal">') + P.map((p, i) => '<button type="button" data-pal="' + i + '" aria-pressed="' + (p[1] === k.y && p[2] === k.red) + '"><i>' + p.slice(1).map((c) => '<b style="background:' + c + '"></b>').join('') + '</i>' + p[0] + '</button>').join('') + '</div>' +
+    '<div class="cols" style="margin-top:12px">' + [['y', T('اللون الرئيسي')], ['red', T('لون التمييز')], ['ink', T('لون النص')], ['paper', T('الخلفية')]].map(([c, l]) => '<label class="cp"><input type="color" data-col="' + c + '" value="' + k[c] + '">' + l + '</label>').join('') + '</div></div>' +
     '<script type="application/json" id="palD">' + JSON.stringify(P) + '<\/script>';
 }
 function gameV() {
   const g = cfg.game;
-  return '<div class="card"><h3>لعبة «وقّف وشوف شو طلعلك»</h3><p class="s">الزبون بيلفّ الدولاب والجائزة بتنضاف عطلبو. بتقدر تقفّلها.</p><div class="tg"><button type="button" data-gon="1" aria-pressed="' + g.on + '">' + (g.on ? 'شغّالة ✓' : 'مقفّلة') + '</button></div></div>' +
-    g.prizes.map((p, i) => '<div class="prz"><div class="r"><input class="fld" data-pz="' + i + '.em" value="' + esc(p.em) + '" aria-label="إيموجي" style="text-align:center;font-size:24px"><input class="fld" data-pz="' + i + '.ar" value="' + esc(p.ar) + '" placeholder="الجائزة (عربي)"><input class="fld" dir="ltr" data-pz="' + i + '.en" value="' + esc(p.en) + '" placeholder="Prize"></div><div class="row2" style="margin-top:8px"><input class="fld" data-pz="' + i + '.sa" value="' + esc(p.sa) + '" placeholder="شرط (مثلًا مع طلبك)"><input class="fld" dir="ltr" data-pz="' + i + '.se" value="' + esc(p.se) + '" placeholder="Condition"></div><button type="button" class="btn red" data-pzdel="' + i + '" style="height:38px;margin-top:8px">حذف الجائزة</button></div>').join('') +
-    (g.prizes.length < 10 ? '<button type="button" class="add" data-pzadd="1" style="margin-top:12px">＋ جائزة جديدة</button>' : '') + (g.prizes.length < 2 ? '<p class="empty">لازم جائزتين على الأقل لتشتغل اللعبة.</p>' : '');
+  return ('<div class="card"><h3>' + T('لعبة «وقّف وشوف شو طلعلك»') + '</h3><p class="s">' + T('الزبون بيلفّ الدولاب والجائزة بتنضاف عطلبو. بتقدر تقفّلها') + '.</p><div class="tg"><button type="button" data-gon="1" aria-pressed="') + g.on + '">' + (g.on ? (T('شغّالة') + ' ✓') : T('مقفّلة')) + '</button></div></div>' +
+    g.prizes.map((p, i) => '<div class="prz"><div class="r"><input class="fld" data-pz="' + i + '.em" value="' + esc(p.em) + ('" aria-label="' + T('إيموجي') + '" style="text-align:center;font-size:24px"><input class="fld" data-pz="') + i + '.ar" value="' + esc(p.ar) + ('" placeholder="' + T('الجائزة (عربي') + ')"><input class="fld" dir="ltr" data-pz="') + i + '.en" value="' + esc(p.en) + '" placeholder="Prize"></div><div class="row2" style="margin-top:8px"><input class="fld" data-pz="' + i + '.sa" value="' + esc(p.sa) + ('" placeholder="' + T('شرط (مثلًا مع طلبك') + ')"><input class="fld" dir="ltr" data-pz="') + i + '.se" value="' + esc(p.se) + '" placeholder="Condition"></div><button type="button" class="btn red" data-pzdel="' + i + ('" style="height:38px;margin-top:8px">' + T('حذف الجائزة') + '</button></div>')).join('') +
+    (g.prizes.length < 10 ? ('<button type="button" class="add" data-pzadd="1" style="margin-top:12px">＋ ' + T('جائزة جديدة') + '</button>') : '') + (g.prizes.length < 2 ? ('<p class="empty">' + T('لازم جائزتين على الأقل لتشتغل اللعبة') + '.</p>') : '');
 }
 function moreV() {
-  return '<div class="card"><h3>النسخ السابقة</h3><p class="s">كل مرة بتنشر، منحفظ النسخة اللي قبلها. فيك ترجّع أي وحدة.</p><div id="hist"><div class="empty">…</div></div></div>' +
-    '<div class="card"><h3>مساعدة سريعة</h3><p class="s">• المنيو: دوس على الصنف لتعدّل السعر والصورة والوصف.<br>• «نفد» بيخلّي الصنف ظاهر بس ما بينطلب.<br>• بعد ما تعدّل، دوس «نشر عالموقع» لتظهر التغييرات للزباين.</p></div>' +
-    '<button type="button" class="btn ghost" data-logout="1">تسجيل خروج</button>';
+  return ('<div class="card"><h3>' + T('النسخ السابقة') + '</h3><p class="s">' + T('كل مرة بتنشر، منحفظ النسخة اللي قبلها. فيك ترجّع أي وحدة') + '.</p><div id="hist"><div class="empty">…</div></div></div>') +
+    ('<div class="card"><h3>' + T('مساعدة سريعة') + '</h3><p class="s">• ' + T('المنيو: دوس على الصنف لتعدّل السعر والصورة والوصف') + '.<br>• ' + T('«نفد» بيخلّي الصنف ظاهر بس ما بينطلب') + '.<br>• ' + T('بعد ما تعدّل، دوس «نشر عالموقع» لتظهر التغييرات للزباين') + '.</p></div>') +
+    ('<button type="button" class="btn ghost" data-logout="1">' + T('تسجيل خروج') + '</button>');
 }
 
 /* ---------- events ---------- */
@@ -201,6 +215,7 @@ document.addEventListener('click', (e) => {
   if (t.dataset.gon) { cfg.game.on = !cfg.game.on; mark(); return }
   if (t.dataset.pzadd) { cfg.game.prizes.push({ em: '🎁', ar: '', en: '', sa: '', se: '' }); mark(); return }
   if (t.dataset.pzdel) { cfg.game.prizes.splice(+t.dataset.pzdel, 1); mark(); return }
+  if (t.dataset.lang) return setLang(lang === 'en' ? 'ar' : 'en');
   if (t.dataset.logout) return logout();
   if (t.dataset.restore) return restore(+t.dataset.restore);
 });
@@ -216,26 +231,26 @@ window.addEventListener('beforeunload', (e) => { if (cfg && dirty()) { e.prevent
 
 /* ---------- publish ---------- */
 function clientCheck() {
-  if (!cfg.brand.ar.trim()) return 'اكتب اسم المطعم';
-  if (cfg.game.on && cfg.game.prizes.filter((p) => p.ar.trim()).length < 2) return 'اللعبة بدها جائزتين على الأقل، أو قفّلها';
-  if (!cfg.brand.wa || cfg.brand.wa.replace(/\D/g, '').length < 8) return 'رقم الواتساب ناقص أو غلط';
+  if (!cfg.brand.ar.trim()) return T('اكتب اسم المطعم');
+  if (cfg.game.on && cfg.game.prizes.filter((p) => p.ar.trim()).length < 2) return T('اللعبة بدها جائزتين على الأقل، أو قفّلها');
+  if (!cfg.brand.wa || cfg.brand.wa.replace(/\D/g, '').length < 8) return T('رقم الواتساب ناقص أو غلط');
   return '';
 }
 $('pubB').addEventListener('click', async () => {
   const m = clientCheck(); if (m) return toast(m);
   if (busy) return; busy = true; $('pubB').disabled = true; $('pubB').textContent = '…';
-  try { const j = await api('/config', { method: 'PUT', body: JSON.stringify(cfg) }); cfg = j.config; saved = JSON.stringify(cfg); toast('تم النشر ✓ بيظهر عالموقع خلال ثواني'); render(true) }
-  catch (e) { toast(e.message === 'auth' ? 'انتهت الجلسة، فوت مرة تانية' : 'ما انحفظ: ' + (e.message || 'جرّب مرة تانية')) }
-  busy = false; $('pubB').disabled = false; $('pubB').textContent = 'نشر عالموقع';
+  try { const j = await api('/config', { method: 'PUT', body: JSON.stringify(cfg) }); cfg = j.config; saved = JSON.stringify(cfg); toast((T('تم النشر') + ' ✓ ' + T('بيظهر عالموقع خلال ثواني'))); render(true) }
+  catch (e) { toast(e.message === 'auth' ? T('انتهت الجلسة، فوت مرة تانية') : (T('ما انحفظ:') + ' ') + (e.message || T('جرّب مرة تانية'))) }
+  busy = false; $('pubB').disabled = false; $('pubB').textContent = T('نشر عالموقع');
 });
-$('pubU').addEventListener('click', () => { if (confirm('بدك تتراجع عن كل التعديلات اللي ما نشرتها؟')) { cfg = JSON.parse(saved); render(true) } });
+$('pubU').addEventListener('click', () => { if (confirm(T('بدك تتراجع عن كل التعديلات اللي ما نشرتها؟'))) { cfg = JSON.parse(saved); render(true) } });
 async function loadHist() {
   try { const j = await api('/history'); const el = $('hist'); if (!el) return;
-    el.innerHTML = j.items.length ? j.items.map((h) => '<div class="hs"><span>' + new Date(h.created).toLocaleString('ar-LB', { day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit' }) + '</span><button type="button" data-restore="' + h.id + '">رجّع</button></div>').join('') : '<div class="empty">لسا ما في نسخ سابقة.</div>' } catch (e) {}
+    el.innerHTML = j.items.length ? j.items.map((h) => '<div class="hs"><span>' + new Date(h.created).toLocaleString(lang === 'en' ? 'en-GB' : 'ar-LB', { day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit' }) + '</span><button type="button" data-restore="' + h.id + ('">' + T('رجّع') + '</button></div>')).join('') : ('<div class="empty">' + T('لسا ما في نسخ سابقة') + '.</div>') } catch (e) {}
 }
 async function restore(id) {
-  if (dirty() && !confirm('في تعديلات غير منشورة رح تنمحى. كمّل؟')) return; if (!confirm('بدك ترجّع هالنسخة وتنشرها عالموقع؟')) return;
-  try { const j = await api('/restore', { method: 'POST', body: JSON.stringify({ id }) }); cfg = j.config; saved = JSON.stringify(cfg); toast('رجعت النسخة ✓'); render(); loadHist() } catch (e) { toast('ما زبطت') }
+  if (dirty() && !confirm(T('في تعديلات غير منشورة رح تنمحى. كمّل؟'))) return; if (!confirm(T('بدك ترجّع هالنسخة وتنشرها عالموقع؟'))) return;
+  try { const j = await api('/restore', { method: 'POST', body: JSON.stringify({ id }) }); cfg = j.config; saved = JSON.stringify(cfg); toast((T('رجعت النسخة') + ' ✓')); render(); loadHist() } catch (e) { toast(T('ما زبطت')) }
 }
 
 /* ---------- sheets ---------- */
@@ -243,18 +258,18 @@ function sheet(html) { $('layer').innerHTML = '<div class="ov" id="ov"></div><di
 function closeSheet() { $('layer').innerHTML = ''; document.body.style.overflow = ''; render(true) }
 function catMenu(id) {
   const ci = cfg.menu.findIndex((c) => c.id === id), c = cfg.menu[ci];
-  sheet('<div class="sh"><h3>' + esc(c.ar) + '</h3><button class="x" type="button" id="sx">×</button></div><button class="btn y" id="c_ren">تعديل اسم القسم</button><button class="btn ghost" id="c_up"' + (ci === 0 ? ' disabled' : '') + '>⬆ نقل لفوق</button><button class="btn ghost" id="c_dn"' + (ci === cfg.menu.length - 1 ? ' disabled' : '') + '>⬇ نقل لتحت</button><button class="btn ghost" id="c_hid">' + (c.hid ? 'إظهار القسم عالموقع' : 'إخفاء القسم عن الموقع') + '</button><button class="btn red" id="c_del">حذف القسم بكل أصنافو</button>');
+  sheet('<div class="sh"><h3>' + esc(c.ar) + ('</h3><button class="x" type="button" id="sx">×</button></div><button class="btn y" id="c_ren">' + T('تعديل اسم القسم') + '</button><button class="btn ghost" id="c_up"') + (ci === 0 ? ' disabled' : '') + ('>⬆ ' + T('نقل لفوق') + '</button><button class="btn ghost" id="c_dn"') + (ci === cfg.menu.length - 1 ? ' disabled' : '') + ('>⬇ ' + T('نقل لتحت') + '</button><button class="btn ghost" id="c_hid">') + (c.hid ? T('إظهار القسم عالموقع') : T('إخفاء القسم عن الموقع')) + ('</button><button class="btn red" id="c_del">' + T('حذف القسم بكل أصنافو') + '</button>'));
   $('sx').onclick = closeSheet; $('c_ren').onclick = () => catForm(id);
   $('c_up').onclick = () => { cfg.menu.splice(ci - 1, 0, cfg.menu.splice(ci, 1)[0]); closeSheet() };
   $('c_dn').onclick = () => { cfg.menu.splice(ci + 1, 0, cfg.menu.splice(ci, 1)[0]); closeSheet() };
   $('c_hid').onclick = () => { c.hid = !c.hid; closeSheet() };
-  $('c_del').onclick = () => { if (cfg.menu.length < 2) return toast('لازم يضل قسم واحد'); if (confirm('حذف «' + c.ar + '» مع ' + c.items.length + ' صنف؟')) { cfg.menu.splice(ci, 1); closeSheet() } };
+  $('c_del').onclick = () => { if (cfg.menu.length < 2) return toast(T('لازم يضل قسم واحد')); if (confirm((T('حذف') + ' «') + c.ar + ('» ' + T('مع') + ' ') + c.items.length + (' ' + T('صنف؟')))) { cfg.menu.splice(ci, 1); closeSheet() } };
 }
 function catForm(id) {
   const c = id ? cfg.menu.find((x) => x.id === id) : null;
-  sheet('<div class="sh"><h3>' + (c ? 'اسم القسم' : 'قسم جديد') + '</h3><button class="x" type="button" id="sx">×</button></div><label class="lb">الاسم بالعربي</label><input class="fld" id="k_ar" value="' + esc(c ? c.ar : '') + '" maxlength="40"><label class="lb">English (اختياري)</label><input class="fld" id="k_en" dir="ltr" value="' + esc(c ? c.en : '') + '" maxlength="40"><button class="btn y" id="k_ok">حفظ</button>');
+  sheet('<div class="sh"><h3>' + (c ? T('اسم القسم') : T('قسم جديد')) + ('</h3><button class="x" type="button" id="sx">×</button></div><label class="lb">' + T('الاسم بالعربي') + '</label><input class="fld" id="k_ar" value="') + esc(c ? c.ar : '') + ('" maxlength="40"><label class="lb">English ' + T('(اختياري') + ')</label><input class="fld" id="k_en" dir="ltr" value="') + esc(c ? c.en : '') + ('" maxlength="40"><button class="btn y" id="k_ok">' + T('حفظ') + '</button>'));
   $('sx').onclick = closeSheet;
-  $('k_ok').onclick = () => { const ar = $('k_ar').value.trim(); if (!ar) return toast('اكتب اسم القسم'); const en = $('k_en').value.trim() || ar; if (c) { c.ar = ar; c.en = en } else cfg.menu.push({ id: 'c' + rid(), ar, en, items: [] }); closeSheet() };
+  $('k_ok').onclick = () => { const ar = $('k_ar').value.trim(); if (!ar) return toast(T('اكتب اسم القسم')); const en = $('k_en').value.trim() || ar; if (c) { c.ar = ar; c.en = en } else cfg.menu.push({ id: 'c' + rid(), ar, en, items: [] }); closeSheet() };
 }
 function editItem(id, catId) {
   let i, c; const isNew = !id;
@@ -262,15 +277,15 @@ function editItem(id, catId) {
   const d = JSON.parse(JSON.stringify(i)); let dest = c.id, dur = d.until ? 'keep' : 'none';
   const draw = () => {
     const off = d.off != null && d.off !== '';
-    sheet('<div class="sh"><h3>' + (isNew ? 'صنف جديد' : 'تعديل الصنف') + '</h3><button class="x" type="button" id="sx">×</button></div>' +
-      '<div class="ph"><div class="big" id="pv">' + thumbHTML(d) + '</div><div class="bs"><button type="button" id="p_up">📷 صوّر أو اختار صورة</button><button type="button" class="l" id="p_lib">الصور الجاهزة</button><button type="button" class="l" id="p_em">بدون صورة (إيموجي)</button></div></div><input type="file" id="p_file" accept="image/*" hidden><div id="libA"></div>' +
-      '<label class="lb">اسم الصنف (عربي) *</label><input class="fld" id="e_ar" value="' + esc(d.ar) + '" maxlength="60"><label class="lb">Name (English، اختياري)</label><input class="fld" id="e_en" dir="ltr" value="' + esc(d.en === d.ar ? '' : d.en) + '" maxlength="60">' +
-      '<label class="lb">الوصف (عربي)</label><textarea class="fld" id="e_dar" rows="2" maxlength="200">' + esc(d.dar) + '</textarea><label class="lb">Description (اختياري)</label><textarea class="fld" id="e_den" dir="ltr" rows="2" maxlength="200">' + esc(d.den === d.dar ? '' : d.den) + '</textarea>' +
-      '<div class="row2"><div><label class="lb">السعر ($) *</label><input class="fld" id="e_p" inputmode="decimal" value="' + (d.p || '') + '"></div><div><label class="lb">سعر العرض ($)</label><input class="fld" id="e_off" inputmode="decimal" value="' + (off ? d.off : '') + '" placeholder="فاضي = بدون عرض"></div></div>' +
-      '<div class="dur" id="durB" ' + (off ? '' : 'hidden') + '>' + [['none', 'بدون وقت محدد'], ['1', 'اليوم'], ['3', '٣ أيام'], ['7', 'أسبوع']].concat(d.until ? [['keep', 'حسب المحفوظ']] : []).map(([k, l]) => '<button type="button" data-dur="' + k + '" aria-pressed="' + (dur === k) + '">' + l + '</button>').join('') + '</div>' +
-      '<label class="lb">القسم</label><select class="fld" id="e_cat">' + cfg.menu.map((x) => '<option value="' + x.id + '"' + (x.id === dest ? ' selected' : '') + '>' + esc(x.ar) + '</option>').join('') + '</select>' +
-      '<div class="tg">' + [['pop', 'الأكثر طلبًا'], ['hot', 'حار 🌶️'], ['out', 'نفد'], ['hid', 'مخفي عن الموقع']].map(([k, l]) => '<button type="button" data-tgk="' + k + '" aria-pressed="' + !!d[k] + '">' + l + '</button>').join('') + '</div>' +
-      '<button class="btn y" id="e_ok">' + (isNew ? 'إضافة الصنف' : 'حفظ') + '</button>' + (isNew ? '' : '<button class="btn ghost" id="e_up">⬆ فوق</button><button class="btn ghost" id="e_dn">⬇ تحت</button><button class="btn red" id="e_del">حذف الصنف</button>'));
+    sheet('<div class="sh"><h3>' + (isNew ? T('صنف جديد') : T('تعديل الصنف')) + '</h3><button class="x" type="button" id="sx">×</button></div>' +
+      '<div class="ph"><div class="big" id="pv">' + thumbHTML(d) + ('</div><div class="bs"><button type="button" id="p_up">📷 ' + T('صوّر أو اختار صورة') + '</button><button type="button" class="l" id="p_lib">' + T('الصور الجاهزة') + '</button><button type="button" class="l" id="p_em">' + T('بدون صورة (إيموجي') + ')</button></div></div><input type="file" id="p_file" accept="image/*" hidden><div id="libA"></div>') +
+      ('<label class="lb">' + T('اسم الصنف (عربي') + ') *</label><input class="fld" id="e_ar" value="') + esc(d.ar) + ('" maxlength="60"><label class="lb">Name (English' + T('، اختياري') + ')</label><input class="fld" id="e_en" dir="ltr" value="') + esc(d.en === d.ar ? '' : d.en) + '" maxlength="60">' +
+      ('<label class="lb">' + T('الوصف (عربي') + ')</label><textarea class="fld" id="e_dar" rows="2" maxlength="200">') + esc(d.dar) + ('</textarea><label class="lb">Description ' + T('(اختياري') + ')</label><textarea class="fld" id="e_den" dir="ltr" rows="2" maxlength="200">') + esc(d.den === d.dar ? '' : d.den) + '</textarea>' +
+      ('<div class="row2"><div><label class="lb">' + T('السعر') + ' ($) *</label><input class="fld" id="e_p" inputmode="decimal" value="') + (d.p || '') + ('"></div><div><label class="lb">' + T('سعر العرض') + ' ($)</label><input class="fld" id="e_off" inputmode="decimal" value="') + (off ? d.off : '') + ('" placeholder="' + T('فاضي') + ' = ' + T('بدون عرض') + '"></div></div>') +
+      '<div class="dur" id="durB" ' + (off ? '' : 'hidden') + '>' + [['none', T('بدون وقت محدد')], ['1', T('اليوم')], ['3', T('٣ أيام')], ['7', T('أسبوع')]].concat(d.until ? [['keep', T('حسب المحفوظ')]] : []).map(([k, l]) => '<button type="button" data-dur="' + k + '" aria-pressed="' + (dur === k) + '">' + l + '</button>').join('') + '</div>' +
+      ('<label class="lb">' + T('القسم') + '</label><select class="fld" id="e_cat">') + cfg.menu.map((x) => '<option value="' + x.id + '"' + (x.id === dest ? ' selected' : '') + '>' + esc(x.ar) + '</option>').join('') + '</select>' +
+      '<div class="tg">' + [['pop', T('الأكثر طلبًا')], ['hot', (T('حار') + ' 🌶️')], ['out', T('نفد')], ['hid', T('مخفي عن الموقع')]].map(([k, l]) => '<button type="button" data-tgk="' + k + '" aria-pressed="' + !!d[k] + '">' + l + '</button>').join('') + '</div>' +
+      '<button class="btn y" id="e_ok">' + (isNew ? T('إضافة الصنف') : T('حفظ')) + '</button>' + (isNew ? '' : ('<button class="btn ghost" id="e_up">⬆ ' + T('فوق') + '</button><button class="btn ghost" id="e_dn">⬇ ' + T('تحت') + '</button><button class="btn red" id="e_del">' + T('حذف الصنف') + '</button>')));
     wire();
   };
   const grab = () => { d.ar = $('e_ar').value; d.en = $('e_en').value; d.dar = $('e_dar').value; d.den = $('e_den').value; d.p = $('e_p').value; d.off = $('e_off').value };
@@ -281,15 +296,15 @@ function editItem(id, catId) {
     document.querySelectorAll('[data-tgk]').forEach((b) => b.onclick = () => { d[b.dataset.tgk] = d[b.dataset.tgk] ? 0 : 1; b.setAttribute('aria-pressed', String(!!d[b.dataset.tgk])) });
     $('e_cat').onchange = () => { dest = $('e_cat').value };
     $('p_up').onclick = () => $('p_file').click();
-    $('p_file').onchange = async () => { const f = $('p_file').files[0]; if (!f) return; grab(); $('p_up').textContent = '… عم نرفع'; try { d.pic = await upload(f); delete d.ph; delete d.em; draw() } catch (e) { toast(e.message === 'auth' ? 'انتهت الجلسة' : 'ما انرفعت الصورة، جرّب صورة تانية'); draw() } };
+    $('p_file').onchange = async () => { const f = $('p_file').files[0]; if (!f) return; grab(); $('p_up').textContent = ('… ' + T('عم نرفع')); try { d.pic = await upload(f); delete d.ph; delete d.em; draw() } catch (e) { toast(e.message === 'auth' ? T('انتهت الجلسة') : T('ما انرفعت الصورة، جرّب صورة تانية')); draw() } };
     $('p_lib').onclick = () => { const used = [...new Set(cfg.menu.flatMap((x) => x.items.map((y) => y.pic).filter(Boolean)))]; $('libA').innerHTML = '<div class="lib">' + LIB.map((k) => '<button type="button" data-lib="' + k + '"><img src="' + LIBURL(k) + '" alt=""></button>').join('') + used.map((u) => '<button type="button" data-libp="' + u + '"><img src="' + API + u + '" alt=""></button>').join('') + '</div>';
       document.querySelectorAll('[data-lib]').forEach((b) => b.onclick = () => { grab(); d.ph = b.dataset.lib; delete d.pic; delete d.em; draw() });
       document.querySelectorAll('[data-libp]').forEach((b) => b.onclick = () => { grab(); d.pic = b.dataset.libp; delete d.ph; delete d.em; draw() }) };
-    $('p_em').onclick = () => { const v = prompt('اكتب إيموجي للصنف (مثلًا 🍕)', d.em || '🍽️'); if (v) { grab(); d.em = v.trim().slice(0, 4); delete d.ph; delete d.pic; draw() } };
+    $('p_em').onclick = () => { const v = prompt((T('اكتب إيموجي للصنف (مثلًا') + ' 🍕)'), d.em || '🍽️'); if (v) { grab(); d.em = v.trim().slice(0, 4); delete d.ph; delete d.pic; draw() } };
     $('e_ok').onclick = () => {
-      grab(); const ar = d.ar.trim(); if (!ar) return toast('اكتب اسم الصنف');
-      const p = parseFloat(String(d.p).replace(',', '.')); if (!(p >= 0)) return toast('اكتب السعر');
-      const offS = String(d.off).trim(), off = offS ? parseFloat(offS.replace(',', '.')) : null; if (offS && !(off >= 0 && off < p)) return toast('سعر العرض لازم يكون أقل من السعر');
+      grab(); const ar = d.ar.trim(); if (!ar) return toast(T('اكتب اسم الصنف'));
+      const p = parseFloat(String(d.p).replace(',', '.')); if (!(p >= 0)) return toast(T('اكتب السعر'));
+      const offS = String(d.off).trim(), off = offS ? parseFloat(offS.replace(',', '.')) : null; if (offS && !(off >= 0 && off < p)) return toast(T('سعر العرض لازم يكون أقل من السعر'));
       const o = { id: d.id, ar, en: d.en.trim() || ar, dar: d.dar.trim(), den: d.den.trim() || d.dar.trim(), p };
       if (off != null) { o.off = off; if (dur === 'keep') o.until = d.until; else if (dur !== 'none') o.until = Date.now() + (+dur) * 86400000 }
       ['ph', 'pic', 'em', 'pop', 'hot', 'out', 'hid'].forEach((k) => { if (d[k]) o[k] = d[k] });
@@ -300,9 +315,9 @@ function editItem(id, catId) {
     };
     if (!isNew) {
       const at = c.items.findIndex((x) => x.id === i.id);
-      $('e_up').onclick = () => { if (at > 0) { c.items.splice(at - 1, 0, c.items.splice(at, 1)[0]); closeSheet() } else toast('هو أول صنف') };
-      $('e_dn').onclick = () => { if (at < c.items.length - 1) { c.items.splice(at + 1, 0, c.items.splice(at, 1)[0]); closeSheet() } else toast('هو آخر صنف') };
-      $('e_del').onclick = () => { if (confirm('حذف «' + i.ar + '»؟ (فيك ترجّعو من النسخ السابقة)')) { c.items.splice(at, 1); closeSheet() } };
+      $('e_up').onclick = () => { if (at > 0) { c.items.splice(at - 1, 0, c.items.splice(at, 1)[0]); closeSheet() } else toast(T('هو أول صنف')) };
+      $('e_dn').onclick = () => { if (at < c.items.length - 1) { c.items.splice(at + 1, 0, c.items.splice(at, 1)[0]); closeSheet() } else toast(T('هو آخر صنف')) };
+      $('e_del').onclick = () => { if (confirm((T('حذف') + ' «') + i.ar + ('»' + T('؟ (فيك ترجّعو من النسخ السابقة') + ')'))) { c.items.splice(at, 1); closeSheet() } };
     }
   };
   draw();
