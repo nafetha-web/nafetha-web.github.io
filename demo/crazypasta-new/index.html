@@ -237,6 +237,7 @@ section.block { padding-block: 40px 6px; display: flex; flex-direction: column; 
   <section class="block" id="visit">
     <h2 id="visitTitle"></h2>
     <div class="info">
+      <div class="card" id="hrsCard" hidden><b id="lblHrs"></b><span id="hrs"></span></div>
       <div class="card"><b id="lblAddr"></b><span id="addr"></span><a id="mapLink" target="_blank" rel="noopener"></a></div>
       <div class="card"><b id="lblDel"></b><span id="del"></span></div>
       <div class="card"><b id="lblPhone"></b><a class="ltr" href="https://wa.me/96181219242" target="_blank" rel="noopener">81 219 242</a><a href="https://www.instagram.com/crazypasta.lb" target="_blank" rel="noopener" class="ltr">@crazypasta.lb</a></div>
@@ -313,7 +314,7 @@ const T = {
     gWin: (p, c) => '🎉 طلعلك: <b>' + p + '</b><br>الكود: <code>' + c + '</code> · بينضاف عطلبك لحالو.',
     menuTitle: 'المنيو', priceNote: 'الأسعار بهالنموذج تقريبية، ومنعدّلها حسب منيو المطعم.',
     pop: 'الأكثر طلبًا', hot: 'حار 🌶️',
-    visitTitle: 'تفضّلوا لعنّا', lblAddr: 'العنوان', addr: 'شارع عزمي، طرابلس', map: 'افتح عالخريطة', lblDel: 'التوصيل', del: 'منوصّل لعندك، اطلب عالواتساب وبيوصلك سخن.', lblPhone: 'للطلب',
+    visitTitle: 'تفضّلوا لعنّا', lblHrs: 'ساعات الدوام', hrs: '', lblAddr: 'العنوان', addr: 'شارع عزمي، طرابلس', map: 'افتح عالخريطة', lblDel: 'التوصيل', del: 'منوصّل لعندك، اطلب عالواتساب وبيوصلك سخن.', lblPhone: 'للطلب',
     foot: '© 2026 Crazy Pasta · نموذج من تصميم <a href="https://nafetha-web.github.io" target="_blank" rel="noopener">نافذة</a>',
     items: (n) => n === 0 ? 'ما اخترت شي بعد' : n === 1 ? 'صنف واحد' : n + ' أصناف', go: 'كمّل الطلب',
     add: 'زيد', remove: 'شيل', money: (n) => '$' + (Math.round(n * 100) / 100),
@@ -332,7 +333,7 @@ const T = {
     gWin: (p, c) => '🎉 You got: <b>' + p + '</b><br>Code: <code>' + c + '</code> · added to your order automatically.',
     menuTitle: 'Menu', priceNote: 'Prices in this demo are indicative; we update them from the restaurant menu.',
     pop: 'Popular', hot: 'Spicy 🌶️',
-    visitTitle: 'Visit us', lblAddr: 'Address', addr: 'Azmi Street, Tripoli', map: 'Open in Maps', lblDel: 'Delivery', del: 'We deliver. Order on WhatsApp and get it hot.', lblPhone: 'Order',
+    visitTitle: 'Visit us', lblHrs: 'Opening hours', hrs: '', lblAddr: 'Address', addr: 'Azmi Street, Tripoli', map: 'Open in Maps', lblDel: 'Delivery', del: 'We deliver. Order on WhatsApp and get it hot.', lblPhone: 'Order',
     foot: '© 2026 Crazy Pasta · Demo designed by <a href="https://nafetha-web.github.io" target="_blank" rel="noopener">Nafetha</a>',
     items: (n) => n === 0 ? 'Nothing added yet' : n + (n === 1 ? ' item' : ' items'), go: 'Checkout',
     add: 'Add', remove: 'Remove', money: (n) => '$' + (Math.round(n * 100) / 100),
@@ -360,7 +361,8 @@ function renderStatic() {
   const t = T[lang];
   document.documentElement.lang = lang; document.documentElement.dir = t.dir;
   $('demoBar').innerHTML = t.demo; $('langBtn').textContent = t.lang; $('heroTitle').innerHTML = t.heroTitle; $('foot').innerHTML = t.foot;
-  ['navPlay','navMenu','navVisit','pill','heroText','ctaMenu','ctaPlay','gEyebrow','gTitle','gText','gNote','menuTitle','priceNote','visitTitle','lblAddr','addr','lblDel','del','lblPhone'].forEach(k => { $(k).textContent = t[k] });
+  ['navPlay','navMenu','navVisit','pill','heroText','ctaMenu','ctaPlay','gEyebrow','gTitle','gText','gNote','menuTitle','priceNote','visitTitle','lblHrs','hrs','lblAddr','addr','lblDel','del','lblPhone'].forEach(k => { $(k).textContent = t[k] });
+  $('hrsCard').hidden = !t.hrs;
   $('facts').innerHTML = t.facts.map(f => '<span>' + f + '</span>').join('');
   $('mapLink').textContent = t.map; $('mapLink').href = 'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent(T[lang].mapQ || 'Crazy Pasta Azmi Street Tripoli');
   heroTag(); renderGame();
@@ -475,6 +477,7 @@ function applyCfg(c) {
   c.menu.filter(g => !g.hid).forEach(g => { const items = g.items.filter(i => !i.hid).map(i => { const o = Object.assign({}, i); if (o.off != null && (!o.until || o.until > now)) { o.old = o.p; o.p = o.off } return o }); if (items.length) MENU.push({ id: g.id, ar: g.ar, en: g.en, items }) });
   ALL.length = 0; MENU.forEach(g => g.items.forEach(i => ALL.push(i)));
   if (!MENU.some(g => g.id === activeCat)) activeCat = MENU.length ? MENU[0].id : '';
+  if (!c.game.on) { T.ar.heroText = 'اختار طبقك من المنيو، راجع طلبك، وابعتو عالواتساب بكبسة.'; T.en.heroText = 'Pick your dish, review your order and send it on WhatsApp in one tap.' }
   PRIZES.length = 0; if (c.game.on) c.game.prizes.forEach(p => PRIZES.push({ em: p.em, ar: p.ar, en: p.en, s: { ar: p.sa, en: p.se } })); N = PRIZES.length;
   ['play', 'navPlay', 'ctaPlay'].forEach(id => { const e = $(id) || document.getElementById(id); if (e) e.hidden = !N });
   if (c.brand.wa) WA = c.brand.wa;
@@ -485,6 +488,7 @@ function applyCfg(c) {
   T.ar.demo = 'نموذج مقترح من <a href="https://nafetha-web.github.io" target="_blank" rel="noopener">نافذة</a> لموقع ' + b.ar + '، وليس الموقع الرسمي.';
   T.en.demo = 'A proposed site for ' + b.en + ' by <a href="https://nafetha-web.github.io" target="_blank" rel="noopener">Nafetha</a>, not the official site.';
   if (b.addr.ar) T.ar.addr = b.addr.ar; if (b.addr.en) T.en.addr = b.addr.en;
+  { const h = b.hrs || {}; T.ar.hrs = h.ar || ''; T.en.hrs = h.en || h.ar || '' }
   if (b.del.ar) T.ar.del = b.del.ar; if (b.del.en) T.en.del = b.del.en;
   T.ar.mapQ = b.ar + ' ' + (b.addr.ar || ''); T.en.mapQ = b.en + ' ' + (b.addr.en || '');
   const w = b.en.split(' '), lg = document.querySelector('.logo b'); if (lg) lg.innerHTML = w[0].toUpperCase() + (w.length > 1 ? '<span>' + w.slice(1).join(' ').toUpperCase() + '</span>' : '');
