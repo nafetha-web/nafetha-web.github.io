@@ -186,7 +186,7 @@ section.block { padding-block: 40px 6px; display: flex; flex-direction: column; 
 
 <header class="top">
   <div class="wrap bar">
-    <a class="logo" href="#" aria-label="Crazy Pasta"><span class="badge" aria-hidden="true">🍝</span><b>CRAZY<span>PASTA</span></b></a>
+    <a class="logo" href="#" aria-label="Crazy Pasta"><img src="logo.png" alt="Crazy Pasta" width="96" height="47" style="height:58px;width:auto;display:block"></a>
     <nav class="nav" aria-label="Sections">
       <a href="#play" id="navPlay"></a><a href="#menu" id="navMenu"></a><a href="#visit" id="navVisit"></a>
       <button class="lang" id="langBtn" type="button"></button>
@@ -269,6 +269,8 @@ section.block { padding-block: 40px 6px; display: flex; flex-direction: column; 
 
 <script>
 let WA = '96181219242';
+let CUR = 'USD';
+const fm = (n, l) => CUR === 'LBP' ? Math.round(n).toLocaleString('en-US') + (l === 'ar' ? ' ل.ل' : ' LBP') : '$' + (Math.round(n * 100) / 100);
 const API = 'https://crazypasta-api.nafetha-web.workers.dev';
 const img = (k) => 'img/' + k + '.jpg';
 const pic = (i) => i.pic ? API + i.pic : img(i.ph);
@@ -317,7 +319,7 @@ const T = {
     visitTitle: 'تفضّلوا لعنّا', lblHrs: 'ساعات الدوام', hrs: '', lblAddr: 'العنوان', addr: 'شارع عزمي، طرابلس', map: 'افتح عالخريطة', lblDel: 'التوصيل', del: 'منوصّل لعندك، اطلب عالواتساب وبيوصلك سخن.', lblPhone: 'للطلب',
     foot: '© 2026 Crazy Pasta · نموذج من تصميم <a href="https://nafetha-web.github.io" target="_blank" rel="noopener">نافذة</a>',
     items: (n) => n === 0 ? 'ما اخترت شي بعد' : n === 1 ? 'صنف واحد' : n + ' أصناف', go: 'كمّل الطلب',
-    add: 'زيد', remove: 'شيل', money: (n) => '$' + (Math.round(n * 100) / 100),
+    add: 'زيد', remove: 'شيل', money: (n) => fm(n, 'ar'),
     revTitle: 'طلبك', revNote: 'ملاحظة (اختياري)', revAddr: 'العنوان (للتوصيل)', revSend: 'ابعت الطلب عالواتساب', revBack: 'زيد أكل',
     lblWhere: 'كيف بدك ياه؟', where: ['توصيل', 'استلام من المطعم'],
     hello: 'مرحبا Crazy Pasta 👋 بدي اطلب:', total: 'المجموع', fromSite: '📲 طلب من الموقع', prizeLine: (p, c) => '🎁 الجائزة: ' + p + ' (كود ' + c + ')', addrLine: 'العنوان', noteLine: 'ملاحظة' },
@@ -336,7 +338,7 @@ const T = {
     visitTitle: 'Visit us', lblHrs: 'Opening hours', hrs: '', lblAddr: 'Address', addr: 'Azmi Street, Tripoli', map: 'Open in Maps', lblDel: 'Delivery', del: 'We deliver. Order on WhatsApp and get it hot.', lblPhone: 'Order',
     foot: '© 2026 Crazy Pasta · Demo designed by <a href="https://nafetha-web.github.io" target="_blank" rel="noopener">Nafetha</a>',
     items: (n) => n === 0 ? 'Nothing added yet' : n + (n === 1 ? ' item' : ' items'), go: 'Checkout',
-    add: 'Add', remove: 'Remove', money: (n) => '$' + (Math.round(n * 100) / 100),
+    add: 'Add', remove: 'Remove', money: (n) => fm(n, 'en'),
     revTitle: 'Your order', revNote: 'Note (optional)', revAddr: 'Address (for delivery)', revSend: 'Send order on WhatsApp', revBack: 'Add more',
     lblWhere: 'How would you like it?', where: ['Delivery', 'Pick up'],
     hello: 'Hi Crazy Pasta 👋 I would like to order:', total: 'Total', fromSite: '📲 Order from the website', prizeLine: (p, c) => '🎁 Prize: ' + p + ' (code ' + c + ')', addrLine: 'Address', noteLine: 'Note' }
@@ -481,7 +483,8 @@ function applyCfg(c) {
   PRIZES.length = 0; if (c.game.on) c.game.prizes.forEach(p => PRIZES.push({ em: p.em, ar: p.ar, en: p.en, s: { ar: p.sa, en: p.se } })); N = PRIZES.length;
   ['play', 'navPlay', 'ctaPlay'].forEach(id => { const e = $(id) || document.getElementById(id); if (e) e.hidden = !N });
   if (c.brand.wa) WA = c.brand.wa;
-  const b = c.brand;
+  const b = c.brand; CUR = b.cur === 'LBP' ? 'LBP' : 'USD';
+  T.ar.priceNote = CUR === 'LBP' ? 'الأسعار بالليرة اللبنانية.' : 'الأسعار بالدولار.'; T.en.priceNote = CUR === 'LBP' ? 'Prices are in Lebanese pounds (LBP).' : 'Prices are in US dollars.';
   T.ar.hello = 'مرحبا ' + b.ar + ' 👋 بدي اطلب:'; T.en.hello = 'Hi ' + b.en + ' 👋 I would like to order:';
   T.ar.foot = '© 2026 ' + b.ar + ' · نموذج من تصميم <a href="https://nafetha-web.github.io" target="_blank" rel="noopener">نافذة</a>';
   T.en.foot = '© 2026 ' + b.en + ' · Demo designed by <a href="https://nafetha-web.github.io" target="_blank" rel="noopener">Nafetha</a>';
