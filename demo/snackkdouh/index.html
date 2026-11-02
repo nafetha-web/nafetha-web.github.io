@@ -73,6 +73,7 @@ textarea{resize:none;height:64px}
 .send{display:block;text-align:center;text-decoration:none;background:#25d366;color:#052e16;font-weight:800;font-size:17px;padding:15px;border-radius:16px;margin-top:14px}
 .loc{display:block;width:100%;margin-top:10px;background:var(--card);border:1px solid var(--or);color:var(--or2);font-weight:800;border-radius:12px;padding:11px}
 .ls{font-size:12.5px;color:var(--mu);text-align:center;margin-top:6px;min-height:16px}
+.clr{display:block;width:100%;text-align:center;padding:10px;color:#ff8a7a;font-weight:700;font-size:14px}
 .back{display:block;width:100%;text-align:center;padding:12px;color:var(--mu);font-weight:700}
 .note{color:var(--mu);font-size:12.5px;text-align:center;margin-top:6px}
 </style>
@@ -100,6 +101,7 @@ textarea{resize:none;height:64px}
   <div class="tot"><span id="lTot"></span><strong class="ltr" id="rTot"></strong></div>
   <a class="send" id="send" target="_blank" rel="noopener"></a>
   <button class="back" id="rBack"></button>
+  <button class="clr" id="rClr"></button>
   <p class="note" id="rNoteTxt"></p>
 </div></dialog>
 <script>
@@ -136,8 +138,8 @@ const CATS=[
 ['t1','تيركي أند تشيز','Turkey & cheese sandwich','حبش مدخن، موزريلا، كبيس، ذرة، خس، شيبس','Smoked turkey, mozzarella, pickles, corn, lettuce, chips',300],
 ['t2','تويستر ساندويش','Twister sandwich','دجاج، كبيس، بندورة، خس، مايو صوص، باربكيو صوص، تشيدر صوص','Chicken, pickles, tomato, lettuce, mayo, BBQ sauce, cheddar sauce',350]]}
 ];
-const T={ar:{addr:'حي السلّم · حدّ مدرسة الغزالة، قبالة صيدلية بازي',del:'🛵 توصيل واستلام',add:'أضف',cart:'شوف الطلب',cur:'ل.ل',rTitle:'طلبك',lWhere:'كيف بدك تستلم؟',where:['توصيل','استلام من المطعم'],lAddr:'العنوان (للتوصيل)',lNote:'ملاحظة (اختياري)',lTot:'المجموع',loc:'📍 شارك موقعي',locOk:'✅ تم تحديد موقعك',locBad:'ما قدرنا نحدد موقعك، اكتب العنوان',locWait:'عم نحدد موقعك…',lc:'الموقع',send:'ابعت الطلب عالواتساب',back:'أضف المزيد',nt:'رسوم التوصيل بتتحدد عالواتساب',foot:'للطلب والاستفسار',hello:'مرحبا سناك قدوح 👋 بدي اطلب:',fs:'📲 طلب من الموقع',w:'الاستلام',a:'العنوان',n:'ملاحظة',tot:'المجموع',lang:'EN'},
-en:{addr:'Hay El Selloum · next to Al Ghazala School, opposite Bazi Pharmacy',del:'🛵 Delivery & pickup',add:'Add',cart:'View order',cur:'L.L',rTitle:'Your order',lWhere:'How do you want it?',where:['Delivery','Pickup from the restaurant'],lAddr:'Address (for delivery)',lNote:'Note (optional)',lTot:'Total',loc:'📍 Share my location',locOk:'✅ Location added',locBad:'Could not get your location, please type the address',locWait:'Getting your location…',lc:'Location',send:'Send order on WhatsApp',back:'Add more',nt:'Delivery fee is confirmed on WhatsApp',foot:'To order or ask',hello:'Hi Snack Kdouh 👋 I would like to order:',fs:'📲 Order from the website',w:'Receiving',a:'Address',n:'Note',tot:'Total',lang:'ع'}};
+const T={ar:{addr:'حي السلّم · حدّ مدرسة الغزالة، قبالة صيدلية بزي',del:'🛵 توصيل واستلام',add:'أضف',cart:'شوف الطلب',cur:'ل.ل',rTitle:'طلبك',lWhere:'كيف بدك تستلم؟',where:['توصيل','استلام من المطعم'],lAddr:'العنوان (للتوصيل)',lNote:'ملاحظة (اختياري)',lTot:'المجموع',clr:'🗑 فضّي السلة',loc:'📍 شارك موقعي',locOk:'✅ تم تحديد موقعك',locBad:'ما قدرنا نحدد موقعك، اكتب العنوان',locWait:'عم نحدد موقعك…',lc:'الموقع',send:'ابعت الطلب عالواتساب',back:'أضف المزيد',nt:'رسوم التوصيل بتتحدد عالواتساب',foot:'للطلب والاستفسار',hello:'مرحبا سناك قدوح 👋 بدي اطلب:',fs:'📲 طلب من الموقع',w:'الاستلام',a:'العنوان',n:'ملاحظة',tot:'المجموع',lang:'EN'},
+en:{addr:'Hay El Selloum · next to Al Ghazala School, opposite Bazi Pharmacy',del:'🛵 Delivery & pickup',add:'Add',cart:'View order',cur:'L.L',rTitle:'Your order',lWhere:'How do you want it?',where:['Delivery','Pickup from the restaurant'],lAddr:'Address (for delivery)',lNote:'Note (optional)',lTot:'Total',clr:'🗑 Empty cart',loc:'📍 Share my location',locOk:'✅ Location added',locBad:'Could not get your location, please type the address',locWait:'Getting your location…',lc:'Location',send:'Send order on WhatsApp',back:'Add more',nt:'Delivery fee is confirmed on WhatsApp',foot:'To order or ask',hello:'Hi Snack Kdouh 👋 I would like to order:',fs:'📲 Order from the website',w:'Receiving',a:'Address',n:'Note',tot:'Total',lang:'ع'}};
 const $=id=>document.getElementById(id);
 let lang='ar',cart={},loc='',locSt='';
 try{lang=localStorage.getItem('kd_lang')||'ar';cart=JSON.parse(localStorage.getItem('kd_cart')||'{}')}catch(e){}
@@ -167,7 +169,7 @@ $('lang').onclick=()=>{lang=lang==='ar'?'en':'ar';try{localStorage.setItem('kd_l
 const rev=$('rev');
 function review(){
   const t=T[lang],o=totals();
-  $('rTitle').textContent=t.rTitle;$('lWhere').textContent=t.lWhere;$('lAddr').textContent=t.lAddr;$('lNote').textContent=t.lNote;$('lTot').textContent=t.tot;$('send').textContent=t.send;$('rLoc').textContent=t.loc;$('rLs').textContent=locSt==='ok'?t.locOk:locSt==='bad'?t.locBad:locSt==='wait'?t.locWait:'';$('rBack').textContent=t.back;$('rNoteTxt').textContent=t.nt;
+  $('rTitle').textContent=t.rTitle;$('lWhere').textContent=t.lWhere;$('lAddr').textContent=t.lAddr;$('lNote').textContent=t.lNote;$('lTot').textContent=t.tot;$('send').textContent=t.send;$('rLoc').textContent=t.loc;$('rClr').textContent=t.clr;$('rLs').textContent=locSt==='ok'?t.locOk:locSt==='bad'?t.locBad:locSt==='wait'?t.locWait:'';$('rBack').textContent=t.back;$('rNoteTxt').textContent=t.nt;
   const w=$('rWhere'),sel=w.selectedIndex<0?0:w.selectedIndex;w.innerHTML=t.where.map(x=>'<option>'+x+'</option>').join('');w.selectedIndex=sel;
   $('rList').innerHTML=o.lines.map(i=>'<div class="rl"><b>'+cart[i.id]+' × '+i[lang]+'</b><span class="ltr">'+money(cart[i.id]*i.p)+'</span></div>').join('');
   $('rTot').textContent=money(o.total);
@@ -177,6 +179,7 @@ function review(){
   $('send').href='https://wa.me/'+WA+'?text='+encodeURIComponent(msg);
 }
 $('rLoc').onclick=()=>{if(!navigator.geolocation){locSt='bad';review();return}locSt='wait';review();navigator.geolocation.getCurrentPosition(p=>{loc='https://maps.google.com/?q='+p.coords.latitude.toFixed(6)+','+p.coords.longitude.toFixed(6);locSt='ok';review()},()=>{loc='';locSt='bad';review()},{enableHighAccuracy:true,timeout:15000,maximumAge:60000})};
+$('rClr').onclick=()=>{cart={};save();rev.close();render()};
 $('bar').onclick=()=>{review();rev.showModal?rev.showModal():rev.setAttribute('open','')};
 $('rX').onclick=$('rBack').onclick=()=>rev.close();
 rev.addEventListener('click',e=>{if(e.target===rev)rev.close()});
