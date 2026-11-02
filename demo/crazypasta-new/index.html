@@ -508,6 +508,18 @@ function useCfg(j) { if (!j || !j.config || j.updated === curUpdated) return fal
   if (!cached) { const j = await Promise.race([p, sleep(900).then(() => null)]); let ok = false; try { ok = useCfg(j) } catch (e) {} if (!ok) renderAll() }
   try { useCfg(await p) } catch (e) {}
 })();
+
+/* WhatsApp order counter, shown in Nafetha's internal report */
+(function(){
+  const NAPI = 'https://nafetha-api.nafetha-web.workers.dev/crazypasta';
+  function devId() { let d = ''; try { d = localStorage.getItem('cp_dev') || ''; if (!d) { d = crypto.randomUUID ? crypto.randomUUID() : Date.now().toString(36) + Math.random().toString(36).slice(2); localStorage.setItem('cp_dev', d) } } catch (e) {} return d }
+  document.addEventListener('click', (e) => {
+    if (!e.target.closest || !e.target.closest('#revSend')) return;
+    try { if (Date.now() - (+localStorage.getItem('cp_wa_t') || 0) < 3 * 60e3) return; localStorage.setItem('cp_wa_t', Date.now()) } catch (er) { return }
+    const d = devId(); if (d.length < 8) return;
+    fetch(NAPI + '/hit', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ type: 'wa', dev: d, total: totals().total }), keepalive: true }).catch(() => {});
+  });
+})();
 </script>
 </body>
 </html>
