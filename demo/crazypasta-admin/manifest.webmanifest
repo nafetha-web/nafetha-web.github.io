@@ -1,0 +1,1 @@
+{"name": "Crazy Pasta - لوحة التحكم", "short_name": "لوحة كرايزي", "start_url": "./", "scope": "./", "display": "standalone", "background_color": "#FBCE00", "theme_color": "#FBCE00", "icons": [{"src": "icon.png", "sizes": "512x512", "type": "image/png", "purpose": "any"}]}
