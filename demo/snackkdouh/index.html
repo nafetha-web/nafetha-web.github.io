@@ -71,6 +71,8 @@ textarea{resize:none;height:64px}
 .tot{display:flex;justify-content:space-between;align-items:baseline;border-top:2px dashed var(--line);margin-top:16px;padding-top:12px;font-weight:700}
 .tot strong{font-size:23px;color:var(--gr)}
 .send{display:block;text-align:center;text-decoration:none;background:#25d366;color:#052e16;font-weight:800;font-size:17px;padding:15px;border-radius:16px;margin-top:14px}
+.loc{display:block;width:100%;margin-top:10px;background:var(--card);border:1px solid var(--or);color:var(--or2);font-weight:800;border-radius:12px;padding:11px}
+.ls{font-size:12.5px;color:var(--mu);text-align:center;margin-top:6px;min-height:16px}
 .back{display:block;width:100%;text-align:center;padding:12px;color:var(--mu);font-weight:700}
 .note{color:var(--mu);font-size:12.5px;text-align:center;margin-top:6px}
 </style>
@@ -93,7 +95,7 @@ textarea{resize:none;height:64px}
   <h3><span id="rTitle"></span><button class="x" id="rX" aria-label="close">✕</button></h3>
   <div id="rList"></div>
   <label id="lWhere"></label><select id="rWhere"></select>
-  <div id="addrBox"><label id="lAddr"></label><input id="rAddr"></div>
+  <div id="addrBox"><label id="lAddr"></label><input id="rAddr"><button class="loc" id="rLoc" type="button"></button><p class="ls" id="rLs"></p></div>
   <label id="lNote"></label><textarea id="rNote"></textarea>
   <div class="tot"><span id="lTot"></span><strong class="ltr" id="rTot"></strong></div>
   <a class="send" id="send" target="_blank" rel="noopener"></a>
@@ -111,12 +113,12 @@ const CATS=[
 ['b5','أمريكان برغر','American burger','قطعة لحمة، خس، بصل مشوي، بندورة مشوية، تشيدر، شيبس، مايو صوص، باربكيو صوص','Beef patty, lettuce, grilled onion and tomato, cheddar, chips, mayo, BBQ sauce',350],
 ['b6','فيش برغر','Fish burger','قطعتين كرسبي سمك، خس، كبيس، صوص تارتار، صوص كوكتيل','Two crispy fish fillets, lettuce, pickles, tartar and cocktail sauce',350],
 ['b7','زنجر برغر','Zinger burger','صدر دجاج، حبش، مايو صوص، باربكيو، شيبس، كبيس، خس، تشيدر','Chicken breast, turkey, mayo, BBQ, chips, pickles, lettuce, cheddar',400]]},
-{id:'plate',ar:'بلات',en:'Plates',e:'🍟',items:[
+{id:'plate',ar:'الأطباق',en:'Plates',e:'🍟',items:[
 ['p1','بطاطا صغير','Fries small','','',180],
 ['p2','بطاطا كبير','Fries big','','',280],
-['p3','كريسبي بلات (3 قطع)','Crispy plate 3 pcs','3 قطع كرسبي، سلطة ملفوف، توم، كبيس، بطاطا، صوص كوكتيل','3 crispy pieces, cabbage salad, garlic, pickles, fries, cocktail sauce',450],
-['p4','كريسبي بلات (5 قطع)','Crispy plate 5 pcs','5 قطع كرسبي، سلطة ملفوف، توم، كبيس، بطاطا، صوص كوكتيل','5 crispy pieces, cabbage salad, garlic, pickles, fries, cocktail sauce',650],
-['p5','كاميكاز بلات','Kamikaz plate','خبز فرنجي مع مايو صوص، موزريلا، بطاطا، كبيس، سلطة ملفوف، صوص كوكتيل','French bread with mayo, mozzarella, fries, pickles, cabbage salad, cocktail sauce',450],
+['p3','طبق كريسبي (3 قطع)','Crispy plate 3 pcs','3 قطع كرسبي، سلطة ملفوف، توم، كبيس، بطاطا، صوص كوكتيل','3 crispy pieces, cabbage salad, garlic, pickles, fries, cocktail sauce',450],
+['p4','طبق كريسبي (5 قطع)','Crispy plate 5 pcs','5 قطع كرسبي، سلطة ملفوف، توم، كبيس، بطاطا، صوص كوكتيل','5 crispy pieces, cabbage salad, garlic, pickles, fries, cocktail sauce',650],
+['p5','طبق كاميكاز','Kamikaz plate','خبز فرنجي مع مايو صوص، موزريلا، بطاطا، كبيس، سلطة ملفوف، صوص كوكتيل','French bread with mayo, mozzarella, fries, pickles, cabbage salad, cocktail sauce',450],
 ['p6','كومبو إكسترا','Combo extra','صوص كوكتيل، بطاطا','Cocktail sauce, fries',100]]},
 {id:'sand',ar:'ساندويش',en:'Sandwiches',e:'🥪',items:[
 ['s1','بطاطا ساندويش','Batata sandwich','بطاطا، سلطة ملفوف، كبيس، توم، كاتشاب','Fries, cabbage salad, pickles, garlic, ketchup',250],
@@ -134,12 +136,13 @@ const CATS=[
 ['t1','تيركي أند تشيز','Turkey & cheese sandwich','حبش مدخن، موزريلا، كبيس، ذرة، خس، شيبس','Smoked turkey, mozzarella, pickles, corn, lettuce, chips',300],
 ['t2','تويستر ساندويش','Twister sandwich','دجاج، كبيس، بندورة، خس، مايو صوص، باربكيو صوص، تشيدر صوص','Chicken, pickles, tomato, lettuce, mayo, BBQ sauce, cheddar sauce',350]]}
 ];
-const T={ar:{addr:'حي السلّم · حدّ مدرسة الغزالة، قبالة صيدلية بازي',del:'🛵 توصيل واستلام',add:'زيد',cart:'شوف الطلب',cur:'ل.ل',rTitle:'طلبك',lWhere:'كيف بدك تستلم؟',where:['توصيل','استلام من المطعم'],lAddr:'العنوان (للتوصيل)',lNote:'ملاحظة (اختياري)',lTot:'المجموع',send:'ابعت الطلب عالواتساب',back:'زيد أكل',nt:'رسوم التوصيل بتتحدد عالواتساب',foot:'للطلب والاستفسار',hello:'مرحبا سناك قدوح 👋 بدي اطلب:',fs:'📲 طلب من الموقع',w:'الاستلام',a:'العنوان',n:'ملاحظة',tot:'المجموع',lang:'EN'},
-en:{addr:'Hay El Selloum · next to Al Ghazala School, opposite Bazi Pharmacy',del:'🛵 Delivery & pickup',add:'Add',cart:'View order',cur:'L.L',rTitle:'Your order',lWhere:'How do you want it?',where:['Delivery','Pickup from the restaurant'],lAddr:'Address (for delivery)',lNote:'Note (optional)',lTot:'Total',send:'Send order on WhatsApp',back:'Add more',nt:'Delivery fee is confirmed on WhatsApp',foot:'To order or ask',hello:'Hi Snack Kdouh 👋 I would like to order:',fs:'📲 Order from the website',w:'Receiving',a:'Address',n:'Note',tot:'Total',lang:'ع'}};
+const T={ar:{addr:'حي السلّم · حدّ مدرسة الغزالة، قبالة صيدلية بازي',del:'🛵 توصيل واستلام',add:'أضف',cart:'شوف الطلب',cur:'ل.ل',rTitle:'طلبك',lWhere:'كيف بدك تستلم؟',where:['توصيل','استلام من المطعم'],lAddr:'العنوان (للتوصيل)',lNote:'ملاحظة (اختياري)',lTot:'المجموع',loc:'📍 شارك موقعي',locOk:'✅ تم تحديد موقعك',locBad:'ما قدرنا نحدد موقعك، اكتب العنوان',locWait:'عم نحدد موقعك…',lc:'الموقع',send:'ابعت الطلب عالواتساب',back:'أضف المزيد',nt:'رسوم التوصيل بتتحدد عالواتساب',foot:'للطلب والاستفسار',hello:'مرحبا سناك قدوح 👋 بدي اطلب:',fs:'📲 طلب من الموقع',w:'الاستلام',a:'العنوان',n:'ملاحظة',tot:'المجموع',lang:'EN'},
+en:{addr:'Hay El Selloum · next to Al Ghazala School, opposite Bazi Pharmacy',del:'🛵 Delivery & pickup',add:'Add',cart:'View order',cur:'L.L',rTitle:'Your order',lWhere:'How do you want it?',where:['Delivery','Pickup from the restaurant'],lAddr:'Address (for delivery)',lNote:'Note (optional)',lTot:'Total',loc:'📍 Share my location',locOk:'✅ Location added',locBad:'Could not get your location, please type the address',locWait:'Getting your location…',lc:'Location',send:'Send order on WhatsApp',back:'Add more',nt:'Delivery fee is confirmed on WhatsApp',foot:'To order or ask',hello:'Hi Snack Kdouh 👋 I would like to order:',fs:'📲 Order from the website',w:'Receiving',a:'Address',n:'Note',tot:'Total',lang:'ع'}};
 const $=id=>document.getElementById(id);
-let lang='ar',cart={};
+let lang='ar',cart={},loc='',locSt='';
 try{lang=localStorage.getItem('kd_lang')||'ar';cart=JSON.parse(localStorage.getItem('kd_cart')||'{}')}catch(e){}
 const ALL=CATS.flatMap(c=>c.items.map(i=>({id:i[0],ar:i[1],en:i[2],da:i[3],de:i[4],p:i[5]})));
+const plain=n=>(n*1000).toLocaleString('en-US')+' '+T[lang].cur;
 const money=n=>'\u202D'+(n*1000).toLocaleString('en-US')+' '+T[lang].cur+'\u202C';
 const save=()=>{try{localStorage.setItem('kd_cart',JSON.stringify(cart))}catch(e){}};
 function totals(){const lines=ALL.filter(i=>cart[i.id]);return{lines,count:lines.reduce((a,i)=>a+cart[i.id],0),total:lines.reduce((a,i)=>a+cart[i.id]*i.p,0)}}
@@ -164,15 +167,16 @@ $('lang').onclick=()=>{lang=lang==='ar'?'en':'ar';try{localStorage.setItem('kd_l
 const rev=$('rev');
 function review(){
   const t=T[lang],o=totals();
-  $('rTitle').textContent=t.rTitle;$('lWhere').textContent=t.lWhere;$('lAddr').textContent=t.lAddr;$('lNote').textContent=t.lNote;$('lTot').textContent=t.tot;$('send').textContent=t.send;$('rBack').textContent=t.back;$('rNoteTxt').textContent=t.nt;
+  $('rTitle').textContent=t.rTitle;$('lWhere').textContent=t.lWhere;$('lAddr').textContent=t.lAddr;$('lNote').textContent=t.lNote;$('lTot').textContent=t.tot;$('send').textContent=t.send;$('rLoc').textContent=t.loc;$('rLs').textContent=locSt==='ok'?t.locOk:locSt==='bad'?t.locBad:locSt==='wait'?t.locWait:'';$('rBack').textContent=t.back;$('rNoteTxt').textContent=t.nt;
   const w=$('rWhere'),sel=w.selectedIndex<0?0:w.selectedIndex;w.innerHTML=t.where.map(x=>'<option>'+x+'</option>').join('');w.selectedIndex=sel;
   $('rList').innerHTML=o.lines.map(i=>'<div class="rl"><b>'+cart[i.id]+' × '+i[lang]+'</b><span class="ltr">'+money(cart[i.id]*i.p)+'</span></div>').join('');
   $('rTot').textContent=money(o.total);
   const del=w.selectedIndex===0;$('addrBox').hidden=!del;
   const a=$('rAddr').value.trim(),n=$('rNote').value.trim();
-  const msg=t.hello+'\n'+o.lines.map(i=>'- '+cart[i.id]+' × '+i[lang]+' ('+money(cart[i.id]*i.p)+')').join('\n')+'\n'+t.tot+': '+money(o.total)+'\n'+t.w+': '+t.where[w.selectedIndex]+(del&&a?'\n'+t.a+': '+a:'')+(n?'\n'+t.n+': '+n:'')+'\n\n'+t.fs;
+  const msg=t.hello+'\n'+o.lines.map(i=>'- '+cart[i.id]+' × '+i[lang]+' ('+plain(cart[i.id]*i.p)+')').join('\n')+'\n'+t.tot+': '+plain(o.total)+'\n'+t.w+': '+t.where[w.selectedIndex]+(del&&a?'\n'+t.a+': '+a:'')+(del&&loc?'\n'+t.lc+': '+loc:'')+(n?'\n'+t.n+': '+n:'')+'\n\n'+t.fs;
   $('send').href='https://wa.me/'+WA+'?text='+encodeURIComponent(msg);
 }
+$('rLoc').onclick=()=>{if(!navigator.geolocation){locSt='bad';review();return}locSt='wait';review();navigator.geolocation.getCurrentPosition(p=>{loc='https://maps.google.com/?q='+p.coords.latitude.toFixed(6)+','+p.coords.longitude.toFixed(6);locSt='ok';review()},()=>{loc='';locSt='bad';review()},{enableHighAccuracy:true,timeout:15000,maximumAge:60000})};
 $('bar').onclick=()=>{review();rev.showModal?rev.showModal():rev.setAttribute('open','')};
 $('rX').onclick=$('rBack').onclick=()=>rev.close();
 rev.addEventListener('click',e=>{if(e.target===rev)rev.close()});
