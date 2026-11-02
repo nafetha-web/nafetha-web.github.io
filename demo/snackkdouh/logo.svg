@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300">
+<g fill="#5fbf3b"><path d="M200 22c-18 14-18 38 0 52 18-14 18-38 0-52z"/><path d="M168 48c-20-2-34 10-36 26 20 4 34-6 36-26z" transform="translate(6 4)"/><path d="M232 48c20-2 34 10 36 26-20 4-34-6-36-26z" transform="translate(-6 4)"/></g>
+<text x="200" y="130" text-anchor="middle" font-family="Arial Black,Arial,sans-serif" font-weight="900" font-size="78" fill="#fff">Snack</text>
+<text x="200" y="218" text-anchor="middle" font-family="Arial Black,Arial,sans-serif" font-weight="900" font-size="100" fill="#ff8a00">Kdouh</text>
+<path d="M120 240q80 40 160 0" fill="none" stroke="#ff8a00" stroke-width="12" stroke-linecap="round"/>
+</svg>
