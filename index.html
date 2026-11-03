@@ -469,7 +469,6 @@ input, select, textarea { min-width: 0; max-width: 100% }
       <b data-t="brand"></b>
     </a>
     <nav class="nav" aria-label="Sections">
-      <a href="preview/" class="navtry" data-t="navTry"></a>
       <a href="#work" data-t="navWork"></a>
       <a href="#services" data-t="navServices"></a>
       <a href="#how" data-t="navHow"></a>
@@ -497,7 +496,7 @@ input, select, textarea { min-width: 0; max-width: 100% }
         <a class="from" href="#pricing" id="fromPrice"></a>
         <ul class="assure" id="assure"></ul>
       </div>
-      <a class="heroshot" href="preview/"><img src="media/preview-card.webp?v=2" alt="" width="900" height="976"><span data-t="heroShot"></span></a>
+      <figure class="heroshot" style="margin:0"><img src="media/preview-card.webp?v=2" alt="" width="900" height="976"></figure>
     </div>
   </section>
 
@@ -549,12 +548,6 @@ input, select, textarea { min-width: 0; max-width: 100% }
       <div class="sysg" id="sysg"></div>
       <div class="sys" id="addon"></div>
       <ul class="pextra" id="pextra"></ul>
-    </div>
-  </section>
-
-  <section class="blk trysec" id="try">
-    <div class="wrap">
-      <div class="sectors"><h3 data-t="secT"></h3><div id="secLinks"></div></div>
     </div>
   </section>
 
@@ -894,7 +887,6 @@ function render() {
   $('fChips').innerHTML = t.fChips.map(c => '<li>' + c + '</li>').join('');
   $('fCta').textContent = t.likeThis; $('fCta').href = 'https://wa.me/' + WA + '?text=' + encodeURIComponent(t.waLike(t.fName));
   renderPlans(); renderWork(); renderForm(); renderLive();
-  $('secLinks').innerHTML = t.sectors.map(x => '<a href="for/' + x[0] + '/">' + x[1] + '</a>').join('');
   $('waFloat').href = 'https://wa.me/' + WA + '?text=' + encodeURIComponent(t.waHello);
 }
 function renderPlans() {
