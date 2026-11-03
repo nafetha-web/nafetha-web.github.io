@@ -536,12 +536,24 @@ input, select, textarea { min-width: 0; max-width: 100% }
     </div>
   </section>
 
+  <section class="blk" id="pricing">
+    <div class="wrap">
+      <div class="ptop">
+        <div class="head"><h2 data-t="priceTitle"></h2><p data-t="priceSub"></p></div>
+      </div>
+      <div class="promo" id="offer"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 12v9H4v-9"/><path d="M2 7h20v5H2z"/><path d="M12 22V7"/><path d="M12 7H7.5a2.5 2.5 0 1 1 0-5C11 2 12 7 12 7z"/><path d="M12 7h4.5a2.5 2.5 0 1 0 0-5C13 2 12 7 12 7z"/></svg><span data-t="promo"></span></div>
+      <p class="ptotal" id="ptotal" hidden></p>
+      <div class="incl"><p class="incl-t" data-t="inclTitle"></p><ul id="incl"></ul></div>
+      <div class="tiers" id="tiers" role="group" aria-label="packages"></div>
+      <div class="plans" id="plans"></div>
+      <div class="sysg" id="sysg"></div>
+      <div class="sys" id="addon"></div>
+      <ul class="pextra" id="pextra"></ul>
+    </div>
+  </section>
+
   <section class="blk trysec" id="try">
     <div class="wrap">
-      <div class="tryband rv">
-        <div><span class="kick" data-t="tryK"></span><h2 data-t="tryT"></h2><p data-t="tryS"></p><a class="btn btn-gold" href="preview/" data-t="tryBtn"></a></div>
-        <img src="media/preview-card.webp?v=2" alt="" loading="lazy" width="900" height="976">
-      </div>
       <div class="sectors"><h3 data-t="secT"></h3><div id="secLinks"></div></div>
     </div>
   </section>
@@ -560,41 +572,6 @@ input, select, textarea { min-width: 0; max-width: 100% }
     <div class="wrap">
       <div class="head"><h2 data-t="howTitle"></h2><p data-t="howSub"></p></div>
       <ol class="steps" id="steps"></ol>
-    </div>
-  </section>
-
-  <section class="blk calc" id="calc" style="padding-top: 0">
-    <div class="wrap">
-      <div class="cbox rv">
-        <div class="chead"><span class="kick2" data-t="calcK"></span><h2 data-t="calcT"></h2><p data-t="calcS"></p></div>
-        <div class="cin">
-          <label class="rng"><span><span data-t="cOrders"></span><output id="oOrders"></output></span><input type="range" id="cOrders" min="1" max="100" value="15"></label>
-          <label class="rng"><span><span data-t="cAvg"></span><output id="oAvg"></output></span><input type="range" id="cAvg" min="3" max="60" value="15"></label>
-          <label class="rng"><span><span data-t="cRate"></span><output id="oRate"></output></span><input type="range" id="cRate" min="10" max="35" value="20"></label>
-        </div>
-        <div class="cout">
-          <div class="cbad"><span data-t="cApps"></span><b id="vApps"></b><small data-t="cAppsNote"></small></div>
-          <div class="cgood"><span data-t="cUs"></span><b>$25</b><small data-t="cUsNote"></small></div>
-          <div class="csave"><span data-t="cSave"></span><b id="vSave"></b><small id="vYear"></small></div>
-        </div>
-        <div class="cfoot"><p data-t="cNote"></p><a class="btn btn-gold" href="#contact" data-t="cta1"></a></div>
-      </div>
-    </div>
-  </section>
-
-  <section class="blk" id="pricing">
-    <div class="wrap">
-      <div class="ptop">
-        <div class="head"><h2 data-t="priceTitle"></h2><p data-t="priceSub"></p></div>
-      </div>
-      <div class="promo" id="offer"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 12v9H4v-9"/><path d="M2 7h20v5H2z"/><path d="M12 22V7"/><path d="M12 7H7.5a2.5 2.5 0 1 1 0-5C11 2 12 7 12 7z"/><path d="M12 7h4.5a2.5 2.5 0 1 0 0-5C13 2 12 7 12 7z"/></svg><span data-t="promo"></span></div>
-      <p class="ptotal" id="ptotal" hidden></p>
-      <div class="incl"><p class="incl-t" data-t="inclTitle"></p><ul id="incl"></ul></div>
-      <div class="tiers" id="tiers" role="group" aria-label="packages"></div>
-      <div class="plans" id="plans"></div>
-      <div class="sysg" id="sysg"></div>
-      <div class="sys" id="addon"></div>
-      <ul class="pextra" id="pextra"></ul>
     </div>
   </section>
 
@@ -916,7 +893,7 @@ function render() {
   $('heroTitle').innerHTML = t.heroTitle;
   $('fChips').innerHTML = t.fChips.map(c => '<li>' + c + '</li>').join('');
   $('fCta').textContent = t.likeThis; $('fCta').href = 'https://wa.me/' + WA + '?text=' + encodeURIComponent(t.waLike(t.fName));
-  renderPlans(); renderWork(); renderForm(); renderLive(); renderCalc();
+  renderPlans(); renderWork(); renderForm(); renderLive();
   $('secLinks').innerHTML = t.sectors.map(x => '<a href="for/' + x[0] + '/">' + x[1] + '</a>').join('');
   $('waFloat').href = 'https://wa.me/' + WA + '?text=' + encodeURIComponent(t.waHello);
 }
@@ -996,7 +973,7 @@ function renderCalc() {
   requestAnimationFrame(step);
   $('vYear').textContent = t.cYear(fmt(save * 12));
 }
-['cOrders', 'cAvg', 'cRate'].forEach(id => $(id).addEventListener('input', renderCalc));
+
 function renderForm() {
   const t = T[lang], shop = $('fShop').value.trim(), btn = $('fSend');
   if (!shop) { btn.textContent = t.fillShop; btn.removeAttribute('href'); btn.setAttribute('aria-disabled', 'true'); btn.style.opacity = '.6'; return }
