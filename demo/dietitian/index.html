@@ -1,11 +1,11 @@
 <!doctype html>
-<html lang="ar" dir="rtl">
+<html lang="en" dir="ltr">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="robots" content="noindex">
 <title>Balance Nutrition Clinic — Your personal nutrition plan</title>
-<meta name="description" content="Fill in your details and get a nutrition plan matched to your goal, prepared by a licensed dietitian.">
+<meta property="og:title" content="Balance Nutrition Clinic — Your personal nutrition plan"><meta name="theme-color" content="#0f5c5a"><meta name="description" content="Fill in your details and get a nutrition plan matched to your goal, prepared by a licensed dietitian.">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%230f5c5a'/%3E%3Cpath d='M32 14c10 0 16 8 16 18 0 9-6 18-16 18S16 41 16 32c0-10 6-18 16-18z' fill='%23fff'/%3E%3Cpath d='M32 14c0-5 4-8 9-8-1 5-4 8-9 8z' fill='%23ef7b5b'/%3E%3C/svg%3E">
 <style>
 :root{--t:#0f5c5a;--t2:#0b4745;--t3:#e3f1ef;--c:#ef7b5b;--c2:#d9633f;--ink:#1b2a29;--mut:#5d6f6d;--line:#e3e8e4;--bg:#fbf8f2;--card:#fff;--sh:0 8px 28px rgba(15,92,90,.10)}
@@ -17,7 +17,12 @@ a{color:inherit;text-decoration:none}button{font:inherit;cursor:pointer;border:0
 header.top{position:sticky;top:0;z-index:40;background:rgba(251,248,242,.95);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
 .hb{display:flex;align-items:center;gap:14px;height:66px}
 .logo{display:flex;align-items:center;gap:10px;font-weight:800;font-size:19px;color:var(--t)}
-.logo svg{width:36px;height:36px}
+.logo{min-width:0}.logo svg{width:36px;height:36px;flex:none}.logo span{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.hb>*{flex:none}.hb .logo{flex:0 1 auto}
+.wafloat{position:fixed;inset-inline-end:16px;bottom:16px;z-index:45;background:#25d366;color:#fff;width:56px;height:56px;border-radius:50%;display:grid;place-items:center;box-shadow:0 8px 22px rgba(0,0,0,.25)}.wafloat svg{width:30px;height:30px}
+details.fq{background:#fff;border:1px solid var(--line);border-radius:16px;padding:16px 20px;margin-bottom:10px}details.fq summary{font-weight:700;cursor:pointer;list-style:none;display:flex;justify-content:space-between;gap:10px}details.fq summary::after{content:'+';color:var(--c);font-size:22px;line-height:1}details.fq[open] summary::after{content:'–'}details.fq p{color:var(--mut);margin-top:10px}
+.cd{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:14px 0}.cd .stat b{font-size:22px}.meal h4 small{display:block;color:var(--mut);font-weight:600;font-size:12.5px}
+.printhd{display:none}@media print{.printhd{display:block;margin-bottom:14px;font-size:20px;font-weight:800;color:var(--t)}.wafloat{display:none}}
+:focus-visible{outline:3px solid rgba(239,123,91,.55);outline-offset:2px}
 .sp{flex:1}
 nav a{padding:8px 12px;border-radius:8px;font-weight:600;font-size:15px;color:var(--mut)}nav a:hover{color:var(--t);background:var(--t3)}
 .lang{border:1.5px solid var(--line);border-radius:10px;padding:6px 12px;font-weight:700;font-size:14px;background:#fff}
@@ -91,7 +96,7 @@ section.s{padding:56px 0}
 .mrow input,.mrow textarea{font:inherit;border:1.5px solid var(--line);border-radius:10px;padding:8px 10px;width:100%}
 footer{background:#0b3b39;color:#a9cdca;padding:30px 0;margin-top:30px;font-size:14px;text-align:center}
 .toast{position:fixed;left:50%;bottom:24px;transform:translate(-50%,30px);background:#1b2a29;color:#fff;padding:12px 20px;border-radius:12px;font-weight:600;opacity:0;pointer-events:none;transition:.25s;z-index:99}.toast.on{opacity:1;transform:translate(-50%,0)}
-@media(max-width:860px){.hero .wrap{grid-template-columns:1fr;padding:40px 20px}.hero h1{font-size:32px}.plate{max-width:220px}.g3,.g4{grid-template-columns:1fr}.stats{grid-template-columns:1fr 1fr}.opts.c3{grid-template-columns:1fr 1fr}nav{display:none}.mrow{grid-template-columns:1fr 1fr}.meal{grid-template-columns:1fr}.two,.opts.c2{grid-template-columns:1fr}.band{padding:26px}}
+@media(max-width:860px){.hb{gap:8px}.logo{font-size:16px}.logo svg{width:32px;height:32px}.hb>a.btn{display:none}.cd{grid-template-columns:repeat(3,1fr);gap:8px}.cd .stat{padding:12px 6px}.cd .stat b{font-size:19px}.cd .stat span{font-size:12px}.hero .wrap{grid-template-columns:1fr;padding:40px 20px}.hero h1{font-size:32px}.plate{max-width:220px}.g3,.g4{grid-template-columns:1fr}.stats{grid-template-columns:1fr 1fr}.opts.c3{grid-template-columns:1fr 1fr}nav{display:none}.mrow{grid-template-columns:1fr 1fr}.meal{grid-template-columns:1fr}.two,.opts.c2{grid-template-columns:1fr}.band{padding:26px}}
 @media print{header,footer,.acts,.nav,.noprint,.toast{display:none!important}body{background:#fff}.rs{margin:0}.card{box-shadow:none}}
 </style>
 </head>
@@ -103,11 +108,12 @@ footer{background:#0b3b39;color:#a9cdca;padding:30px 0;margin-top:30px;font-size
  <a class="btn s" href="#/start" data-t="cta_s"></a>
 </div></header>
 <main id="app"></main>
-<footer><div class="wrap"><span data-t="foot"></span> · <a href="#/admin" style="opacity:.6" data-t="admin"></a></div></footer>
+<footer><div class="wrap"><a href="https://wa.me/96171163991" dir="ltr" style="display:inline-block;margin-bottom:6px">WhatsApp +961 71 163 991</a><br><span data-t="foot"></span> · <a href="#/admin" style="opacity:.6" data-t="admin"></a></div></footer>
+<a class="wafloat" id="wf" target="_blank" rel="noopener" aria-label="WhatsApp"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8s-.4-.1-.6.1-.7.8-.8 1-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.2-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.7 11.8 11.8 0 0 0 4.5 4c1.7.7 2.3.8 3.2.6.5-.1 1.5-.6 1.7-1.2s.2-1.1.1-1.2-.2-.2-.4-.3z"/></svg></a>
 <div class="toast" id="toast"></div>
 <script>
-var CFG={whatsapp:'',nameAr:'عيادة بالانس للتغذية',nameEn:'Balance Nutrition Clinic',adminPass:'admin123'};
-var L=localStorage.getItem('dc_lang')||'ar';
+var CFG={whatsapp:'96171163991',nameAr:'عيادة بالانس للتغذية',nameEn:'Balance Nutrition Clinic',adminPass:'admin123'};
+var L=localStorage.getItem('dc_lang')||'en';
 var T={
 nav_home:{ar:'الرئيسية',en:'Home'},nav_plan:{ar:'خطتي',en:'My plan'},nav_contact:{ar:'تواصل',en:'Contact'},cta_s:{ar:'ابدأ',en:'Start'},admin:{ar:'دخول الأخصائي',en:'Dietitian login'},
 foot:{ar:'© جميع الحقوق محفوظة',en:'© All rights reserved'},
@@ -118,7 +124,7 @@ var $=function(s){return document.querySelector(s)};
 function esc(s){return String(s==null?'':s).replace(/[&<>"]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})}
 function toast(m){var e=$('#toast');e.textContent=m;e.classList.add('on');clearTimeout(toast.i);toast.i=setTimeout(function(){e.classList.remove('on')},2400)}
 var LOGO='<svg viewBox="0 0 64 64"><rect width="64" height="64" rx="16" fill="#0f5c5a"/><path d="M32 16c10 0 16 8 16 18 0 9-6 17-16 17S16 43 16 34c0-10 6-18 16-18z" fill="#fff"/><path d="M32 16c0-5 4-8 9-8-1 5-4 8-9 8z" fill="#ef7b5b"/></svg>';
-function setLang(l){L=l;localStorage.setItem('dc_lang',l);document.documentElement.lang=l;document.documentElement.dir=l==='ar'?'rtl':'ltr';$('#lb').textContent=l==='ar'?'EN':'عربي';$('#lg').innerHTML=LOGO+'<span>'+(l==='ar'?CFG.nameAr:CFG.nameEn)+'</span>';document.querySelectorAll('[data-t]').forEach(function(e){e.textContent=tt(e.dataset.t)});document.title=(l==='ar'?CFG.nameAr:CFG.nameEn)}
+function setLang(l){L=l;localStorage.setItem('dc_lang',l);document.documentElement.lang=l;document.documentElement.dir=l==='ar'?'rtl':'ltr';$('#lb').textContent=l==='ar'?'EN':'عربي';$('#lg').innerHTML=LOGO+'<span>'+(l==='ar'?CFG.nameAr:CFG.nameEn)+'</span>';document.querySelectorAll('[data-t]').forEach(function(e){e.textContent=tt(e.dataset.t)});document.title=(l==='ar'?CFG.nameAr:CFG.nameEn)+(l==='ar'?' — خطتك الغذائية':' — Your personal nutrition plan');var wf=$('#wf');wf.href='https://wa.me/'+CFG.whatsapp+'?text='+encodeURIComponent(l==='ar'?'مرحباً، بدي أستفسر عن الخطة الغذائية':'Hello, I would like to ask about a nutrition plan')}
 $('#lb').onclick=function(){setLang(L==='ar'?'en':'ar');route()};
 /* ---------- storage ---------- */
 function ld(k,d){try{return JSON.parse(localStorage.getItem(k))||d}catch(e){return d}}
@@ -165,7 +171,7 @@ function calc(S){
  var p=Math.round(w*(S.goal==='gain'?1.8:1.6)),f=Math.round(t*0.28/9),c=Math.round((t-p*4-f*9)/4);
  var wk=S.goal==='maintain'?0:Math.abs(+S.target-w);
  var perWeek=S.goal==='lose'?0.5:0.35;
- return{bmi:bmi,bmr:Math.round(bmr),tdee:tdee,kcal:t,p:p,f:f,c:Math.max(c,50),weeks:Math.ceil(wk/perWeek),diff:+(S.target-w)}
+ return{water:Math.round(w*0.035*10)/10,bmi:bmi,bmr:Math.round(bmr),tdee:tdee,kcal:t,p:p,f:f,c:Math.max(c,50),weeks:Math.ceil(wk/perWeek),diff:+(S.target-w)}
 }
 function flags(S,R){
  var f=[];
@@ -247,22 +253,23 @@ function finish(){
  sv('dc_subs',subs);window._res={S:S,R:R,fl:fl,pl:pl};location.hash='#/result';
 }
 /* ---------- result ---------- */
+function mealTimes(w,n){if(!w||n<1)return null;var p=w.split(':'),st=(+p[0])*60+(+p[1])+60,en=st+11*60,o=[];for(var i=0;i<n;i++){var m=n===1?st:Math.round((st+(en-st)*i/(n-1))/15)*15;o.push(('0'+(Math.floor(m/60)%24)).slice(-2)+':'+('0'+(m%60)).slice(-2))}return o}
 function vResult(){
  var r=window._res||null;
  if(!r){var subs=ld('dc_subs',[]);if(!subs.length)return'<div class="wz"><div class="card"><h2>'+(L==='ar'?'ما في نتيجة بعد':'No result yet')+'</h2><br><a class="btn" href="#/start">'+(L==='ar'?'ابدأ':'Start')+'</a></div></div>';var x=subs[0];r={S:x.S,R:x.R,fl:flags(x.S,x.R),pl:plans().find(function(p){return p.id===x.plan})||null}}
  var S2=r.S,R=r.R,ar=L==='ar';
  var gl={lose:['تنقيص الوزن','Weight loss'],gain:['زيادة الوزن','Weight gain'],maintain:['ثبات الوزن','Maintenance']}[S2.goal][ar?0:1];
  var bm=R.bmi,bmc=bm<18.5?['أقل من الطبيعي','Underweight']:bm<25?['طبيعي','Normal']:bm<30?['وزن زائد','Overweight']:['سمنة','Obese'];
- var h='<div class="rs"><div class="card"><div class="noprint" style="font-size:14px;color:var(--mut)">'+(ar?'أهلاً ':'Hello ')+esc(S2.name)+' 👋</div><h2>'+(ar?'خطتك':'Your plan')+' — '+gl+'</h2>';
+ var h='<div class="rs"><div class="card"><div class="printhd">'+(ar?CFG.nameAr:CFG.nameEn)+'</div><div class="noprint" style="font-size:14px;color:var(--mut)">'+(ar?'أهلاً ':'Hello ')+esc(S2.name)+' 👋</div><h2>'+(ar?'خطتك':'Your plan')+' — '+gl+'</h2>';
  h+='<div class="stats"><div class="stat"><b>'+bm.toFixed(1)+'</b><span>BMI · '+bmc[ar?0:1]+'</span></div>'+(r.fl.length?'':'<div class="stat"><b>'+R.tdee+'</b><span>'+(ar?'سعرات الثبات يومياً':'Maintenance kcal/day')+'</span></div><div class="stat"><b>'+R.kcal+'</b><span>'+(ar?'هدفك اليومي (سعرة)':'Your daily target (kcal)')+'</span></div><div class="stat"><b>'+(S2.goal==='maintain'?'—':R.weeks)+'</b><span>'+(ar?'أسبوع تقريباً للوصول':'weeks to goal (approx.)')+'</span></div>')+'</div>';
  if(r.fl.length){
   h+='<div class="alert"><h3>'+(ar?'لازم تحجز استشارة مع الأخصائي':'Please book a consultation with the dietitian')+'</h3>'+r.fl.map(function(f){return'<p>• '+esc(t(f))+'</p>'}).join('')+'<p style="margin-top:8px">'+(ar?'بدل خطة تلقائية، الأخصائي رح يجهّزلك خطة مخصصة وآمنة.':'Instead of an automatic plan, the dietitian will prepare a safe personalised plan for you.')+'</p></div>';
  }else{
   var tot=R.p*4+R.f*9+R.c*4;
-  h+='<h3 style="margin-top:6px">'+(ar?'توزيع العناصر الغذائية':'Daily macros')+'</h3><div class="macro"><i style="width:'+(R.p*4/tot*100)+'%;background:#0f5c5a"></i><i style="width:'+(R.c*4/tot*100)+'%;background:#f2b35a"></i><i style="width:'+(R.f*9/tot*100)+'%;background:#ef7b5b"></i></div><div class="lg"><span><b style="background:#0f5c5a"></b>'+(ar?'بروتين ':'Protein ')+R.p+'g</span><span><b style="background:#f2b35a"></b>'+(ar?'كربوهيدرات ':'Carbs ')+R.c+'g</span><span><b style="background:#ef7b5b"></b>'+(ar?'دهون ':'Fat ')+R.f+'g</span></div>';
+  h+='<h3 style="margin-top:6px">'+(ar?'توزيع العناصر الغذائية':'Daily macros')+'</h3><div class="macro"><i style="width:'+(R.p*4/tot*100)+'%;background:#0f5c5a"></i><i style="width:'+(R.c*4/tot*100)+'%;background:#f2b35a"></i><i style="width:'+(R.f*9/tot*100)+'%;background:#ef7b5b"></i></div><div class="lg"><span><b style="background:#0f5c5a"></b>'+(ar?'بروتين ':'Protein ')+R.p+'g</span><span><b style="background:#f2b35a"></b>'+(ar?'كربوهيدرات ':'Carbs ')+R.c+'g</span><span><b style="background:#ef7b5b"></b>'+(ar?'دهون ':'Fat ')+R.f+'g</span></div><div class="cd"><div class="stat"><b>'+R.water+' L</b><span>'+(ar?'مي يومياً':'Water per day')+'</span></div><div class="stat"><b>'+(S2.goal==='maintain'?'—':(S2.goal==='lose'?'0.5':'0.3')+' kg')+'</b><span>'+(ar?'وتيرة آمنة بالأسبوع':'Safe pace / week')+'</span></div><div class="stat"><b>'+S2.meals+'</b><span>'+(ar?'وجبات بالنهار':'Meals per day')+'</span></div></div>';
   if(r.pl){
    h+='<h3 style="margin-top:22px">'+esc(t(r.pl.name))+' <span class="tag">~'+r.pl.kcal+' kcal</span></h3><p style="color:var(--mut);margin-bottom:6px">'+(ar?'خطة من إعداد الأخصائي، الأقرب لاحتياجك وتفضيلاتك.':'Prepared by our dietitian, closest to your needs and preferences.')+'</p>';
-   h+=r.pl.meals.map(function(m){return'<div class="meal"><h4>'+esc(t(m.l))+'</h4><p>'+esc(t(m))+'</p></div>'}).join('');
+   var tm=mealTimes(S2.wake,r.pl.meals.length);h+=r.pl.meals.map(function(m,i){return'<div class="meal"><h4>'+esc(t(m.l))+(tm?'<small>≈ '+tm[i]+'</small>':'')+'</h4><p>'+esc(t(m))+'</p></div>'}).join('');
    if(r.pl.notes)h+='<div class="note">'+esc(t(r.pl.notes))+'</div>';
    if(S2.dislike)h+='<div class="note">'+(ar?'ملاحظة: ذكرت إنك ما بتحب: ':'Note: you mentioned you dislike: ')+esc(S2.dislike)+(ar?'. الأخصائي بيقدر يبدّلها.':'. The dietitian can swap these.')+'</div>';
   }else h+='<div class="alert"><h3>'+(ar?'ما لقينا خطة جاهزة مناسبة':'No ready plan matches')+'</h3><p>'+(ar?'تفضيلاتك خاصة، الأخصائي رح يجهّزلك خطة مخصصة.':'Your preferences are specific; the dietitian will prepare a custom plan.')+'</p></div>';
@@ -282,9 +289,10 @@ function vHome(){
  return'<section class="hero"><div class="wrap"><div><span class="badge">'+(ar?'🥗 أخصائية تغذية مرخّصة':'🥗 Licensed dietitian')+'</span><h1>'+(ar?'خطتك الغذائية <em>المخصصة لك</em>، بدقيقتين':'Your <em>personal</em> nutrition plan in 2 minutes')+'</h1><p>'+(ar?'عبّي معلوماتك واحصل على خطة تنقيص أو زيادة وزن مبنية على جسمك ونمط حياتك، ومعدّة من أخصائي تغذية.':'Fill in your details and get a weight-loss or weight-gain plan built around your body and lifestyle, prepared by a dietitian.')+'</p><a class="btn" href="#/start">'+(ar?'ابدأ خطتي مجاناً':'Start my free plan')+'</a></div><svg class="plate" viewBox="0 0 200 200"><circle cx="100" cy="100" r="92" fill="#ffffff22"/><circle cx="100" cy="100" r="74" fill="#fff"/><circle cx="100" cy="100" r="60" fill="#e3f1ef"/><path d="M100 60c18 0 30 14 30 32 0 17-12 32-30 32s-30-15-30-32c0-18 12-32 30-32z" fill="#7cc2b5"/><circle cx="80" cy="110" r="9" fill="#ef7b5b"/><circle cx="122" cy="102" r="7" fill="#f2b35a"/><path d="M100 60c0-8 6-13 14-13-1 8-6 13-14 13z" fill="#0f5c5a"/></svg></div></section>'+
  '<section class="s"><div class="wrap"><div class="sh"><h2>'+(ar?'كيف بتشتغل؟':'How it works')+'</h2></div><div class="g4">'+st.map(function(x){return'<div class="box"><div class="num">'+x[0]+'</div><b>'+x[1]+'</b><p>'+x[2]+'</p></div>'}).join('')+'</div></div></section>'+
  '<section class="s" style="padding-top:0"><div class="wrap"><div class="g3"><div class="box"><div class="ic">🎯</div><b>'+(ar?'مبنية على جسمك':'Built around you')+'</b><p>'+(ar?'حسابات علمية للسعرات حسب عمرك وطولك ووزنك ونشاطك.':'Science-based calorie calculations from your age, height, weight and activity.')+'</p></div><div class="box"><div class="ic">👩‍⚕️</div><b>'+(ar?'من أخصائي حقيقي':'From a real dietitian')+'</b><p>'+(ar?'كل الخطط معدّة ومراجعة من صاحبة العيادة، مش خطط عشوائية.':'Every plan is prepared and reviewed by the clinic owner, not random plans.')+'</p></div><div class="box"><div class="ic">🛡️</div><b>'+(ar?'سلامتك أولاً':'Safety first')+'</b><p>'+(ar?'إذا حالتك الصحية بتحتاج متابعة، منوجّهك مباشرة للأخصائي.':'If your health needs follow-up, we direct you straight to the dietitian.')+'</p></div></div></div></section>'+
+ '<section class="s" style="padding-top:0"><div class="wrap"><div class="sh"><h2>'+(ar?'أسئلة شائعة':'Frequently asked questions')+'</h2></div>'+[[ar?'هل الخدمة مجانية؟':'Is it free?',ar?'الحصول على خطتك الأولية من الموقع مجاني. الاستشارة والمتابعة مع الأخصائي بتكون حسب الحجز.':'Getting your starting plan on this website is free. Consultations and follow-up with the dietitian are by appointment.'],[ar?'مين بيحضّر الخطط؟':'Who prepares the plans?',ar?'كل الخطط معدّة من أخصائي التغذية صاحب العيادة. الموقع بيختار الأقرب لحالتك.':'Every plan is prepared by the clinic dietitian. The website selects the closest match for you.'],[ar?'شو بيصير بمعلوماتي؟':'What happens to my information?',ar?'معلوماتك بتوصل للأخصائي بس، وما منشاركها مع حدا.':'Your information is shared only with the dietitian and nobody else.'],[ar?'إذا عندي مرض أو حامل؟':'What if I have a health condition or I am pregnant?',ar?'بهالحالة ما منعطي خطة تلقائية، بتحجز استشارة والأخصائي بيجهّزلك خطة مخصصة وآمنة.':'We do not give an automatic plan in that case. You book a consultation and the dietitian prepares a safe, personalised plan.'],[ar?'كم بياخد الأمر؟':'How long does it take?',ar?'أقل من دقيقتين لتعبئة الاستمارة.':'Under two minutes to fill the form.']].map(function(q){return'<details class="fq"><summary>'+q[0]+'</summary><p>'+q[1]+'</p></details>'}).join('')+'</div></section>'+
  '<section class="s" style="padding-top:0"><div class="wrap"><div class="band"><div><h2>'+(ar?'جاهز تبلش؟':'Ready to start?')+'</h2><p>'+(ar?'بياخد أقل من دقيقتين.':'It takes under two minutes.')+'</p></div><a class="btn" href="#/start">'+(ar?'ابدأ هلأ':'Start now')+'</a></div></div></section>';
 }
-function vContact(){var ar=L==='ar';return'<div class="wz"><div class="card"><h2>'+(ar?'تواصل معنا':'Contact us')+'</h2><p class="sub">'+(ar?'للحجز أو أي سؤال.':'For bookings or any question.')+'</p><div class="f"><label>'+(ar?'الاسم':'Name')+'</label><input id="cn"></div><div class="f"><label>'+(ar?'الهاتف':'Phone')+'</label><input id="cp"></div><div class="f"><label>'+(ar?'رسالتك':'Message')+'</label><textarea id="cm" rows="4"></textarea></div><button class="btn t" id="cs">'+(ar?'إرسال':'Send')+'</button></div></div>'}
+function vContact(){var ar=L==='ar';return'<div class="wz"><div class="card"><h2>'+(ar?'تواصل معنا':'Contact us')+'</h2><p class="sub">'+(ar?'للحجز أو أي سؤال.':'For bookings or any question.')+'</p><div class="row" style="margin-bottom:16px"><div><b>WhatsApp</b><br><small dir="ltr">+961 71 163 991</small></div><a class="btn s" target="_blank" rel="noopener" href="https://wa.me/'+CFG.whatsapp+'">'+(ar?'افتح واتساب':'Open WhatsApp')+'</a></div><div class="f"><label>'+(ar?'الاسم':'Name')+'</label><input id="cn"></div><div class="f"><label>'+(ar?'الهاتف':'Phone')+'</label><input id="cp"></div><div class="f"><label>'+(ar?'رسالتك':'Message')+'</label><textarea id="cm" rows="4"></textarea></div><button class="btn t" id="cs">'+(ar?'إرسال':'Send')+'</button></div></div>'}
 function initContact(){$('#cs').onclick=function(){var m=$('#cn').value+' '+$('#cp').value+'\n'+$('#cm').value;if(CFG.whatsapp)window.open('https://wa.me/'+CFG.whatsapp+'?text='+encodeURIComponent(m));else{try{navigator.clipboard.writeText(m)}catch(e){}toast(L==='ar'?'تم نسخ الرسالة':'Message copied')}}}
 /* ---------- admin ---------- */
 var ADM=sessionStorage.getItem('dc_adm')==='1',ATAB='plans',EDIT=null;
@@ -340,6 +348,7 @@ function route(){
  else html=vHome();
  $('#app').innerHTML=html;setLang(L);window.scrollTo(0,0);if(after)after();
 }
+document.addEventListener('keydown',function(e){if(e.key==='Enter'&&e.target.tagName==='INPUT'&&e.target.type!=='checkbox'){var n=$('#nx');if(n){e.preventDefault();n.click()}}});
 window.addEventListener('hashchange',function(){EDIT=null;if(location.hash==='#/start'&&window._res){}route()});
 setLang(L);route();
 </script>
