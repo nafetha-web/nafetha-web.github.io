@@ -1,0 +1,420 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Lazuli Chalet — Batroun · Book your stay</title>
+<meta name="description" content="Private chalet with heated pool, jacuzzi and sea view in Batroun. Check live availability, see the exact price and request your booking.">
+<meta property="og:title" content="Lazuli Chalet — Batroun">
+<meta property="og:image" content="https://images.unsplash.com/photo-1613490493576-7fde63acd811?w=1200&q=70">
+<meta name="theme-color" content="#0d2c3d">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%230d2c3d'/%3E%3Cpath d='M12 40c6-5 10-5 16 0s10 5 16 0 8-4 8-4v10c-4 3-8 4-12 0s-10-5-16 0-10 4-12 2z' fill='%235cc6d0'/%3E%3Cpath d='M18 30l14-12 14 12' stroke='%23f4c95d' stroke-width='4' fill='none' stroke-linecap='round'/%3E%3C/svg%3E">
+<style>
+:root{--n:#0d2c3d;--n2:#123b52;--a:#2bb3c0;--a2:#1d97a3;--s:#f4c95d;--ink:#132129;--mut:#5f6f78;--line:#e4e9ec;--bg:#fafaf7;--ok:#1e9e6a;--bad:#d4553f;--sh:0 10px 30px rgba(13,44,61,.10)}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:Inter,"Segoe UI",system-ui,-apple-system,Roboto,Arial,sans-serif;color:var(--ink);background:var(--bg);line-height:1.55;-webkit-font-smoothing:antialiased}
+html[lang=ar] body{font-family:"Segoe UI",Tahoma,"Noto Sans Arabic",system-ui,Arial,sans-serif}
+a{color:inherit;text-decoration:none}button{font:inherit;cursor:pointer;border:0;background:none;color:inherit}img{display:block;max-width:100%}
+.wrap{max-width:1160px;margin:0 auto;padding:0 20px}
+header.top{position:fixed;top:0;left:0;right:0;z-index:50;transition:.25s}
+header.top.solid{background:rgba(255,255,255,.97);box-shadow:0 1px 0 var(--line);backdrop-filter:blur(8px)}
+.hb{display:flex;align-items:center;gap:12px;height:66px}
+.logo{display:flex;align-items:center;gap:10px;font-weight:800;font-size:20px;color:#fff;letter-spacing:-.3px;min-width:0}
+.logo svg{width:36px;height:36px;flex:none}.logo span{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+header.solid .logo{color:var(--n)}
+.sp{flex:1}
+nav.m{display:flex;gap:2px}nav.m a{padding:8px 11px;border-radius:8px;font-weight:600;font-size:14.5px;color:#fff;opacity:.92}
+header.solid nav.m a{color:var(--mut)}nav.m a:hover{background:rgba(255,255,255,.15)}header.solid nav.m a:hover{background:#eef4f6;color:var(--n)}
+.lang{border:1.5px solid rgba(255,255,255,.6);color:#fff;border-radius:10px;padding:6px 12px;font-weight:700;font-size:14px;flex:none}
+header.solid .lang{border-color:var(--line);color:var(--n);background:#fff}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;height:50px;padding:0 26px;border-radius:14px;font-weight:700;background:var(--a);color:#fff;transition:.15s;font-size:16px;flex:none}
+.btn:hover{background:var(--a2);transform:translateY(-1px)}
+.btn.n{background:var(--n)}.btn.n:hover{background:var(--n2)}
+.btn.o{background:#fff;color:var(--n);border:1.5px solid var(--line)}
+.btn.w{background:#fff;color:var(--n)}
+.btn.s{height:40px;padding:0 16px;font-size:14px;border-radius:10px}
+.btn[disabled]{opacity:.45;pointer-events:none}
+/* hero */
+.hero{min-height:92vh;position:relative;display:flex;align-items:flex-end;color:#fff;background:#0d2c3d center/cover no-repeat}
+.hero:before{content:'';position:absolute;inset:0;background:linear-gradient(180deg,rgba(9,30,42,.45) 0%,rgba(9,30,42,.05) 35%,rgba(9,30,42,.75) 100%)}
+.hero .wrap{position:relative;padding-bottom:56px;width:100%}
+.loc{display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,.16);backdrop-filter:blur(6px);padding:6px 14px;border-radius:30px;font-weight:600;font-size:14px;margin-bottom:14px}
+.hero h1{font-size:62px;line-height:1.02;letter-spacing:-1.5px;font-weight:800}
+.hero p{font-size:19px;max-width:560px;margin:14px 0 24px;color:#e2eef2}
+.facts{display:flex;gap:10px;flex-wrap:wrap;margin-top:26px}
+.facts span{background:rgba(255,255,255,.14);backdrop-filter:blur(6px);border:1px solid rgba(255,255,255,.25);padding:8px 14px;border-radius:12px;font-weight:600;font-size:14px}
+.cta{display:flex;gap:12px;flex-wrap:wrap}
+section.s{padding:72px 0}section.s.w{background:#fff}
+.sh{margin-bottom:28px}.sh small{color:var(--a2);font-weight:800;letter-spacing:1.4px;text-transform:uppercase;font-size:12.5px}.sh h2{font-size:34px;letter-spacing:-.6px;font-weight:800;margin-top:4px}.sh p{color:var(--mut);margin-top:6px;max-width:640px}
+/* gallery */
+.gal{display:grid;grid-template-columns:2fr 1fr 1fr;grid-template-rows:230px 230px;gap:10px}
+.gal button{position:relative;overflow:hidden;border-radius:16px;background:#dde5e9}
+.gal button:first-child{grid-row:span 2}
+.gal img{width:100%;height:100%;object-fit:cover;transition:.4s}.gal button:hover img{transform:scale(1.04)}
+.gal .more{position:absolute;inset:0;background:rgba(9,30,42,.55);color:#fff;display:grid;place-items:center;font-weight:800;font-size:18px}
+.lb{position:fixed;inset:0;background:rgba(5,15,22,.94);z-index:90;display:none;align-items:center;justify-content:center}
+.lb.on{display:flex}.lb img{max-width:92vw;max-height:80vh;border-radius:12px}
+.lb button{position:absolute;color:#fff;font-size:34px;width:54px;height:54px;border-radius:50%;background:rgba(255,255,255,.12)}
+.lb .x{top:16px;right:16px}.lb .pv{left:14px}.lb .nx{right:14px}.lb .cap{position:absolute;bottom:22px;color:#cfe;font-weight:600}
+/* booking */
+.bk{display:grid;grid-template-columns:1.25fr 1fr;gap:26px;align-items:start}
+.panel{background:#fff;border:1px solid var(--line);border-radius:22px;padding:22px;box-shadow:var(--sh)}
+.mode{display:grid;grid-template-columns:1fr 1fr;background:#eef3f5;border-radius:14px;padding:5px;margin-bottom:16px}
+.mode button{height:46px;border-radius:10px;font-weight:700;color:var(--mut)}
+.mode button.on{background:#fff;color:var(--n);box-shadow:0 2px 8px rgba(0,0,0,.08)}
+.mode small{display:block;font-weight:500;font-size:11.5px;margin-top:-4px}
+.calh{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}
+.calh b{font-size:18px}.calh button{width:40px;height:40px;border-radius:12px;border:1.5px solid var(--line);font-size:18px;font-weight:700;background:#fff}
+.calh button[disabled]{opacity:.3}
+.cal{display:grid;grid-template-columns:repeat(7,1fr);gap:5px}
+.cal .wd{text-align:center;font-size:12px;font-weight:700;color:var(--mut);padding:4px 0}
+.cal .d{aspect-ratio:1/1.05;border-radius:12px;border:1.5px solid var(--line);background:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;font-weight:700;font-size:15px;transition:.12s;position:relative}
+.cal .d small{font-size:10.5px;font-weight:600;color:var(--a2)}
+.cal .d:hover:not([disabled]){border-color:var(--a)}
+.cal .d.we small{color:#b57d00}
+.cal .d.hol small{color:var(--bad)}
+.cal .d[disabled]{background:#f3f5f6;color:#b6c0c5;cursor:not-allowed;border-color:#f3f5f6}
+.cal .d.bkd{background:repeating-linear-gradient(135deg,#f5e3df,#f5e3df 6px,#fbefec 6px,#fbefec 12px);color:#c98b80;border-color:#f3d6cf}
+.cal .d.bkd small{color:#c98b80;text-decoration:line-through}
+.cal .d.sel{background:var(--n);color:#fff;border-color:var(--n)}.cal .d.sel small{color:var(--s)}
+.cal .d.rng{background:#dff3f5;border-color:#bfe6ea}
+.cal .e{visibility:hidden}
+.leg{display:flex;gap:14px;flex-wrap:wrap;margin-top:12px;font-size:12.5px;color:var(--mut)}
+.leg i{display:inline-block;width:12px;height:12px;border-radius:4px;margin-inline-end:5px;vertical-align:-1px}
+.f{margin-bottom:14px}.f label{display:block;font-weight:700;font-size:14px;margin-bottom:6px}
+.f input,.f select,.f textarea{width:100%;font:inherit;border:1.5px solid var(--line);border-radius:12px;padding:11px 13px;background:#fff;outline:0}
+.f input:focus,.f select:focus,.f textarea:focus{border-color:var(--a);box-shadow:0 0 0 3px rgba(43,179,192,.15)}
+.stepper{display:inline-flex;align-items:center;border:1.5px solid var(--line);border-radius:12px;overflow:hidden;background:#fff}
+.stepper button{width:44px;height:44px;font-size:20px;font-weight:700}.stepper b{min-width:46px;text-align:center}
+.adds{display:grid;gap:8px}
+.add{display:flex;align-items:center;gap:10px;border:1.5px solid var(--line);border-radius:12px;padding:10px 12px;cursor:pointer;background:#fff}
+.add input{width:18px;height:18px;accent-color:var(--a)}.add span{flex:1;font-weight:600;font-size:14.5px}.add small{display:block;font-weight:500;color:var(--mut);font-size:12.5px}.add em{font-style:normal;font-weight:700;color:var(--n);font-size:14px}
+.f label.add{display:flex;margin:0;font-size:inherit}.f .pay label{margin:0}
+.add.on{border-color:var(--a);background:#f0fafb}
+.sel-sum{background:#f3f7f8;border-radius:14px;padding:12px 14px;font-weight:600;margin-bottom:14px;font-size:14.5px}
+.rows .r{display:flex;justify-content:space-between;gap:10px;padding:6px 0;font-size:14.5px}.rows .r span{color:var(--mut)}
+.rows .t{border-top:2px solid var(--ink);margin-top:8px;padding-top:12px;font-size:20px;font-weight:800}.rows .t span{color:var(--ink)}
+.rows .dp{background:#fff7e3;border:1px solid #f2dfa6;border-radius:12px;padding:10px 12px;margin-top:10px;font-weight:700;color:#7a5a00}
+.pay{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:10px 0}
+.pay label{border:1.5px solid var(--line);border-radius:12px;padding:10px;text-align:center;font-weight:800;cursor:pointer;background:#fff}
+.pay input{display:none}.pay label.on{border-color:var(--n);background:#eef4f7}
+.err{color:var(--bad);font-weight:600;font-size:14px;min-height:20px;margin:6px 0}
+.hint{font-size:12.5px;color:var(--mut);margin-top:10px}
+/* grids */
+.am{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.am div{background:#fff;border:1px solid var(--line);border-radius:16px;padding:16px;display:flex;gap:12px;align-items:center;font-weight:600;font-size:14.5px}
+.am i{font-style:normal;font-size:22px;width:42px;height:42px;border-radius:12px;background:#eaf6f7;display:grid;place-items:center;flex:none}
+.pt{width:100%;border-collapse:separate;border-spacing:0;background:#fff;border:1px solid var(--line);border-radius:18px;overflow:hidden}
+.pt th,.pt td{padding:14px 16px;text-align:start;border-bottom:1px solid var(--line);font-size:15px}
+.pt th{background:#f3f7f8;font-size:13px;text-transform:uppercase;letter-spacing:.6px;color:var(--mut)}
+.pt tr:last-child td{border:0}.pt td b{color:var(--n)}
+.pk{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+.pk div{background:#fff;border:1px solid var(--line);border-radius:18px;padding:20px;position:relative;overflow:hidden}
+.pk div:before{content:'';position:absolute;inset:0 0 auto;height:5px;background:linear-gradient(90deg,var(--a),var(--s))}
+.pk .em{font-size:30px}.pk b{display:block;font-size:17px;margin:8px 0 4px}.pk p{color:var(--mut);font-size:14px}.pk .pr{margin-top:10px;font-weight:800;color:var(--n)}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.card{background:#fff;border:1px solid var(--line);border-radius:18px;padding:22px}
+.card h3{margin-bottom:10px;font-size:19px}.card li{margin:0 0 8px;list-style:none;padding-inline-start:24px;position:relative;font-size:15px}
+.card li:before{content:'✓';position:absolute;inset-inline-start:0;color:var(--a2);font-weight:800}
+.card.nope li:before{content:'✕';color:var(--bad)}
+.map{border-radius:18px;overflow:hidden;border:1px solid var(--line);height:340px;background:#e6edf0}
+.map iframe{width:100%;height:100%;border:0}
+details.fq{background:#fff;border:1px solid var(--line);border-radius:16px;padding:16px 20px;margin-bottom:10px}
+details.fq summary{font-weight:700;cursor:pointer;list-style:none;display:flex;justify-content:space-between;gap:10px}
+details.fq summary::after{content:'+';color:var(--a2);font-size:22px;line-height:1}details.fq[open] summary::after{content:'–'}
+details.fq p{color:var(--mut);margin-top:10px}
+footer{background:var(--n);color:#a9c3cf;padding:44px 0 26px}
+footer .g{display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:26px}
+footer .logo{color:#fff}footer h5{color:#fff;font-size:13px;letter-spacing:1px;text-transform:uppercase;margin-bottom:10px}footer a{display:block;padding:3px 0}
+footer .cp{border-top:1px solid #1d4a63;margin-top:28px;padding-top:16px;font-size:13px;text-align:center}
+.wafloat{position:fixed;inset-inline-end:16px;bottom:16px;z-index:45;background:#25d366;color:#fff;width:56px;height:56px;border-radius:50%;display:grid;place-items:center;box-shadow:0 8px 22px rgba(0,0,0,.25)}.wafloat svg{width:30px;height:30px}
+.mbar{display:none}
+.toast{position:fixed;left:50%;bottom:90px;transform:translate(-50%,30px);background:#132129;color:#fff;padding:12px 20px;border-radius:12px;font-weight:600;opacity:0;pointer-events:none;transition:.25s;z-index:99}.toast.on{opacity:1;transform:translate(-50%,0)}
+/* pages */
+.pg{padding:100px 0 60px}
+.guide .card{margin-bottom:14px}.kv{display:grid;grid-template-columns:1fr 1fr;gap:10px}.kv div{background:#f3f7f8;border-radius:12px;padding:12px}.kv small{color:var(--mut);display:block;font-size:12.5px}.kv b{font-size:16px}
+/* admin */
+.tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:18px}.tabs button{padding:9px 16px;border-radius:30px;font-weight:700;background:#fff;border:1.5px solid var(--line)}.tabs button.on{background:var(--n);color:#fff;border-color:var(--n)}
+.rq{background:#fff;border:1px solid var(--line);border-radius:16px;padding:16px;margin-bottom:10px}
+.rq .h{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;align-items:center}
+.rq small{color:var(--mut)}
+.st{display:inline-block;padding:3px 10px;border-radius:20px;font-size:12px;font-weight:800}
+.st.new{background:#e6f2ff;color:#1a5fb4}.st.dep{background:#fff3d6;color:#8a6200}.st.ok{background:#dcf5e9;color:#127a50}.st.cx{background:#f6e1dd;color:#a5402c}
+.kp{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:16px}.kp div{background:#fff;border:1px solid var(--line);border-radius:16px;padding:16px}.kp b{display:block;font-size:26px;color:var(--n)}.kp small{color:var(--mut)}
+.g3{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+@media(max-width:960px){
+ nav.m{display:none}.hero h1{font-size:42px}.bk,.two{grid-template-columns:1fr}.am,.pk,.kp{grid-template-columns:1fr 1fr}
+ .gal{grid-template-columns:1fr 1fr;grid-template-rows:200px 140px 140px}.gal button:first-child{grid-column:span 2;grid-row:auto}
+ footer .g{grid-template-columns:1fr}.g3{grid-template-columns:1fr 1fr}
+ .mbar{display:flex;position:fixed;left:0;right:0;bottom:0;z-index:44;background:#fff;border-top:1px solid var(--line);padding:10px 16px;gap:10px;align-items:center;box-shadow:0 -6px 20px rgba(0,0,0,.06)}
+ .mbar div{flex:1;font-size:13px;color:var(--mut)}.mbar b{display:block;font-size:17px;color:var(--ink)}
+ .wafloat{bottom:84px}body{padding-bottom:70px}
+}
+@media(max-width:560px){.hero{min-height:88vh}.hero h1{font-size:36px}.hero p{font-size:16.5px}.sh h2{font-size:27px}.am{grid-template-columns:1fr}.pk{grid-template-columns:1fr}.cal{gap:3px}.cal .d{border-radius:9px;font-size:13.5px}.cal .d small{font-size:9.5px}.panel{padding:16px}.logo{font-size:17px}.kv{grid-template-columns:1fr}.pt th,.pt td{padding:11px 10px;font-size:14px}}
+</style>
+</head>
+<body>
+<header class="top" id="hd"><div class="wrap hb">
+ <a class="logo" href="#/" id="lg"></a><div class="sp"></div>
+ <nav class="m" id="nv"></nav>
+ <button class="lang" id="lb"></button>
+</div></header>
+<main id="app"></main>
+<footer><div class="wrap"><div class="g" id="ft"></div><div class="cp" id="cp"></div></div></footer>
+<div class="lb" id="lbx"><button class="x" aria-label="Close">×</button><button class="pv" aria-label="Previous">‹</button><img alt=""><button class="nx" aria-label="Next">›</button><div class="cap"></div></div>
+<a class="wafloat" id="wf" target="_blank" rel="noopener" aria-label="WhatsApp"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8s-.4-.1-.6.1-.7.8-.8 1-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.2-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.7 11.8 11.8 0 0 0 4.5 4c1.7.7 2.3.8 3.2.6.5-.1 1.5-.6 1.7-1.2s.2-1.1.1-1.2-.2-.2-.4-.3z"/></svg></a>
+<div class="mbar" id="mb"></div>
+<div class="toast" id="toast"></div>
+<script>
+/* ================= SETTINGS ================= */
+var CFG={nameEn:'Lazuli Chalet',nameAr:'شاليه لازولي',whatsapp:'96171163991',payNumber:'+961 71 163 991',payName:'Lazuli Chalet',adminPass:'admin123',mapQ:'Batroun, Lebanon'};
+var IMG=function(id,w){return'https://images.unsplash.com/photo-'+id+'?auto=format&fit=crop&w='+(w||1200)+'&q=72'};
+var PH=[['1613490493576-7fde63acd811','Pool & terrace','المسبح والتراس'],['1571896349842-33c89424de2d','The pool at night','المسبح بالليل'],['1600607687939-ce8a6c25118c','Living room','الصالون'],['1580587771525-78b9dba3b914','Infinity pool','المسبح'],['1616594039964-ae9021a400a0','Master bedroom','غرفة النوم الرئيسية'],['1507089947368-19c1da9775ae','Kitchen','المطبخ'],['1582719508461-905c673771fd','Sunset deck','تراس الغروب'],['1615874959474-d609969a20ed','Second bedroom','غرفة النوم الثانية'],['1584622650111-993a426fbf0a','Bathroom','الحمّام'],['1600596542815-ffad4c1539a9','Outdoor lounge','الجلسة الخارجية']];
+/* ============================================ */
+var L=(function(){try{return localStorage.getItem('ch_lang')}catch(e){}})()||'en';
+function _(en,ar){return L==='ar'?ar:en}
+var $=function(s){return document.querySelector(s)},$$=function(s){return[].slice.call(document.querySelectorAll(s))};
+function esc(s){return String(s==null?'':s).replace(/[&<>"]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})}
+function toast(m){var e=$('#toast');e.textContent=m;e.classList.add('on');clearTimeout(toast.i);toast.i=setTimeout(function(){e.classList.remove('on')},2600)}
+function ld(k,d){try{var v=JSON.parse(localStorage.getItem(k));return v==null?d:v}catch(e){return d}}
+function sv(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}
+function usd(n){return'$'+Math.round(n).toLocaleString('en-US')}
+/* dates */
+function ds(d){return d.getFullYear()+'-'+('0'+(d.getMonth()+1)).slice(-2)+'-'+('0'+d.getDate()).slice(-2)}
+function pd(s){var p=s.split('-');return new Date(+p[0],+p[1]-1,+p[2])}
+function addD(s,n){var d=pd(s);d.setDate(d.getDate()+n);return ds(d)}
+var TODAY=ds(new Date());
+function fmt(s,long){var d=pd(s);return d.toLocaleDateString(L==='ar'?'ar-LB':'en-GB',long?{weekday:'short',day:'numeric',month:'short'}:{day:'numeric',month:'short'})}
+/* default settings */
+var DEF={night:{wd:180,we:260},sNight:{wd:230,we:320},day:{wd:120,we:170},sDay:{wd:150,we:210},hNight:360,hDay:240,
+ holidays:['2026-12-24','2026-12-25','2026-12-31','2027-01-01','2027-01-06'],
+ baseN:8,maxN:12,exN:15,baseD:12,maxD:20,exD:8,deposit:30,
+ addons:[{id:'heat',en:'Heated pool',ar:'تدفئة المسبح',enD:'Warm water all day',arD:'مي دافية طول النهار',p:40,per:'night'},{id:'bbq',en:'BBQ & charcoal',ar:'منقل وفحم',enD:'Ready to light',arD:'جاهز للشوي',p:12,per:'stay'},{id:'bf',en:'Lebanese breakfast',ar:'ترويقة لبنانية',enD:'Per person, per morning',arD:'للشخص بكل صبحية',p:8,per:'pp'},{id:'bday',en:'Birthday setup',ar:'زينة عيد ميلاد',enD:'Balloons, table & lights',arD:'بالونات وطاولة وإضاءة',p:65,per:'stay'},{id:'late',en:'Late check-out (4 PM)',ar:'خروج متأخر (4 العصر)',enD:'Stay longer on your last day',arD:'ضل أكتر بآخر يوم',p:35,per:'stay'}]};
+var SET=ld('ch_set',null)||JSON.parse(JSON.stringify(DEF));
+function isSummer(s){var m=pd(s).getMonth()+1;return m>=6&&m<=9}
+function isWeNight(s){var w=pd(s).getDay();return w===5||w===6}
+function isWeDay(s){var w=pd(s).getDay();return w===6||w===0}
+function isHol(s){return SET.holidays.indexOf(s)>-1}
+function nightP(s){if(isHol(s))return SET.hNight;var t=isSummer(s)?SET.sNight:SET.night;return isWeNight(s)?t.we:t.wd}
+function dayP(s){if(isHol(s))return SET.hDay;var t=isSummer(s)?SET.sDay:SET.day;return isWeDay(s)?t.we:t.wd}
+/* bookings (confirmed) */
+function seedB(){var N={},D={},o=[4,5,11,12,18,19,26,33,34,40,41];o.forEach(function(k){N[addD(TODAY,k)]=1});[7,21].forEach(function(k){D[addD(TODAY,k)]=1});return{N:N,D:D}}
+var BK=ld('ch_bk',null)||seedB();sv('ch_bk',BK);
+function nightFree(s){return!BK.N[s]&&!BK.D[s]}
+function dayFree(s){return!BK.D[s]&&!BK.N[s]&&!BK.N[addD(s,-1)]}
+/* state */
+var ST={mode:'n',cin:null,cout:null,day:null,month:null,guests:6,adds:{},pay:'omt'};
+(function(){var d=new Date();ST.month=[d.getFullYear(),d.getMonth()]})();
+/* ================= LAYOUT ================= */
+var LOGO='<svg viewBox="0 0 64 64"><rect width="64" height="64" rx="16" fill="#0d2c3d"/><path d="M12 40c6-5 10-5 16 0s10 5 16 0 8-4 8-4v10c-4 3-8 4-12 0s-10-5-16 0-10 4-12 2z" fill="#5cc6d0"/><path d="M18 30l14-12 14 12" stroke="#f4c95d" stroke-width="4" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+function chrome(){
+ document.documentElement.lang=L;document.documentElement.dir=L==='ar'?'rtl':'ltr';
+ $('#lg').innerHTML=LOGO+'<span>'+_(CFG.nameEn,CFG.nameAr)+'</span>';
+ $('#lb').textContent=L==='ar'?'EN':'عربي';
+ $('#nv').innerHTML=[['#/','gallery',_('Photos','الصور')],['#/','book',_('Availability','الحجز')],['#/','prices',_('Prices','الأسعار')],['#/','packages',_('Occasions','المناسبات')],['#/','location',_('Location','الموقع')]].map(function(x){return'<a href="#/" data-go="'+x[1]+'">'+x[2]+'</a>'}).join('');
+ $('#ft').innerHTML='<div><a class="logo" href="#/">'+LOGO+'<span>'+_(CFG.nameEn,CFG.nameAr)+'</span></a><p style="margin-top:12px;max-width:340px">'+_('A private chalet by the sea in Batroun. Book directly with the owner — no middlemen.','شاليه خاص عالبحر بالبترون. احجز مباشرة مع صاحب الشاليه، بلا وسيط.')+'</p></div><div><h5>'+_('Contact','تواصل')+'</h5><a target="_blank" rel="noopener" href="https://wa.me/'+CFG.whatsapp+'" dir="ltr">WhatsApp '+CFG.payNumber+'</a><a href="#/guide">'+_('Guest guide','دليل الضيف')+'</a></div><div><h5>'+_('Book','احجز')+'</h5><a href="#/" data-go="book">'+_('Check availability','شوف الأيام الفاضية')+'</a><a href="#/" data-go="prices">'+_('Prices','الأسعار')+'</a><a href="#/admin" style="opacity:.6">'+_('Owner login','دخول المالك')+'</a></div>';
+ $('#cp').textContent='© '+new Date().getFullYear()+' '+_(CFG.nameEn,CFG.nameAr);
+ $('#wf').href='https://wa.me/'+CFG.whatsapp+'?text='+encodeURIComponent(_('Hello, I have a question about '+CFG.nameEn,'مرحبا، عندي سؤال عن '+CFG.nameAr));
+ document.title=_(CFG.nameEn+' — Batroun · Book your stay',CFG.nameAr+' — البترون · احجز إقامتك');
+ $$('[data-go]').forEach(function(a){a.onclick=function(e){e.preventDefault();go(a.dataset.go)}});
+}
+function go(id){if(location.hash&&location.hash!=='#/'&&location.hash!=='#'){location.hash='#/';setTimeout(function(){go(id)},60);return}var e=document.getElementById(id);if(e)window.scrollTo({top:e.getBoundingClientRect().top+scrollY-74,behavior:'smooth'})}
+$('#lb').onclick=function(){L=L==='ar'?'en':'ar';try{localStorage.setItem('ch_lang',L)}catch(e){}route(true)};
+window.addEventListener('scroll',function(){$('#hd').classList.toggle('solid',scrollY>40||location.hash.length>2)});
+/* ================= HOME ================= */
+function vHome(){
+ var minN=Math.min(SET.night.wd,SET.sNight.wd),minD=Math.min(SET.day.wd,SET.sDay.wd);
+ var am=[['🏊',_('Private pool','مسبح خاص')],['♨️',_('Heated pool (option)','تدفئة المسبح (اختياري)')],['🛁',_('Jacuzzi','جاكوزي')],['🌅',_('Sea & sunset view','إطلالة بحر وغروب')],['🛏️',_('3 bedrooms · sleeps 12','3 غرف نوم · لـ12 شخص')],['⚡',_('Electricity 24/7','كهربا 24/24')],['🔥',_('BBQ area','منطقة شوي')],['📶',_('Fast Wi-Fi','واي فاي سريع')],['🍳',_('Full kitchen','مطبخ مجهّز')],['🅿️',_('Private parking (4 cars)','موقف خاص (4 سيارات)')],['🔊',_('Sound system','نظام صوت')],['❄️',_('A/C in every room','مكيّف بكل غرفة')]];
+ var pk=[['🎂',_('Birthday','عيد ميلاد'),_('Decoration, table setup and lights, ready when you arrive.','زينة وطاولة وإضاءة، جاهزين لما توصل.'),SET.addons.find(function(a){return a.id==='bday'})],['💍',_('Engagement & proposal','خطوبة وطلب إيد'),_('Candles, flowers and a private sunset setup on the deck.','شموع وورد وجلسة غروب خاصة عالتراس.'),null],['🎉',_('Friends night','سهرة أصحاب'),_('Overnight for up to 12, sound system and BBQ ready.','مبيت لحد 12 شخص، مع صوت ومنقل جاهز.'),null],['👨‍👩‍👧',_('Family day','نهار عائلي'),_('Day use for up to 20 guests, safe pool and shaded areas.','Day use لحد 20 شخص، مسبح آمن وأماكن مظللة.'),null]];
+ var faq=[[_('How do I confirm my booking?','كيف بأكّد حجزي؟'),_('Send your request from this page. We reply on WhatsApp, then you pay a '+SET.deposit+'% deposit by OMT or Whish. Your dates are confirmed once the deposit is received.','بتبعت طلبك من هالصفحة، منردّ عليك عالواتساب، وبتدفع عربون '+SET.deposit+'% عبر OMT أو Whish. الحجز بيتأكد أول ما يوصل العربون.')],[_('What if I cancel?','إذا لغيت؟'),_('Free cancellation up to 7 days before arrival (deposit refunded). Within 7 days the deposit is kept, or you can move your date once.','الإلغاء مجاني لحد 7 أيام قبل الوصول (العربون برجع). أقل من 7 أيام العربون ما برجع، أو فيك تأجّل مرة وحدة.')],[_('Is there electricity all the time?','في كهربا دايماً؟'),_('Yes, 24/7 with solar and a generator backup.','إيه، 24/24 مع طاقة شمسية وموتير احتياط.')],[_('Can we bring our own food and drinks?','فينا نجيب أكلنا ومشروبنا؟'),_('Of course. The kitchen is fully equipped.','أكيد، المطبخ مجهّز بالكامل.')],[_('Is there a security deposit?','في تأمين؟'),_('A refundable $100 cash deposit on arrival, returned at check-out after a quick check.','تأمين $100 كاش عند الوصول، برجع عند الخروج بعد تفقد سريع.')],[_('Are pets allowed?','الحيوانات مسموحة؟'),_('Small pets are welcome on request.','الحيوانات الصغيرة مسموحة بعد ما تخبرنا.')]];
+ return '<section class="hero" style="background-image:url('+IMG(PH[0][0],1800)+')"><div class="wrap"><span class="loc">📍 '+_('Batroun · 50 min from Beirut','البترون · 50 دقيقة من بيروت')+'</span><h1>'+_(CFG.nameEn,CFG.nameAr)+'</h1><p>'+_('A private seaside chalet with a pool, jacuzzi and sunset deck. See live availability and the exact price, then book in minutes.','شاليه خاص عالبحر مع مسبح وجاكوزي وتراس للغروب. شوف الأيام الفاضية والسعر بالضبط، واحجز بدقايق.')+'</p><div class="cta"><button class="btn" data-go="book">'+_('Check availability','شوف الأيام الفاضية')+'</button><button class="btn w" data-go="gallery">'+_('View photos','شوف الصور')+'</button></div><div class="facts"><span>🛏️ '+_('Sleeps 12','لـ12 شخص')+'</span><span>☀️ '+_('Day use from','Day use من')+' '+usd(minD)+'</span><span>🌙 '+_('Overnight from','المبيت من')+' '+usd(minN)+'</span><span>⚡ '+_('24/7 power','كهربا 24/24')+'</span></div></div></section>'+
+ '<section class="s w" id="gallery"><div class="wrap"><div class="sh"><small>'+_('Gallery','الصور')+'</small><h2>'+_('Take a look around','اتفرّج عالشاليه')+'</h2></div><div class="gal">'+PH.slice(0,5).map(function(p,i){return'<button data-ph="'+i+'"><img loading="lazy" src="'+IMG(p[0],i?700:1200)+'" alt="'+esc(_(p[1],p[2]))+'">'+(i===4?'<span class="more">+'+(PH.length-4)+' '+_('photos','صور')+'</span>':'')+'</button>'}).join('')+'</div></div></section>'+
+ '<section class="s" id="book"><div class="wrap"><div class="sh"><small>'+_('Booking','الحجز')+'</small><h2>'+_('Availability & price','الأيام الفاضية والسعر')+'</h2><p>'+_('Choose day use or overnight, pick your dates and see your total instantly.','اختار Day use أو مبيت، نقّي الأيام، وبيطلعلك المجموع فوراً.')+'</p></div><div class="bk"><div class="panel"><div class="mode"><button data-m="n" class="'+(ST.mode==='n'?'on':'')+'">🌙 '+_('Overnight','مبيت')+'<small>'+_('2 PM → 12 PM','2 الضهر ← 12 الضهر')+'</small></button><button data-m="d" class="'+(ST.mode==='d'?'on':'')+'">☀️ '+_('Day use','Day use')+'<small>'+_('10 AM → 8 PM','10 الصبح ← 8 المسا')+'</small></button></div><div id="cal"></div><div class="leg"><span><i style="background:#fff;border:1.5px solid #e4e9ec"></i>'+_('Available','فاضي')+'</span><span><i style="background:#f5e3df"></i>'+_('Booked','محجوز')+'</span><span><i style="background:#0d2c3d"></i>'+_('Your dates','أيامك')+'</span><span style="color:#b57d00">● '+_('Weekend','ويكند')+'</span><span style="color:#d4553f">● '+_('Holiday','عيد')+'</span></div></div><div class="panel" id="sum"></div></div></div></section>'+
+ '<section class="s w"><div class="wrap"><div class="sh"><small>'+_('Amenities','المميزات')+'</small><h2>'+_('Everything you need','كل شي بتحتاجو')+'</h2></div><div class="am">'+am.map(function(a){return'<div><i>'+a[0]+'</i>'+a[1]+'</div>'}).join('')+'</div></div></section>'+
+ '<section class="s" id="prices"><div class="wrap"><div class="sh"><small>'+_('Prices','الأسعار')+'</small><h2>'+_('Clear prices, no surprises','أسعار واضحة، بلا مفاجآت')+'</h2><p>'+_('Overnight includes '+SET.baseN+' guests (max '+SET.maxN+'), +'+usd(SET.exN)+' per extra guest. Day use includes '+SET.baseD+' guests (max '+SET.maxD+'), +'+usd(SET.exD)+' per extra guest.','المبيت بيشمل '+SET.baseN+' أشخاص (الحد الأقصى '+SET.maxN+')، و+'+usd(SET.exN)+' لكل شخص زيادة. الـDay use بيشمل '+SET.baseD+' شخص (الحد الأقصى '+SET.maxD+')، و+'+usd(SET.exD)+' لكل شخص زيادة.')+'</p></div><div style="overflow-x:auto"><table class="pt"><tr><th></th><th>'+_('Weekdays','أيام الأسبوع')+'</th><th>'+_('Weekend','الويكند')+'</th><th>'+_('Summer weekdays','أيام الأسبوع (صيف)')+'</th><th>'+_('Summer weekend','الويكند (صيف)')+'</th></tr><tr><td><b>🌙 '+_('Overnight','مبيت')+'</b></td><td>'+usd(SET.night.wd)+'</td><td>'+usd(SET.night.we)+'</td><td>'+usd(SET.sNight.wd)+'</td><td>'+usd(SET.sNight.we)+'</td></tr><tr><td><b>☀️ Day use</b></td><td>'+usd(SET.day.wd)+'</td><td>'+usd(SET.day.we)+'</td><td>'+usd(SET.sDay.wd)+'</td><td>'+usd(SET.sDay.we)+'</td></tr></table></div><p class="hint">'+_('Weekend nights: Friday & Saturday. Summer: June–September. Holidays: '+usd(SET.hNight)+' per night / '+usd(SET.hDay)+' day use.','ليالي الويكند: الجمعة والسبت. الصيف: من حزيران لأيلول. الأعياد: '+usd(SET.hNight)+' لليلة / '+usd(SET.hDay)+' للـDay use.')+'</p></div></section>'+
+ '<section class="s w" id="packages"><div class="wrap"><div class="sh"><small>'+_('Occasions','المناسبات')+'</small><h2>'+_('Make it special','خلّيها مناسبة مميزة')+'</h2><p>'+_('Tell us what you are celebrating and we prepare the chalet before you arrive.','قلّنا شو المناسبة ومنحضّرلك الشاليه قبل ما توصل.')+'</p></div><div class="pk">'+pk.map(function(p){return'<div><span class="em">'+p[0]+'</span><b>'+p[1]+'</b><p>'+p[2]+'</p><div class="pr">'+(p[3]?'+'+usd(p[3].p):_('Ask us','اسألنا'))+'</div></div>'}).join('')+'</div></div></section>'+
+ '<section class="s"><div class="wrap"><div class="two"><div class="card"><h3>'+_('Good to know','معلومات مهمة')+'</h3><ul><li>'+_('Check-in 2 PM · Check-out 12 PM','الدخول 2 الضهر · الخروج 12 الضهر')+'</li><li>'+_('Day use 10 AM – 8 PM','الـDay use من 10 الصبح لـ8 المسا')+'</li><li>'+_('Towels, linens and cleaning included','المناشف والشراشف والتنضيف مشمولين')+'</li><li>'+_('Refundable $100 security deposit on arrival','تأمين $100 برجع عند الخروج')+'</li><li>'+_('Free cancellation up to 7 days before arrival','إلغاء مجاني لحد 7 أيام قبل الوصول')+'</li></ul></div><div class="card nope"><h3>'+_('House rules','قوانين الشاليه')+'</h3><ul><li>'+_('No loud music after midnight (outdoors)','ممنوع الصوت العالي برا بعد نص الليل')+'</li><li>'+_('No parties above the guest limit','ممنوع تجاوز العدد المتفق عليه')+'</li><li>'+_('No glass in the pool area','ممنوع القزاز حد المسبح')+'</li><li>'+_('No smoking indoors','ممنوع التدخين جوّا')+'</li></ul></div></div></div></section>'+
+ '<section class="s w" id="location"><div class="wrap"><div class="sh"><small>'+_('Location','الموقع')+'</small><h2>'+_('Easy to reach','سهل الوصول')+'</h2><p>'+_('50 minutes from Beirut, 5 minutes from Batroun old souk and restaurants. The exact pin is shared after confirmation.','50 دقيقة من بيروت، و5 دقايق من سوق البترون القديم والمطاعم. اللوكيشن الدقيق بينبعت بعد تأكيد الحجز.')+'</p></div><div class="map"><iframe loading="lazy" title="map" src="https://maps.google.com/maps?q='+encodeURIComponent(CFG.mapQ)+'&z=12&output=embed"></iframe></div></div></section>'+
+ '<section class="s"><div class="wrap"><div class="sh"><small>FAQ</small><h2>'+_('Questions guests ask','أسئلة الضيوف')+'</h2></div>'+faq.map(function(q){return'<details class="fq"><summary>'+q[0]+'</summary><p>'+q[1]+'</p></details>'}).join('')+'</div></section>';
+}
+/* calendar */
+function calHtml(){
+ var y=ST.month[0],m=ST.month[1],first=new Date(y,m,1),start=(first.getDay()+6)%7,days=new Date(y,m+1,0).getDate();
+ var now=new Date(),canPrev=y>now.getFullYear()||m>now.getMonth(),lim=new Date(now.getFullYear(),now.getMonth()+6,1),canNext=new Date(y,m+1,1)<lim;
+ var wd=L==='ar'?['اث','ثل','أر','خم','جم','سب','أح']:['Mo','Tu','We','Th','Fr','Sa','Su'];
+ var h='<div class="calh"><button id="cp1" '+(canPrev?'':'disabled')+' aria-label="prev">'+(L==='ar'?'›':'‹')+'</button><b>'+first.toLocaleDateString(L==='ar'?'ar-LB':'en-GB',{month:'long',year:'numeric'})+'</b><button id="cn1" '+(canNext?'':'disabled')+' aria-label="next">'+(L==='ar'?'‹':'›')+'</button></div><div class="cal">'+wd.map(function(w){return'<div class="wd">'+w+'</div>'}).join('');
+ for(var i=0;i<start;i++)h+='<div class="e"></div>';
+ for(var d=1;d<=days;d++){
+  var s=ds(new Date(y,m,d)),past=s<TODAY,cls='d',dis=past,lab='';
+  if(ST.mode==='n'){
+   var free=nightFree(s);
+   if(ST.cin&&!ST.cout&&s>ST.cin){var ok=true,k=ST.cin;while(k<s){if(!nightFree(k)){ok=false;break}k=addD(k,1)}dis=past||!ok;if(ok)lab=''}
+   else{if(!free&&!past){cls+=' bkd';dis=true}}
+   if(!past&&free)lab=usd(nightP(s));
+   if(isHol(s))cls+=' hol';else if(isWeNight(s))cls+=' we';
+   if(s===ST.cin||s===ST.cout)cls+=' sel';else if(ST.cin&&ST.cout&&s>ST.cin&&s<ST.cout)cls+=' rng';
+  }else{
+   var fr=dayFree(s);if(!fr&&!past){cls+=' bkd';dis=true}
+   if(!past&&fr)lab=usd(dayP(s));
+   if(isHol(s))cls+=' hol';else if(isWeDay(s))cls+=' we';
+   if(s===ST.day)cls+=' sel';
+  }
+  if(!lab&&cls.indexOf('bkd')>-1)lab=_('booked','محجوز');
+  if(ST.mode==='n'&&s===ST.cin)lab=_('in','دخول');if(ST.mode==='n'&&s===ST.cout)lab=_('out','خروج');
+  h+='<button class="'+cls+'" data-d="'+s+'" '+(dis?'disabled':'')+'>'+d+'<small>'+lab+'</small></button>';
+ }
+ return h+'</div>';
+}
+function quote(){
+ var q={lines:[],sub:0,ok:false};
+ if(ST.mode==='n'){
+  if(!ST.cin||!ST.cout)return q;
+  var n=0,k=ST.cin,base=0;while(k<ST.cout){base+=nightP(k);n++;k=addD(k,1)}
+  q.nights=n;q.lines.push([n+' '+_(n>1?'nights':'night',n>1?'ليالي':'ليلة'),base]);
+  var ex=Math.max(0,ST.guests-SET.baseN);if(ex)q.lines.push([ex+' '+_('extra guests','أشخاص زيادة')+' × '+n,ex*SET.exN*n]);
+  SET.addons.forEach(function(a){if(ST.adds[a.id]){var c=a.per==='night'?a.p*n:a.per==='pp'?a.p*ST.guests*n:a.p;q.lines.push([_(a.en,a.ar),c])}});
+ }else{
+  if(!ST.day)return q;q.nights=0;
+  q.lines.push(['Day use · '+fmt(ST.day),dayP(ST.day)]);
+  var ex2=Math.max(0,ST.guests-SET.baseD);if(ex2)q.lines.push([ex2+' '+_('extra guests','أشخاص زيادة'),ex2*SET.exD]);
+  SET.addons.forEach(function(a){if(ST.adds[a.id]&&a.id!=='late'&&a.id!=='bf'){var c=a.per==='pp'?a.p*ST.guests:a.p;q.lines.push([_(a.en,a.ar),c])}});
+ }
+ q.sub=q.lines.reduce(function(s,l){return s+l[1]},0);q.dep=Math.round(q.sub*SET.deposit/100);q.ok=true;return q;
+}
+function sumHtml(){
+ var mx=ST.mode==='n'?SET.maxN:SET.maxD,q=quote(),h='';
+ if(ST.guests>mx)ST.guests=mx;
+ var sel=ST.mode==='n'?(ST.cin?(fmt(ST.cin,1)+' → '+(ST.cout?fmt(ST.cout,1):_('pick check-out','اختار يوم الخروج'))):_('Pick your check-in date','اختار يوم الدخول')):(ST.day?fmt(ST.day,1):_('Pick your day','اختار النهار'));
+ h+='<div class="sel-sum">📅 '+sel+'</div>';
+ h+='<div class="f"><label>'+_('Guests','عدد الأشخاص')+' <span style="color:var(--mut);font-weight:500">('+_('max','حد أقصى')+' '+mx+')</span></label><div class="stepper"><button id="gm">−</button><b id="gv">'+ST.guests+'</b><button id="gp">+</button></div></div>';
+ h+='<div class="f"><label>'+_('Extras','إضافات')+'</label><div class="adds">'+SET.addons.filter(function(a){return ST.mode==='n'||(a.id!=='late'&&a.id!=='bf')}).map(function(a){return'<label class="add '+(ST.adds[a.id]?'on':'')+'"><input type="checkbox" data-ad="'+a.id+'" '+(ST.adds[a.id]?'checked':'')+'><span>'+_(a.en,a.ar)+'<small>'+_(a.enD,a.arD)+'</small></span><em>+'+usd(a.p)+(a.per==='night'?_('/night','/ليلة'):a.per==='pp'?_('/person','/شخص'):'')+'</em></label>'}).join('')+'</div></div>';
+ if(q.ok){
+  h+='<div class="rows">'+q.lines.map(function(l){return'<div class="r"><span>'+esc(l[0])+'</span><b>'+usd(l[1])+'</b></div>'}).join('')+'<div class="r t"><span>'+_('Total','المجموع')+'</span><b>'+usd(q.sub)+'</b></div><div class="dp">'+_('Deposit to confirm','العربون للتأكيد')+' ('+SET.deposit+'%): '+usd(q.dep)+'<br><small style="font-weight:600">'+_('Remaining on arrival','الباقي عند الوصول')+': '+usd(q.sub-q.dep)+'</small></div></div>';
+  h+='<div class="f" style="margin-top:14px"><label>'+_('Deposit payment','دفع العربون')+'</label><div class="pay"><label class="'+(ST.pay==='omt'?'on':'')+'"><input type="radio" name="pay" value="omt" '+(ST.pay==='omt'?'checked':'')+'>OMT</label><label class="'+(ST.pay==='whish'?'on':'')+'"><input type="radio" name="pay" value="whish" '+(ST.pay==='whish'?'checked':'')+'>Whish Money</label></div></div>';
+  h+='<div class="f"><label>'+_('Full name','الاسم الكامل')+'</label><input id="bn" autocomplete="name"></div><div class="f"><label>'+_('Phone / WhatsApp','رقم الهاتف / واتساب')+'</label><input id="bp" inputmode="tel" autocomplete="tel" placeholder="+961"></div><div class="f"><label>'+_('Occasion or notes (optional)','المناسبة أو ملاحظات (اختياري)')+'</label><input id="bo"></div><div class="err" id="be"></div><button class="btn n" id="bs" style="width:100%">'+_('Request booking on WhatsApp','اطلب الحجز عالواتساب')+'</button><p class="hint">'+_('Your dates are held once the '+SET.deposit+'% deposit is received by '+(ST.pay==='omt'?'OMT':'Whish')+'. You will get the payment details in our reply.','الأيام بتنحجزلك أول ما يوصل عربون '+SET.deposit+'% عبر '+(ST.pay==='omt'?'OMT':'Whish')+'. تفاصيل الدفع بتوصلك بالرد.')+'</p>';
+ }else h+='<p class="hint" style="margin-top:4px">'+_('Select dates on the calendar to see your total.','نقّي الأيام عالروزنامة ليطلعلك المجموع.')+'</p>';
+ return h;
+}
+function mbar(){var q=quote(),e=$('#mb');if(location.hash.length>2){e.style.display='none';return}e.style.display='';e.innerHTML='<div>'+(q.ok?_('Total','المجموع')+'<b>'+usd(q.sub)+'</b>':_('From','ابتداءً من')+'<b>'+usd(Math.min(SET.day.wd,SET.night.wd))+'</b>')+'</div><button class="btn s" data-go2="book">'+(q.ok?_('Book now','احجز هلأ'):_('Check dates','شوف الأيام'))+'</button>';e.querySelector('button').onclick=function(){go('book')}}
+function drawBook(){
+ $('#cal').innerHTML=calHtml();$('#sum').innerHTML=sumHtml();mbar();
+ var p=$('#cp1'),n=$('#cn1');
+ p.onclick=function(){var m=ST.month;ST.month=m[1]?[m[0],m[1]-1]:[m[0]-1,11];drawBook()};
+ n.onclick=function(){var m=ST.month;ST.month=m[1]<11?[m[0],m[1]+1]:[m[0]+1,0];drawBook()};
+ $$('.cal .d').forEach(function(b){b.onclick=function(){var s=b.dataset.d;
+  if(ST.mode==='d'){ST.day=s}
+  else{if(!ST.cin||ST.cout||s<=ST.cin){if(!nightFree(s)){return}ST.cin=s;ST.cout=null}else ST.cout=s}
+  drawBook();if(window.innerWidth<960&&((ST.mode==='n'&&ST.cout)||(ST.mode==='d'&&ST.day))){setTimeout(function(){var e=$('#sum');window.scrollTo({top:e.getBoundingClientRect().top+scrollY-80,behavior:'smooth'})},80)}}});
+ var mx=ST.mode==='n'?SET.maxN:SET.maxD;
+ $('#gm').onclick=function(){ST.guests=Math.max(1,ST.guests-1);drawBook()};
+ $('#gp').onclick=function(){if(ST.guests>=mx){toast(_('Maximum is '+mx+' guests','الحد الأقصى '+mx+' أشخاص'));return}ST.guests++;drawBook()};
+ $$('[data-ad]').forEach(function(c){c.onchange=function(){ST.adds[c.dataset.ad]=c.checked;drawBook()}});
+ $$('input[name=pay]').forEach(function(r){r.onchange=function(){ST.pay=r.value;var v={n:$('#bn').value,p:$('#bp').value,o:$('#bo').value};drawBook();$('#bn').value=v.n;$('#bp').value=v.p;$('#bo').value=v.o}});
+ var bs=$('#bs');if(bs)bs.onclick=submit;
+}
+function submit(){
+ var n=$('#bn').value.trim(),p=$('#bp').value.trim(),o=$('#bo').value.trim(),q=quote();
+ if(!n){$('#be').textContent=_('Please enter your name','اكتب اسمك');return}
+ if(p.replace(/\D/g,'').length<7){$('#be').textContent=_('Please enter a valid phone number','اكتب رقم صحيح');return}
+ $('#be').textContent='';
+ var when=ST.mode==='n'?fmt(ST.cin,1)+' → '+fmt(ST.cout,1)+' ('+q.nights+' '+_('nights','ليالي')+')':'Day use '+fmt(ST.day,1);
+ var L2=[_('*Booking request — ','*طلب حجز — ')+_(CFG.nameEn,CFG.nameAr)+'*','',_('Name: ','الاسم: ')+n,_('Phone: ','الهاتف: ')+p,_('Dates: ','التاريخ: ')+when,_('Guests: ','عدد الأشخاص: ')+ST.guests,''];
+ q.lines.forEach(function(l){L2.push('• '+l[0]+': '+usd(l[1]))});
+ L2.push('',_('*Total: ','*المجموع: ')+usd(q.sub)+'*',_('Deposit (','العربون (')+SET.deposit+'%) '+_('via ','عبر ')+(ST.pay==='omt'?'OMT':'Whish')+': '+usd(q.dep));
+ if(o)L2.push('',_('Notes: ','ملاحظات: ')+o);
+ var msg=L2.join('\n');
+ var R=ld('ch_req',[]);R.unshift({id:Date.now(),at:new Date().toISOString(),mode:ST.mode,cin:ST.cin,cout:ST.cout,day:ST.day,guests:ST.guests,adds:Object.keys(ST.adds).filter(function(k){return ST.adds[k]}),total:q.sub,dep:q.dep,pay:ST.pay,name:n,phone:p,note:o,status:'new'});sv('ch_req',R);
+ window.open('https://wa.me/'+CFG.whatsapp+'?text='+encodeURIComponent(msg),'_blank');
+ toast(_('Request ready — send it on WhatsApp','الطلب جاهز — ابعتو عالواتساب'));
+}
+function initHome(){
+ drawBook();
+ $$('.mode button').forEach(function(b){b.onclick=function(){ST.mode=b.dataset.m;ST.cin=ST.cout=ST.day=null;$$('.mode button').forEach(function(x){x.classList.toggle('on',x===b)});drawBook()}});
+ $$('[data-ph]').forEach(function(b){b.onclick=function(){openLb(+b.dataset.ph)}});
+ $$('[data-go]').forEach(function(a){a.onclick=function(e){e.preventDefault();go(a.dataset.go)}});
+}
+/* lightbox */
+var LBi=0;function openLb(i){LBi=(i+PH.length)%PH.length;var b=$('#lbx');b.querySelector('img').src=IMG(PH[LBi][0],1600);b.querySelector('.cap').textContent=_(PH[LBi][1],PH[LBi][2])+' · '+(LBi+1)+'/'+PH.length;b.classList.add('on')}
+$('#lbx .x').onclick=function(){$('#lbx').classList.remove('on')};$('#lbx .pv').onclick=function(){openLb(LBi-1)};$('#lbx .nx').onclick=function(){openLb(LBi+1)};
+$('#lbx').onclick=function(e){if(e.target.id==='lbx')$('#lbx').classList.remove('on')};
+document.addEventListener('keydown',function(e){if(!$('#lbx').classList.contains('on'))return;if(e.key==='Escape')$('#lbx').classList.remove('on');if(e.key==='ArrowRight')openLb(LBi+1);if(e.key==='ArrowLeft')openLb(LBi-1)});
+(function(){var x0=null,b=$('#lbx');b.addEventListener('touchstart',function(e){x0=e.touches[0].clientX});b.addEventListener('touchend',function(e){if(x0==null)return;var dx=e.changedTouches[0].clientX-x0;if(Math.abs(dx)>50)openLb(LBi+(dx<0?1:-1));x0=null})})();
+/* ================= GUEST GUIDE ================= */
+function vGuide(){
+ return'<div class="pg guide"><div class="wrap" style="max-width:760px"><div class="sh"><small>'+_('Guest guide','دليل الضيف')+'</small><h2>'+_('Welcome to '+CFG.nameEn,'أهلا وسهلا بـ'+CFG.nameAr)+' 👋</h2><p>'+_('Everything you need for a smooth stay. Keep this page handy.','كل شي بتحتاجو لإقامة مرتاحة. خلّي هالصفحة معك.')+'</p></div>'+
+ '<div class="card"><h3>🕑 '+_('Times','الأوقات')+'</h3><div class="kv"><div><small>'+_('Check-in','الدخول')+'</small><b>2:00 PM</b></div><div><small>'+_('Check-out','الخروج')+'</small><b>12:00 PM</b></div><div><small>Day use</small><b>10:00 AM – 8:00 PM</b></div><div><small>'+_('Quiet hours (outdoors)','الهدوء برّا')+'</small><b>12:00 AM – 9:00 AM</b></div></div></div>'+
+ '<div class="card"><h3>📍 '+_('Getting here','الوصول')+'</h3><p style="margin-bottom:12px">'+_('Take the coastal highway north to Batroun exit, then follow the pin. Parking for 4 cars inside the gate.','خود أوتوستراد الساحل شمالاً لمخرج البترون، وبعدين لحّق اللوكيشن. في موقف لـ4 سيارات جوّا البوابة.')+'</p><a class="btn s" target="_blank" rel="noopener" href="https://maps.google.com/?q='+encodeURIComponent(CFG.mapQ)+'">'+_('Open in Google Maps','افتح بـGoogle Maps')+'</a></div>'+
+ '<div class="card"><h3>📶 Wi-Fi</h3><div class="kv"><div><small>'+_('Network','الشبكة')+'</small><b>Lazuli_Guest</b></div><div><small>'+_('Password','كلمة السر')+'</small><b dir="ltr">sea-sunset-24</b></div></div></div>'+
+ '<div class="card"><h3>🏊 '+_('Pool & jacuzzi','المسبح والجاكوزي')+'</h3><ul><li>'+_('Pool lights switch is next to the outdoor kitchen.','زر إضاءة المسبح حد المطبخ الخارجي.')+'</li><li>'+_('Jacuzzi heats in about 40 minutes — press the blue button once.','الجاكوزي بيسخن بحوالي 40 دقيقة، كبسة وحدة عالزر الأزرق.')+'</li><li>'+_('Children must be supervised at all times.','الأولاد لازم يكونوا تحت المراقبة دايماً.')+'</li></ul></div>'+
+ '<div class="card nope"><h3>📋 '+_('House rules','القوانين')+'</h3><ul><li>'+_('No loud music outdoors after midnight','ممنوع الصوت العالي برا بعد نص الليل')+'</li><li>'+_('No glass near the pool','ممنوع القزاز حد المسبح')+'</li><li>'+_('No smoking indoors','ممنوع التدخين جوّا')+'</li></ul></div>'+
+ '<div class="card"><h3>🆘 '+_('Help','مساعدة')+'</h3><div class="kv"><div><small>'+_('Host (WhatsApp)','صاحب الشاليه (واتساب)')+'</small><b dir="ltr"><a href="https://wa.me/'+CFG.whatsapp+'">'+CFG.payNumber+'</a></b></div><div><small>'+_('Emergency','طوارئ')+'</small><b>112 · '+_('Red Cross','الصليب الأحمر')+' 140</b></div></div></div>'+
+ '<p class="hint">'+_('Have a wonderful stay!','نتمنّالك إقامة حلوة!')+'</p></div></div>';
+}
+/* ================= OWNER PANEL ================= */
+var ADM=(function(){try{return sessionStorage.getItem('ch_adm')==='1'}catch(e){return false}})(),AT='req',AM=null,AMODE='n';
+var STS={new:['New','جديد','new'],dep:['Deposit paid','العربون مدفوع','dep'],ok:['Confirmed','مؤكد','ok'],cx:['Cancelled','ملغى','cx']};
+function reqDates(r){if(r.mode==='d')return[r.day];var o=[],k=r.cin;while(k<r.cout){o.push(k);k=addD(k,1)}return o}
+function applyReq(r,on){reqDates(r).forEach(function(d){if(r.mode==='d'){if(on)BK.D[d]=1;else delete BK.D[d]}else{if(on)BK.N[d]=1;else delete BK.N[d]}});sv('ch_bk',BK)}
+function vAdmin(){
+ if(!ADM)return'<div class="pg"><div class="wrap" style="max-width:460px"><div class="panel"><h2 style="margin-bottom:6px">'+_('Owner login','دخول المالك')+'</h2><p class="hint" style="margin:0 0 14px">'+_('Manage bookings, calendar and prices.','إدارة الحجوزات والروزنامة والأسعار.')+'</p><div class="f"><label>'+_('Password','كلمة السر')+'</label><input type="password" id="ap"></div><div class="err" id="ae"></div><button class="btn n" id="al" style="width:100%">'+_('Login','دخول')+'</button></div></div></div>';
+ var h='<div class="pg"><div class="wrap"><div class="tabs">'+[['req',_('Requests','الطلبات')],['cal',_('Calendar','الروزنامة')],['price',_('Prices','الأسعار')],['rep',_('Report','التقرير')]].map(function(t){return'<button data-t="'+t[0]+'" class="'+(AT===t[0]?'on':'')+'">'+t[1]+'</button>'}).join('')+'<span style="flex:1"></span><button class="btn s o" id="lo">'+_('Logout','خروج')+'</button></div>';
+ if(AT==='req'){
+  var R=ld('ch_req',[]);
+  h+='<h2 style="margin-bottom:12px">'+_('Booking requests','طلبات الحجز')+' ('+R.length+')</h2>';
+  if(!R.length)h+='<p class="hint">'+_('No requests yet. Requests sent from the booking form appear here.','ما في طلبات بعد. الطلبات اللي بتنبعت من صفحة الحجز بتظهر هون.')+'</p>';
+  h+=R.map(function(r){var s=STS[r.status];return'<div class="rq"><div class="h"><div><b>'+esc(r.name)+'</b> · <a dir="ltr" href="https://wa.me/'+r.phone.replace(/\D/g,'')+'" target="_blank" rel="noopener">'+esc(r.phone)+'</a> <span class="st '+s[2]+'">'+_(s[0],s[1])+'</span><br><small>'+(r.mode==='n'?'🌙 '+fmt(r.cin,1)+' → '+fmt(r.cout,1):'☀️ Day use '+fmt(r.day,1))+' · '+r.guests+' '+_('guests','أشخاص')+' · '+_('Total','المجموع')+' <b>'+usd(r.total)+'</b> · '+_('Deposit','العربون')+' '+usd(r.dep)+' ('+(r.pay==='omt'?'OMT':'Whish')+')'+(r.adds.length?' · '+r.adds.map(function(a){var x=SET.addons.find(function(z){return z.id===a});return x?_(x.en,x.ar):a}).join(', '):'')+(r.note?' · “'+esc(r.note)+'”':'')+'</small></div><select data-rs="'+r.id+'" style="width:auto;font:inherit;border:1.5px solid var(--line);border-radius:10px;padding:8px">'+Object.keys(STS).map(function(k){return'<option value="'+k+'" '+(r.status===k?'selected':'')+'>'+_(STS[k][0],STS[k][1])+'</option>'}).join('')+'</select></div></div>'}).join('');
+  h+='<p class="hint">'+_('Setting a request to “Confirmed” blocks its dates on the calendar automatically. “Cancelled” frees them.','لما تحط الطلب "مؤكد" الأيام بتتسكّر عالروزنامة تلقائياً، و"ملغى" بيفتحها.')+'</p>';
+ }else if(AT==='cal'){
+  if(!AM){var d=new Date();AM=[d.getFullYear(),d.getMonth()]}
+  h+='<div class="panel" style="max-width:560px"><div class="mode"><button data-am="n" class="'+(AMODE==='n'?'on':'')+'">🌙 '+_('Nights','ليالي')+'</button><button data-am="d" class="'+(AMODE==='d'?'on':'')+'">☀️ Day use</button></div><div id="acal"></div><p class="hint">'+_('Tap a date to block or open it (e.g. bookings from Instagram or phone).','كبوس عالتاريخ لتسكّرو أو تفتحو (مثلاً حجوزات من إنستغرام أو تلفون).')+'</p></div>';
+ }else if(AT==='price'){
+  var I=function(id,v,l){return'<div class="f"><label>'+l+'</label><input type="number" id="'+id+'" value="'+v+'"></div>'};
+  h+='<div class="panel"><h3 style="margin-bottom:12px">'+_('Prices ($)','الأسعار ($)')+'</h3><div class="g3">'+I('p1',SET.night.wd,_('Night — weekday','ليلة — أيام الأسبوع'))+I('p2',SET.night.we,_('Night — weekend','ليلة — ويكند'))+I('p3',SET.hNight,_('Night — holiday','ليلة — عيد'))+I('p4',SET.sNight.wd,_('Summer night — weekday','ليلة صيف — أيام الأسبوع'))+I('p5',SET.sNight.we,_('Summer night — weekend','ليلة صيف — ويكند'))+I('p6',SET.hDay,_('Day use — holiday','Day use — عيد'))+I('p7',SET.day.wd,_('Day use — weekday','Day use — أيام الأسبوع'))+I('p8',SET.day.we,_('Day use — weekend','Day use — ويكند'))+I('p9',SET.sDay.wd,_('Summer day use — weekday','Day use صيف — أيام الأسبوع'))+I('p10',SET.sDay.we,_('Summer day use — weekend','Day use صيف — ويكند'))+I('p11',SET.deposit,_('Deposit %','نسبة العربون %'))+I('p12',SET.exN,_('Extra guest / night','شخص زيادة / ليلة'))+'</div><h3 style="margin:10px 0 12px">'+_('Extras ($)','الإضافات ($)')+'</h3><div class="g3">'+SET.addons.map(function(a){return I('a_'+a.id,a.p,_(a.en,a.ar))}).join('')+'</div><div class="f"><label>'+_('Holiday dates (YYYY-MM-DD, comma separated)','تواريخ الأعياد (YYYY-MM-DD، مفصولة بفاصلة)')+'</label><input id="hol" value="'+SET.holidays.join(', ')+'" dir="ltr"></div><button class="btn n" id="ps">'+_('Save prices','احفظ الأسعار')+'</button></div>';
+ }else{
+  var R2=ld('ch_req',[]),now=new Date(),ym=ds(now).slice(0,7),conf=R2.filter(function(r){return r.status==='ok'&&((r.cin||r.day)||'').slice(0,7)===ym}),rev=conf.reduce(function(s,r){return s+r.total},0);
+  var dim=new Date(now.getFullYear(),now.getMonth()+1,0).getDate(),bn=Object.keys(BK.N).filter(function(d){return d.slice(0,7)===ym}).length,bd=Object.keys(BK.D).filter(function(d){return d.slice(0,7)===ym}).length;
+  var pend=R2.filter(function(r){return r.status==='new'||r.status==='dep'}).length;
+  h+='<h2 style="margin-bottom:12px">'+now.toLocaleDateString(L==='ar'?'ar-LB':'en-GB',{month:'long',year:'numeric'})+'</h2><div class="kp"><div><b>'+bn+'/'+dim+'</b><small>'+_('Nights booked','ليالي محجوزة')+'</small></div><div><b>'+Math.round(bn/dim*100)+'%</b><small>'+_('Occupancy','نسبة الإشغال')+'</small></div><div><b>'+bd+'</b><small>'+_('Day-use bookings','حجوزات Day use')+'</small></div><div><b>'+pend+'</b><small>'+_('Requests to follow up','طلبات بدها متابعة')+'</small></div></div><div class="panel"><b>'+_('Confirmed revenue from website requests this month','المدخول المؤكد من طلبات الموقع هالشهر')+': '+usd(rev)+'</b></div>';
+ }
+ return h+'</div></div>';
+}
+function aCal(){
+ var y=AM[0],m=AM[1],first=new Date(y,m,1),start=(first.getDay()+6)%7,days=new Date(y,m+1,0).getDate();
+ var wd=L==='ar'?['اث','ثل','أر','خم','جم','سب','أح']:['Mo','Tu','We','Th','Fr','Sa','Su'];
+ var h='<div class="calh"><button id="ap1">'+(L==='ar'?'›':'‹')+'</button><b>'+first.toLocaleDateString(L==='ar'?'ar-LB':'en-GB',{month:'long',year:'numeric'})+'</b><button id="an1">'+(L==='ar'?'‹':'›')+'</button></div><div class="cal">'+wd.map(function(w){return'<div class="wd">'+w+'</div>'}).join('');
+ for(var i=0;i<start;i++)h+='<div class="e"></div>';
+ for(var d=1;d<=days;d++){var s=ds(new Date(y,m,d)),b=AMODE==='n'?BK.N[s]:BK.D[s];h+='<button class="d '+(b?'sel':'')+'" data-ad2="'+s+'">'+d+'<small>'+(b?_('booked','محجوز'):usd(AMODE==='n'?nightP(s):dayP(s)))+'</small></button>'}
+ $('#acal').innerHTML=h+'</div>';
+ $('#ap1').onclick=function(){AM=AM[1]?[AM[0],AM[1]-1]:[AM[0]-1,11];aCal()};$('#an1').onclick=function(){AM=AM[1]<11?[AM[0],AM[1]+1]:[AM[0]+1,0];aCal()};
+ $$('[data-ad2]').forEach(function(b){b.onclick=function(){var s=b.dataset.ad2,o=AMODE==='n'?BK.N:BK.D;if(o[s])delete o[s];else o[s]=1;sv('ch_bk',BK);aCal()}});
+}
+function initAdmin(){
+ if(!ADM){var f=function(){if($('#ap').value===CFG.adminPass){ADM=true;try{sessionStorage.setItem('ch_adm','1')}catch(e){}route()}else $('#ae').textContent=_('Wrong password','كلمة السر غلط')};$('#al').onclick=f;$('#ap').onkeydown=function(e){if(e.key==='Enter')f()};return}
+ $$('[data-t]').forEach(function(b){b.onclick=function(){AT=b.dataset.t;route()}});
+ $('#lo').onclick=function(){ADM=false;try{sessionStorage.removeItem('ch_adm')}catch(e){}route()};
+ $$('[data-rs]').forEach(function(s){s.onchange=function(){var R=ld('ch_req',[]),r=R.find(function(x){return String(x.id)===s.dataset.rs});if(!r)return;var was=r.status;r.status=s.value;
+  if(s.value==='ok'&&was!=='ok'){var clash=reqDates(r).some(function(d){return r.mode==='n'?!nightFree(d):!dayFree(d)});if(clash&&!confirm(_('Some of these dates are already booked. Confirm anyway?','في أيام من هالطلب محجوزة. بدك تأكّد ولو هيك؟'))){s.value=was;r.status=was;return}applyReq(r,true)}
+  if(was==='ok'&&s.value!=='ok')applyReq(r,false);
+  sv('ch_req',R);toast(_('Saved','تم الحفظ'));route()}});
+ if(AT==='cal'){aCal();$$('[data-am]').forEach(function(b){b.onclick=function(){AMODE=b.dataset.am;route()}})}
+ if(AT==='price')$('#ps').onclick=function(){var v=function(id){return Math.max(0,+$('#'+id).value||0)};
+  SET.night={wd:v('p1'),we:v('p2')};SET.hNight=v('p3');SET.sNight={wd:v('p4'),we:v('p5')};SET.hDay=v('p6');SET.day={wd:v('p7'),we:v('p8')};SET.sDay={wd:v('p9'),we:v('p10')};SET.deposit=Math.min(100,v('p11'));SET.exN=v('p12');
+  SET.addons.forEach(function(a){a.p=v('a_'+a.id)});
+  SET.holidays=$('#hol').value.split(/[\s,]+/).filter(function(x){return/^\d{4}-\d{2}-\d{2}$/.test(x)});
+  sv('ch_set',SET);toast(_('Prices saved','تم حفظ الأسعار'))};
+}
+/* ================= ROUTER ================= */
+function route(keep){
+ var h=location.hash.replace(/^#\/?/,''),y=scrollY,html,after;
+ if(h==='admin'){html=vAdmin();after=initAdmin}else if(h==='guide'){html=vGuide()}else{html=vHome();after=initHome}
+ $('#app').innerHTML=html;chrome();if(after)after();mbar();
+ $('#hd').classList.toggle('solid',scrollY>40||h.length>0);
+ if(keep)window.scrollTo(0,y);else window.scrollTo(0,0);
+}
+window.addEventListener('hashchange',function(){route()});
+route();
+</script>
+</body>
+</html>
