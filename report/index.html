@@ -96,7 +96,7 @@ $('f').addEventListener('submit', async (e) => {
 function show() {
   const w = data.wa;
   $('nNow').textContent = w.month.n; $('sNow').textContent = usd(w.month.s); $('nLast').textContent = w.last.n;
-  $('opens').textContent = data.week ? 'زوّار التطبيق آخر 7 أيام: ' + data.week : '';
+  $('opens').textContent = (data.week || data.total) ? '👀 الزوار: اليوم ' + (data.today || 0) + ' · آخر 7 أيام ' + (data.week || 0) + ' · المجموع ' + (data.total || 0) + (data.since ? ' (من ' + new Date(data.since).toLocaleDateString('en-GB') + ')' : '') : 'الزوار: ما في زيارات مسجّلة بعد';
   $('res').hidden = false;
   if (!touched) $('msg').value = draft();
   link();

@@ -513,11 +513,13 @@ function useCfg(j) { if (!j || !j.config || j.updated === curUpdated) return fal
 (function(){
   const NAPI = 'https://nafetha-api.nafetha-web.workers.dev/crazypasta';
   function devId() { let d = ''; try { d = localStorage.getItem('cp_dev') || ''; if (!d) { d = crypto.randomUUID ? crypto.randomUUID() : Date.now().toString(36) + Math.random().toString(36).slice(2); localStorage.setItem('cp_dev', d) } } catch (e) {} return d }
+  /* one visit per device per day (counted on the server) */
+  try { const d0 = devId(); if (d0.length >= 8 && !/[?&]noping/.test(location.search)) fetch(NAPI + '/hit', { method: 'POST', headers: { 'Content-Type': 'text/plain' }, body: JSON.stringify({ type: 'open', dev: d0 }), keepalive: true }).catch(() => {}) } catch (e) {}
   document.addEventListener('click', (e) => {
     if (!e.target.closest || !e.target.closest('#revSend')) return;
     try { if (Date.now() - (+localStorage.getItem('cp_wa_t') || 0) < 3 * 60e3) return; localStorage.setItem('cp_wa_t', Date.now()) } catch (er) { return }
     const d = devId(); if (d.length < 8) return;
-    fetch(NAPI + '/hit', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ type: 'wa', dev: d, total: totals().total }), keepalive: true }).catch(() => {});
+    fetch(NAPI + '/hit', { method: 'POST', headers: { 'Content-Type': 'text/plain' }, body: JSON.stringify({ type: 'wa', dev: d, total: totals().total }), keepalive: true }).catch(() => {});
   });
 })();
 </script>
