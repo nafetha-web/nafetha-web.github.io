@@ -70,6 +70,29 @@ section.s.soft{background:var(--soft)}
 .grid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
 .card{background:#fff;border:1px solid var(--line);border-radius:16px;overflow:hidden;display:flex;flex-direction:column;transition:.2s;cursor:pointer}
 .card:hover{box-shadow:var(--sh);transform:translateY(-3px)}
+a.card{color:inherit;text-decoration:none}
+.toast .tl{color:#9fe3c2;margin-left:14px;font-weight:800;text-decoration:underline}
+.boxinfo{display:flex;gap:10px;background:#fff;border:1px dashed var(--g2);border-radius:12px;padding:12px 14px;margin:14px 0;font-size:14px;line-height:1.5}
+.boxinfo .ic{font-size:22px;line-height:1}
+.ltot{margin-top:12px;font-size:15px;color:var(--mut)}.ltot b{color:var(--g);font-size:20px}
+.qu{font-weight:700;color:var(--mut)}
+.qs{color:var(--mut);font-size:12px;white-space:nowrap}
+/* motion */
+@keyframes fu{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+@keyframes bump{0%{transform:scale(1)}40%{transform:scale(1.28)}100%{transform:scale(1)}}
+@keyframes fi{from{opacity:0}to{opacity:1}}
+#app.pg-in{animation:fu .38s cubic-bezier(.2,.7,.2,1)}
+.rv{opacity:0;transform:translateY(18px);transition:opacity .5s ease,transform .55s cubic-bezier(.2,.7,.2,1)}
+.rv.in{opacity:1;transform:none}
+.bump{animation:bump .4s ease}
+.btn{transition:transform .15s ease,box-shadow .2s,background .2s}.btn:active{transform:scale(.97)}
+.card .im img{transition:transform .5s cubic-bezier(.2,.7,.2,1)}.card:hover .im img{transform:scale(1.06)}
+.gal .main img{animation:fi .35s ease}
+.toast{transition:.35s cubic-bezier(.2,.9,.3,1.2)}
+@media (prefers-reduced-motion:reduce){#app.pg-in,.bump,.gal .main img{animation:none}.rv{opacity:1;transform:none;transition:none}.card .im img{transition:none}}
+@media(max-width:700px){.line .rt{flex-wrap:wrap;gap:8px 12px;justify-content:space-between}.line .rt .qs{order:5;flex-basis:100%;text-align:left}}
+
+.f.bad{border-color:#d64545!important}
 .card .im{aspect-ratio:1;background:#fff;display:grid;place-items:center;border-bottom:1px solid var(--line);position:relative;overflow:hidden}
 .card .im img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;padding:10px}
 .noimg{color:#a8b4ae;font-size:13px;text-align:center}
@@ -230,13 +253,18 @@ var DB=[],BYID={},CATS=[];
 var ICON={'Fans':'M12 12m-2 0a2 2 0 1 0 4 0a2 2 0 1 0-4 0M12 10c0-4 1-7 4-7 2 0 3 2 2 4-1 2-3 3-6 3zM14 12c4 0 7 1 7 4 0 2-2 3-4 2-2-1-3-3-3-6zM12 14c0 4-1 7-4 7-2 0-3-2-2-4 1-2 3-3 6-3zM10 12c-4 0-7-1-7-4 0-2 2-3 4-2 2 1 3 3 3 6z'};
 function esc(s){return String(s==null?'':s).replace(/[&<>"]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})}
 function money(n){return CFG.currency+(Math.round(n*100)/100).toLocaleString('en-US',{minimumFractionDigits:(n%1?2:0),maximumFractionDigits:2})}
-function toast(t){var e=$('#toast');e.textContent=t;e.classList.add('on');clearTimeout(toast.t);toast.t=setTimeout(function(){e.classList.remove('on')},2200)}
+function toast(t,link){var e=$('#toast');e.textContent=t;if(link){var a=document.createElement('a');a.href='#/cart';a.textContent=link;a.className='tl';e.appendChild(a);e.style.pointerEvents='auto'}else e.style.pointerEvents='none';e.classList.add('on');clearTimeout(toast.t);toast.t=setTimeout(function(){e.classList.remove('on')},link?4200:2400)}
 /* cart */
 var CART=[];try{CART=JSON.parse(localStorage.getItem('cs_cart')||'[]')}catch(e){}
 function saveCart(){try{localStorage.setItem('cs_cart',JSON.stringify(CART))}catch(e){}$('#cc').textContent=CART.reduce(function(a,l){return a+1},0)}
 function minq(p){return p.m||1}
+function per(p){return p.m||1}
+function hasBox(p){return !!p.m}
+function nf(n){return Number(n).toLocaleString('en-US')}
+function bw(n){return n+(n===1?' box':' boxes')}
+function qtxt(p,q){return hasBox(p)?bw(Math.round(q/per(p)))+' · '+nf(q)+' pcs':nf(q)+' pcs'}
 function unitPrice(p,vi){return(vi!=null&&p.v&&p.v[vi])?p.v[vi].p:p.p}
-function addCart(id,vi,qty){var p=BYID[id];qty=Math.max(minq(p),parseInt(qty)||minq(p));var k=id+'|'+(vi==null?'':vi);var f=CART.find(function(l){return l.k===k});if(f)f.q+=qty;else CART.push({k:k,id:id,vi:vi,q:qty});saveCart();toast('Added to your order list')}
+function addCart(id,vi,nb){var p=BYID[id],qty=Math.max(1,parseInt(nb)||1)*per(p);var k=id+'|'+(vi==null?'':vi);var f=CART.find(function(l){return l.k===k});if(f)f.q+=qty;else CART.push({k:k,id:id,vi:vi,q:qty});saveCart();var cc=$('#cc');cc.classList.remove('bump');void cc.offsetWidth;cc.classList.add('bump');toast('Added: '+qtxt(p,qty),'View order list')}
 /* data */
 fetch('catalog.json').then(function(r){return r.json()}).then(function(d){
  DB=d;d.forEach(function(p){BYID[p.id]=p});
@@ -245,6 +273,7 @@ fetch('catalog.json').then(function(r){return r.json()}).then(function(d){
  CATS.sort(function(a,b){return b.c-a.c});
  CATS.forEach(function(c){c.img=(DB.filter(function(p){return p.c===c.n&&p.im}).sort(function(a,b){return(b.p||0)-(a.p||0)})[0]||{im:[]}).im[0]});
  $('#fcats').innerHTML=CATS.map(function(c){return'<a href="#/catalog/'+encodeURIComponent(c.n)+'">'+esc(c.n)+'</a>'}).join('');
+ CART.forEach(function(l){var p=BYID[l.id];if(p){var u=per(p);l.q=Math.max(u,Math.round(l.q/u)*u)}});CART=CART.filter(function(l){return BYID[l.id]});
  saveCart();route();
 }).catch(function(){$('#app').innerHTML='<div class="wrap empty"><h2>Catalog could not be loaded</h2><p>Please refresh the page.</p></div>'});
 /* components */
@@ -252,7 +281,7 @@ function card(p){
  var im=p.im?'<img loading="lazy" src="img/'+p.im[0]+'" alt="'+esc(p.n)+'">':'<div class="noimg">Photo<br>coming soon</div>';
  var from=p.v&&p.v.length>1?'<small>from</small>':'';
  var pr=p.v&&p.v.length?Math.min.apply(null,p.v.map(function(x){return x.p}).concat([p.p])):p.p;
- return'<div class="card" onclick="location.hash=\'#/p/'+encodeURIComponent(p.id)+'\'"><div class="im">'+im+'</div><div class="b"><div class="cd">'+esc(p.code)+'</div><h3>'+esc(p.n)+'</h3><span class="moq">MOQ '+(p.m?p.m+' pcs':'on request')+'</span><div class="pr">'+from+'<b>'+money(pr)+'</b><small>/ pc</small></div></div></div>';
+ return'<a class="card" href="#/p/'+encodeURIComponent(p.id)+'"><div class="im">'+im+'</div><div class="b"><div class="cd">'+esc(p.code)+'</div><h3>'+esc(p.n)+'</h3><span class="moq">'+(p.m?'📦 '+nf(p.m)+' pcs / box':'Box size on request')+'</span><div class="pr">'+from+'<b>'+money(pr)+'</b><small>/ pc</small></div></div></a>';
 }
 var PAGE=24;
 function setNav(n){document.querySelectorAll('nav.m a').forEach(function(a){a.classList.toggle('on',a.dataset.n===n)});$('#nav').classList.remove('open')}
@@ -261,14 +290,14 @@ function vHome(){
  setNav('home');
  var feat=DB.filter(function(p){return p.im&&p.m}).filter(function(_,i){return i%11===3}).slice(0,8);
  var mos=['Fans','Hair Removal','Home Appliances','Beauty Devices','Massage Devices','Hair Styling Tools'].map(function(c){var p=DB.filter(function(x){return x.c===c&&x.im})[2];return p?'<div><img src="img/'+p.im[0]+'" alt=""></div>':''}).join('');
- return'<section class="hero"><div class="wrap"><div><h1>Wholesale products from China, <em>sourced with clarity.</em></h1><p>Browse '+DB.length+'+ ready-to-ship products — electronics, beauty devices, home appliances and more — with factory prices and clear minimum order quantities.</p><div class="cta"><a class="btn" href="#/catalog">Browse catalog</a><a class="btn w" href="#/contact">Request a quote</a></div><div class="stats"><div><b>'+DB.length+'+</b><span>Products</span></div><div><b>'+CATS.length+'</b><span>Categories</span></div><div><b>MOQ</b><span>Clear on every item</span></div></div></div><div class="mos">'+mos+'</div></div></section>'+
+ return'<section class="hero"><div class="wrap"><div><h1>Wholesale products from China, <em>sourced with clarity.</em></h1><p>Browse '+DB.length+'+ ready-to-ship products — electronics, beauty devices, home appliances and more — with factory prices and clear carton (box) quantities.</p><div class="cta"><a class="btn" href="#/catalog">Browse catalog</a><a class="btn w" href="#/contact">Request a quote</a></div><div class="stats"><div><b>'+DB.length+'+</b><span>Products</span></div><div><b>'+CATS.length+'</b><span>Categories</span></div><div><b>1 box</b><span>= one full carton</span></div></div></div><div class="mos">'+mos+'</div></div></section>'+
  '<section class="s"><div class="wrap"><div class="sh"><div><h2>Shop by category</h2><p>Everything for traders, retailers and online sellers.</p></div><a href="#/catalog">View all →</a></div><div class="cats">'+CATS.map(function(c){return'<a class="cat" href="#/catalog/'+encodeURIComponent(c.n)+'"><div class="im">'+(c.img?'<img loading="lazy" src="img/'+c.img+'" alt="">':'')+'</div><div class="t"><b>'+esc(c.n)+'</b><span>'+c.c+' products</span></div></a>'}).join('')+'</div></div></section>'+
  '<section class="s soft"><div class="wrap"><div class="sh"><div><h2>Popular picks</h2><p>A selection from the catalog.</p></div><a href="#/catalog">See more →</a></div><div class="grid">'+feat.map(card).join('')+'</div></div></section>'+
  '<section class="s"><div class="wrap"><div class="sh"><div><h2>How ordering works</h2><p>Simple, transparent, built for wholesale.</p></div></div>'+steps()+'</div></section>'+
- '<section class="s soft"><div class="wrap"><div class="sh"><div><h2>Why Cedarsino</h2></div></div><div class="why"><div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l8 4v6c0 5-3.5 8.5-8 10-4.5-1.5-8-5-8-10V6z"/><path d="m8.5 12 2.5 2.5L16 9.5"/></svg><b>Clear pricing</b><p>Every product shows its factory price per piece. At checkout, a transparent 10% service commission is shown as its own line — no hidden fees.</p></div><div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 7l9-4 9 4-9 4zM3 7v10l9 4 9-4V7M12 11v10"/></svg><b>Wholesale quantities</b><p>Minimum order quantities are packed per carton and stated on each product, so you always know what you can order.</p></div><div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg><b>Fast response</b><p>Send your order list and we confirm availability, shipping and final totals quickly.</p></div></div></div></section>'+
+ '<section class="s soft"><div class="wrap"><div class="sh"><div><h2>Why Cedarsino</h2></div></div><div class="why"><div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l8 4v6c0 5-3.5 8.5-8 10-4.5-1.5-8-5-8-10V6z"/><path d="m8.5 12 2.5 2.5L16 9.5"/></svg><b>Clear pricing</b><p>Every product shows its factory price per piece. At checkout, a transparent 10% service commission is shown as its own line — no hidden fees.</p></div><div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 7l9-4 9 4-9 4zM3 7v10l9 4 9-4V7M12 11v10"/></svg><b>Wholesale quantities</b><p>You order in boxes (full cartons). Each product states how many pieces come in one box, so you always know exactly what you are ordering.</p></div><div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg><b>Fast response</b><p>Send your order list and we confirm availability, shipping and final totals quickly.</p></div></div></div></section>'+
  '<section class="s"><div class="wrap"><div class="band"><div><h2>Ready to place your first order?</h2><p>Build your order list, or ask us for a custom quote.</p></div><div style="display:flex;gap:12px;flex-wrap:wrap"><a class="btn w" href="#/catalog">Browse catalog</a><a class="btn" href="#/contact">Contact us</a></div></div></div></section>';
 }
-function steps(){return'<div class="steps"><div class="step"><b>Browse &amp; choose</b><p>Search by name or item code and check the minimum quantity of each product.</p></div><div class="step"><b>Build your order list</b><p>Add products and quantities. The list shows subtotal, our 10% commission and your total.</p></div><div class="step"><b>Send your request</b><p>Send the order list to us with your details. No payment is taken on the website.</p></div><div class="step"><b>We confirm &amp; ship</b><p>We confirm stock, final price and shipping, then arrange delivery to you.</p></div></div>'}
+function steps(){return'<div class="steps"><div class="step"><b>Browse &amp; choose</b><p>Search by name or item code and check how many pieces come in one box.</p></div><div class="step"><b>Build your order list</b><p>Choose how many boxes you need. The list shows pieces, subtotal, our 10% commission and your total.</p></div><div class="step"><b>Send your request</b><p>Send the order list to us with your details. No payment is taken on the website.</p></div><div class="step"><b>We confirm &amp; ship</b><p>We confirm stock, final price and shipping, then arrange delivery to you.</p></div></div>'}
 var ST={cat:'',sub:'',q:'',sort:'rel',n:PAGE};
 function filt(){
  var q=ST.q.toLowerCase().trim(),ws=q.split(/\s+/).filter(Boolean);
@@ -282,11 +311,11 @@ function filt(){
  return r;
 }
 function vCatalog(cat,q){
- setNav('catalog');ST.cat=cat||'';ST.q=q||'';ST.sub='';ST.n=PAGE;
+ setNav('catalog');ST.cat=cat||'';ST.q=q||'';ST.sub=(RS&&RS.sub)||'';ST.n=(RS&&RS.n)||PAGE;if(RS&&RS.so)ST.sort=RS.so;
  return'<div class="pg"><div class="wrap"><div class="crumb"><a href="#/">Home</a> / <a href="#/catalog">Catalog</a>'+(ST.cat?' / '+esc(ST.cat):'')+'</div><div class="lay"><aside class="side"><h4>Categories</h4><a href="#/catalog" class="'+(!ST.cat?'on':'')+'">All products <span>'+DB.length+'</span></a>'+CATS.map(function(c){return'<a href="#/catalog/'+encodeURIComponent(c.n)+'" class="'+(ST.cat===c.n?'on':'')+'">'+esc(c.n)+' <span>'+c.c+'</span></a>'}).join('')+'</aside><div><div class="tb"><div><h1>'+(ST.q?'Results for “'+esc(ST.q)+'”':(ST.cat||'All products'))+'</h1><small id="cnt"></small></div><select id="so" aria-label="Sort"><option value="rel">Featured</option><option value="pa">Price: low to high</option><option value="pd">Price: high to low</option><option value="n">Name A–Z</option></select></div><div class="chips" id="chips"></div><div class="grid" id="gr"></div><div class="more" id="mo"></div></div></div></div></div>';
 }
 function drawCat(){
- var all=filt(),r=all.slice(0,ST.n);
+ var all=filt(),r=all.slice(0,ST.n);if(CURK!==null){var sv=SAVED[CURK]||(SAVED[CURK]={});sv.n=ST.n;sv.sub=ST.sub;sv.so=ST.sort}
  $('#cnt').textContent=all.length+' product'+(all.length===1?'':'s');
  $('#gr').innerHTML=r.length?r.map(card).join(''):'<div class="empty" style="grid-column:1/-1"><h3>No products found</h3><p>Try another word or item code.</p></div>';
  $('#mo').innerHTML=all.length>r.length?'<button class="btn o" id="lm">Show more ('+(all.length-r.length)+' left)</button>':'';
@@ -301,29 +330,28 @@ function vProduct(id){
  setNav('catalog');var p=BYID[id];if(!p)return'<div class="wrap empty"><h2>Product not found</h2><a class="btn" href="#/catalog">Back to catalog</a></div>';
  var hasV=p.v&&p.v.length;var vi=hasV?0:null;
  var imgs=p.im||[];
- var spec=[['Item code',p.code],['Category',p.c+(p.s?' — '+p.s:'')],['Colors / configuration',p.col],['Product size',p.sz],['Retail box size',p.bx],['Carton size',p.ct],['Carton volume',p.cbm?p.cbm+' m³':''],['Carton gross weight',p.gw?kg(p.gw):''],['Minimum order quantity',p.m?p.m+' pcs (one carton)':'Please contact us']].filter(function(x){return x[1]});
- window._pd={p:p,vi:vi,q:minq(p)};
- var html='<div class="pg"><div class="wrap"><div class="crumb"><a href="#/">Home</a> / <a href="#/catalog">Catalog</a> / <a href="#/catalog/'+encodeURIComponent(p.c)+'">'+esc(p.c)+'</a></div><div class="pd"><div class="gal"><div class="main" id="gm">'+(imgs[0]?'<img src="img/'+imgs[0]+'" alt="'+esc(p.n)+'">':'<div class="noimg">Photo coming soon</div>')+'</div>'+(imgs.length>1?'<div class="thumbs">'+imgs.map(function(f,i){return'<button class="'+(i?'':'on')+'" data-i="'+f+'"><img src="img/'+f+'" alt=""></button>'}).join('')+'</div>':'')+'</div><div><div class="cd">'+esc(p.code)+'</div><h1>'+esc(p.n)+'</h1><div class="pbox"><div class="big" id="pp"></div>'+(hasV?'<div class="opts" id="ops">'+p.v.map(function(v,i){return'<button class="opt '+(i?'':'on')+'" data-i="'+i+'"><span>'+esc(v.l)+'</span><span>'+money(v.p)+'</span></button>'}).join('')+'</div>':'')+'<div class="qrow"><div class="qty"><button id="qm" aria-label="Less">−</button><input id="qi" inputmode="numeric" value="'+minq(p)+'"><button id="qp" aria-label="More">+</button></div><button class="btn" id="ad">Add to order list</button></div><div class="note">Minimum order: <b>'+(p.m?p.m+' pcs':'to be confirmed')+'</b>. Price shown is the factory price per piece in Chinese yuan. A 10% service commission is added on your order list total.</div></div><div class="tabh">Specifications</div><table class="sp2">'+spec.map(function(x){return'<tr><td>'+x[0]+'</td><td>'+esc(x[1]).replace(/; /g,'<br>')+'</td></tr>'}).join('')+'</table></div></div>';
+ var spec=[['Item code',p.code],['Category',p.c+(p.s?' — '+p.s:'')],['Colors / configuration',p.col],['Product size',p.sz],['Retail box size',p.bx],['Carton size',p.ct],['Carton volume',p.cbm?p.cbm+' m³':''],['Carton gross weight',p.gw?kg(p.gw):''],['Pieces per box (carton)',p.m?nf(p.m)+' pcs':'To be confirmed'],['Minimum order',p.m?'1 box':'Please contact us']].filter(function(x){return x[1]});
+ window._pd={p:p,vi:vi,b:1};
+ var html='<div class="pg"><div class="wrap"><div class="crumb"><a href="#/">Home</a> / <a href="#/catalog">Catalog</a> / <a href="#/catalog/'+encodeURIComponent(p.c)+'">'+esc(p.c)+'</a></div><div class="pd"><div class="gal"><div class="main" id="gm">'+(imgs[0]?'<img src="img/'+imgs[0]+'" alt="'+esc(p.n)+'">':'<div class="noimg">Photo coming soon</div>')+'</div>'+(imgs.length>1?'<div class="thumbs">'+imgs.map(function(f,i){return'<button class="'+(i?'':'on')+'" data-i="'+f+'"><img src="img/'+f+'" alt=""></button>'}).join('')+'</div>':'')+'</div><div><div class="cd">'+esc(p.code)+'</div><h1>'+esc(p.n)+'</h1><div class="pbox"><div class="big" id="pp"></div>'+(hasV?'<div class="opts" id="ops">'+p.v.map(function(v,i){return'<button class="opt '+(i?'':'on')+'" data-i="'+i+'"><span>'+esc(v.l)+'</span><span>'+money(v.p)+'</span></button>'}).join('')+'</div>':'')+'<div class="qrow"><div class="qty"><button id="qm" aria-label="Less">−</button><input id="qi" inputmode="numeric" value="1" aria-label="'+(p.m?'Number of boxes':'Number of pieces')+'"><button id="qp" aria-label="More">+</button></div><span class="qu" id="qu"></span><button class="btn" id="ad">Add to order list</button></div><div class="ltot" id="lt"></div>'+(p.m?'<div class="boxinfo"><span class="ic">📦</span><div><b>1 box = '+nf(p.m)+' pcs.</b> A box is one full export carton, so the smallest order is 1 box ('+nf(p.m)+' pcs). Order 2 boxes and you get '+nf(p.m*2)+' pcs, and so on.</div></div>':'<div class="boxinfo"><span class="ic">📦</span><div><b>Box size to be confirmed.</b> Order the pieces you need and we will confirm the carton quantity with you.</div></div>')+'<div class="note">Price shown is the factory price per piece in Chinese yuan. A 10% service commission is added on your order list total.</div></div><div class="tabh">Specifications</div><table class="sp2">'+spec.map(function(x){return'<tr><td>'+x[0]+'</td><td>'+esc(x[1]).replace(/; /g,'<br>')+'</td></tr>'}).join('')+'</table></div></div>';
  var rel=DB.filter(function(x){return x.c===p.c&&x.id!==p.id&&x.im}).slice(0,4);
  if(rel.length)html+='<div class="sh" style="margin-top:50px"><h2>More in '+esc(p.c)+'</h2></div><div class="grid">'+rel.map(card).join('')+'</div>';
  return html+'</div></div>';
 }
 function initProduct(){
- var D=window._pd,p=D.p;
- function upd(){var u=unitPrice(p,D.vi);$('#pp').innerHTML=money(u)+' <small>/ piece</small>';$('#qi').value=D.q}
+ var D=window._pd,p=D.p,u=per(p),bx=hasBox(p),MAXB=bx?999:100000;
+ function upd(){var pu=unitPrice(p,D.vi),pcs=D.b*u;$('#pp').innerHTML=money(pu)+' <small>/ piece'+(bx?' · '+money(pu*u)+' / box':'')+'</small>';$('#qi').value=D.b;$('#qu').textContent=bx?(D.b===1?'box':'boxes'):'pcs';$('#lt').innerHTML=(bx?bw(D.b)+' = <b>'+nf(pcs)+' pcs</b> · ':'')+'Total <b>'+money(pu*pcs)+'</b>'}
  upd();
  document.querySelectorAll('.opt').forEach(function(b){b.onclick=function(){D.vi=+b.dataset.i;document.querySelectorAll('.opt').forEach(function(x){x.classList.toggle('on',x===b)});upd()}});
  document.querySelectorAll('.thumbs button').forEach(function(b){b.onclick=function(){$('#gm').innerHTML='<img src="img/'+b.dataset.i+'" alt="">';document.querySelectorAll('.thumbs button').forEach(function(x){x.classList.toggle('on',x===b)})}});
- var st=Math.max(1,Math.round(minq(p)/ (minq(p)>=50?5:1)));
- $('#qm').onclick=function(){D.q=Math.max(minq(p),D.q-st);upd()};$('#qp').onclick=function(){D.q+=st;upd()};
- $('#qi').onchange=function(){var v=parseInt(this.value)||minq(p);if(v<minq(p)){toast('Minimum order is '+minq(p)+' pcs');v=minq(p)}D.q=v;upd()};
- $('#ad').onclick=function(){addCart(p.id,D.vi,D.q)};
+ $('#qm').onclick=function(){D.b=Math.max(1,D.b-1);upd()};$('#qp').onclick=function(){D.b=Math.min(MAXB,D.b+1);upd()};
+ $('#qi').onchange=function(){D.b=Math.min(MAXB,Math.max(1,parseInt(this.value)||1));upd()};
+ $('#ad').onclick=function(){addCart(p.id,D.vi,D.b)};
 }
 function cartCalc(){var sub=0;CART.forEach(function(l){var p=BYID[l.id];sub+=unitPrice(p,l.vi)*l.q});var com=sub*CFG.commission;return{sub:sub,com:com,tot:sub+com}}
 function vCart(){
  setNav('');
  if(!CART.length)return'<div class="pg"><div class="wrap empty"><h2 style="color:var(--ink);margin-bottom:8px">Your order list is empty</h2><p style="margin-bottom:20px">Add products from the catalog to build your order.</p><a class="btn" href="#/catalog">Browse catalog</a></div></div>';
- var lines=CART.map(function(l,i){var p=BYID[l.id],u=unitPrice(p,l.vi);return'<div class="line"><div class="im">'+(p.im?'<img src="img/'+p.im[0]+'" alt="">':'')+'</div><div><b><a href="#/p/'+encodeURIComponent(p.id)+'">'+esc(p.n)+'</a></b><small>'+esc(p.code)+(l.vi!=null&&p.v[l.vi]?' · '+esc(p.v[l.vi].l):'')+'</small><small>'+money(u)+' / pc · MOQ '+(p.m||'—')+'</small></div><div class="rt"><b>'+money(u*l.q)+'</b><div class="qty"><button data-a="m" data-i="'+i+'">−</button><input data-i="'+i+'" value="'+l.q+'" inputmode="numeric"><button data-a="p" data-i="'+i+'">+</button></div><button class="rm" data-r="'+i+'">Remove</button></div></div>'}).join('');
+ var lines=CART.map(function(l,i){var p=BYID[l.id],u=unitPrice(p,l.vi);return'<div class="line"><div class="im">'+(p.im?'<img src="img/'+p.im[0]+'" alt="">':'')+'</div><div><b><a href="#/p/'+encodeURIComponent(p.id)+'">'+esc(p.n)+'</a></b><small>'+esc(p.code)+(l.vi!=null&&p.v[l.vi]?' · '+esc(p.v[l.vi].l):'')+'</small><small>'+money(u)+' / pc'+(p.m?' · '+nf(p.m)+' pcs per box':'')+'</small></div><div class="rt"><b>'+money(u*l.q)+'</b><div class="qty"><button data-a="m" data-i="'+i+'" aria-label="Less">−</button><input data-i="'+i+'" value="'+(hasBox(p)?l.q/per(p):l.q)+'" inputmode="numeric" aria-label="'+(hasBox(p)?'Boxes':'Pieces')+'"><button data-a="p" data-i="'+i+'" aria-label="More">+</button></div><small class="qs">'+qtxt(p,l.q)+'</small><button class="rm" data-r="'+i+'">Remove</button></div></div>'}).join('');
  var c=cartCalc();
  return'<div class="pg"><div class="wrap"><div class="tb"><h1>Your order list</h1><button class="rm" id="clr">Empty list</button></div><div class="cl"><div id="ll">'+lines+'</div><div class="sum"><h3>Order summary</h3><div class="row"><span>Products subtotal</span><b id="s1">'+money(c.sub)+'</b></div><div class="row c"><span>Company commission (10%)</span><b id="s2">+ '+money(c.com)+'</b></div><div class="row t"><span>Estimated total</span><b id="s3">'+money(c.tot)+'</b></div><div class="notice"><b>Please note:</b> product prices are the factory (supplier) prices. A <b>10% company profit commission</b> is added on top of the subtotal in your final invoice. Shipping is quoted separately and final amounts are confirmed by us before any payment.</div><div class="fm"><div class="two"><div><label>Full name *</label><input class="f" id="fn"></div><div><label>Company</label><input class="f" id="fc"></div></div><div class="two"><div><label>Phone / WhatsApp *</label><input class="f" id="fp" inputmode="tel"></div><div><label>Email</label><input class="f" id="fe" type="email"></div></div><div><label>Country / city</label><input class="f" id="fl"></div><div><label>Notes</label><textarea class="f" id="fo" rows="2"></textarea></div><div class="warn" id="er"></div><button class="btn" id="sd">Send order request</button></div></div></div></div></div>';
 }
@@ -331,19 +359,19 @@ function recalc(){var c=cartCalc();$('#s1').textContent=money(c.sub);$('#s2').te
 function initCart(){
  if(!CART.length)return;
  function redraw(){saveCart();$('#app').innerHTML=vCart();initCart()}
- document.querySelectorAll('.line .qty button').forEach(function(b){b.onclick=function(){var l=CART[+b.dataset.i],p=BYID[l.id],st=Math.max(1,Math.round(minq(p)/(minq(p)>=50?5:1)));l.q=b.dataset.a==='p'?l.q+st:Math.max(minq(p),l.q-st);redraw()}});
- document.querySelectorAll('.line input').forEach(function(b){b.onchange=function(){var l=CART[+b.dataset.i],p=BYID[l.id],v=parseInt(b.value)||minq(p);if(v<minq(p)){toast('Minimum order is '+minq(p)+' pcs');v=minq(p)}l.q=v;redraw()}});
+ document.querySelectorAll('.line .qty button').forEach(function(b){b.onclick=function(){var l=CART[+b.dataset.i],p=BYID[l.id],st=per(p);l.q=b.dataset.a==='p'?l.q+st:Math.max(st,l.q-st);redraw()}});
+ document.querySelectorAll('.line input').forEach(function(b){b.onchange=function(){var l=CART[+b.dataset.i],p=BYID[l.id],v=Math.max(1,parseInt(b.value)||1);l.q=v*per(p);redraw()}});
  document.querySelectorAll('.rm[data-r]').forEach(function(b){b.onclick=function(){CART.splice(+b.dataset.r,1);redraw()}});
  $('#clr').onclick=function(){if(confirm('Remove all products from your order list?')){CART=[];redraw()}};
  $('#sd').onclick=function(){
   var n=$('#fn').value.trim(),ph=$('#fp').value.trim();
-  if(!n||!ph){$('#er').textContent='Please enter your name and phone number.';return}
+  if(!n||!ph){$('#er').textContent='Please enter your '+(!n?'name':'phone number')+'.';var t=$(!n?'#fn':'#fp');document.querySelectorAll('#fn,#fp').forEach(function(x){x.classList.remove('bad')});t.classList.add('bad');t.scrollIntoView({behavior:'smooth',block:'center'});setTimeout(function(){t.focus({preventScroll:true})},400);return}document.querySelectorAll('#fn,#fp').forEach(function(x){x.classList.remove('bad')});
   $('#er').textContent='';
   var c=cartCalc(),L=['*New order request — Cedarsino*','','Name: '+n];
   if($('#fc').value.trim())L.push('Company: '+$('#fc').value.trim());
   L.push('Phone: '+ph);if($('#fe').value.trim())L.push('Email: '+$('#fe').value.trim());if($('#fl').value.trim())L.push('Location: '+$('#fl').value.trim());
   L.push('','*Items:*');
-  CART.forEach(function(l,i){var p=BYID[l.id],u=unitPrice(p,l.vi);L.push((i+1)+'. '+p.n+' ['+p.code+']'+(l.vi!=null&&p.v[l.vi]?' – '+p.v[l.vi].l:'')+'\n    '+l.q+' pcs × '+money(u)+' = '+money(u*l.q))});
+  CART.forEach(function(l,i){var p=BYID[l.id],u=unitPrice(p,l.vi);L.push((i+1)+'. '+p.n+' ['+p.code+']'+(l.vi!=null&&p.v[l.vi]?' – '+p.v[l.vi].l:'')+'\n    '+(hasBox(p)?bw(l.q/per(p))+' × '+nf(per(p))+' pcs = '+nf(l.q)+' pcs':nf(l.q)+' pcs')+' × '+money(u)+' = '+money(u*l.q))});
   L.push('','Subtotal: '+money(c.sub),'Company commission (10%): + '+money(c.com),'*Estimated total: '+money(c.tot)+'*');
   if($('#fo').value.trim())L.push('','Notes: '+$('#fo').value.trim());
   var msg=L.join('\n');
@@ -352,24 +380,43 @@ function initCart(){
   else{try{navigator.clipboard.writeText(msg)}catch(e){}toast('Order summary copied (sending channel not set yet)')}
  };
 }
-function vHow(){setNav('how');return'<div class="pg"><div class="wrap"><div class="crumb"><a href="#/">Home</a> / How it works</div><div class="sh"><div><h2>How it works</h2><p>Wholesale ordering made simple.</p></div></div>'+steps()+'<div class="sh" style="margin-top:50px"><div><h2>Pricing &amp; minimum quantities</h2></div></div><div class="box"><p style="margin-bottom:10px">• Prices on the website are factory prices <b>per piece in Chinese yuan (¥)</b>.</p><p style="margin-bottom:10px">• Every order list adds a transparent <b>10% company commission</b> on the subtotal. It is shown as a separate line.</p><p style="margin-bottom:10px">• Each product has a <b>minimum order quantity (MOQ)</b>, based on its carton packing.</p><p>• Shipping costs, availability and final amounts are confirmed by us before payment.</p></div></div></div>'}
+function vHow(){setNav('how');return'<div class="pg"><div class="wrap"><div class="crumb"><a href="#/">Home</a> / How it works</div><div class="sh"><div><h2>How it works</h2><p>Wholesale ordering made simple.</p></div></div>'+steps()+'<div class="sh" style="margin-top:50px"><div><h2>Pricing &amp; boxes</h2></div></div><div class="box"><p style="margin-bottom:10px">• Prices on the website are factory prices <b>per piece in Chinese yuan (¥)</b>.</p><p style="margin-bottom:10px">• Every order list adds a transparent <b>10% company commission</b> on the subtotal. It is shown as a separate line.</p><p style="margin-bottom:10px">• You order in <b>boxes</b>. One box is one full export carton, and the number of pieces inside is shown on every product (for example: 1 box = 36 pcs). The smallest order is 1 box; 2 boxes = double the pieces, and so on.</p><p>• Shipping costs, availability and final amounts are confirmed by us before payment.</p></div></div></div>'}
 function vContact(){setNav('contact');return'<div class="pg"><div class="wrap"><div class="crumb"><a href="#/">Home</a> / Contact</div><div class="sh"><div><h2>Contact us</h2><p>Tell us what you are looking for and we will reply with a quote.</p></div></div><div class="ct"><div class="box"><h3 style="margin-bottom:12px">Request a quote</h3><div class="fm"><div class="two"><div><label>Full name *</label><input class="f" id="cn"></div><div><label>Phone / WhatsApp *</label><input class="f" id="cp" inputmode="tel"></div></div><div><label>Email</label><input class="f" id="ce"></div><div><label>What do you need? *</label><textarea class="f" id="cm" rows="5" placeholder="Products, quantities, destination country…"></textarea></div><div class="warn" id="ce2"></div><button class="btn" id="cs">Send message</button><div class="ok" id="cok"></div></div></div><div class="box"><h3 style="margin-bottom:12px">Chat with us on WhatsApp</h3><p style="margin-bottom:14px"><a class="btn" target="_blank" rel="noopener" href="https://wa.me/96181988003" dir="ltr">+961 81 988 003</a></p><h3 style="margin-bottom:12px">Why contact us</h3><p style="margin-bottom:10px">• Custom quotes for large quantities</p><p style="margin-bottom:10px">• Products not in the catalog</p><p style="margin-bottom:10px">• Shipping and delivery questions</p><p>• Samples and product details</p></div></div></div></div>'}
 function initContact(){$('#cs').onclick=function(){var n=$('#cn').value.trim(),p=$('#cp').value.trim(),m=$('#cm').value.trim();if(!n||!p||!m){$('#ce2').textContent='Please fill name, phone and message.';return}$('#ce2').textContent='';var msg='*Quote request — Cedarsino*\nName: '+n+'\nPhone: '+p+($('#ce').value.trim()?'\nEmail: '+$('#ce').value.trim():'')+'\n\n'+m;
  if(CFG.whatsapp)window.open('https://wa.me/'+CFG.whatsapp+'?text='+encodeURIComponent(msg),'_blank');else if(CFG.email)location.href='mailto:'+CFG.email+'?subject='+encodeURIComponent('Quote request')+'&body='+encodeURIComponent(msg);else{try{navigator.clipboard.writeText(msg)}catch(e){}}
  var o=$('#cok');o.style.display='block';o.textContent='Thank you! Your message is ready to send.'}}
 /* router */
+function jump(y){window.scrollTo({top:y,left:0,behavior:'instant'})}
+ 
+var IO=('IntersectionObserver' in window)?new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');IO.unobserve(e.target)}})},{rootMargin:'0px 0px -6% 0px',threshold:.08}):null;
+function motion(){
+ var RM=window.matchMedia&&matchMedia('(prefers-reduced-motion:reduce)').matches;
+ if(IO&&!RM){document.querySelectorAll('#app .cat,#app .card,#app .step,#app .why>div,#app .sh,#app .band,#app .line').forEach(function(e,i){if(e.classList.contains('in'))return;e.classList.add('rv');e.style.transitionDelay=((i%4)*70)+'ms';IO.observe(e)})}
+ document.querySelectorAll('#app .stats b').forEach(function(b){var m=/^(\d+)(\+?)$/.exec(b.textContent);if(!m||RM)return;var n=+m[1],t0=null;function f(t){if(!t0)t0=t;var k=Math.min(1,(t-t0)/900);b.textContent=Math.round(n*(1-Math.pow(1-k,3)))+m[2];if(k<1)requestAnimationFrame(f)}requestAnimationFrame(f)});
+}
+var SAVED={},FWD=false,CURK=null,RS=null;
+document.addEventListener('click',function(e){if(e.target.closest&&e.target.closest('a[href^="#/"]'))FWD=true},true);
+window.addEventListener('scroll',function(){if(CURK!==null){(SAVED[CURK]||(SAVED[CURK]={})).y=window.scrollY}},{passive:true});
 function route(){
  if(!DB.length)return;
- var h=location.hash.replace(/^#\/?/,''),parts=h.split('/').map(decodeURIComponent),v=parts[0]||'home',html='',after=null;
+ var key=location.hash||'#/',back=!FWD&&SAVED[key];FWD=false;
+ var h=location.hash.replace(/^#\/?/,''),parts=h.split('/').map(decodeURIComponent),v=parts[0]||'home',html='',after=null,title='Cedarsino — Wholesale products from China';
+ CURK=null;RS=back||null;
  if(v==='home'||v==='')html=vHome();
- else if(v==='catalog'){html=vCatalog(parts[1]||'',(location.hash.split('?q=')[1]?decodeURIComponent(location.hash.split('?q=')[1]):''));after=initCat}
- else if(v.indexOf('catalog?q=')===0){html=vCatalog('',decodeURIComponent(v.split('?q=')[1]));after=initCat}
- else if(v==='p'){html=vProduct(parts[1]);after=BYID[parts[1]]?initProduct:null}
- else if(v==='cart'){html=vCart();after=initCart}
- else if(v==='how')html=vHow();
- else if(v==='contact'){html=vContact();after=initContact}
+ else if(v==='catalog'){html=vCatalog(parts[1]||'',(location.hash.split('?q=')[1]?decodeURIComponent(location.hash.split('?q=')[1]):''));after=initCat;title=(ST.q?'Search: '+ST.q:(ST.cat||'Catalog'))+' — Cedarsino'}
+ else if(v.indexOf('catalog?q=')===0){html=vCatalog('',decodeURIComponent(v.split('?q=')[1]));after=initCat;title='Search: '+ST.q+' — Cedarsino'}
+ else if(v==='p'){html=vProduct(parts[1]);after=BYID[parts[1]]?initProduct:null;if(BYID[parts[1]])title=BYID[parts[1]].n+' — Cedarsino'}
+ else if(v==='cart'){html=vCart();after=initCart;title='Your order list — Cedarsino'}
+ else if(v==='how'){html=vHow();title='How it works — Cedarsino'}
+ else if(v==='contact'){html=vContact();after=initContact;title='Contact — Cedarsino'}
  else html=vHome();
- $('#app').innerHTML=html;window.scrollTo(0,0);if(after)after();
+ document.title=title;
+ $('#app').innerHTML=html;jump(0);if(after)after();
+ CURK=key;
+ var ap=$('#app');ap.classList.remove('pg-in');void ap.offsetWidth;if(!back)ap.classList.add('pg-in');
+ motion();
+ if(back&&back.y){var y=back.y;jump(y);requestAnimationFrame(function(){jump(y)});setTimeout(function(){jump(y)},120)}
+ if(!SAVED[key])SAVED[key]={y:0};
 }
 window.addEventListener('hashchange',route);
 function doSearch(q){q=q.trim();if(!q)return;ST.q=q;location.hash='#/catalog?q='+encodeURIComponent(q)}
