@@ -55,7 +55,7 @@ input, select, textarea { font: inherit; font-weight: 400; border: 1.5px solid v
       <div><b id="sNow">0</b><span>قيمتها</span></div>
       <div><b id="nLast">0</b><span>الشهر الماضي</span></div>
     </div>
-    <p class="mute" id="opens"></p>
+    <p class="mute" id="opens" style="white-space:pre-line"></p>
     <div class="two">
       <label>اسم الزبون<input id="name" placeholder="مطبخ الريحان"></label>
       <label>واتساب الزبون<input id="phone" inputmode="tel" placeholder="96171123456"></label>
@@ -96,7 +96,8 @@ $('f').addEventListener('submit', async (e) => {
 function show() {
   const w = data.wa;
   $('nNow').textContent = w.month.n; $('sNow').textContent = usd(w.month.s); $('nLast').textContent = w.last.n;
-  $('opens').textContent = (data.week || data.total) ? '👀 الزوار: اليوم ' + (data.today || 0) + ' · آخر 7 أيام ' + (data.week || 0) + ' · المجموع ' + (data.total || 0) + (data.since ? ' (من ' + new Date(data.since).toLocaleDateString('en-GB') + ')' : '') : 'الزوار: ما في زيارات مسجّلة بعد';
+  const V = data.visits || { today: 0, week: 0, total: 0 };
+  $('opens').textContent = '👀 الزيارات: اليوم ' + V.today + ' · آخر 7 أيام ' + V.week + ' · المجموع ' + V.total + (V.since ? ' (من ' + new Date(V.since).toLocaleDateString('en-GB') + ')' : '') + '\n👤 زوار مختلفين آخر 7 أيام: ' + (data.week || 0);
   $('res').hidden = false;
   if (!touched) $('msg').value = draft();
   link();
