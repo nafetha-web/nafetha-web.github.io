@@ -169,7 +169,7 @@ table.sp2 td:first-child{color:var(--mut);width:42%}
 .ok{display:none;background:var(--g3);color:var(--g);padding:12px 14px;border-radius:12px;font-weight:600;margin-top:12px}
 /* footer */
 footer{background:#0a2a20;color:#b7cfc4;margin-top:40px}
-footer .wrap{display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:30px;padding:46px 20px}
+footer .wrap{display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:30px;padding:46px 20px}
 footer .logo{color:#fff}
 footer h5{color:#fff;margin-bottom:10px;font-size:14px;letter-spacing:.6px;text-transform:uppercase}
 footer a{display:block;padding:3px 0;font-size:14.5px}
@@ -211,6 +211,7 @@ footer .cp{border-top:1px solid #174a3a;text-align:center;padding:16px;font-size
 <footer>
  <div class="wrap">
   <div><a class="logo" href="#/" id="flogo"></a><p style="margin-top:12px;max-width:340px;font-size:14.5px">Wholesale sourcing from China for traders and retailers. Clear factory prices, clear minimum quantities, one order list.</p></div>
+  <div><h5>Contact</h5><a href="https://wa.me/96181988003" target="_blank" rel="noopener" dir="ltr">WhatsApp +961 81 988 003</a></div>
   <div><h5>Explore</h5><a href="#/catalog">All products</a><a href="#/how">How it works</a><a href="#/contact">Contact us</a><a href="#/cart">Order list</a></div>
   <div><h5>Categories</h5><div id="fcats"></div></div>
  </div>
@@ -219,7 +220,7 @@ footer .cp{border-top:1px solid #174a3a;text-align:center;padding:16px;font-size
 <div class="toast" id="toast"></div>
 <script>
 /* ===== settings (change here) ===== */
-var CFG={whatsapp:'',email:'',commission:0.10,currency:'¥'};
+var CFG={whatsapp:'96181988003',email:'',commission:0.10,currency:'¥'};
 /* ================================== */
 var $=function(s,r){return(r||document).querySelector(s)};
 var LOGO='<svg viewBox="0 0 64 64" aria-hidden="true"><rect width="64" height="64" rx="15" fill="#0e3b2e"/><path d="M32 7 22 20h5l-9 12h6L14 45h36L40 32h6L37 20h5z" fill="#fff"/><path d="M32 7 22 20h5l-9 12h6L14 45h18z" fill="#dff0e8"/><rect x="29" y="44" width="6" height="13" rx="1.5" fill="#c8402f"/></svg><span>Cedar<b>sino</b></span>';
@@ -352,7 +353,7 @@ function initCart(){
  };
 }
 function vHow(){setNav('how');return'<div class="pg"><div class="wrap"><div class="crumb"><a href="#/">Home</a> / How it works</div><div class="sh"><div><h2>How it works</h2><p>Wholesale ordering made simple.</p></div></div>'+steps()+'<div class="sh" style="margin-top:50px"><div><h2>Pricing &amp; minimum quantities</h2></div></div><div class="box"><p style="margin-bottom:10px">• Prices on the website are factory prices <b>per piece in Chinese yuan (¥)</b>.</p><p style="margin-bottom:10px">• Every order list adds a transparent <b>10% company commission</b> on the subtotal. It is shown as a separate line.</p><p style="margin-bottom:10px">• Each product has a <b>minimum order quantity (MOQ)</b>, based on its carton packing.</p><p>• Shipping costs, availability and final amounts are confirmed by us before payment.</p></div></div></div>'}
-function vContact(){setNav('contact');return'<div class="pg"><div class="wrap"><div class="crumb"><a href="#/">Home</a> / Contact</div><div class="sh"><div><h2>Contact us</h2><p>Tell us what you are looking for and we will reply with a quote.</p></div></div><div class="ct"><div class="box"><h3 style="margin-bottom:12px">Request a quote</h3><div class="fm"><div class="two"><div><label>Full name *</label><input class="f" id="cn"></div><div><label>Phone / WhatsApp *</label><input class="f" id="cp" inputmode="tel"></div></div><div><label>Email</label><input class="f" id="ce"></div><div><label>What do you need? *</label><textarea class="f" id="cm" rows="5" placeholder="Products, quantities, destination country…"></textarea></div><div class="warn" id="ce2"></div><button class="btn" id="cs">Send message</button><div class="ok" id="cok"></div></div></div><div class="box"><h3 style="margin-bottom:12px">Why contact us</h3><p style="margin-bottom:10px">• Custom quotes for large quantities</p><p style="margin-bottom:10px">• Products not in the catalog</p><p style="margin-bottom:10px">• Shipping and delivery questions</p><p>• Samples and product details</p></div></div></div></div>'}
+function vContact(){setNav('contact');return'<div class="pg"><div class="wrap"><div class="crumb"><a href="#/">Home</a> / Contact</div><div class="sh"><div><h2>Contact us</h2><p>Tell us what you are looking for and we will reply with a quote.</p></div></div><div class="ct"><div class="box"><h3 style="margin-bottom:12px">Request a quote</h3><div class="fm"><div class="two"><div><label>Full name *</label><input class="f" id="cn"></div><div><label>Phone / WhatsApp *</label><input class="f" id="cp" inputmode="tel"></div></div><div><label>Email</label><input class="f" id="ce"></div><div><label>What do you need? *</label><textarea class="f" id="cm" rows="5" placeholder="Products, quantities, destination country…"></textarea></div><div class="warn" id="ce2"></div><button class="btn" id="cs">Send message</button><div class="ok" id="cok"></div></div></div><div class="box"><h3 style="margin-bottom:12px">Chat with us on WhatsApp</h3><p style="margin-bottom:14px"><a class="btn" target="_blank" rel="noopener" href="https://wa.me/96181988003" dir="ltr">+961 81 988 003</a></p><h3 style="margin-bottom:12px">Why contact us</h3><p style="margin-bottom:10px">• Custom quotes for large quantities</p><p style="margin-bottom:10px">• Products not in the catalog</p><p style="margin-bottom:10px">• Shipping and delivery questions</p><p>• Samples and product details</p></div></div></div></div>'}
 function initContact(){$('#cs').onclick=function(){var n=$('#cn').value.trim(),p=$('#cp').value.trim(),m=$('#cm').value.trim();if(!n||!p||!m){$('#ce2').textContent='Please fill name, phone and message.';return}$('#ce2').textContent='';var msg='*Quote request — Cedarsino*\nName: '+n+'\nPhone: '+p+($('#ce').value.trim()?'\nEmail: '+$('#ce').value.trim():'')+'\n\n'+m;
  if(CFG.whatsapp)window.open('https://wa.me/'+CFG.whatsapp+'?text='+encodeURIComponent(msg),'_blank');else if(CFG.email)location.href='mailto:'+CFG.email+'?subject='+encodeURIComponent('Quote request')+'&body='+encodeURIComponent(msg);else{try{navigator.clipboard.writeText(msg)}catch(e){}}
  var o=$('#cok');o.style.display='block';o.textContent='Thank you! Your message is ready to send.'}}
