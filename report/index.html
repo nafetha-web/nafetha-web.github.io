@@ -73,7 +73,7 @@ let data = null, touched = false;
 const saved = (() => { try { return JSON.parse(localStorage.getItem('nf_report') || '{}') } catch (e) { return {} } })();
 $('store').value = saved.store || '';
 const book = saved.book || {};
-const usd = (n) => '$' + (Math.round(n * 100) / 100).toLocaleString('en-US');
+const usd = (n, cur) => cur === 'LBP' ? Math.round(n).toLocaleString('en-US') + ' ل.ل' : '$' + (Math.round(n * 100) / 100).toLocaleString('en-US');
 
 $('f').addEventListener('submit', async (e) => {
   e.preventDefault();
@@ -95,7 +95,7 @@ $('f').addEventListener('submit', async (e) => {
 
 function show() {
   const w = data.wa;
-  $('nNow').textContent = w.month.n; $('sNow').textContent = usd(w.month.s); $('nLast').textContent = w.last.n;
+  $('nNow').textContent = w.month.n; $('sNow').textContent = usd(w.month.s, w.month.cur); $('nLast').textContent = w.last.n;
   const V = data.visits || { today: 0, week: 0, total: 0 };
   $('opens').textContent = '👀 الزيارات: اليوم ' + V.today + ' · آخر 7 أيام ' + V.week + ' · المجموع ' + V.total + (V.since ? ' (من ' + new Date(V.since).toLocaleDateString('en-GB') + ')' : '') + '\n👤 زوار مختلفين آخر 7 أيام: ' + (data.week || 0);
   $('res').hidden = false;
@@ -108,7 +108,7 @@ function draft() {
   return 'مرحبا' + (name ? ' ' + name : '') + ' 👋\n' +
     'هيدا تقرير موقعك من نافذة عن شهر ' + MONTHS[d.getMonth()] + (last ? '' : ' (لليوم)') + ':\n\n' +
     '💬 ' + w.n + ' طلب انبعت من الموقع عالواتساب\n' +
-    '💵 قيمتهم تقريبًا ' + usd(w.s) + '\n\n' +
+    '💵 قيمتهم تقريبًا ' + usd(w.s, w.cur) + '\n\n' +
     'إذا بدّك تعرف شو أكتر صنف بينطلب، وتعلّن عن عرض أو تسكّر صنف خلصان من تلفونك، فيك ترقّي لباقة Pro. خبّرني وبفرجيك ياها 🙏';
 }
 function link() {

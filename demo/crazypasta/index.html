@@ -519,7 +519,7 @@ function useCfg(j) { if (!j || !j.config || j.updated === curUpdated) return fal
     if (!e.target.closest || !e.target.closest('#revSend')) return;
     try { if (Date.now() - (+localStorage.getItem('cp_wa_t') || 0) < 3 * 60e3) return; localStorage.setItem('cp_wa_t', Date.now()) } catch (er) { return }
     const d = devId(); if (d.length < 8) return;
-    fetch(NAPI + '/hit', { method: 'POST', headers: { 'Content-Type': 'text/plain' }, body: JSON.stringify({ type: 'wa', dev: d, total: totals().total }), keepalive: true }).catch(() => {});
+    fetch(NAPI + '/hit', { method: 'POST', headers: { 'Content-Type': 'text/plain' }, body: JSON.stringify({ type: 'wa', dev: d, total: totals().total, cur: CUR }), keepalive: true }).catch(() => {});
   });
 })();
 </script>
