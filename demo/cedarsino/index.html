@@ -417,7 +417,8 @@ function initCart(){
   if($('#fc').value.trim())L.push('Company: '+$('#fc').value.trim());
   L.push('Phone: '+ph);if($('#fe').value.trim())L.push('Email: '+$('#fe').value.trim());if($('#fl').value.trim())L.push('Location: '+$('#fl').value.trim());
   L.push('','*Items:*');
-  CART.forEach(function(l,i){var p=BYID[l.id],u=unitPrice(p,l.vi);L.push((i+1)+'. '+p.n+' ['+p.code+']'+(l.vi!=null&&p.v[l.vi]?' – '+p.v[l.vi].l:'')+'\n    '+(hasBox(p)?bw(l.q/per(p))+' × '+nf(per(p))+' pcs = '+nf(l.q)+' pcs':nf(l.q)+' pcs')+' × '+money(u)+' = '+money(u*l.q))});
+  CART.forEach(function(l,i){var p=BYID[l.id],u=unitPrice(p,l.vi),nb=hasBox(p)?l.q/per(p):0;L.push((i+1)+'. *'+p.n+'*','   Code: '+p.code+(l.vi!=null&&p.v[l.vi]?'\n   Option: '+p.v[l.vi].l:''),'   Quantity: '+(hasBox(p)?bw(nb)+' ('+nf(per(p))+' pcs per box) = '+nf(l.q)+' pcs':nf(l.q)+' pcs'),'   Price: '+money(u)+' per pc → *'+money(u*l.q)+'*','   Link: '+location.href.split('#')[0]+'#/p/'+encodeURIComponent(p.id),'')});
+  var tb=0,tp=0;CART.forEach(function(l){var p=BYID[l.id];tp+=l.q;if(hasBox(p))tb+=l.q/per(p)});L.push('Total: '+CART.length+' product'+(CART.length>1?'s':'')+(tb?' · '+bw(tb):'')+' · '+nf(tp)+' pcs');
   L.push('','Subtotal: '+money(c.sub),'Company commission (10%): + '+money(c.com),'*Estimated total: '+money(c.tot)+'*');
   if($('#fo').value.trim())L.push('','Notes: '+$('#fo').value.trim());
   var msg=L.join('\n');
