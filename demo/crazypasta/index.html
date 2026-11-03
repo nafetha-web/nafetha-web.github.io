@@ -178,6 +178,211 @@ section.block { padding-block: 40px 6px; display: flex; flex-direction: column; 
 .dish.out { opacity: .6 }
 .dish.out .ph img { filter: grayscale(1) }
 [hidden] { display: none !important }
+/* preview additions */
+.demo { background: var(--red); font-weight: 700 }
+.search { position: relative }
+.search input { width: 100%; border: 2.5px solid var(--ink); border-radius: 14px; padding: 12px 44px 12px 14px; background: #FFF; min-height: 50px; font-weight: 600; box-shadow: 3px 3px 0 var(--ink) }
+[dir="ltr"] .search input { padding: 12px 14px 12px 44px }
+.search svg { position: absolute; top: 50%; transform: translateY(-50%); inset-inline-start: 14px; width: 20px; height: 20px; pointer-events: none }
+.search input { padding-inline-start: 44px !important; padding-inline-end: 14px !important }
+.tab small { display: inline-grid; place-items: center; min-width: 22px; height: 22px; border-radius: 999px; background: var(--y); color: var(--ink); font-size: 12px; margin-inline-start: 6px; padding: 0 6px }
+.tab[aria-pressed="true"] small { background: var(--y); color: var(--ink) }
+.dish { cursor: pointer; transition: transform .12s }
+.dish:active { transform: scale(.985) }
+.dish .ph.empty { aspect-ratio: 602 / 440; height: auto; font-size: 54px; background: repeating-linear-gradient(135deg, var(--y) 0 18px, var(--y2) 18px 36px) }
+.dish .ph.empty span { width: 84px; height: 84px; border-radius: 50%; background: #FFF; border: 2.5px solid var(--ink); display: grid; place-items: center; box-shadow: 3px 3px 0 var(--ink) }
+.empty-q { grid-column: 1 / -1; text-align: center; color: var(--muted); padding: 30px 0; font-weight: 700 }
+.open-now { display: inline-flex; align-items: center; gap: 8px; margin-top: 14px; background: #FFF; border: 2.5px solid var(--ink); border-radius: 999px; padding: 4px 14px; font-weight: 800; font-size: 14px; box-shadow: 3px 3px 0 var(--ink) }
+.open-now i { width: 10px; height: 10px; border-radius: 50%; background: #1F9D55; box-shadow: 0 0 0 3px rgba(31,157,85,.25) }
+.open-now.closed i { background: var(--red); box-shadow: 0 0 0 3px rgba(226,31,38,.25) }
+.closed-note { background: #FFF1F1; border: 2px solid var(--red); color: var(--red-d); border-radius: 12px; padding: 8px 12px; font-weight: 700; font-size: 14px }
+.again { display: flex; align-items: center; gap: 12px; background: var(--ink); color: #FFF; border-radius: 18px; padding: 12px 14px; margin-bottom: 4px; box-shadow: 4px 4px 0 var(--red) }
+.again div { flex: 1; min-width: 0 }
+.again b { display: block; color: var(--y); font-size: 15px }
+.again small { display: block; opacity: .85; font-size: 12.5px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis }
+.again .btn { min-height: 42px; padding: 0 14px; font-size: 15px; box-shadow: 2px 2px 0 #FFF; border-color: #FFF }
+.locbtn { background: #FFF; border: 2.5px dashed var(--ink); border-radius: 12px; min-height: 46px; font-weight: 800; cursor: pointer }
+.locbtn.ok { border-style: solid; background: #E9F8EF; color: #157A41 }
+.dsheet .dimg { border: 2.5px solid var(--ink); border-radius: 18px; overflow: hidden; background: #FFF; display: grid; place-items: center; font-size: 70px; min-height: 160px }
+.dsheet .dimg img { width: 100%; height: auto; max-height: 62vh; object-fit: contain }
+.dsheet .dimg span { padding: 30px }
+.dsheet { max-height: 94vh }
+.dsheet h2 { font-family: var(--display); font-weight: 400; font-size: 30px; line-height: 1.25 }
+.dsheet p { margin: 0; color: var(--muted); font-weight: 600 }
+.dsheet .drow { display: flex; justify-content: space-between; align-items: center; gap: 10px; border-top: 2px dashed var(--line); padding-top: 12px }
+.dsheet .price { font-size: 22px }
+.dsheet .qbtn { width: 46px; height: 46px; font-size: 22px }
+.dsheet .qn { font-size: 20px; min-width: 26px }
+
+/* ===== Theme 1: warm cream ===== */
+html[data-t="1"] { --paper: #FFF9F0; --line: #EFE5D3; --muted: #7A6E62 }
+html[data-t="1"] body { background: var(--paper) }
+html[data-t="1"] .top { background: #FFF; border-bottom: 1px solid var(--line); box-shadow: 0 2px 14px rgba(40,25,0,.06) }
+html[data-t="1"] .lang { background: var(--paper); color: var(--ink); border: 1px solid var(--line) }
+html[data-t="1"] .hero { background: linear-gradient(180deg, #FFF1BF 0%, #FFF6DD 55%, var(--paper) 100%); border-bottom: 0 }
+html[data-t="1"] .hero::before { display: none }
+html[data-t="1"] .hero h1 em { -webkit-text-stroke: 0 }
+html[data-t="1"] .pill { background: #FFF; color: var(--ink); box-shadow: 0 3px 12px rgba(40,25,0,.08) }
+html[data-t="1"] .btn { border: 0; box-shadow: 0 8px 20px rgba(226,31,38,.22); border-radius: 14px }
+html[data-t="1"] .btn:active { transform: scale(.98); box-shadow: 0 4px 10px rgba(226,31,38,.2) }
+html[data-t="1"] .btn-white, html[data-t="1"] .back { box-shadow: 0 4px 14px rgba(40,25,0,.08); border: 1px solid var(--line) }
+html[data-t="1"] .plate img { border: 0; border-radius: 26px; box-shadow: 0 20px 44px rgba(40,25,0,.18) }
+html[data-t="1"] .plate .tag { border: 0; box-shadow: 0 8px 20px rgba(40,25,0,.14); transform: none; border-radius: 12px }
+html[data-t="1"] .open-now { border: 0; box-shadow: 0 3px 12px rgba(40,25,0,.08) }
+html[data-t="1"] .search input { border: 1px solid var(--line); box-shadow: 0 3px 12px rgba(40,25,0,.05) }
+html[data-t="1"] .tabs { background: var(--paper) }
+html[data-t="1"] .tab { border: 1px solid var(--line); background: #FFF; font-weight: 700 }
+html[data-t="1"] .tab[aria-pressed="true"] { background: var(--ink); color: #FFF; border-color: var(--ink) }
+html[data-t="1"] .tab small { background: #F5EEE2 }
+html[data-t="1"] .tab[aria-pressed="true"] small { background: var(--y); color: var(--ink) }
+html[data-t="1"] .cat h3 { font-size: 26px }
+html[data-t="1"] .list { grid-template-columns: minmax(0, 1fr); gap: 10px }
+@media (min-width: 760px) { html[data-t="1"] .list { grid-template-columns: repeat(2, minmax(0, 1fr)) } }
+html[data-t="1"] .dish { flex-direction: row; border: 1px solid var(--line); border-radius: 18px; box-shadow: 0 4px 16px rgba(40,25,0,.05); align-items: stretch }
+html[data-t="1"] .dish .ph { flex: none; width: 124px; height: 124px; aspect-ratio: auto; margin: 10px; border: 0; border-radius: 14px; background: #FFF4D2 }
+html[data-t="1"] .dish .ph.empty { font-size: 34px; background: #FFF4D2 }
+html[data-t="1"] .dish .ph.empty span { width: 62px; height: 62px; border: 0; box-shadow: 0 4px 12px rgba(40,25,0,.1) }
+html[data-t="1"] .dish .tag { border: 0; top: 6px; inset-inline-start: 6px; font-size: 10.5px }
+html[data-t="1"] .dish .body { padding: 12px 12px 12px 4px; gap: 3px }
+html[dir="ltr"][data-t="1"] .dish .body { padding: 12px 4px 12px 12px }
+html[data-t="1"] .dish h4 { font-size: 16px }
+html[data-t="1"] .dish p { font-size: 13px }
+html[data-t="1"] .qbtn { border: 0; background: #F5EEE2; border-radius: 12px }
+html[data-t="1"] .qbtn.add { background: var(--y); box-shadow: 0 4px 10px rgba(251,206,0,.35) }
+html[data-t="1"] .card { background: #FFF; border: 1px solid var(--line); box-shadow: 0 4px 16px rgba(40,25,0,.05) }
+html[data-t="1"] .order { background: #FFF; color: var(--ink); border-top: 1px solid var(--line); box-shadow: 0 -8px 26px rgba(40,25,0,.08) }
+html[data-t="1"] .order .sum { opacity: 1; color: var(--muted) }
+html[data-t="1"] .order .sum strong { color: var(--red) }
+html[data-t="1"] .wa { border: 0; box-shadow: 0 8px 18px rgba(31,157,85,.28) }
+html[data-t="1"] .again { box-shadow: 0 10px 24px rgba(40,25,0,.16) }
+html[data-t="1"] .again .btn { box-shadow: none }
+html[data-t="1"] .sheet { background: #FFF }
+html[data-t="1"] .x { border: 1px solid var(--line) }
+html[data-t="1"] .dsheet .dimg { border: 0; background: var(--paper) }
+html[data-t="1"] .field input, html[data-t="1"] .field select, html[data-t="1"] .field textarea { border: 1.5px solid var(--line) }
+html[data-t="1"] .locbtn { border: 1.5px dashed #D8C9AE }
+html[data-t="1"] .rev { border: 1px solid var(--line) }
+/* ===== Theme 2: dark premium (layout from theme 1) ===== */
+html[data-t="2"] { --paper: #FFF9F0; --line: #EFE5D3; --muted: #7A6E62 }
+html[data-t="2"] body { background: var(--paper) }
+html[data-t="2"] .top { background: #FFF; border-bottom: 1px solid var(--line); box-shadow: 0 2px 14px rgba(40,25,0,.06) }
+html[data-t="2"] .lang { background: var(--paper); color: var(--ink); border: 1px solid var(--line) }
+html[data-t="2"] .hero { background: linear-gradient(180deg, #FFF1BF 0%, #FFF6DD 55%, var(--paper) 100%); border-bottom: 0 }
+html[data-t="2"] .hero::before { display: none }
+html[data-t="2"] .hero h1 em { -webkit-text-stroke: 0 }
+html[data-t="2"] .pill { background: #FFF; color: var(--ink); box-shadow: 0 3px 12px rgba(40,25,0,.08) }
+html[data-t="2"] .btn { border: 0; box-shadow: 0 8px 20px rgba(226,31,38,.22); border-radius: 14px }
+html[data-t="2"] .btn:active { transform: scale(.98); box-shadow: 0 4px 10px rgba(226,31,38,.2) }
+html[data-t="2"] .btn-white, html[data-t="2"] .back { box-shadow: 0 4px 14px rgba(40,25,0,.08); border: 1px solid var(--line) }
+html[data-t="2"] .plate img { border: 0; border-radius: 26px; box-shadow: 0 20px 44px rgba(40,25,0,.18) }
+html[data-t="2"] .plate .tag { border: 0; box-shadow: 0 8px 20px rgba(40,25,0,.14); transform: none; border-radius: 12px }
+html[data-t="2"] .open-now { border: 0; box-shadow: 0 3px 12px rgba(40,25,0,.08) }
+html[data-t="2"] .search input { border: 1px solid var(--line); box-shadow: 0 3px 12px rgba(40,25,0,.05) }
+html[data-t="2"] .tabs { background: var(--paper) }
+html[data-t="2"] .tab { border: 1px solid var(--line); background: #FFF; font-weight: 700 }
+html[data-t="2"] .tab[aria-pressed="true"] { background: var(--ink); color: #FFF; border-color: var(--ink) }
+html[data-t="2"] .tab small { background: #F5EEE2 }
+html[data-t="2"] .tab[aria-pressed="true"] small { background: var(--y); color: var(--ink) }
+html[data-t="2"] .cat h3 { font-size: 26px }
+html[data-t="2"] .list { grid-template-columns: minmax(0, 1fr); gap: 10px }
+@media (min-width: 760px) { html[data-t="2"] .list { grid-template-columns: repeat(2, minmax(0, 1fr)) } }
+html[data-t="2"] .dish { flex-direction: row; border: 1px solid var(--line); border-radius: 18px; box-shadow: 0 4px 16px rgba(40,25,0,.05); align-items: stretch }
+html[data-t="2"] .dish .ph { flex: none; width: 124px; height: 124px; aspect-ratio: auto; margin: 10px; border: 0; border-radius: 14px; background: #FFF4D2 }
+html[data-t="2"] .dish .ph.empty { font-size: 34px; background: #FFF4D2 }
+html[data-t="2"] .dish .ph.empty span { width: 62px; height: 62px; border: 0; box-shadow: 0 4px 12px rgba(40,25,0,.1) }
+html[data-t="2"] .dish .tag { border: 0; top: 6px; inset-inline-start: 6px; font-size: 10.5px }
+html[data-t="2"] .dish .body { padding: 12px 12px 12px 4px; gap: 3px }
+html[dir="ltr"][data-t="2"] .dish .body { padding: 12px 4px 12px 12px }
+html[data-t="2"] .dish h4 { font-size: 16px }
+html[data-t="2"] .dish p { font-size: 13px }
+html[data-t="2"] .qbtn { border: 0; background: #F5EEE2; border-radius: 12px }
+html[data-t="2"] .qbtn.add { background: var(--y); box-shadow: 0 4px 10px rgba(251,206,0,.35) }
+html[data-t="2"] .card { background: #FFF; border: 1px solid var(--line); box-shadow: 0 4px 16px rgba(40,25,0,.05) }
+html[data-t="2"] .order { background: #FFF; color: var(--ink); border-top: 1px solid var(--line); box-shadow: 0 -8px 26px rgba(40,25,0,.08) }
+html[data-t="2"] .order .sum { opacity: 1; color: var(--muted) }
+html[data-t="2"] .order .sum strong { color: var(--red) }
+html[data-t="2"] .wa { border: 0; box-shadow: 0 8px 18px rgba(31,157,85,.28) }
+html[data-t="2"] .again { box-shadow: 0 10px 24px rgba(40,25,0,.16) }
+html[data-t="2"] .again .btn { box-shadow: none }
+html[data-t="2"] .sheet { background: #FFF }
+html[data-t="2"] .x { border: 1px solid var(--line) }
+html[data-t="2"] .dsheet .dimg { border: 0; background: var(--paper) }
+html[data-t="2"] .field input, html[data-t="2"] .field select, html[data-t="2"] .field textarea { border: 1.5px solid var(--line) }
+html[data-t="2"] .locbtn { border: 1.5px dashed #D8C9AE }
+html[data-t="2"] .rev { border: 1px solid var(--line) }
+
+html[data-t="2"] { --paper: #12100E; --line: #2B2621; --muted: #A99F92; --ink: #F4EEE4; color-scheme: dark }
+html[data-t="2"] body { background: #12100E; color: #F4EEE4 }
+html[data-t="2"] .top { background: rgba(18,16,14,.92); backdrop-filter: blur(10px); border-bottom: 1px solid var(--line); box-shadow: none }
+html[data-t="2"] .logo img { filter: drop-shadow(0 2px 8px rgba(0,0,0,.6)) }
+html[data-t="2"] .lang { background: #1E1A17; color: #F4EEE4; border: 1px solid var(--line) }
+html[data-t="2"] .hero { background: radial-gradient(120% 80% at 80% 0%, rgba(251,206,0,.16) 0%, transparent 55%), radial-gradient(90% 70% at 0% 100%, rgba(226,31,38,.14) 0%, transparent 60%), #12100E }
+html[data-t="2"] .hero h1 { color: #FFF }
+html[data-t="2"] .hero h1 em { color: var(--y) }
+html[data-t="2"] .hero p, html[data-t="2"] .facts { color: #D9D0C3 }
+html[data-t="2"] .pill { background: #1E1A17; color: var(--y); border: 1px solid var(--line); box-shadow: none }
+html[data-t="2"] .btn-red { background: var(--y); color: #12100E; box-shadow: 0 10px 26px rgba(251,206,0,.22) }
+html[data-t="2"] .btn-white, html[data-t="2"] .back { background: #1E1A17; color: #F4EEE4; border: 1px solid var(--line); box-shadow: none }
+html[data-t="2"] .plate img { box-shadow: 0 24px 60px rgba(0,0,0,.55) }
+html[data-t="2"] .plate .tag { background: #1E1A17; color: #F4EEE4; box-shadow: 0 8px 22px rgba(0,0,0,.5) }
+html[data-t="2"] .plate .tag b { color: var(--y) }
+html[data-t="2"] .open-now { background: #1E1A17; color: #F4EEE4; box-shadow: none; border: 1px solid var(--line) }
+html[data-t="2"] .block h2, html[data-t="2"] .cat h3 { color: #FFF }
+html[data-t="2"] .search input { background: #1E1A17; color: #F4EEE4; border: 1px solid var(--line); box-shadow: none }
+html[data-t="2"] .search svg { color: #A99F92 }
+html[data-t="2"] .tabs { background: #12100E }
+html[data-t="2"] .tab { background: #1E1A17; color: #D9D0C3; border: 1px solid var(--line) }
+html[data-t="2"] .tab small { background: #2B2621; color: #F4EEE4 }
+html[data-t="2"] .tab[aria-pressed="true"] { background: var(--y); color: #12100E; border-color: var(--y) }
+html[data-t="2"] .tab[aria-pressed="true"] small { background: #12100E; color: var(--y) }
+html[data-t="2"] .dish { background: #1E1A17; border: 1px solid var(--line); box-shadow: none }
+html[data-t="2"] .dish h4 { color: #FFF }
+html[data-t="2"] .dish .ph, html[data-t="2"] .dish .ph.empty { background: #2A241F }
+html[data-t="2"] .dish .ph.empty span { background: #1E1A17; box-shadow: none }
+html[data-t="2"] .price { color: var(--y) }
+html[data-t="2"] .was { color: #8C8378 }
+html[data-t="2"] .qbtn { background: #2B2621; color: #F4EEE4 }
+html[data-t="2"] .qbtn.add { background: var(--y); color: #12100E; box-shadow: none }
+html[data-t="2"] .qn { color: #FFF }
+html[data-t="2"] .card { background: #1E1A17; color: #D9D0C3; border: 1px solid var(--line); box-shadow: none }
+html[data-t="2"] .card b { color: var(--y) }
+html[data-t="2"] .note, html[data-t="2"] .foot { color: #8C8378 }
+html[data-t="2"] .order { background: rgba(24,21,18,.96); backdrop-filter: blur(10px); color: #F4EEE4; border-top: 1px solid var(--line); box-shadow: 0 -10px 30px rgba(0,0,0,.5) }
+html[data-t="2"] .order .sum { color: #A99F92 }
+html[data-t="2"] .order .sum strong { color: var(--y) }
+html[data-t="2"] .again { background: #1E1A17; border: 1px solid rgba(251,206,0,.35); box-shadow: none }
+html[data-t="2"] .sheet { background: #1A1714; color: #F4EEE4 }
+html[data-t="2"] .sheet::backdrop { background: rgba(0,0,0,.7) }
+html[data-t="2"] .x { background: #2B2621; color: #F4EEE4; border: 1px solid var(--line) }
+html[data-t="2"] .dsheet .dimg { background: #12100E }
+html[data-t="2"] .dsheet h2 { color: #FFF }
+html[data-t="2"] .rev { background: #221E1A; border: 1px solid var(--line) }
+html[data-t="2"] .rev .nm small { color: var(--y) }
+html[data-t="2"] .field input, html[data-t="2"] .field select, html[data-t="2"] .field textarea { background: #221E1A; color: #F4EEE4; border: 1px solid var(--line) }
+html[data-t="2"] .locbtn { background: #221E1A; color: #F4EEE4; border: 1.5px dashed #4A4239 }
+html[data-t="2"] .closed-note { background: rgba(226,31,38,.12); color: #FF8C8F; border-color: rgba(226,31,38,.5) }
+html[data-t="2"] .revtotal { border-color: var(--line) }
+html[data-t="2"] .demo { background: #E21F26 }
+/* ===== Theme 3: playful, softened ===== */
+html[data-t="3"] { --paper: #FFFFFF; --line: #F1E9D2 }
+html[data-t="3"] .top { background: #FFF; border-bottom: 2px solid var(--ink) }
+html[data-t="3"] .hero { border-bottom: 2px solid var(--ink) }
+html[data-t="3"] .hero::before { opacity: .55 }
+html[data-t="3"] .btn { border-width: 2px; box-shadow: 3px 3px 0 var(--ink) }
+html[data-t="3"] .plate img { border-width: 2px; box-shadow: 4px 4px 0 var(--ink) }
+html[data-t="3"] .plate .tag { border-width: 2px; box-shadow: 2px 2px 0 var(--ink) }
+html[data-t="3"] .open-now, html[data-t="3"] .search input { border-width: 1.5px; box-shadow: 2px 2px 0 var(--ink) }
+html[data-t="3"] .tab { border-width: 1.5px }
+html[data-t="3"] .dish { border-width: 1.5px; box-shadow: 3px 3px 0 var(--ink) }
+html[data-t="3"] .dish .ph { background: #FFF6CC; border-bottom-width: 1.5px }
+html[data-t="3"] .dish .ph.empty { background: repeating-linear-gradient(135deg, #FFF6CC 0 18px, #FFF0B3 18px 36px) }
+html[data-t="3"] .dish .ph.empty span { border-width: 1.5px; box-shadow: 2px 2px 0 var(--ink) }
+html[data-t="3"] .dish .tag { border-width: 1.5px }
+html[data-t="3"] .qbtn { border-width: 1.5px }
+html[data-t="3"] .card { background: #FFF8DB; border-width: 1.5px; box-shadow: 3px 3px 0 var(--ink) }
+html[data-t="3"] .again { box-shadow: 3px 3px 0 var(--red) }
+html[data-t="3"] .dsheet .dimg { border-width: 1.5px }
+html[data-t="3"] .field input, html[data-t="3"] .field select, html[data-t="3"] .field textarea { border-width: 1.5px }
 </style>
 </head>
 <body>
@@ -205,6 +410,7 @@ section.block { padding-block: 40px 6px; display: flex; flex-direction: column; 
         <a class="btn btn-white" href="#play" id="ctaPlay"></a>
       </div>
       <div class="facts" id="facts"></div>
+      <div class="open-now" id="openNow"></div>
     </div>
     <div class="plate"><img id="heroImg" src="img/alfredo.jpg" alt="" width="602" height="440" fetchpriority="high"><span class="tag" id="heroTag"></span></div>
   </div>
@@ -229,6 +435,8 @@ section.block { padding-block: 40px 6px; display: flex; flex-direction: column; 
 
   <section class="block" id="menu">
     <h2 id="menuTitle"></h2>
+    <div class="again" id="again" hidden></div>
+    <div class="search"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg><input id="q" type="search" autocomplete="off"></div>
     <nav class="tabs" id="tabs" aria-label="Menu sections"></nav>
     <div id="cats"></div>
     <p class="note" id="priceNote"></p>
@@ -253,6 +461,8 @@ section.block { padding-block: 40px 6px; display: flex; flex-direction: column; 
   </div>
 </div>
 
+<dialog class="sheet dsheet" id="dish"><div class="sheet-in" id="dishIn"></div></dialog>
+
 <dialog class="sheet" id="review" aria-labelledby="revTitle">
   <div class="sheet-in">
     <div class="sheet-head"><h2 id="revTitle"></h2><button type="button" class="x" id="revClose" aria-label="close">×</button></div>
@@ -260,7 +470,8 @@ section.block { padding-block: 40px 6px; display: flex; flex-direction: column; 
     <div class="revprize" id="revPrize" hidden></div>
     <div class="revtotal"><span id="revTotalLbl"></span><strong class="ltr" id="revTotal"></strong></div>
     <div class="field"><label for="revWhere" id="revWhereLbl"></label><select id="revWhere"></select></div>
-    <div class="field"><label for="revAddr" id="revAddrLbl"></label><input id="revAddr" autocomplete="street-address"></div>
+    <div class="field"><label for="revAddr" id="revAddrLbl"></label><input id="revAddr" autocomplete="street-address"><button type="button" class="locbtn" id="locBtn"></button></div>
+    <div class="closed-note" id="closedNote" hidden></div>
     <div class="field"><label for="revNote" id="revNoteLbl"></label><textarea id="revNote" rows="2"></textarea></div>
     <a class="btn wa" id="revSend" target="_blank" rel="noopener"></a>
     <button type="button" class="btn back" id="revBack"></button>
@@ -268,6 +479,7 @@ section.block { padding-block: 40px 6px; display: flex; flex-direction: column; 
 </dialog>
 
 <script>
+(function(){ const t = new URLSearchParams(location.search).get('t'); document.documentElement.dataset.t = (t === '1' || t === '2') ? t : '3' })();
 let WA = '96181219242';
 let CUR = 'USD';
 const fm = (n, l) => CUR === 'LBP' ? Math.round(n).toLocaleString('en-US') + (l === 'ar' ? ' ل.ل' : ' LBP') : '$' + (Math.round(n * 100) / 100);
@@ -345,7 +557,42 @@ const T = {
 };
 
 let lang = 'ar', activeCat = MENU[0].id, prize = null;
-const cart = {};
+const cart = (() => { try { const c = JSON.parse(localStorage.getItem('cp-cart') || '{}'); return c && typeof c === 'object' ? c : {} } catch (e) { return {} } })();
+let Q = '', loc = '';
+const HOURS = { from: 14, to: 24, off: [2] };
+const X = {
+  ar: { demo: '👀 نسخة معاينة للتعديلات، مش الموقع الرسمي. الطلبات من هون بتوصل لنافذة مش للمطعم.', search: 'دوّر على طبق…', none: 'ما لقينا شي، جرّب كلمة تانية', again: '🔁 اطلب نفس طلبك الماضي', againBtn: 'زيدهن', loc: '📍 ابعت موقعي عالخريطة', locOk: '✅ انضاف موقعك', locErr: 'ما قدرنا ناخد موقعك، اكتب العنوان', locLine: 'الموقع', openNow: (t) => 'مفتوح هلّق · لحد ' + t, closedNow: (t) => 'مسكّر هلّق · منفتح ' + t, today: 'اليوم', tomorrow: 'بكرا', at: 'الساعة', closedNote: 'المطعم مسكّر هلّق. فيك تبعت طلبك وبيتجهّز أوّل ما نفتح.', h: (x) => (x === 24 ? '12 بالليل' : x > 12 ? (x - 12) + ' بعد الضهر' : x + ' الصبح') },
+  en: { demo: '👀 Preview of the changes, not the official site. Orders from here go to Nafetha, not the restaurant.', search: 'Search for a dish…', none: 'Nothing found, try another word', again: '🔁 Order the same as last time', againBtn: 'Add them', loc: '📍 Send my location', locOk: '✅ Location added', locErr: 'Could not get your location, please type the address', locLine: 'Location', openNow: (t) => 'Open now · until ' + t, closedNow: (t) => 'Closed now · opens ' + t, today: 'today', tomorrow: 'tomorrow', at: 'at', closedNote: 'We are closed right now. You can still send your order and we will prepare it as soon as we open.', h: (x) => (x === 24 ? 'midnight' : x > 12 ? (x - 12) + ' PM' : x + ' AM') }
+};
+function openState() {
+  const d = new Date(), h = d.getHours() + d.getMinutes() / 60, x = X[lang];
+  const openDay = (dd) => !HOURS.off.includes(dd);
+  if (openDay(d.getDay()) && h >= HOURS.from && h < HOURS.to) return { open: true, txt: x.openNow(x.h(HOURS.to)) };
+  let k = 0, dd = d.getDay(); if (!(openDay(dd) && h < HOURS.from)) { do { k++; dd = (dd + 1) % 7 } while (!openDay(dd) && k < 7) }
+  const day = k === 0 ? x.today : k === 1 ? x.tomorrow : d.toLocaleDateString(lang === 'ar' ? 'ar-LB' : 'en-GB', { weekday: 'long' }) && new Date(Date.now() + k * 864e5).toLocaleDateString(lang === 'ar' ? 'ar-LB' : 'en-GB', { weekday: 'long' });
+  return { open: false, txt: x.closedNow(day + ' ' + x.at + ' ' + x.h(HOURS.from)) };
+}
+function renderOpen() { const o = openState(), e = $('openNow'); e.className = 'open-now' + (o.open ? '' : ' closed'); e.innerHTML = '<i></i>' + o.txt }
+function lastOrder() { try { const l = JSON.parse(localStorage.getItem('cp-last') || 'null'); return l && l.items ? l : null } catch (e) { return null } }
+function renderAgain() {
+  const l = lastOrder(), e = $('again'), x = X[lang];
+  const items = l ? Object.keys(l.items).filter(k => ALL.some(i => i.id === k && !i.out)) : [];
+  if (!items.length || Object.keys(cart).length) { e.hidden = true; return }
+  e.hidden = false;
+  e.innerHTML = '<div><b>' + x.again + '</b><small>' + items.map(k => l.items[k] + '× ' + ALL.find(i => i.id === k)[lang]).join('، ') + '</small></div><button type="button" class="btn btn-y" id="againBtn">' + x.againBtn + '</button>';
+  $('againBtn').onclick = () => { items.forEach(k => { cart[k] = l.items[k] }); renderMenu(); renderOrder(); openReview() };
+}
+function dishHTML(id) {
+  const i = ALL.find(x => x.id === id); if (!i) return '';
+  const t = T[lang], d = i['d' + lang];
+  return '<div class="sheet-head"><span></span><button type="button" class="x" data-dclose aria-label="close">×</button></div>' +
+    '<div class="dimg">' + ((i.ph || i.pic) ? '<img src="' + pic(i) + '" alt="' + i[lang] + '">' : '<span>' + (i.em || '🍽️') + '</span>') + '</div>' +
+    '<h2>' + i[lang] + '</h2>' + (d ? '<p>' + d + '</p>' : '') +
+    '<div class="drow"><span class="price ltr">' + (i.old ? '<s class="was">' + t.money(i.old) + '</s> ' : '') + t.money(i.p) + '</span>' + qtyHTML(i) + '</div>';
+}
+let dishOpen = null;
+function openDish(id) { dishOpen = id; $('dishIn').innerHTML = dishHTML(id); const d = $('dish'); if (d.showModal) d.showModal(); else d.setAttribute('open', '') }
+function closeDish() { dishOpen = null; const d = $('dish'); if (d.open) { if (d.close) d.close(); else d.removeAttribute('open') } }
 const ALL = MENU.flatMap(c => c.items);
 const $ = (id) => document.getElementById(id);
 const RM = matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -368,14 +615,18 @@ function renderStatic() {
   $('facts').innerHTML = t.facts.map(f => '<span>' + f + '</span>').join('');
   $('mapLink').textContent = t.map; $('mapLink').href = 'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent(T[lang].mapQ || 'Crazy Pasta Azmi Street Tripoli');
   heroTag(); renderGame();
+  $('q').placeholder = X[lang].search; $('q').value = Q;
+  renderOpen(); renderAgain();
 }
 let io = null;
 function renderMenu() {
   const t = T[lang];
-  $('tabs').innerHTML = MENU.map(c => '<button type="button" class="tab" data-cat="' + c.id + '" aria-pressed="' + (c.id === activeCat) + '">' + c[lang] + '</button>').join('');
-  $('cats').innerHTML = MENU.map(c => '<div class="cat" id="cat-' + c.id + '"><h3>' + c[lang] + '</h3><div class="list">' + c.items.map(i => {
+  const qn = Q.trim().toLowerCase(), hit = (i) => !qn || (i.ar + ' ' + i.en + ' ' + (i.dar || '') + ' ' + (i.den || '')).toLowerCase().includes(qn);
+  const VIEW = MENU.map(c => ({ ...c, items: c.items.filter(hit) })).filter(c => c.items.length);
+  $('tabs').innerHTML = VIEW.map(c => '<button type="button" class="tab" data-cat="' + c.id + '" aria-pressed="' + (c.id === activeCat) + '">' + c[lang] + '<small>' + c.items.length + '</small></button>').join('');
+  $('cats').innerHTML = (VIEW.length ? '' : '<p class="empty-q">' + X[lang].none + '</p>') + VIEW.map(c => '<div class="cat" id="cat-' + c.id + '"><h3>' + c[lang] + '</h3><div class="list">' + c.items.map(i => {
     const d = i['d' + lang], tag = i.old ? (lang === 'ar' ? 'عرض 🔥' : 'Offer 🔥') : i.pop ? t.pop : i.hot ? t.hot : '';
-    return '<article class="dish' + (i.out ? ' out' : '') + '">' + thumb(i) + (tag ? '<span class="tag">' + tag + '</span>' : '') + '</div><div class="body"><h4>' + i[lang] + '</h4>' + (d ? '<p>' + d + '</p>' : '') + '<div class="row"><span class="price ltr">' + (i.old ? '<s class="was">' + t.money(i.old) + '</s> ' : '') + t.money(i.p) + '</span>' + qtyHTML(i) + '</div></div></article>';
+    return '<article class="dish' + (i.out ? ' out' : '') + '" data-dish="' + i.id + '">' + thumb(i) + (tag ? '<span class="tag">' + tag + '</span>' : '') + '</div><div class="body"><h4>' + i[lang] + '</h4>' + (d ? '<p>' + d + '</p>' : '') + '<div class="row"><span class="price ltr">' + (i.old ? '<s class="was">' + t.money(i.old) + '</s> ' : '') + t.money(i.p) + '</span>' + qtyHTML(i) + '</div></div></article>';
   }).join('') + '</div></div>').join('');
   if ('IntersectionObserver' in window) {
     if (io) io.disconnect();
@@ -390,6 +641,9 @@ function renderOrder() {
   const go = $('goBtn'); go.textContent = t.go;
   if (o.count) go.removeAttribute('aria-disabled'); else go.setAttribute('aria-disabled', 'true');
   if ($('review').open) renderReview();
+  if (dishOpen) $('dishIn').innerHTML = dishHTML(dishOpen);
+  try { localStorage.setItem('cp-cart', JSON.stringify(cart)) } catch (e) {}
+  renderAgain();
 }
 function renderReview() {
   const t = T[lang], o = totals();
@@ -397,13 +651,15 @@ function renderReview() {
   $('revTitle').textContent = t.revTitle; $('revTotalLbl').textContent = t.total; $('revTotal').textContent = t.money(o.total);
   $('revWhereLbl').textContent = t.lblWhere; const w = $('revWhere').selectedIndex; $('revWhere').innerHTML = t.where.map(x => '<option>' + x + '</option>').join(''); $('revWhere').selectedIndex = Math.max(0, w);
   $('revAddrLbl').textContent = t.revAddr; $('revAddr').parentElement.hidden = $('revWhere').selectedIndex !== 0;
+  $('locBtn').textContent = loc ? X[lang].locOk : X[lang].loc; $('locBtn').classList.toggle('ok', !!loc);
+  const os = openState(); $('closedNote').hidden = os.open; $('closedNote').textContent = X[lang].closedNote;
   $('revNoteLbl').textContent = t.revNote; $('revBack').textContent = t.revBack; $('revSend').textContent = t.revSend;
   $('revList').innerHTML = o.lines.map(i => '<div class="rev">' + ((i.ph || i.pic) ? '<div class="ph"><img src="' + pic(i) + '" alt=""></div>' : '<div class="ph" style="display:grid;place-items:center;font-size:22px">' + i.em + '</div>') + '<div class="nm">' + i[lang] + '<small class="ltr">' + t.money(cart[i.id] * i.p) + '</small></div>' + qtyHTML(i) + '</div>').join('');
   const pz = prize ? PRIZES[prize.i][lang] : '';
   $('revPrize').hidden = !prize; if (prize) $('revPrize').textContent = t.prizeLine(pz, prize.c);
   const addr = $('revAddr').value.trim(), note = $('revNote').value.trim(), del = $('revWhere').selectedIndex === 0;
   const msg = t.hello + '\n' + o.lines.map(i => '- ' + cart[i.id] + ' × ' + i[lang] + ' (' + t.money(cart[i.id] * i.p) + ')').join('\n') + '\n' + t.total + ': ' + t.money(o.total) +
-    (prize ? '\n' + t.prizeLine(pz, prize.c) : '') + '\n' + t.lblWhere + ' ' + t.where[$('revWhere').selectedIndex] + (del && addr ? '\n' + t.addrLine + ': ' + addr : '') + (note ? '\n' + t.noteLine + ': ' + note : '') + '\n\n' + t.fromSite;
+    (prize ? '\n' + t.prizeLine(pz, prize.c) : '') + '\n' + t.lblWhere + ' ' + t.where[$('revWhere').selectedIndex] + (del && addr ? '\n' + t.addrLine + ': ' + addr : '') + (del && loc ? '\n' + X[lang].locLine + ': ' + loc : '') + (note ? '\n' + t.noteLine + ': ' + note : '') + '\n\n' + t.fromSite;
   $('revSend').href = 'https://wa.me/' + WA + '?text=' + encodeURIComponent(msg);
 }
 function openReview() { if (!totals().count) return; renderReview(); const d = $('review'); if (d.showModal) d.showModal(); else d.setAttribute('open', '') }
@@ -462,7 +718,17 @@ function bump(e) {
 }
 $('langBtn').addEventListener('click', () => { lang = lang === 'ar' ? 'en' : 'ar'; try { localStorage.setItem('crazy-lang', lang) } catch (e) {} renderAll() });
 $('tabs').addEventListener('click', (e) => { const b = e.target.closest('[data-cat]'); if (!b) return; activeCat = b.dataset.cat; $('cat-' + activeCat).scrollIntoView({ block: 'start' }) });
-$('cats').addEventListener('click', bump); $('revList').addEventListener('click', bump);
+$('cats').addEventListener('click', (e) => { if (e.target.closest('[data-inc],[data-dec]')) return bump(e); const d = e.target.closest('[data-dish]'); if (d) openDish(d.dataset.dish) });
+$('revList').addEventListener('click', bump);
+$('dish').addEventListener('click', (e) => { if (e.target === $('dish') || e.target.closest('[data-dclose]')) return closeDish(); bump(e) });
+$('q').addEventListener('input', () => { Q = $('q').value; renderMenu() });
+$('locBtn').addEventListener('click', () => {
+  if (!navigator.geolocation) { alert(X[lang].locErr); return }
+  $('locBtn').textContent = '…';
+  navigator.geolocation.getCurrentPosition((p) => { loc = 'https://maps.google.com/?q=' + p.coords.latitude.toFixed(6) + ',' + p.coords.longitude.toFixed(6); renderReview() }, () => { $('locBtn').textContent = X[lang].loc; alert(X[lang].locErr) }, { enableHighAccuracy: true, timeout: 12000 });
+});
+$('revSend').addEventListener('click', () => { try { localStorage.setItem('cp-last', JSON.stringify({ items: { ...cart }, at: Date.now() })) } catch (e) {} });
+setInterval(renderOpen, 60000);
 $('goBtn').addEventListener('click', openReview);
 ['revNote', 'revAddr'].forEach(id => $(id).addEventListener('input', renderReview)); $('revWhere').addEventListener('change', renderReview);
 $('revClose').addEventListener('click', closeReview); $('revBack').addEventListener('click', closeReview);
@@ -473,8 +739,8 @@ const mix = (h, t, a) => { const n = (x) => parseInt(h.slice(x, x + 2), 16), m =
 let curUpdated = null;
 function applyCfg(c) {
   const rs = document.documentElement.style, k = c.colors, now = Date.now();
-  rs.setProperty('--y', k.y); rs.setProperty('--y2', mix(k.y, 255, .35)); rs.setProperty('--red', k.red); rs.setProperty('--red-d', mix(k.red, 0, .25)); rs.setProperty('--ink', k.ink); rs.setProperty('--paper', k.paper);
-  const tc = document.querySelector('meta[name="theme-color"]'); if (tc) tc.content = k.y;
+  rs.setProperty('--y', k.y); rs.setProperty('--y2', mix(k.y, 255, .35)); rs.setProperty('--red', k.red); rs.setProperty('--red-d', mix(k.red, 0, .25)); if (!document.documentElement.dataset.t) { rs.setProperty('--ink', k.ink); rs.setProperty('--paper', k.paper) }
+  const tc = document.querySelector('meta[name="theme-color"]'); if (tc) tc.content = document.documentElement.dataset.t === '2' ? '#12100E' : k.y;
   MENU.length = 0;
   c.menu.filter(g => !g.hid).forEach(g => { const items = g.items.filter(i => !i.hid).map(i => { const o = Object.assign({}, i); if (o.off != null && (!o.until || o.until > now)) { o.old = o.p; o.p = o.off } return o }); if (items.length) MENU.push({ id: g.id, ar: g.ar, en: g.en, items }) });
   ALL.length = 0; MENU.forEach(g => g.items.forEach(i => ALL.push(i)));
@@ -497,6 +763,7 @@ function applyCfg(c) {
   const w = b.en.split(' '), lg = document.querySelector('.logo b'); if (lg) lg.innerHTML = w[0].toUpperCase() + (w.length > 1 ? '<span>' + w.slice(1).join(' ').toUpperCase() + '</span>' : '');
   const lk = document.querySelector('.logo'); if (lk) lk.setAttribute('aria-label', b.en);
   document.title = b.en + ' | ' + b.ar;
+  Object.keys(cart).forEach(k => { if (!ALL.some(i => i.id === k)) delete cart[k] });
 }
 const sleep = (ms) => new Promise(r => setTimeout(r, ms));
 async function fetchCfg() { try { const c = new AbortController(); setTimeout(() => c.abort(), 5000); const r = await fetch(API + '/config', { signal: c.signal, cache: 'no-store' }); return r.ok ? await r.json() : null } catch (e) { return null } }
@@ -508,6 +775,7 @@ function useCfg(j) { if (!j || !j.config || j.updated === curUpdated) return fal
   if (!cached) { const j = await Promise.race([p, sleep(900).then(() => null)]); let ok = false; try { ok = useCfg(j) } catch (e) {} if (!ok) renderAll() }
   try { useCfg(await p) } catch (e) {}
 })();
+
 
 /* WhatsApp order counter, shown in Nafetha's internal report */
 (function(){
