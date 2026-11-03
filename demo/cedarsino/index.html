@@ -77,6 +77,41 @@ a.card{color:inherit;text-decoration:none}
 .ltot{margin-top:12px;font-size:15px;color:var(--mut)}.ltot b{color:var(--g);font-size:20px}
 .qu{font-weight:700;color:var(--mut)}
 .qs{color:var(--mut);font-size:12px;white-space:nowrap}
+
+/* drawer */
+.ov{position:fixed;inset:0;background:rgba(10,25,20,.5);z-index:120;opacity:0;transition:opacity .3s}.ov.on{opacity:1}
+.drawer{position:fixed;top:0;right:0;height:100%;width:min(420px,100%);background:#fff;z-index:130;transform:translateX(105%);transition:transform .42s cubic-bezier(.2,.8,.2,1);display:flex;flex-direction:column;box-shadow:-12px 0 40px rgba(0,0,0,.18)}
+.drawer.on{transform:none}
+.dh{display:flex;justify-content:space-between;align-items:center;padding:18px 20px;border-bottom:1px solid var(--line);font-size:18px}
+.dh button{width:36px;height:36px;border-radius:10px;font-size:16px}.dh button:hover{background:var(--soft)}
+.db{flex:1;overflow:auto;padding:14px 16px;overscroll-behavior:contain}
+.di{display:grid;grid-template-columns:64px 1fr;gap:12px;padding:12px 0;border-bottom:1px solid var(--line);animation:fu .35s both}
+.di .im{width:64px;height:64px;border-radius:10px;background:var(--soft);overflow:hidden}.di .im img{width:100%;height:100%;object-fit:contain;padding:3px}
+.di b{font-size:14px;line-height:1.3;display:block}.di small{display:block;color:var(--mut);font-size:12px}
+.di .r2{display:flex;align-items:center;gap:10px;margin-top:6px;flex-wrap:wrap}
+.di .qty button{width:30px;height:32px;font-size:16px}.di .qty input{width:44px;height:32px}
+.di .pt{font-weight:800;color:var(--g);margin-left:auto}
+.df{padding:16px 20px;border-top:1px solid var(--line);background:var(--soft)}
+.df .row{display:flex;justify-content:space-between;font-size:14px;margin-bottom:6px}.df .row.t{font-size:18px;font-weight:800;margin-top:8px}.df .btn{width:100%;margin-top:12px;justify-content:center}
+.free{height:8px;border-radius:8px;background:#dfe9e4;overflow:hidden;margin:6px 0 4px}.free i{display:block;height:100%;background:linear-gradient(90deg,var(--g2),var(--g));width:0;transition:width .6s cubic-bezier(.2,.8,.2,1)}
+.fm2{font-size:12.5px;color:var(--mut)}
+.dem{text-align:center;color:var(--mut);padding:50px 10px}
+/* flying thumb */
+.fly{position:fixed;z-index:200;border-radius:14px;overflow:hidden;background:#fff;box-shadow:0 10px 30px rgba(0,0,0,.3);pointer-events:none}.fly img{width:100%;height:100%;object-fit:contain}
+/* lightbox */
+.lb{position:fixed;inset:0;background:rgba(8,16,13,.94);z-index:300;display:flex;align-items:center;justify-content:center;animation:fi .25s}
+.lb[hidden]{display:none}
+.lbs{width:100%;height:100%;display:grid;place-items:center;overflow:hidden;touch-action:none;cursor:zoom-in}
+.lbs img{max-width:94vw;max-height:88vh;object-fit:contain;user-select:none;-webkit-user-drag:none;transition:transform .3s cubic-bezier(.2,.8,.2,1);will-change:transform;background:#fff;border-radius:10px}
+.lbs.z{cursor:grab}.lbs.z img{transition:none}
+.lbx,.lbn{position:absolute;color:#fff;background:rgba(255,255,255,.14);border-radius:50%;width:46px;height:46px;font-size:24px;display:grid;place-items:center;z-index:2}
+.lbx{top:14px;right:14px;font-size:18px}.lbp{left:12px;top:50%}.lbq{right:12px;top:50%}
+.lbc{position:absolute;bottom:18px;left:0;right:0;text-align:center;color:#cfe3da;font-size:13px}
+.gal .main img{user-select:none;-webkit-user-drag:none}.gal .main{cursor:zoom-in;position:relative;touch-action:pan-y}.gal .main::after{content:"🔍 Tap to zoom";position:absolute;bottom:10px;right:12px;background:rgba(14,59,46,.85);color:#fff;font-size:12px;padding:4px 10px;border-radius:20px;pointer-events:none}
+.gal .main img.sl{animation:none}
+@keyframes sr{from{transform:translateX(40px);opacity:0}to{transform:none;opacity:1}}@keyframes sl2{from{transform:translateX(-40px);opacity:0}to{transform:none;opacity:1}}
+.gal .main img.fromR{animation:sr .3s ease}.gal .main img.fromL{animation:sl2 .3s ease}
+@media (prefers-reduced-motion:reduce){.drawer,.ov,.free i,.lbs img{transition:none}.di{animation:none}.gal .main img.fromR,.gal .main img.fromL{animation:none}}
 /* motion */
 @keyframes fu{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
 @keyframes bump{0%{transform:scale(1)}40%{transform:scale(1.28)}100%{transform:scale(1)}}
@@ -241,6 +276,9 @@ footer .cp{border-top:1px solid #174a3a;text-align:center;padding:16px;font-size
  <div class="cp">© <span id="yr"></span> Cedarsino. All rights reserved. Prices are indicative and subject to confirmation at order.</div>
 </footer>
 <div class="toast" id="toast"></div>
+<div class="ov" id="ov" hidden></div>
+<aside class="drawer" id="dr" aria-hidden="true" aria-label="Your order list"><div class="dh"><b>Your order list</b><button id="drx" aria-label="Close">✕</button></div><div class="db" id="drb"></div><div class="df" id="drf"></div></aside>
+<div class="lb" id="lb" hidden><button class="lbx" id="lbx" aria-label="Close">✕</button><button class="lbn lbp" id="lbp" aria-label="Previous">‹</button><div class="lbs" id="lbs"><img id="lbi" alt="" draggable="false"></div><button class="lbn lbq" id="lbq" aria-label="Next">›</button><div class="lbc" id="lbc"></div></div>
 <script>
 /* ===== settings (change here) ===== */
 var CFG={whatsapp:'96181988003',email:'',commission:0.10,currency:'¥'};
@@ -264,7 +302,8 @@ function nf(n){return Number(n).toLocaleString('en-US')}
 function bw(n){return n+(n===1?' box':' boxes')}
 function qtxt(p,q){return hasBox(p)?bw(Math.round(q/per(p)))+' · '+nf(q)+' pcs':nf(q)+' pcs'}
 function unitPrice(p,vi){return(vi!=null&&p.v&&p.v[vi])?p.v[vi].p:p.p}
-function addCart(id,vi,nb){var p=BYID[id],qty=Math.max(1,parseInt(nb)||1)*per(p);var k=id+'|'+(vi==null?'':vi);var f=CART.find(function(l){return l.k===k});if(f)f.q+=qty;else CART.push({k:k,id:id,vi:vi,q:qty});saveCart();var cc=$('#cc');cc.classList.remove('bump');void cc.offsetWidth;cc.classList.add('bump');toast('Added: '+qtxt(p,qty),'View order list')}
+var FLYSRC=null;
+function addCart(id,vi,nb){var p=BYID[id],qty=Math.max(1,parseInt(nb)||1)*per(p);var k=id+'|'+(vi==null?'':vi);var f=CART.find(function(l){return l.k===k});if(f)f.q+=qty;else CART.push({k:k,id:id,vi:vi,q:qty});saveCart();if(FLYSRC){flyToCart(FLYSRC);FLYSRC=null}else{var cc=$('#cc');cc.classList.remove('bump');void cc.offsetWidth;cc.classList.add('bump')}toast('Added: '+qtxt(p,qty),'View order list')}
 /* data */
 fetch('catalog.json').then(function(r){return r.json()}).then(function(d){
  DB=d;d.forEach(function(p){BYID[p.id]=p});
@@ -332,7 +371,7 @@ function vProduct(id){
  var imgs=p.im||[];
  var spec=[['Item code',p.code],['Category',p.c+(p.s?' — '+p.s:'')],['Colors / configuration',p.col],['Product size',p.sz],['Retail box size',p.bx],['Carton size',p.ct],['Carton volume',p.cbm?p.cbm+' m³':''],['Carton gross weight',p.gw?kg(p.gw):''],['Pieces per box (carton)',p.m?nf(p.m)+' pcs':'To be confirmed'],['Minimum order',p.m?'1 box':'Please contact us']].filter(function(x){return x[1]});
  window._pd={p:p,vi:vi,b:1};
- var html='<div class="pg"><div class="wrap"><div class="crumb"><a href="#/">Home</a> / <a href="#/catalog">Catalog</a> / <a href="#/catalog/'+encodeURIComponent(p.c)+'">'+esc(p.c)+'</a></div><div class="pd"><div class="gal"><div class="main" id="gm">'+(imgs[0]?'<img src="img/'+imgs[0]+'" alt="'+esc(p.n)+'">':'<div class="noimg">Photo coming soon</div>')+'</div>'+(imgs.length>1?'<div class="thumbs">'+imgs.map(function(f,i){return'<button class="'+(i?'':'on')+'" data-i="'+f+'"><img src="img/'+f+'" alt=""></button>'}).join('')+'</div>':'')+'</div><div><div class="cd">'+esc(p.code)+'</div><h1>'+esc(p.n)+'</h1><div class="pbox"><div class="big" id="pp"></div>'+(hasV?'<div class="opts" id="ops">'+p.v.map(function(v,i){return'<button class="opt '+(i?'':'on')+'" data-i="'+i+'"><span>'+esc(v.l)+'</span><span>'+money(v.p)+'</span></button>'}).join('')+'</div>':'')+'<div class="qrow"><div class="qty"><button id="qm" aria-label="Less">−</button><input id="qi" inputmode="numeric" value="1" aria-label="'+(p.m?'Number of boxes':'Number of pieces')+'"><button id="qp" aria-label="More">+</button></div><span class="qu" id="qu"></span><button class="btn" id="ad">Add to order list</button></div><div class="ltot" id="lt"></div>'+(p.m?'<div class="boxinfo"><span class="ic">📦</span><div><b>1 box = '+nf(p.m)+' pcs.</b> A box is one full export carton, so the smallest order is 1 box ('+nf(p.m)+' pcs). Order 2 boxes and you get '+nf(p.m*2)+' pcs, and so on.</div></div>':'<div class="boxinfo"><span class="ic">📦</span><div><b>Box size to be confirmed.</b> Order the pieces you need and we will confirm the carton quantity with you.</div></div>')+'<div class="note">Price shown is the factory price per piece in Chinese yuan. A 10% service commission is added on your order list total.</div></div><div class="tabh">Specifications</div><table class="sp2">'+spec.map(function(x){return'<tr><td>'+x[0]+'</td><td>'+esc(x[1]).replace(/; /g,'<br>')+'</td></tr>'}).join('')+'</table></div></div>';
+ var html='<div class="pg"><div class="wrap"><div class="crumb"><a href="#/">Home</a> / <a href="#/catalog">Catalog</a> / <a href="#/catalog/'+encodeURIComponent(p.c)+'">'+esc(p.c)+'</a></div><div class="pd"><div class="gal"><div class="main" id="gm">'+(imgs[0]?'<img src="img/'+imgs[0]+'" alt="'+esc(p.n)+'" draggable="false">':'<div class="noimg">Photo coming soon</div>')+'</div>'+(imgs.length>1?'<div class="thumbs">'+imgs.map(function(f,i){return'<button class="'+(i?'':'on')+'" data-i="'+f+'"><img src="img/'+f+'" alt=""></button>'}).join('')+'</div>':'')+'</div><div><div class="cd">'+esc(p.code)+'</div><h1>'+esc(p.n)+'</h1><div class="pbox"><div class="big" id="pp"></div>'+(hasV?'<div class="opts" id="ops">'+p.v.map(function(v,i){return'<button class="opt '+(i?'':'on')+'" data-i="'+i+'"><span>'+esc(v.l)+'</span><span>'+money(v.p)+'</span></button>'}).join('')+'</div>':'')+'<div class="qrow"><div class="qty"><button id="qm" aria-label="Less">−</button><input id="qi" inputmode="numeric" value="1" aria-label="'+(p.m?'Number of boxes':'Number of pieces')+'"><button id="qp" aria-label="More">+</button></div><span class="qu" id="qu"></span><button class="btn" id="ad">Add to order list</button></div><div class="ltot" id="lt"></div>'+(p.m?'<div class="boxinfo"><span class="ic">📦</span><div><b>1 box = '+nf(p.m)+' pcs.</b> A box is one full export carton, so the smallest order is 1 box ('+nf(p.m)+' pcs). Order 2 boxes and you get '+nf(p.m*2)+' pcs, and so on.</div></div>':'<div class="boxinfo"><span class="ic">📦</span><div><b>Box size to be confirmed.</b> Order the pieces you need and we will confirm the carton quantity with you.</div></div>')+'<div class="note">Price shown is the factory price per piece in Chinese yuan. A 10% service commission is added on your order list total.</div></div><div class="tabh">Specifications</div><table class="sp2">'+spec.map(function(x){return'<tr><td>'+x[0]+'</td><td>'+esc(x[1]).replace(/; /g,'<br>')+'</td></tr>'}).join('')+'</table></div></div>';
  var rel=DB.filter(function(x){return x.c===p.c&&x.id!==p.id&&x.im}).slice(0,4);
  if(rel.length)html+='<div class="sh" style="margin-top:50px"><h2>More in '+esc(p.c)+'</h2></div><div class="grid">'+rel.map(card).join('')+'</div>';
  return html+'</div></div>';
@@ -342,10 +381,17 @@ function initProduct(){
  function upd(){var pu=unitPrice(p,D.vi),pcs=D.b*u;$('#pp').innerHTML=money(pu)+' <small>/ piece'+(bx?' · '+money(pu*u)+' / box':'')+'</small>';$('#qi').value=D.b;$('#qu').textContent=bx?(D.b===1?'box':'boxes'):'pcs';$('#lt').innerHTML=(bx?bw(D.b)+' = <b>'+nf(pcs)+' pcs</b> · ':'')+'Total <b>'+money(pu*pcs)+'</b>'}
  upd();
  document.querySelectorAll('.opt').forEach(function(b){b.onclick=function(){D.vi=+b.dataset.i;document.querySelectorAll('.opt').forEach(function(x){x.classList.toggle('on',x===b)});upd()}});
- document.querySelectorAll('.thumbs button').forEach(function(b){b.onclick=function(){$('#gm').innerHTML='<img src="img/'+b.dataset.i+'" alt="">';document.querySelectorAll('.thumbs button').forEach(function(x){x.classList.toggle('on',x===b)})}});
+ var imgs=p.im||[],gi=0;
+ function showImg(n,dir){if(!imgs.length)return;gi=(n+imgs.length)%imgs.length;$('#gm').innerHTML='<img src="img/'+imgs[gi]+'" alt="" draggable="false" class="'+(dir>0?'fromR':dir<0?'fromL':'')+'">';document.querySelectorAll('.thumbs button').forEach(function(x){x.classList.toggle('on',x.dataset.i===imgs[gi])})}
+ document.querySelectorAll('.thumbs button').forEach(function(b){b.onclick=function(){var n=imgs.indexOf(b.dataset.i);showImg(n,n>gi?1:-1)}});
+ var gm=$('#gm'),sx=null,moved=false;
+ gm.onpointerdown=function(e){sx=e.clientX;moved=false};
+ gm.onpointermove=function(e){if(sx!==null&&Math.abs(e.clientX-sx)>12)moved=true};
+ gm.onpointerup=function(e){if(sx===null)return;var dx=e.clientX-sx;sx=null;if(Math.abs(dx)>45&&imgs.length>1){showImg(gi+(dx<0?1:-1),dx<0?1:-1)}else if(!moved&&imgs.length){openLB(imgs,gi)}};
+ gm.onpointercancel=function(){sx=null};
  $('#qm').onclick=function(){D.b=Math.max(1,D.b-1);upd()};$('#qp').onclick=function(){D.b=Math.min(MAXB,D.b+1);upd()};
  $('#qi').onchange=function(){D.b=Math.min(MAXB,Math.max(1,parseInt(this.value)||1));upd()};
- $('#ad').onclick=function(){addCart(p.id,D.vi,D.b)};
+ $('#ad').onclick=function(){FLYSRC=$('#gm');addCart(p.id,D.vi,D.b)};
 }
 function cartCalc(){var sub=0;CART.forEach(function(l){var p=BYID[l.id];sub+=unitPrice(p,l.vi)*l.q});var com=sub*CFG.commission;return{sub:sub,com:com,tot:sub+com}}
 function vCart(){
@@ -386,6 +432,53 @@ function initContact(){$('#cs').onclick=function(){var n=$('#cn').value.trim(),p
  if(CFG.whatsapp)window.open('https://wa.me/'+CFG.whatsapp+'?text='+encodeURIComponent(msg),'_blank');else if(CFG.email)location.href='mailto:'+CFG.email+'?subject='+encodeURIComponent('Quote request')+'&body='+encodeURIComponent(msg);else{try{navigator.clipboard.writeText(msg)}catch(e){}}
  var o=$('#cok');o.style.display='block';o.textContent='Thank you! Your message is ready to send.'}}
 /* router */
+
+/* ---- drawer ---- */
+function drawerHTML(){
+ var db=$('#drb'),df=$('#drf');
+ if(!CART.length){db.innerHTML='<div class="dem"><div style="font-size:42px">📦</div><p style="margin:8px 0 16px">Your order list is empty.</p><a class="btn" href="#/catalog" data-close>Browse catalog</a></div>';df.style.display='none';return}
+ df.style.display='';
+ db.innerHTML=CART.map(function(l,i){var p=BYID[l.id],u=unitPrice(p,l.vi);return'<div class="di"><div class="im">'+(p.im?'<img src="img/'+p.im[0]+'" alt="">':'')+'</div><div><b>'+esc(p.n)+'</b><small>'+esc(p.code)+(l.vi!=null&&p.v[l.vi]?' · '+esc(p.v[l.vi].l):'')+' · '+qtxt(p,l.q)+'</small><div class="r2"><div class="qty"><button data-a="m" data-i="'+i+'" aria-label="Less">−</button><input data-i="'+i+'" value="'+(hasBox(p)?l.q/per(p):l.q)+'" inputmode="numeric"><button data-a="p" data-i="'+i+'" aria-label="More">+</button></div><button class="rm" data-r="'+i+'">Remove</button><span class="pt">'+money(u*l.q)+'</span></div></div></div>'}).join('');
+ var c=cartCalc();
+ df.innerHTML='<div class="row"><span>Subtotal</span><b>'+money(c.sub)+'</b></div><div class="row"><span>Commission (10%)</span><b>+ '+money(c.com)+'</b></div><div class="row t"><span>Estimated total</span><b>'+money(c.tot)+'</b></div><a class="btn" href="#/cart" data-close>Review &amp; send order</a>';
+ db.querySelectorAll('.qty button').forEach(function(b){b.onclick=function(){var l=CART[+b.dataset.i],p=BYID[l.id],st=per(p);l.q=b.dataset.a==='p'?l.q+st:Math.max(st,l.q-st);saveCart();drawerHTML();if(location.hash==='#/cart')route()}});
+ db.querySelectorAll('.qty input').forEach(function(b){b.onchange=function(){var l=CART[+b.dataset.i],p=BYID[l.id];l.q=Math.max(1,parseInt(b.value)||1)*per(p);saveCart();drawerHTML();if(location.hash==='#/cart')route()}});
+ db.querySelectorAll('.rm[data-r]').forEach(function(b){b.onclick=function(){CART.splice(+b.dataset.r,1);saveCart();drawerHTML();if(location.hash==='#/cart')route()}});
+}
+function openDrawer(){drawerHTML();var o=$('#ov'),d=$('#dr');o.hidden=false;requestAnimationFrame(function(){o.classList.add('on');d.classList.add('on')});d.setAttribute('aria-hidden','false');document.body.style.overflow='hidden';setTimeout(function(){$('#drx').focus({preventScroll:true})},300)}
+function closeDrawer(){var o=$('#ov'),d=$('#dr');o.classList.remove('on');d.classList.remove('on');d.setAttribute('aria-hidden','true');document.body.style.overflow='';setTimeout(function(){o.hidden=true},320)}
+$('#ov').onclick=closeDrawer;$('#drx').onclick=closeDrawer;
+$('#dr').addEventListener('click',function(e){if(e.target.closest&&e.target.closest('[data-close]'))closeDrawer()});
+document.querySelector('.cartbtn').addEventListener('click',function(e){e.preventDefault();FWD=false;openDrawer()});
+document.addEventListener('keydown',function(e){if(e.key==='Escape'){if(!$('#lb').hidden)closeLB();else closeDrawer()}if(!$('#lb').hidden){if(e.key==='ArrowRight')lbGo(1);if(e.key==='ArrowLeft')lbGo(-1)}});
+document.addEventListener('click',function(e){var a=e.target.closest&&e.target.closest('#toast .tl');if(a){e.preventDefault();FWD=false;openDrawer()}});
+/* ---- fly to cart ---- */
+function flyToCart(src){
+ var RM=window.matchMedia&&matchMedia('(prefers-reduced-motion:reduce)').matches,cc=document.querySelector('.cartbtn');
+ if(RM||!src||!cc||!src.animate)return;var a=src.getBoundingClientRect(),b=cc.getBoundingClientRect();if(!a.width)return;
+ var im=src.querySelector('img'),f=document.createElement('div');f.className='fly';f.innerHTML=im?'<img src="'+im.getAttribute('src')+'" alt="">':'';
+ var w=Math.min(a.width,a.height,160);f.style.cssText+='width:'+w+'px;height:'+w+'px;left:'+(a.left+a.width/2-w/2)+'px;top:'+(a.top+a.height/2-w/2)+'px';document.body.appendChild(f);
+ var dx=b.left+b.width/2-(a.left+a.width/2),dy=b.top+b.height/2-(a.top+a.height/2);
+ var an=f.animate([{transform:'translate(0,0) scale(1) rotate(0)',opacity:1},{transform:'translate('+dx*.5+'px,'+(dy*.5-70)+'px) scale(.6) rotate(8deg)',opacity:1,offset:.55},{transform:'translate('+dx+'px,'+dy+'px) scale(.08) rotate(20deg)',opacity:.4}],{duration:750,easing:'cubic-bezier(.5,0,.3,1)'});
+ an.onfinish=function(){f.remove();var c=$('#cc');c.classList.remove('bump');void c.offsetWidth;c.classList.add('bump')};
+}
+/* ---- lightbox ---- */
+var LB={l:[],i:0,z:false,x:0,y:0};
+function lbShow(){var im=$('#lbi');im.style.transform='';LB.z=false;LB.x=LB.y=0;$('#lbs').classList.remove('z');im.src='img/'+LB.l[LB.i];$('#lbc').textContent=(LB.i+1)+' / '+LB.l.length+' · tap to zoom';var m=LB.l.length>1;$('#lbp').style.display=$('#lbq').style.display=m?'':'none'}
+function openLB(l,i){LB.l=l;LB.i=i;lbShow();$('#lb').hidden=false;document.body.style.overflow='hidden'}
+function closeLB(){$('#lb').hidden=true;if(!$('#dr').classList.contains('on'))document.body.style.overflow=''}
+function lbGo(d){if(LB.l.length<2)return;LB.i=(LB.i+d+LB.l.length)%LB.l.length;lbShow()}
+(function(){
+ var st=$('#lbs'),im=$('#lbi'),sx,sy,ox,oy,down=false,mv=false,t0;
+ $('#lbx').onclick=closeLB;$('#lbp').onclick=function(){lbGo(-1)};$('#lbq').onclick=function(){lbGo(1)};
+ function ap(){im.style.transform='translate('+LB.x+'px,'+LB.y+'px) scale('+(LB.z?2.4:1)+')'}
+ st.onpointerdown=function(e){down=true;mv=false;sx=e.clientX;sy=e.clientY;ox=LB.x;oy=LB.y;t0=Date.now();try{st.setPointerCapture(e.pointerId)}catch(x){}};
+ st.onpointermove=function(e){if(!down)return;var dx=e.clientX-sx,dy=e.clientY-sy;if(Math.abs(dx)>6||Math.abs(dy)>6)mv=true;if(LB.z){LB.x=ox+dx/2.4*2.4;LB.y=oy+dy;ap()}};
+ st.onpointerup=function(e){if(!down)return;down=false;var dx=e.clientX-sx;
+  if(!mv){var r=im.getBoundingClientRect();if(!LB.z){var cx=r.left+r.width/2,cy=r.top+r.height/2;LB.x=-(e.clientX-cx)*1.4;LB.y=-(e.clientY-cy)*1.4;LB.z=true;st.classList.add('z');im.style.transition='transform .3s cubic-bezier(.2,.8,.2,1)';ap();setTimeout(function(){im.style.transition=''},320);$('#lbc').textContent=LB.i+1+' / '+LB.l.length+' · drag to move, tap to zoom out'}else{LB.z=false;LB.x=LB.y=0;st.classList.remove('z');im.style.transition='transform .3s';ap();setTimeout(function(){im.style.transition=''},320)}}
+  else if(!LB.z&&Math.abs(dx)>50){lbGo(dx<0?1:-1)}};
+ st.onpointercancel=function(){down=false};
+})();
 function jump(y){window.scrollTo({top:y,left:0,behavior:'instant'})}
  
 var IO=('IntersectionObserver' in window)?new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');IO.unobserve(e.target)}})},{rootMargin:'0px 0px -6% 0px',threshold:.08}):null;
