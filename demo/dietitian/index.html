@@ -1,0 +1,347 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Balance Nutrition Clinic — Your personal nutrition plan</title>
+<meta name="description" content="Fill in your details and get a nutrition plan matched to your goal, prepared by a licensed dietitian.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%230f5c5a'/%3E%3Cpath d='M32 14c10 0 16 8 16 18 0 9-6 18-16 18S16 41 16 32c0-10 6-18 16-18z' fill='%23fff'/%3E%3Cpath d='M32 14c0-5 4-8 9-8-1 5-4 8-9 8z' fill='%23ef7b5b'/%3E%3C/svg%3E">
+<style>
+:root{--t:#0f5c5a;--t2:#0b4745;--t3:#e3f1ef;--c:#ef7b5b;--c2:#d9633f;--ink:#1b2a29;--mut:#5d6f6d;--line:#e3e8e4;--bg:#fbf8f2;--card:#fff;--sh:0 8px 28px rgba(15,92,90,.10)}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:"Segoe UI",Tahoma,system-ui,-apple-system,"Noto Sans Arabic",Arial,sans-serif;color:var(--ink);background:var(--bg);line-height:1.6;-webkit-font-smoothing:antialiased}
+html[lang=en] body{font-family:Inter,"Segoe UI",system-ui,-apple-system,Arial,sans-serif}
+a{color:inherit;text-decoration:none}button{font:inherit;cursor:pointer;border:0;background:none;color:inherit}
+.wrap{max-width:1100px;margin:0 auto;padding:0 20px}
+header.top{position:sticky;top:0;z-index:40;background:rgba(251,248,242,.95);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.hb{display:flex;align-items:center;gap:14px;height:66px}
+.logo{display:flex;align-items:center;gap:10px;font-weight:800;font-size:19px;color:var(--t)}
+.logo svg{width:36px;height:36px}
+.sp{flex:1}
+nav a{padding:8px 12px;border-radius:8px;font-weight:600;font-size:15px;color:var(--mut)}nav a:hover{color:var(--t);background:var(--t3)}
+.lang{border:1.5px solid var(--line);border-radius:10px;padding:6px 12px;font-weight:700;font-size:14px;background:#fff}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;height:50px;padding:0 26px;border-radius:14px;font-weight:700;background:var(--c);color:#fff;transition:.15s;font-size:16px}
+.btn:hover{background:var(--c2);transform:translateY(-1px)}
+.btn.t{background:var(--t)}.btn.t:hover{background:var(--t2)}
+.btn.o{background:#fff;color:var(--t);border:1.5px solid var(--t)}
+.btn.s{height:40px;padding:0 16px;font-size:14px;border-radius:10px}
+.btn[disabled]{opacity:.5;pointer-events:none}
+.hero{background:linear-gradient(160deg,#0f5c5a 0%,#12706d 60%,#1b8a84 100%);color:#fff;position:relative;overflow:hidden}
+.hero .wrap{display:grid;grid-template-columns:1.2fr .8fr;gap:30px;align-items:center;padding-top:64px;padding-bottom:64px}
+.hero h1{font-size:44px;line-height:1.2;font-weight:800}
+.hero h1 em{font-style:normal;color:#ffc2b0}
+.hero p{margin:16px 0 28px;font-size:18px;color:#d3ece9;max-width:520px}
+.badge{display:inline-block;background:rgba(255,255,255,.15);padding:6px 14px;border-radius:30px;font-size:14px;font-weight:600;margin-bottom:16px}
+.plate{aspect-ratio:1;max-width:340px;margin:auto;width:100%}
+section.s{padding:56px 0}
+.sh{margin-bottom:26px}.sh h2{font-size:30px;font-weight:800}.sh p{color:var(--mut);margin-top:4px}
+.g3{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.g4{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+.box{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:24px}
+.box .ic{width:46px;height:46px;border-radius:14px;background:var(--t3);color:var(--t);display:grid;place-items:center;margin-bottom:12px;font-size:22px}
+.box b{display:block;font-size:17px;margin-bottom:4px}.box p{color:var(--mut);font-size:15px}
+.num{width:38px;height:38px;border-radius:50%;background:var(--t);color:#fff;display:grid;place-items:center;font-weight:800;margin-bottom:12px}
+.band{background:var(--t);color:#fff;border-radius:24px;padding:40px;display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap}
+.band h2{font-size:28px}.band p{color:#cfe8e5}
+/* wizard */
+.wz{max-width:720px;margin:34px auto 70px;padding:0 20px}
+.prog{height:8px;background:#e7ece8;border-radius:10px;overflow:hidden;margin-bottom:8px}
+.prog i{display:block;height:100%;background:var(--c);border-radius:10px;transition:.3s}
+.pc{font-size:13px;color:var(--mut);margin-bottom:18px;font-weight:600}
+.card{background:#fff;border:1px solid var(--line);border-radius:22px;padding:28px;box-shadow:var(--sh)}
+.card h2{font-size:25px;margin-bottom:4px}.card .sub{color:var(--mut);margin-bottom:20px}
+.f{margin-bottom:16px}.f label{display:block;font-weight:700;font-size:14.5px;margin-bottom:6px}
+.f input,.f select,.f textarea{width:100%;font:inherit;border:1.5px solid var(--line);border-radius:12px;padding:12px 14px;background:#fff;outline:0}
+.f input:focus,.f select:focus,.f textarea:focus{border-color:var(--t);box-shadow:0 0 0 3px rgba(15,92,90,.12)}
+.f small{color:var(--mut);font-size:13px}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.opts{display:grid;gap:10px}.opts.c2{grid-template-columns:1fr 1fr}.opts.c3{grid-template-columns:repeat(3,1fr)}
+.op{border:1.5px solid var(--line);border-radius:14px;padding:14px 16px;font-weight:600;text-align:start;background:#fff;display:flex;gap:10px;align-items:center;transition:.12s}
+.op small{display:block;color:var(--mut);font-weight:400;font-size:13px}
+.op .em{font-size:24px}
+.op.on{border-color:var(--t);background:var(--t3);box-shadow:0 0 0 2px rgba(15,92,90,.15)}
+.nav{display:flex;justify-content:space-between;gap:12px;margin-top:22px}
+.err{color:#c0392b;font-weight:600;font-size:14px;margin-top:8px;min-height:20px}
+.note{background:#fff7ec;border:1px solid #f3dfc0;color:#7a5316;border-radius:12px;padding:12px 14px;font-size:14px;margin-top:14px}
+/* result */
+.rs{max-width:900px;margin:30px auto 70px;padding:0 20px}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:18px 0}
+.stat{background:#fff;border:1px solid var(--line);border-radius:16px;padding:16px;text-align:center}
+.stat b{display:block;font-size:26px;color:var(--t)}.stat span{font-size:13px;color:var(--mut)}
+.macro{display:flex;height:14px;border-radius:10px;overflow:hidden;margin:8px 0}
+.macro i{display:block}
+.lg{display:flex;gap:16px;flex-wrap:wrap;font-size:13.5px;color:var(--mut)}
+.lg b{display:inline-block;width:10px;height:10px;border-radius:50%;margin-inline-end:5px}
+.meal{display:grid;grid-template-columns:130px 1fr;gap:14px;padding:14px 0;border-bottom:1px dashed var(--line)}
+.meal:last-child{border:0}.meal h4{color:var(--t)}.meal p{white-space:pre-line}
+.alert{background:#fff2ef;border:1.5px solid #f4c3b6;border-radius:18px;padding:20px;margin:18px 0}
+.alert h3{color:#a8402a;margin-bottom:6px}
+.acts{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px}
+.disc{font-size:13px;color:var(--mut);margin-top:18px;border-top:1px solid var(--line);padding-top:12px}
+/* admin */
+.ad{max-width:1000px;margin:30px auto 70px;padding:0 20px}
+.tabs{display:flex;gap:8px;margin-bottom:18px}.tabs button{padding:9px 18px;border-radius:30px;font-weight:700;background:#fff;border:1.5px solid var(--line)}.tabs button.on{background:var(--t);color:#fff;border-color:var(--t)}
+.row{display:flex;gap:12px;align-items:center;justify-content:space-between;padding:14px 16px;border:1px solid var(--line);border-radius:14px;background:#fff;margin-bottom:10px;flex-wrap:wrap}
+.row small{color:var(--mut)}
+.tag{display:inline-block;background:var(--t3);color:var(--t);border-radius:6px;padding:2px 8px;font-size:12px;font-weight:700;margin-inline-end:4px}
+.chk{display:flex;flex-wrap:wrap;gap:8px}.chk label{display:flex;align-items:center;gap:6px;border:1.5px solid var(--line);border-radius:10px;padding:7px 12px;font-weight:600;font-size:14px;cursor:pointer;margin:0}
+.chk input{width:auto;accent-color:var(--t)}
+.mrow{display:grid;grid-template-columns:150px 1fr 1fr 40px;gap:8px;margin-bottom:8px}
+.mrow input,.mrow textarea{font:inherit;border:1.5px solid var(--line);border-radius:10px;padding:8px 10px;width:100%}
+footer{background:#0b3b39;color:#a9cdca;padding:30px 0;margin-top:30px;font-size:14px;text-align:center}
+.toast{position:fixed;left:50%;bottom:24px;transform:translate(-50%,30px);background:#1b2a29;color:#fff;padding:12px 20px;border-radius:12px;font-weight:600;opacity:0;pointer-events:none;transition:.25s;z-index:99}.toast.on{opacity:1;transform:translate(-50%,0)}
+@media(max-width:860px){.hero .wrap{grid-template-columns:1fr;padding:40px 20px}.hero h1{font-size:32px}.plate{max-width:220px}.g3,.g4{grid-template-columns:1fr}.stats{grid-template-columns:1fr 1fr}.opts.c3{grid-template-columns:1fr 1fr}nav{display:none}.mrow{grid-template-columns:1fr 1fr}.meal{grid-template-columns:1fr}.two,.opts.c2{grid-template-columns:1fr}.band{padding:26px}}
+@media print{header,footer,.acts,.nav,.noprint,.toast{display:none!important}body{background:#fff}.rs{margin:0}.card{box-shadow:none}}
+</style>
+</head>
+<body>
+<header class="top"><div class="wrap hb">
+ <a class="logo" href="#/" id="lg"></a><div class="sp"></div>
+ <nav><a href="#/" data-t="nav_home"></a><a href="#/start" data-t="nav_plan"></a><a href="#/contact" data-t="nav_contact"></a></nav>
+ <button class="lang" id="lb">EN</button>
+ <a class="btn s" href="#/start" data-t="cta_s"></a>
+</div></header>
+<main id="app"></main>
+<footer><div class="wrap"><span data-t="foot"></span> · <a href="#/admin" style="opacity:.6" data-t="admin"></a></div></footer>
+<div class="toast" id="toast"></div>
+<script>
+var CFG={whatsapp:'',nameAr:'عيادة بالانس للتغذية',nameEn:'Balance Nutrition Clinic',adminPass:'admin123'};
+var L=localStorage.getItem('dc_lang')||'ar';
+var T={
+nav_home:{ar:'الرئيسية',en:'Home'},nav_plan:{ar:'خطتي',en:'My plan'},nav_contact:{ar:'تواصل',en:'Contact'},cta_s:{ar:'ابدأ',en:'Start'},admin:{ar:'دخول الأخصائي',en:'Dietitian login'},
+foot:{ar:'© جميع الحقوق محفوظة',en:'© All rights reserved'},
+}
+function t(o){return typeof o==='string'?o:(o&&(o[L]||o.ar||o.en))||''}
+function tt(k){return T[k]?T[k][L]:k}
+var $=function(s){return document.querySelector(s)};
+function esc(s){return String(s==null?'':s).replace(/[&<>"]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})}
+function toast(m){var e=$('#toast');e.textContent=m;e.classList.add('on');clearTimeout(toast.i);toast.i=setTimeout(function(){e.classList.remove('on')},2400)}
+var LOGO='<svg viewBox="0 0 64 64"><rect width="64" height="64" rx="16" fill="#0f5c5a"/><path d="M32 16c10 0 16 8 16 18 0 9-6 17-16 17S16 43 16 34c0-10 6-18 16-18z" fill="#fff"/><path d="M32 16c0-5 4-8 9-8-1 5-4 8-9 8z" fill="#ef7b5b"/></svg>';
+function setLang(l){L=l;localStorage.setItem('dc_lang',l);document.documentElement.lang=l;document.documentElement.dir=l==='ar'?'rtl':'ltr';$('#lb').textContent=l==='ar'?'EN':'عربي';$('#lg').innerHTML=LOGO+'<span>'+(l==='ar'?CFG.nameAr:CFG.nameEn)+'</span>';document.querySelectorAll('[data-t]').forEach(function(e){e.textContent=tt(e.dataset.t)});document.title=(l==='ar'?CFG.nameAr:CFG.nameEn)}
+$('#lb').onclick=function(){setLang(L==='ar'?'en':'ar');route()};
+/* ---------- storage ---------- */
+function ld(k,d){try{return JSON.parse(localStorage.getItem(k))||d}catch(e){return d}}
+function sv(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}
+function M(a,b,c,d){return{l:{ar:a,en:b},ar:c,en:d}}
+var SEED=[
+{id:'p1',name:{ar:'خطة تنقيص خفيفة 1400',en:'Light Weight-Loss 1400'},goal:'lose',kcal:1400,tags:[],veg:false,meals:[
+ M('الفطور','Breakfast','بيضتين مسلوقتين + رغيف صغير أسمر + خيار وبندورة','2 boiled eggs + small whole-wheat bread + cucumber & tomato'),
+ M('سناك','Snack','حبة فاكهة + 10 لوزات','1 fruit + 10 almonds'),
+ M('الغدا','Lunch','120غ صدر دجاج مشوي + نصف كوب رز بني + سلطة كبيرة','120g grilled chicken + ½ cup brown rice + large salad'),
+ M('العشا','Dinner','لبنة خفيفة + خضار مشوية + رغيف صغير','Light labneh + grilled vegetables + small bread')]},
+{id:'p2',name:{ar:'خطة تنقيص متوازنة 1600 (٤ وجبات)',en:'Balanced Weight-Loss 1600 (4 meals)'},goal:'lose',kcal:1600,tags:[],veg:false,meals:[
+ M('الفطور','Breakfast','نصف كوب شوفان بالحليب + موزة صغيرة + ملعقة زبدة فول سوداني','½ cup oats with milk + small banana + 1 tsp peanut butter'),
+ M('سناك','Snack','لبن زبادي + خيارة','Plain yogurt + cucumber'),
+ M('الغدا','Lunch','150غ سمك مشوي + كوب برغل + سلطة','150g grilled fish + 1 cup bulgur + salad'),
+ M('العشا','Dinner','تونا مع خضار + رغيف أسمر صغير','Tuna with vegetables + small whole-wheat bread')]},
+{id:'p3',name:{ar:'خطة نباتية للتنقيص 1500',en:'Vegetarian Weight-Loss 1500'},goal:'lose',kcal:1500,tags:['dairy'],veg:true,meals:[
+ M('الفطور','Breakfast','جبنة قريش + خبز أسمر + خضار','Cottage cheese + whole-wheat bread + vegetables'),
+ M('سناك','Snack','فاكهة + حفنة جوز','Fruit + handful of walnuts'),
+ M('الغدا','Lunch','كوب عدس + نصف كوب رز + سلطة','1 cup lentils + ½ cup rice + salad'),
+ M('العشا','Dinner','شوربة خضار + بيضتين','Vegetable soup + 2 eggs')]},
+{id:'p4',name:{ar:'خطة زيادة وزن صحية 2500',en:'Healthy Weight-Gain 2500'},goal:'gain',kcal:2500,tags:['gluten','dairy','nuts'],veg:false,meals:[
+ M('الفطور','Breakfast','3 بيضات + رغيفين + حبة أفوكادو + كوب حليب','3 eggs + 2 breads + 1 avocado + glass of milk'),
+ M('سناك 1','Snack 1','سموذي موز + شوفان + زبدة فول سوداني','Banana-oat-peanut butter smoothie'),
+ M('الغدا','Lunch','200غ لحم أو دجاج + كوب ونصف رز + خضار بزيت الزيتون','200g meat or chicken + 1½ cups rice + vegetables with olive oil'),
+ M('سناك 2','Snack 2','مكسرات + تمر + لبن','Nuts + dates + yogurt'),
+ M('العشا','Dinner','ساندويش دجاج بخبز أسمر + فاكهة','Chicken sandwich on whole-wheat + fruit')]},
+{id:'p5',name:{ar:'خطة ثبات الوزن 2000',en:'Weight Maintenance 2000'},goal:'maintain',kcal:2000,tags:['gluten','dairy'],veg:false,meals:[
+ M('الفطور','Breakfast','لبنة + زيتون + بندورة + رغيف','Labneh + olives + tomato + bread'),
+ M('الغدا','Lunch','دجاج مشوي + رز + سلطة','Grilled chicken + rice + salad'),
+ M('سناك','Snack','فاكهة + مكسرات','Fruit + nuts'),
+ M('العشا','Dinner','سمك أو تونا + خضار مطبوخة','Fish or tuna + cooked vegetables')]}];
+function plans(){var p=ld('dc_plans',null);if(!p){p=SEED;sv('dc_plans',p)}return p}
+/* ---------- calculations ---------- */
+function calc(S){
+ var w=+S.weight,h=+S.height,a=+S.age,m=S.sex==='m';
+ var bmi=w/Math.pow(h/100,2);
+ var bmr=10*w+6.25*h-5*a+(m?5:-161);
+ var af={sed:1.2,light:1.375,mod:1.55,high:1.725}[S.act]||1.2;
+ var tdee=bmr*af,t=tdee;
+ if(S.goal==='lose')t=tdee*0.8;if(S.goal==='gain')t=tdee*1.15;
+ var floor=m?1500:1200;if(S.goal==='lose')t=Math.max(t,floor);
+ t=Math.round(t/50)*50;tdee=Math.round(tdee/50)*50;
+ var p=Math.round(w*(S.goal==='gain'?1.8:1.6)),f=Math.round(t*0.28/9),c=Math.round((t-p*4-f*9)/4);
+ var wk=S.goal==='maintain'?0:Math.abs(+S.target-w);
+ var perWeek=S.goal==='lose'?0.5:0.35;
+ return{bmi:bmi,bmr:Math.round(bmr),tdee:tdee,kcal:t,p:p,f:f,c:Math.max(c,50),weeks:Math.ceil(wk/perWeek),diff:+(S.target-w)}
+}
+function flags(S,R){
+ var f=[];
+ if(+S.age<18)f.push({ar:'العمر أقل من 18 سنة: خطط التغذية للأطفال والمراهقين لازم تنعمل مع الأخصائي مباشرة.',en:'Under 18: nutrition plans for children and teens must be made directly with the dietitian.'});
+ if(+S.age>75)f.push({ar:'العمر فوق 75 سنة: لازم مراجعة الأخصائي.',en:'Over 75: dietitian review is required.'});
+ if(S.preg)f.push({ar:'الحمل أو الرضاعة: الاحتياجات الغذائية خاصة وبتحتاج متابعة الأخصائي.',en:'Pregnancy or breastfeeding: needs are special and require the dietitian.'});
+ if(S.cond.length)f.push({ar:'عندك حالة صحية ('+S.cond.map(function(c){return COND[c][0]}).join('، ')+'): الخطة لازم تتفصّل لحالتك مع الأخصائي.',en:'You reported a health condition ('+S.cond.map(function(c){return COND[c][1]}).join(', ')+'): your plan must be tailored by the dietitian.'});
+ if(R.bmi<18.5&&S.goal==='lose')f.push({ar:'وزنك الحالي أقل من الطبيعي، وما منقدر نعطيك خطة تنقيص.',en:'Your current weight is below normal, so we cannot offer a weight-loss plan.'});
+ var tb=+S.target/Math.pow(+S.height/100,2);
+ if(S.goal!=='maintain'&&(tb<18.5||tb>32))f.push({ar:'الوزن المطلوب مش ضمن المدى الصحي. بنحتاج نحدد هدف مناسب مع الأخصائي.',en:'Your target weight is outside a healthy range. Let us set a suitable goal with the dietitian.'});
+ if(S.history)f.push({ar:'ذكرت إنو عندك تاريخ مع اضطرابات الأكل: لازم متابعة مختص.',en:'You mentioned a history with eating disorders: specialist follow-up is required.'});
+ return f;
+}
+var COND={diabetes:['سكري','Diabetes'],pressure:['ضغط','High blood pressure'],heart:['قلب','Heart disease'],kidney:['كلى','Kidney disease'],thyroid:['غدة درقية','Thyroid'],liver:['كبد','Liver disease'],pcos:['تكيّس المبايض','PCOS'],other:['حالة أخرى','Other condition']};
+function match(S,R){
+ var P=plans().filter(function(p){return p.goal===S.goal});
+ P=P.filter(function(p){
+  if(S.diet==='veg'&&!p.veg)return false;
+  return !p.tags.some(function(g){return S.allergy.indexOf(g)>-1})});
+ if(!P.length)return null;
+ P.forEach(function(p){p._s=Math.abs(p.kcal-R.kcal)+Math.abs(p.meals.length-S.meals)*120});
+ P.sort(function(a,b){return a._s-b._s});
+ return P[0].kcal&&Math.abs(P[0].kcal-R.kcal)<=450?P[0]:P[0];
+}
+/* ---------- wizard ---------- */
+var S0={goal:'',sex:'',age:'',height:'',weight:'',target:'',act:'',meals:3,wake:'',diet:'any',allergy:[],dislike:'',cond:[],preg:false,history:false,notes:'',name:'',phone:''};
+var S=ld('dc_state',null)||JSON.parse(JSON.stringify(S0)),step=0;
+var ALG={gluten:['غلوتين','Gluten'],dairy:['حليب ومشتقاته','Dairy'],nuts:['مكسرات','Nuts'],eggs:['بيض','Eggs'],seafood:['مأكولات بحرية','Seafood']};
+var STEPS=['goal','body','act','meals','food','health','contact'];
+function opt(k,v,e,a,b,sub){return'<button type="button" class="op '+(S[k]===v?'on':'')+'" data-k="'+k+'" data-v="'+v+'"><span class="em">'+e+'</span><span>'+(L==='ar'?a:b)+(sub?'<small>'+(L==='ar'?sub[0]:sub[1])+'</small>':'')+'</span></button>'}
+function inp(k,lab,type,ph,small){return'<div class="f"><label>'+(L==='ar'?lab[0]:lab[1])+'</label><input data-i="'+k+'" type="'+(type||'text')+'" inputmode="'+(type==='number'?'decimal':'text')+'" value="'+esc(S[k])+'" placeholder="'+esc(ph||'')+'">'+(small?'<small>'+(L==='ar'?small[0]:small[1])+'</small>':'')+'</div>'}
+function stepHtml(s){
+ var ar=L==='ar';
+ if(s==='goal')return'<h2>'+(ar?'شو هدفك؟':'What is your goal?')+'</h2><p class="sub">'+(ar?'منختار الخطة على أساس هدفك.':'We pick your plan based on your goal.')+'</p><div class="opts">'+opt('goal','lose','⬇️','تنقيص الوزن','Lose weight')+opt('goal','gain','⬆️','زيادة الوزن','Gain weight')+opt('goal','maintain','⚖️','ثبات الوزن وأكل صحي','Maintain weight & eat healthy')+'</div>';
+ if(s==='body')return'<h2>'+(ar?'معلوماتك الجسدية':'About you')+'</h2><p class="sub">'+(ar?'بتساعدنا نحسب احتياجك بدقة.':'This helps us calculate your needs accurately.')+'</p><div class="f"><label>'+(ar?'الجنس':'Sex')+'</label><div class="opts c2">'+opt('sex','f','👩','أنثى','Female')+opt('sex','m','👨','ذكر','Male')+'</div></div><div class="two">'+inp('age',['العمر (سنة)','Age (years)'],'number','25')+inp('height',['الطول (سم)','Height (cm)'],'number','170')+'</div><div class="two">'+inp('weight',['الوزن الحالي (كغ)','Current weight (kg)'],'number','80')+(S.goal==='maintain'?'':inp('target',['الوزن المطلوب (كغ)','Target weight (kg)'],'number','70'))+'</div>';
+ if(s==='act')return'<h2>'+(ar?'شو مستوى نشاطك؟':'How active are you?')+'</h2><p class="sub">'+(ar?'بحياتك اليومية وتمارينك.':'Including daily life and workouts.')+'</p><div class="opts">'+opt('act','sed','🪑','قليل الحركة','Mostly sitting',['شغل مكتبي وما في رياضة','Desk job, little exercise'])+opt('act','light','🚶','نشاط خفيف','Lightly active',['رياضة 1–3 مرات بالأسبوع','Exercise 1–3 times a week'])+opt('act','mod','🏃','نشاط متوسط','Moderately active',['رياضة 3–5 مرات بالأسبوع','Exercise 3–5 times a week'])+opt('act','high','🏋️','نشاط عالي','Very active',['رياضة يومية أو شغل جسدي','Daily exercise or physical work'])+'</div>';
+ if(s==='meals')return'<h2>'+(ar?'عادات الأكل':'Eating habits')+'</h2><p class="sub">'+(ar?'كم وجبة بتحب تاكل بالنهار؟':'How many meals do you prefer per day?')+'</p><div class="opts c3">'+[2,3,4,5].map(function(n){return'<button type="button" class="op '+(S.meals==n?'on':'')+'" data-k="meals" data-v="'+n+'"><span class="em">🍽️</span><span>'+n+' '+(ar?'وجبات':'meals')+'</span></button>'}).join('')+'</div><div class="f" style="margin-top:16px"><label>'+(ar?'وقت صحيانك':'Wake-up time')+'</label><input data-i="wake" type="time" value="'+esc(S.wake)+'"></div>';
+ if(s==='food')return'<h2>'+(ar?'تفضيلاتك بالأكل':'Food preferences')+'</h2><p class="sub">'+(ar?'منتجنّب الأكل اللي ما بيناسبك.':'We avoid food that does not suit you.')+'</p><div class="f"><label>'+(ar?'نوع الأكل':'Diet type')+'</label><div class="opts c2">'+opt('diet','any','🍗','عادي','Regular')+opt('diet','veg','🥗','نباتي','Vegetarian')+'</div></div><div class="f"><label>'+(ar?'حساسية أو أكل ما بتاكلو':'Allergies / foods you avoid')+'</label><div class="chk">'+Object.keys(ALG).map(function(k){return'<label><input type="checkbox" data-a="'+k+'" '+(S.allergy.indexOf(k)>-1?'checked':'')+'>'+ALG[k][ar?0:1]+'</label>'}).join('')+'</div></div><div class="f"><label>'+(ar?'أكل ما بتحبو (اختياري)':'Foods you dislike (optional)')+'</label><textarea data-i="dislike" rows="2">'+esc(S.dislike)+'</textarea></div>';
+ if(s==='health')return'<h2>'+(ar?'صحتك':'Your health')+'</h2><p class="sub">'+(ar?'مهم لسلامتك. معلوماتك سرية.':'Important for your safety. Your information is confidential.')+'</p><div class="f"><label>'+(ar?'عندك أي من الحالات التالية؟':'Do you have any of these conditions?')+'</label><div class="chk">'+Object.keys(COND).map(function(k){return'<label><input type="checkbox" data-c="'+k+'" '+(S.cond.indexOf(k)>-1?'checked':'')+'>'+COND[k][ar?0:1]+'</label>'}).join('')+'</div></div><div class="chk">'+(S.sex==='f'?'<label><input type="checkbox" data-b="preg" '+(S.preg?'checked':'')+'>'+(ar?'حامل أو مرضعة':'Pregnant or breastfeeding')+'</label>':'')+'<label><input type="checkbox" data-b="history" '+(S.history?'checked':'')+'>'+(ar?'عندي تاريخ مع اضطرابات أكل':'History of eating disorders')+'</label></div><div class="f" style="margin-top:14px"><label>'+(ar?'ملاحظات إضافية (اختياري)':'Additional notes (optional)')+'</label><textarea data-i="notes" rows="2">'+esc(S.notes)+'</textarea></div>';
+ if(s==='contact')return'<h2>'+(ar?'آخر خطوة':'Last step')+'</h2><p class="sub">'+(ar?'لنرسلك خطتك ونتواصل معك إذا لزم.':'So we can send your plan and follow up if needed.')+'</p>'+inp('name',['الاسم','Name'],'text')+inp('phone',['رقم الهاتف / واتساب','Phone / WhatsApp'],'tel','+961')+'<div class="note">'+(ar?'بالضغط على "اعرض خطتي" بتوافق إنو معلوماتك تنحفظ وتوصل للأخصائي.':'By clicking "Show my plan" you agree your details are saved and shared with the dietitian.')+'</div>';
+}
+function vStart(){
+ var s=STEPS[step],ar=L==='ar';
+ return'<div class="wz"><div class="prog"><i style="width:'+((step+1)/STEPS.length*100)+'%"></i></div><div class="pc">'+(ar?'الخطوة ':'Step ')+(step+1)+' / '+STEPS.length+'</div><div class="card">'+stepHtml(s)+'<div class="err" id="er"></div><div class="nav"><button class="btn o" id="bk" '+(step?'':'style="visibility:hidden"')+'>'+(ar?'رجوع':'Back')+'</button><button class="btn t" id="nx">'+(step===STEPS.length-1?(ar?'اعرض خطتي':'Show my plan'):(ar?'التالي':'Next'))+'</button></div></div></div>';
+}
+function collect(){
+ document.querySelectorAll('[data-i]').forEach(function(e){S[e.dataset.i]=e.value.trim()});
+ var a=document.querySelectorAll('[data-a]');if(a.length)S.allergy=[].filter.call(a,function(x){return x.checked}).map(function(x){return x.dataset.a});
+ var c=document.querySelectorAll('[data-c]');if(c.length)S.cond=[].filter.call(c,function(x){return x.checked}).map(function(x){return x.dataset.c});
+ document.querySelectorAll('[data-b]').forEach(function(x){S[x.dataset.b]=x.checked});
+}
+function valid(s){
+ var ar=L==='ar';
+ if(s==='goal'&&!S.goal)return ar?'اختار هدفك':'Choose your goal';
+ if(s==='body'){
+  if(!S.sex)return ar?'اختار الجنس':'Choose sex';
+  var a=+S.age,h=+S.height,w=+S.weight,t=+S.target;
+  if(!(a>=5&&a<=100))return ar?'العمر غير صحيح':'Invalid age';
+  if(!(h>=100&&h<=230))return ar?'الطول بين 100 و230 سم':'Height must be 100–230 cm';
+  if(!(w>=25&&w<=300))return ar?'الوزن غير صحيح':'Invalid weight';
+  if(S.goal!=='maintain'){if(!(t>=25&&t<=300))return ar?'اكتب الوزن المطلوب':'Enter target weight';
+   if(S.goal==='lose'&&t>=w)return ar?'الوزن المطلوب لازم يكون أقل من الحالي':'Target must be lower than current';
+   if(S.goal==='gain'&&t<=w)return ar?'الوزن المطلوب لازم يكون أكبر من الحالي':'Target must be higher than current'}
+ }
+ if(s==='act'&&!S.act)return ar?'اختار مستوى النشاط':'Choose activity level';
+ if(s==='contact'){if(!S.name)return ar?'اكتب اسمك':'Enter your name';if(S.phone.replace(/\D/g,'').length<7)return ar?'رقم الهاتف غير صحيح':'Invalid phone number'}
+ return '';
+}
+function initStart(){
+ document.querySelectorAll('.op').forEach(function(b){b.onclick=function(){collect();var v=b.dataset.v;S[b.dataset.k]=isNaN(v)||b.dataset.k==='act'?v:+v;sv('dc_state',S);if(STEPS[step]==='goal'||STEPS[step]==='act'){var e=valid(STEPS[step]);if(!e){step++;route()}}else{document.querySelectorAll('.op').forEach(function(x){if(x.dataset.k===b.dataset.k)x.classList.toggle('on',x===b)})}}});
+ $('#bk').onclick=function(){collect();step=Math.max(0,step-1);route()};
+ $('#nx').onclick=function(){collect();var e=valid(STEPS[step]);if(e){$('#er').textContent=e;return}sv('dc_state',S);
+  if(step<STEPS.length-1){step++;route()}else{finish()}};
+}
+function finish(){
+ var R=calc(S),fl=flags(S,R),pl=fl.length?null:match(S,R);
+ var subs=ld('dc_subs',[]);
+ subs.unshift({id:Date.now(),date:new Date().toISOString(),S:JSON.parse(JSON.stringify(S)),R:R,flags:fl.length,plan:pl?pl.id:null,status:'new'});
+ sv('dc_subs',subs);window._res={S:S,R:R,fl:fl,pl:pl};location.hash='#/result';
+}
+/* ---------- result ---------- */
+function vResult(){
+ var r=window._res||null;
+ if(!r){var subs=ld('dc_subs',[]);if(!subs.length)return'<div class="wz"><div class="card"><h2>'+(L==='ar'?'ما في نتيجة بعد':'No result yet')+'</h2><br><a class="btn" href="#/start">'+(L==='ar'?'ابدأ':'Start')+'</a></div></div>';var x=subs[0];r={S:x.S,R:x.R,fl:flags(x.S,x.R),pl:plans().find(function(p){return p.id===x.plan})||null}}
+ var S2=r.S,R=r.R,ar=L==='ar';
+ var gl={lose:['تنقيص الوزن','Weight loss'],gain:['زيادة الوزن','Weight gain'],maintain:['ثبات الوزن','Maintenance']}[S2.goal][ar?0:1];
+ var bm=R.bmi,bmc=bm<18.5?['أقل من الطبيعي','Underweight']:bm<25?['طبيعي','Normal']:bm<30?['وزن زائد','Overweight']:['سمنة','Obese'];
+ var h='<div class="rs"><div class="card"><div class="noprint" style="font-size:14px;color:var(--mut)">'+(ar?'أهلاً ':'Hello ')+esc(S2.name)+' 👋</div><h2>'+(ar?'خطتك':'Your plan')+' — '+gl+'</h2>';
+ h+='<div class="stats"><div class="stat"><b>'+bm.toFixed(1)+'</b><span>BMI · '+bmc[ar?0:1]+'</span></div>'+(r.fl.length?'':'<div class="stat"><b>'+R.tdee+'</b><span>'+(ar?'سعرات الثبات يومياً':'Maintenance kcal/day')+'</span></div><div class="stat"><b>'+R.kcal+'</b><span>'+(ar?'هدفك اليومي (سعرة)':'Your daily target (kcal)')+'</span></div><div class="stat"><b>'+(S2.goal==='maintain'?'—':R.weeks)+'</b><span>'+(ar?'أسبوع تقريباً للوصول':'weeks to goal (approx.)')+'</span></div>')+'</div>';
+ if(r.fl.length){
+  h+='<div class="alert"><h3>'+(ar?'لازم تحجز استشارة مع الأخصائي':'Please book a consultation with the dietitian')+'</h3>'+r.fl.map(function(f){return'<p>• '+esc(t(f))+'</p>'}).join('')+'<p style="margin-top:8px">'+(ar?'بدل خطة تلقائية، الأخصائي رح يجهّزلك خطة مخصصة وآمنة.':'Instead of an automatic plan, the dietitian will prepare a safe personalised plan for you.')+'</p></div>';
+ }else{
+  var tot=R.p*4+R.f*9+R.c*4;
+  h+='<h3 style="margin-top:6px">'+(ar?'توزيع العناصر الغذائية':'Daily macros')+'</h3><div class="macro"><i style="width:'+(R.p*4/tot*100)+'%;background:#0f5c5a"></i><i style="width:'+(R.c*4/tot*100)+'%;background:#f2b35a"></i><i style="width:'+(R.f*9/tot*100)+'%;background:#ef7b5b"></i></div><div class="lg"><span><b style="background:#0f5c5a"></b>'+(ar?'بروتين ':'Protein ')+R.p+'g</span><span><b style="background:#f2b35a"></b>'+(ar?'كربوهيدرات ':'Carbs ')+R.c+'g</span><span><b style="background:#ef7b5b"></b>'+(ar?'دهون ':'Fat ')+R.f+'g</span></div>';
+  if(r.pl){
+   h+='<h3 style="margin-top:22px">'+esc(t(r.pl.name))+' <span class="tag">~'+r.pl.kcal+' kcal</span></h3><p style="color:var(--mut);margin-bottom:6px">'+(ar?'خطة من إعداد الأخصائي، الأقرب لاحتياجك وتفضيلاتك.':'Prepared by our dietitian, closest to your needs and preferences.')+'</p>';
+   h+=r.pl.meals.map(function(m){return'<div class="meal"><h4>'+esc(t(m.l))+'</h4><p>'+esc(t(m))+'</p></div>'}).join('');
+   if(r.pl.notes)h+='<div class="note">'+esc(t(r.pl.notes))+'</div>';
+   if(S2.dislike)h+='<div class="note">'+(ar?'ملاحظة: ذكرت إنك ما بتحب: ':'Note: you mentioned you dislike: ')+esc(S2.dislike)+(ar?'. الأخصائي بيقدر يبدّلها.':'. The dietitian can swap these.')+'</div>';
+  }else h+='<div class="alert"><h3>'+(ar?'ما لقينا خطة جاهزة مناسبة':'No ready plan matches')+'</h3><p>'+(ar?'تفضيلاتك خاصة، الأخصائي رح يجهّزلك خطة مخصصة.':'Your preferences are specific; the dietitian will prepare a custom plan.')+'</p></div>';
+ }
+ var msg=(ar?'مرحباً، أنا ':'Hello, I am ')+S2.name+(ar?'. عبّيت الاستمارة وبدي ':'. I completed the form and I would like ')+(r.fl.length?(ar?'حجز استشارة.':'to book a consultation.'):(ar?'مراجعة خطتي من الأخصائي.':'the dietitian to review my plan.'))+'\n'+gl+' | '+S2.weight+'kg → '+(S2.target||S2.weight)+'kg | '+S2.height+'cm | '+S2.age+'y | BMI '+bm.toFixed(1)+(r.fl.length?'':' | '+R.kcal+' kcal');
+ var wa=CFG.whatsapp?'https://wa.me/'+CFG.whatsapp+'?text='+encodeURIComponent(msg):'';
+ h+='<div class="acts">'+(r.fl.length?'':'<button class="btn t" onclick="window.print()">'+(ar?'حمّل / اطبع خطتي (PDF)':'Download / print (PDF)')+'</button>')+'<button class="btn" id="wa">'+(ar?'احجز استشارة / مراجعة الأخصائي':'Book consultation / dietitian review')+'</button><a class="btn o" href="#/start" onclick="step=0">'+(ar?'عدّل معلوماتي':'Edit my details')+'</a></div>';
+ h+='<p class="disc">'+(ar?'هيدي الخطة إرشادية وبتعتمد على معلوماتك، وما بتحل مكان الاستشارة الطبية. استشير أخصائي التغذية قبل أي تغيير كبير بنظامك.':'This plan is indicative and based on your information; it does not replace medical advice. Consult a dietitian before making major changes to your diet.')+'</p></div></div>';
+ window._msg=msg;window._wa=wa;
+ return h;
+}
+function initResult(){var b=$('#wa');if(b)b.onclick=function(){if(window._wa)window.open(window._wa,'_blank');else{try{navigator.clipboard.writeText(window._msg)}catch(e){}toast(L==='ar'?'تم نسخ رسالتك (رقم الواتساب بعدو مش مفعّل)':'Message copied (WhatsApp number not set yet)')}}}
+/* ---------- home / contact ---------- */
+function vHome(){
+ var ar=L==='ar';
+ var st=[['1',ar?'عبّي معلوماتك':'Share your details',ar?'عمرك، وزنك، طولك، عدد وجباتك وصحتك، بخطوات سريعة.':'Age, weight, height, meals and health in quick steps.'],['2',ar?'منحسب احتياجك':'We calculate your needs',ar?'السعرات والعناصر الغذائية المناسبة لهدفك.':'The calories and macros that fit your goal.'],['3',ar?'خطة من الأخصائي':'A plan by the dietitian',ar?'منختارلك أقرب خطة معدّة من أخصائي التغذية.':'We pick the closest plan prepared by our dietitian.'],['4',ar?'تابع معنا':'Follow up with us',ar?'احجز استشارة أو راجع الخطة مع الأخصائي.':'Book a consultation or review the plan with the dietitian.']];
+ return'<section class="hero"><div class="wrap"><div><span class="badge">'+(ar?'🥗 أخصائية تغذية مرخّصة':'🥗 Licensed dietitian')+'</span><h1>'+(ar?'خطتك الغذائية <em>المخصصة لك</em>، بدقيقتين':'Your <em>personal</em> nutrition plan in 2 minutes')+'</h1><p>'+(ar?'عبّي معلوماتك واحصل على خطة تنقيص أو زيادة وزن مبنية على جسمك ونمط حياتك، ومعدّة من أخصائي تغذية.':'Fill in your details and get a weight-loss or weight-gain plan built around your body and lifestyle, prepared by a dietitian.')+'</p><a class="btn" href="#/start">'+(ar?'ابدأ خطتي مجاناً':'Start my free plan')+'</a></div><svg class="plate" viewBox="0 0 200 200"><circle cx="100" cy="100" r="92" fill="#ffffff22"/><circle cx="100" cy="100" r="74" fill="#fff"/><circle cx="100" cy="100" r="60" fill="#e3f1ef"/><path d="M100 60c18 0 30 14 30 32 0 17-12 32-30 32s-30-15-30-32c0-18 12-32 30-32z" fill="#7cc2b5"/><circle cx="80" cy="110" r="9" fill="#ef7b5b"/><circle cx="122" cy="102" r="7" fill="#f2b35a"/><path d="M100 60c0-8 6-13 14-13-1 8-6 13-14 13z" fill="#0f5c5a"/></svg></div></section>'+
+ '<section class="s"><div class="wrap"><div class="sh"><h2>'+(ar?'كيف بتشتغل؟':'How it works')+'</h2></div><div class="g4">'+st.map(function(x){return'<div class="box"><div class="num">'+x[0]+'</div><b>'+x[1]+'</b><p>'+x[2]+'</p></div>'}).join('')+'</div></div></section>'+
+ '<section class="s" style="padding-top:0"><div class="wrap"><div class="g3"><div class="box"><div class="ic">🎯</div><b>'+(ar?'مبنية على جسمك':'Built around you')+'</b><p>'+(ar?'حسابات علمية للسعرات حسب عمرك وطولك ووزنك ونشاطك.':'Science-based calorie calculations from your age, height, weight and activity.')+'</p></div><div class="box"><div class="ic">👩‍⚕️</div><b>'+(ar?'من أخصائي حقيقي':'From a real dietitian')+'</b><p>'+(ar?'كل الخطط معدّة ومراجعة من صاحبة العيادة، مش خطط عشوائية.':'Every plan is prepared and reviewed by the clinic owner, not random plans.')+'</p></div><div class="box"><div class="ic">🛡️</div><b>'+(ar?'سلامتك أولاً':'Safety first')+'</b><p>'+(ar?'إذا حالتك الصحية بتحتاج متابعة، منوجّهك مباشرة للأخصائي.':'If your health needs follow-up, we direct you straight to the dietitian.')+'</p></div></div></div></section>'+
+ '<section class="s" style="padding-top:0"><div class="wrap"><div class="band"><div><h2>'+(ar?'جاهز تبلش؟':'Ready to start?')+'</h2><p>'+(ar?'بياخد أقل من دقيقتين.':'It takes under two minutes.')+'</p></div><a class="btn" href="#/start">'+(ar?'ابدأ هلأ':'Start now')+'</a></div></div></section>';
+}
+function vContact(){var ar=L==='ar';return'<div class="wz"><div class="card"><h2>'+(ar?'تواصل معنا':'Contact us')+'</h2><p class="sub">'+(ar?'للحجز أو أي سؤال.':'For bookings or any question.')+'</p><div class="f"><label>'+(ar?'الاسم':'Name')+'</label><input id="cn"></div><div class="f"><label>'+(ar?'الهاتف':'Phone')+'</label><input id="cp"></div><div class="f"><label>'+(ar?'رسالتك':'Message')+'</label><textarea id="cm" rows="4"></textarea></div><button class="btn t" id="cs">'+(ar?'إرسال':'Send')+'</button></div></div>'}
+function initContact(){$('#cs').onclick=function(){var m=$('#cn').value+' '+$('#cp').value+'\n'+$('#cm').value;if(CFG.whatsapp)window.open('https://wa.me/'+CFG.whatsapp+'?text='+encodeURIComponent(m));else{try{navigator.clipboard.writeText(m)}catch(e){}toast(L==='ar'?'تم نسخ الرسالة':'Message copied')}}}
+/* ---------- admin ---------- */
+var ADM=sessionStorage.getItem('dc_adm')==='1',ATAB='plans',EDIT=null;
+function vAdmin(){
+ var ar=L==='ar';
+ if(!ADM)return'<div class="wz"><div class="card"><h2>'+(ar?'دخول الأخصائي':'Dietitian login')+'</h2><p class="sub">'+(ar?'لوحة إدارة الخطط والطلبات.':'Manage plans and requests.')+'</p><div class="f"><label>'+(ar?'كلمة السر':'Password')+'</label><input type="password" id="ap"></div><div class="err" id="er"></div><button class="btn t" id="al">'+(ar?'دخول':'Login')+'</button></div></div>';
+ if(EDIT)return vEdit();
+ var h='<div class="ad"><div class="tabs"><button class="'+(ATAB==='plans'?'on':'')+'" data-tb="plans">'+(ar?'الخطط':'Plans')+'</button><button class="'+(ATAB==='subs'?'on':'')+'" data-tb="subs">'+(ar?'الطلبات':'Requests')+'</button><span class="sp" style="flex:1"></span><button class="btn s o" id="lo">'+(ar?'خروج':'Logout')+'</button></div>';
+ if(ATAB==='plans'){
+  h+='<div class="row" style="border:0;background:none;padding:0 0 12px"><h2>'+(ar?'خطط التغذية':'Nutrition plans')+'</h2><button class="btn s" id="np">+ '+(ar?'خطة جديدة':'New plan')+'</button></div>';
+  h+=plans().map(function(p){return'<div class="row"><div><b>'+esc(t(p.name))+'</b><br><small>'+{lose:ar?'تنقيص':'Lose',gain:ar?'زيادة':'Gain',maintain:ar?'ثبات':'Maintain'}[p.goal]+' · '+p.kcal+' kcal · '+p.meals.length+' '+(ar?'وجبات':'meals')+(p.veg?' · 🥗':'')+'</small></div><div style="display:flex;gap:8px"><button class="btn s o" data-e="'+p.id+'">'+(ar?'تعديل':'Edit')+'</button><button class="btn s o" data-d="'+p.id+'">'+(ar?'حذف':'Delete')+'</button></div></div>'}).join('');
+ }else{
+  var subs=ld('dc_subs',[]);
+  h+='<h2 style="margin-bottom:12px">'+(ar?'طلبات الزبائن':'Client requests')+' ('+subs.length+')</h2>';
+  if(!subs.length)h+='<p style="color:var(--mut)">'+(ar?'ما في طلبات بعد.':'No requests yet.')+'</p>';
+  h+=subs.map(function(x){var s=x.S;return'<div class="row"><div><b>'+esc(s.name)+'</b> · <a href="tel:'+esc(s.phone)+'">'+esc(s.phone)+'</a>'+(x.flags?' <span class="tag" style="background:#fde4de;color:#a8402a">'+(ar?'يحتاج مراجعة':'Needs review')+'</span>':'')+'<br><small>'+{lose:ar?'تنقيص':'Lose',gain:ar?'زيادة':'Gain',maintain:ar?'ثبات':'Maintain'}[s.goal]+' · '+s.age+'y · '+s.height+'cm · '+s.weight+'→'+(s.target||s.weight)+'kg · '+s.meals+' '+(ar?'وجبات':'meals')+' · '+(s.cond.length?s.cond.map(function(c){return COND[c][ar?0:1]}).join(','):'—')+(s.allergy.length?' · '+s.allergy.map(function(a){return ALG[a][ar?0:1]}).join(','):'')+'<br>'+new Date(x.date).toLocaleString(ar?'ar-LB':'en-GB')+'</small></div><button class="btn s o" data-sd="'+x.id+'">'+(ar?'حذف':'Delete')+'</button></div>'}).join('');
+ }
+ return h+'</div>';
+}
+function vEdit(){
+ var ar=L==='ar',p=EDIT;
+ return'<div class="ad"><div class="card"><h2>'+(ar?'خطة':'Plan')+'</h2><br><div class="two"><div class="f"><label>'+(ar?'الاسم (عربي)':'Name (Arabic)')+'</label><input id="pn1" value="'+esc(p.name.ar)+'"></div><div class="f"><label>'+(ar?'الاسم (إنجليزي)':'Name (English)')+'</label><input id="pn2" value="'+esc(p.name.en)+'"></div></div><div class="two"><div class="f"><label>'+(ar?'الهدف':'Goal')+'</label><select id="pg"><option value="lose" '+(p.goal==='lose'?'selected':'')+'>'+(ar?'تنقيص':'Lose')+'</option><option value="gain" '+(p.goal==='gain'?'selected':'')+'>'+(ar?'زيادة':'Gain')+'</option><option value="maintain" '+(p.goal==='maintain'?'selected':'')+'>'+(ar?'ثبات':'Maintain')+'</option></select></div><div class="f"><label>'+(ar?'السعرات اليومية':'Daily calories')+'</label><input id="pk" type="number" value="'+p.kcal+'"></div></div><div class="f"><label>'+(ar?'نباتية؟':'Vegetarian?')+'</label><div class="chk"><label><input type="checkbox" id="pv" '+(p.veg?'checked':'')+'>'+(ar?'خطة نباتية':'Vegetarian plan')+'</label></div></div><div class="f"><label>'+(ar?'الخطة بتحتوي على (لتجنّبها لمن عندو حساسية)':'Plan contains (to avoid for allergic clients)')+'</label><div class="chk">'+Object.keys(ALG).map(function(k){return'<label><input type="checkbox" data-pt="'+k+'" '+(p.tags.indexOf(k)>-1?'checked':'')+'>'+ALG[k][ar?0:1]+'</label>'}).join('')+'</div></div><div class="f"><label>'+(ar?'الوجبات':'Meals')+'</label><div id="ml">'+p.meals.map(mrow).join('')+'</div><button class="btn s o" id="am" type="button">+ '+(ar?'وجبة':'Meal')+'</button></div><div class="f"><label>'+(ar?'ملاحظات (عربي)':'Notes (Arabic)')+'</label><textarea id="pa" rows="2">'+esc(p.notes?p.notes.ar:'')+'</textarea></div><div class="f"><label>'+(ar?'ملاحظات (إنجليزي)':'Notes (English)')+'</label><textarea id="pe" rows="2">'+esc(p.notes?p.notes.en:'')+'</textarea></div><div class="nav"><button class="btn o" id="cx">'+(ar?'إلغاء':'Cancel')+'</button><button class="btn t" id="sp">'+(ar?'حفظ':'Save')+'</button></div></div></div>';
+}
+function mrow(m){var ar=L==='ar';return'<div class="mrow"><input class="m0" placeholder="'+(ar?'الاسم':'Label')+'" value="'+esc(m.l.ar)+'"><textarea class="m1" rows="2" placeholder="العربي">'+esc(m.ar)+'</textarea><textarea class="m2" rows="2" placeholder="English">'+esc(m.en)+'</textarea><button type="button" class="btn s o" onclick="this.parentNode.remove()">×</button></div>'}
+function initAdmin(){
+ var ar=L==='ar';
+ if(!ADM){$('#al').onclick=function(){if($('#ap').value===CFG.adminPass){ADM=true;sessionStorage.setItem('dc_adm','1');route()}else $('#er').textContent=ar?'كلمة السر غلط':'Wrong password'};return}
+ if(EDIT){
+  $('#am').onclick=function(){$('#ml').insertAdjacentHTML('beforeend',mrow(M('','','','')))};
+  $('#cx').onclick=function(){EDIT=null;route()};
+  $('#sp').onclick=function(){
+   var p=EDIT;p.name={ar:$('#pn1').value.trim(),en:$('#pn2').value.trim()||$('#pn1').value.trim()};p.goal=$('#pg').value;p.kcal=+$('#pk').value||0;p.veg=$('#pv').checked;
+   p.tags=[].filter.call(document.querySelectorAll('[data-pt]'),function(x){return x.checked}).map(function(x){return x.dataset.pt});
+   p.meals=[].map.call(document.querySelectorAll('.mrow'),function(r){var n=r.querySelector('.m0').value.trim();return{l:{ar:n,en:n},ar:r.querySelector('.m1').value.trim(),en:r.querySelector('.m2').value.trim()||r.querySelector('.m1').value.trim()}}).filter(function(m){return m.ar||m.en});
+   var na=$('#pa').value.trim(),ne=$('#pe').value.trim();p.notes=(na||ne)?{ar:na||ne,en:ne||na}:null;
+   if(!p.name.ar||!p.kcal||!p.meals.length){toast(ar?'عبّي الاسم والسعرات ووجبة على الأقل':'Name, calories and one meal are required');return}
+   var all=plans(),i=all.findIndex(function(x){return x.id===p.id});if(i>-1)all[i]=p;else all.push(p);sv('dc_plans',all);EDIT=null;toast(ar?'تم الحفظ':'Saved');route()};
+  return}
+ document.querySelectorAll('[data-tb]').forEach(function(b){b.onclick=function(){ATAB=b.dataset.tb;route()}});
+ $('#lo').onclick=function(){ADM=false;sessionStorage.removeItem('dc_adm');route()};
+ var np=$('#np');if(np)np.onclick=function(){EDIT={id:'p'+Date.now(),name:{ar:'',en:''},goal:'lose',kcal:1500,tags:[],veg:false,meals:[M('الفطور','Breakfast','','')],notes:null};route()};
+ document.querySelectorAll('[data-e]').forEach(function(b){b.onclick=function(){EDIT=JSON.parse(JSON.stringify(plans().find(function(p){return p.id===b.dataset.e})));route()}});
+ document.querySelectorAll('[data-d]').forEach(function(b){b.onclick=function(){if(confirm(ar?'حذف هالخطة؟':'Delete this plan?')){sv('dc_plans',plans().filter(function(p){return p.id!==b.dataset.d}));route()}}});
+ document.querySelectorAll('[data-sd]').forEach(function(b){b.onclick=function(){sv('dc_subs',ld('dc_subs',[]).filter(function(x){return String(x.id)!==b.dataset.sd}));route()}});
+}
+/* ---------- router ---------- */
+function route(){
+ var h=location.hash.replace(/^#\/?/,'')||'home',html,after=null;
+ if(h==='start'){html=vStart();after=initStart}
+ else if(h==='result'){html=vResult();after=initResult}
+ else if(h==='contact'){html=vContact();after=initContact}
+ else if(h==='admin'){html=vAdmin();after=initAdmin}
+ else html=vHome();
+ $('#app').innerHTML=html;setLang(L);window.scrollTo(0,0);if(after)after();
+}
+window.addEventListener('hashchange',function(){EDIT=null;if(location.hash==='#/start'&&window._res){}route()});
+setLang(L);route();
+</script>
+</body>
+</html>
