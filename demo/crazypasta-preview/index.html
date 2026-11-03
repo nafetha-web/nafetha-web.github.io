@@ -262,6 +262,107 @@ html[data-t="1"] .dsheet .dimg { border: 0; background: var(--paper) }
 html[data-t="1"] .field input, html[data-t="1"] .field select, html[data-t="1"] .field textarea { border: 1.5px solid var(--line) }
 html[data-t="1"] .locbtn { border: 1.5px dashed #D8C9AE }
 html[data-t="1"] .rev { border: 1px solid var(--line) }
+/* ===== Theme 2: dark premium (layout from theme 1) ===== */
+html[data-t="2"] { --paper: #FFF9F0; --line: #EFE5D3; --muted: #7A6E62 }
+html[data-t="2"] body { background: var(--paper) }
+html[data-t="2"] .top { background: #FFF; border-bottom: 1px solid var(--line); box-shadow: 0 2px 14px rgba(40,25,0,.06) }
+html[data-t="2"] .lang { background: var(--paper); color: var(--ink); border: 1px solid var(--line) }
+html[data-t="2"] .hero { background: linear-gradient(180deg, #FFF1BF 0%, #FFF6DD 55%, var(--paper) 100%); border-bottom: 0 }
+html[data-t="2"] .hero::before { display: none }
+html[data-t="2"] .hero h1 em { -webkit-text-stroke: 0 }
+html[data-t="2"] .pill { background: #FFF; color: var(--ink); box-shadow: 0 3px 12px rgba(40,25,0,.08) }
+html[data-t="2"] .btn { border: 0; box-shadow: 0 8px 20px rgba(226,31,38,.22); border-radius: 14px }
+html[data-t="2"] .btn:active { transform: scale(.98); box-shadow: 0 4px 10px rgba(226,31,38,.2) }
+html[data-t="2"] .btn-white, html[data-t="2"] .back { box-shadow: 0 4px 14px rgba(40,25,0,.08); border: 1px solid var(--line) }
+html[data-t="2"] .plate img { border: 0; border-radius: 26px; box-shadow: 0 20px 44px rgba(40,25,0,.18) }
+html[data-t="2"] .plate .tag { border: 0; box-shadow: 0 8px 20px rgba(40,25,0,.14); transform: none; border-radius: 12px }
+html[data-t="2"] .open-now { border: 0; box-shadow: 0 3px 12px rgba(40,25,0,.08) }
+html[data-t="2"] .search input { border: 1px solid var(--line); box-shadow: 0 3px 12px rgba(40,25,0,.05) }
+html[data-t="2"] .tabs { background: var(--paper) }
+html[data-t="2"] .tab { border: 1px solid var(--line); background: #FFF; font-weight: 700 }
+html[data-t="2"] .tab[aria-pressed="true"] { background: var(--ink); color: #FFF; border-color: var(--ink) }
+html[data-t="2"] .tab small { background: #F5EEE2 }
+html[data-t="2"] .tab[aria-pressed="true"] small { background: var(--y); color: var(--ink) }
+html[data-t="2"] .cat h3 { font-size: 26px }
+html[data-t="2"] .list { grid-template-columns: minmax(0, 1fr); gap: 10px }
+@media (min-width: 760px) { html[data-t="2"] .list { grid-template-columns: repeat(2, minmax(0, 1fr)) } }
+html[data-t="2"] .dish { flex-direction: row; border: 1px solid var(--line); border-radius: 18px; box-shadow: 0 4px 16px rgba(40,25,0,.05); align-items: stretch }
+html[data-t="2"] .dish .ph { flex: none; width: 124px; height: 124px; aspect-ratio: auto; margin: 10px; border: 0; border-radius: 14px; background: #FFF4D2 }
+html[data-t="2"] .dish .ph.empty { font-size: 34px; background: #FFF4D2 }
+html[data-t="2"] .dish .ph.empty span { width: 62px; height: 62px; border: 0; box-shadow: 0 4px 12px rgba(40,25,0,.1) }
+html[data-t="2"] .dish .tag { border: 0; top: 6px; inset-inline-start: 6px; font-size: 10.5px }
+html[data-t="2"] .dish .body { padding: 12px 12px 12px 4px; gap: 3px }
+html[dir="ltr"][data-t="2"] .dish .body { padding: 12px 4px 12px 12px }
+html[data-t="2"] .dish h4 { font-size: 16px }
+html[data-t="2"] .dish p { font-size: 13px }
+html[data-t="2"] .qbtn { border: 0; background: #F5EEE2; border-radius: 12px }
+html[data-t="2"] .qbtn.add { background: var(--y); box-shadow: 0 4px 10px rgba(251,206,0,.35) }
+html[data-t="2"] .card { background: #FFF; border: 1px solid var(--line); box-shadow: 0 4px 16px rgba(40,25,0,.05) }
+html[data-t="2"] .order { background: #FFF; color: var(--ink); border-top: 1px solid var(--line); box-shadow: 0 -8px 26px rgba(40,25,0,.08) }
+html[data-t="2"] .order .sum { opacity: 1; color: var(--muted) }
+html[data-t="2"] .order .sum strong { color: var(--red) }
+html[data-t="2"] .wa { border: 0; box-shadow: 0 8px 18px rgba(31,157,85,.28) }
+html[data-t="2"] .again { box-shadow: 0 10px 24px rgba(40,25,0,.16) }
+html[data-t="2"] .again .btn { box-shadow: none }
+html[data-t="2"] .sheet { background: #FFF }
+html[data-t="2"] .x { border: 1px solid var(--line) }
+html[data-t="2"] .dsheet .dimg { border: 0; background: var(--paper) }
+html[data-t="2"] .field input, html[data-t="2"] .field select, html[data-t="2"] .field textarea { border: 1.5px solid var(--line) }
+html[data-t="2"] .locbtn { border: 1.5px dashed #D8C9AE }
+html[data-t="2"] .rev { border: 1px solid var(--line) }
+
+html[data-t="2"] { --paper: #12100E; --line: #2B2621; --muted: #A99F92; --ink: #F4EEE4; color-scheme: dark }
+html[data-t="2"] body { background: #12100E; color: #F4EEE4 }
+html[data-t="2"] .top { background: rgba(18,16,14,.92); backdrop-filter: blur(10px); border-bottom: 1px solid var(--line); box-shadow: none }
+html[data-t="2"] .logo img { filter: drop-shadow(0 2px 8px rgba(0,0,0,.6)) }
+html[data-t="2"] .lang { background: #1E1A17; color: #F4EEE4; border: 1px solid var(--line) }
+html[data-t="2"] .hero { background: radial-gradient(120% 80% at 80% 0%, rgba(251,206,0,.16) 0%, transparent 55%), radial-gradient(90% 70% at 0% 100%, rgba(226,31,38,.14) 0%, transparent 60%), #12100E }
+html[data-t="2"] .hero h1 { color: #FFF }
+html[data-t="2"] .hero h1 em { color: var(--y) }
+html[data-t="2"] .hero p, html[data-t="2"] .facts { color: #D9D0C3 }
+html[data-t="2"] .pill { background: #1E1A17; color: var(--y); border: 1px solid var(--line); box-shadow: none }
+html[data-t="2"] .btn-red { background: var(--y); color: #12100E; box-shadow: 0 10px 26px rgba(251,206,0,.22) }
+html[data-t="2"] .btn-white, html[data-t="2"] .back { background: #1E1A17; color: #F4EEE4; border: 1px solid var(--line); box-shadow: none }
+html[data-t="2"] .plate img { box-shadow: 0 24px 60px rgba(0,0,0,.55) }
+html[data-t="2"] .plate .tag { background: #1E1A17; color: #F4EEE4; box-shadow: 0 8px 22px rgba(0,0,0,.5) }
+html[data-t="2"] .plate .tag b { color: var(--y) }
+html[data-t="2"] .open-now { background: #1E1A17; color: #F4EEE4; box-shadow: none; border: 1px solid var(--line) }
+html[data-t="2"] .block h2, html[data-t="2"] .cat h3 { color: #FFF }
+html[data-t="2"] .search input { background: #1E1A17; color: #F4EEE4; border: 1px solid var(--line); box-shadow: none }
+html[data-t="2"] .search svg { color: #A99F92 }
+html[data-t="2"] .tabs { background: #12100E }
+html[data-t="2"] .tab { background: #1E1A17; color: #D9D0C3; border: 1px solid var(--line) }
+html[data-t="2"] .tab small { background: #2B2621; color: #F4EEE4 }
+html[data-t="2"] .tab[aria-pressed="true"] { background: var(--y); color: #12100E; border-color: var(--y) }
+html[data-t="2"] .tab[aria-pressed="true"] small { background: #12100E; color: var(--y) }
+html[data-t="2"] .dish { background: #1E1A17; border: 1px solid var(--line); box-shadow: none }
+html[data-t="2"] .dish h4 { color: #FFF }
+html[data-t="2"] .dish .ph, html[data-t="2"] .dish .ph.empty { background: #2A241F }
+html[data-t="2"] .dish .ph.empty span { background: #1E1A17; box-shadow: none }
+html[data-t="2"] .price { color: var(--y) }
+html[data-t="2"] .was { color: #8C8378 }
+html[data-t="2"] .qbtn { background: #2B2621; color: #F4EEE4 }
+html[data-t="2"] .qbtn.add { background: var(--y); color: #12100E; box-shadow: none }
+html[data-t="2"] .qn { color: #FFF }
+html[data-t="2"] .card { background: #1E1A17; color: #D9D0C3; border: 1px solid var(--line); box-shadow: none }
+html[data-t="2"] .card b { color: var(--y) }
+html[data-t="2"] .note, html[data-t="2"] .foot { color: #8C8378 }
+html[data-t="2"] .order { background: rgba(24,21,18,.96); backdrop-filter: blur(10px); color: #F4EEE4; border-top: 1px solid var(--line); box-shadow: 0 -10px 30px rgba(0,0,0,.5) }
+html[data-t="2"] .order .sum { color: #A99F92 }
+html[data-t="2"] .order .sum strong { color: var(--y) }
+html[data-t="2"] .again { background: #1E1A17; border: 1px solid rgba(251,206,0,.35); box-shadow: none }
+html[data-t="2"] .sheet { background: #1A1714; color: #F4EEE4 }
+html[data-t="2"] .sheet::backdrop { background: rgba(0,0,0,.7) }
+html[data-t="2"] .x { background: #2B2621; color: #F4EEE4; border: 1px solid var(--line) }
+html[data-t="2"] .dsheet .dimg { background: #12100E }
+html[data-t="2"] .dsheet h2 { color: #FFF }
+html[data-t="2"] .rev { background: #221E1A; border: 1px solid var(--line) }
+html[data-t="2"] .rev .nm small { color: var(--y) }
+html[data-t="2"] .field input, html[data-t="2"] .field select, html[data-t="2"] .field textarea { background: #221E1A; color: #F4EEE4; border: 1px solid var(--line) }
+html[data-t="2"] .locbtn { background: #221E1A; color: #F4EEE4; border: 1.5px dashed #4A4239 }
+html[data-t="2"] .closed-note { background: rgba(226,31,38,.12); color: #FF8C8F; border-color: rgba(226,31,38,.5) }
+html[data-t="2"] .revtotal { border-color: var(--line) }
+html[data-t="2"] .demo { background: #E21F26 }
 /* ===== Theme 3: playful, softened ===== */
 html[data-t="3"] { --paper: #FFFFFF; --line: #F1E9D2 }
 html[data-t="3"] .top { background: #FFF; border-bottom: 2px solid var(--ink) }
@@ -378,7 +479,7 @@ html[data-t="3"] .field input, html[data-t="3"] .field select, html[data-t="3"] 
 </dialog>
 
 <script>
-(function(){ const t = new URLSearchParams(location.search).get('t'); if (t === '1' || t === '3') document.documentElement.dataset.t = t })();
+(function(){ const t = new URLSearchParams(location.search).get('t'); if (t === '1' || t === '2' || t === '3') document.documentElement.dataset.t = t })();
 let WA = '96181219242';
 let CUR = 'USD';
 const fm = (n, l) => CUR === 'LBP' ? Math.round(n).toLocaleString('en-US') + (l === 'ar' ? ' ل.ل' : ' LBP') : '$' + (Math.round(n * 100) / 100);
@@ -639,8 +740,8 @@ const mix = (h, t, a) => { const n = (x) => parseInt(h.slice(x, x + 2), 16), m =
 let curUpdated = null;
 function applyCfg(c) {
   const rs = document.documentElement.style, k = c.colors, now = Date.now();
-  rs.setProperty('--y', k.y); rs.setProperty('--y2', mix(k.y, 255, .35)); rs.setProperty('--red', k.red); rs.setProperty('--red-d', mix(k.red, 0, .25)); rs.setProperty('--ink', k.ink); rs.setProperty('--paper', k.paper);
-  const tc = document.querySelector('meta[name="theme-color"]'); if (tc) tc.content = k.y;
+  rs.setProperty('--y', k.y); rs.setProperty('--y2', mix(k.y, 255, .35)); rs.setProperty('--red', k.red); rs.setProperty('--red-d', mix(k.red, 0, .25)); if (!document.documentElement.dataset.t) { rs.setProperty('--ink', k.ink); rs.setProperty('--paper', k.paper) }
+  const tc = document.querySelector('meta[name="theme-color"]'); if (tc) tc.content = document.documentElement.dataset.t === '2' ? '#12100E' : k.y;
   MENU.length = 0;
   c.menu.filter(g => !g.hid).forEach(g => { const items = g.items.filter(i => !i.hid).map(i => { const o = Object.assign({}, i); if (o.off != null && (!o.until || o.until > now)) { o.old = o.p; o.p = o.off } return o }); if (items.length) MENU.push({ id: g.id, ar: g.ar, en: g.en, items }) });
   ALL.length = 0; MENU.forEach(g => g.items.forEach(i => ALL.push(i)));
