@@ -293,6 +293,10 @@ html[data-t="2"] .dish .ph.empty span { width: 62px; height: 62px; border: 0; bo
 html[data-t="2"] .dish .tag { border: 0; top: 6px; inset-inline-start: 6px; font-size: 10.5px }
 html[data-t="2"] .dish .body { padding: 12px 12px 12px 4px; gap: 3px }
 html[dir="ltr"][data-t="2"] .dish .body { padding: 12px 4px 12px 12px }
+html[data-t="1"] .dish .body, html[data-t="2"] .dish .body { min-width: 0 }
+html[data-t="1"] .dish .row, html[data-t="2"] .dish .row { flex-direction: column; align-items: stretch; gap: 6px }
+html[data-t="1"] .dish .row .price, html[data-t="2"] .dish .row .price { font-size: 15px }
+html[data-t="1"] .dish .row .qty, html[data-t="2"] .dish .row .qty { justify-content: flex-end }
 html[data-t="2"] .dish h4 { font-size: 16px }
 html[data-t="2"] .dish p { font-size: 13px }
 html[data-t="2"] .qbtn { border: 0; background: #F5EEE2; border-radius: 12px }
