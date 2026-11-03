@@ -674,6 +674,7 @@ const T = {
       { img: 'rayhanpro', tag: 'مطعم · Pro', t: 'مطعم مع طلب من الطاولة', d: 'يمسح الزبون رمز الطاولة ويطلب، فيصل طلبه إلى شاشة المطبخ فورًا ويتابع حالته. مع طبق اليوم وHappy Hour ولوحة تحكّم لصاحب المطعم.', href: 'demo/rayhan/#t5' },
       { img: 'khayrat', tag: 'سوبرماركت', t: 'سوبرماركت بطلبات أونلاين', d: 'يلصق الزبون قائمة أغراضه فتمتلئ السلّة وحدها، مع أسعار بالكيلو، وشريط للتوصيل المجاني، والدفع كاش أو Whish عبر واتساب.', href: 'demo/khayrat/' },
       { img: 'chalet', tag: 'شاليه · Pro', t: 'شاليه مع تقويم حجز وأسعار حيّة', d: 'يختار الزبون الأيام فيرى المتاح والمحجوز والمجموع فورًا، مع أسعار تتغيّر بين الأسبوع والعطلة والموسم، وإضافات، وعربون عبر OMT أو Whish. ولوحة تحكّم لصاحب الشاليه.', href: 'demo/chalet/' },
+      { img: 'eastbridge', tag: 'استيراد وجملة · Basic', t: 'شركة استيراد من الصين بكتالوج جملة', d: 'كتالوج بأكثر من 500 منتج مع بحث ذكي وفلاتر، حساب الكراتين، مفضلة وقوائم، سلّة وطلب جاهز عبر واتساب، وبالعربي والإنجليزي. باقة Basic وأول أسبوعين مجانًا.', href: 'demo/eastbridge/' },
       { img: 'artisan', tag: 'هدايا وتزيين مناسبات', t: 'Artisan Workshop', d: 'يصمّم الزبون مناسبته ويشاهدها مباشرة مع اسم نيون وروزنامة حجوزات، ويجهّز صندوق هدية بنفسه، ومعرض «أريد مثلها» عبر واتساب.', href: 'demo/artisan/' },
       { img: 'pitstop', tag: 'كاراج', t: 'كاراج مع تتبّع السيارة', d: 'حاسبة كلفة ووقت تسليم مع حجز، تتبّع حالة السيارة برمز الإيصال، وتذكير بموعد تغيير الزيت.', href: 'demo/pitstop/' },
       { img: 'asas', tag: 'مقاولات', t: 'شركة مقاولات مع قبل وبعد', d: 'مشاريع بسلايدر قبل وبعد، مشاريع قيد التنفيذ بنسبة إنجاز، وحاسبة كلفة تقديرية مع طلب كشف.', href: 'demo/asas/' },
@@ -789,6 +790,7 @@ const T = {
       { img: 'rayhanpro', tag: 'Restaurant · Pro', t: 'Restaurant with table ordering', d: 'Guests scan the table code and order; it reaches the kitchen screen instantly and they follow its status. With dish of the day, happy hour and an owner control panel.', href: 'demo/rayhan/#t5' },
       { img: 'khayrat', tag: 'Supermarket', t: 'Supermarket with online orders', d: 'Customers paste their shopping list and the basket fills itself, with per-kg pricing, a free-delivery bar, and cash or Whish payment via WhatsApp.', href: 'demo/khayrat/' },
       { img: 'chalet', tag: 'Chalet · Pro', t: 'Chalet with a live booking calendar', d: 'Guests pick dates and instantly see what is free, what is booked and the exact total, with prices that change between weekdays, weekends and seasons, add-ons, and a deposit via OMT or Whish. With an owner control panel.', href: 'demo/chalet/' },
+      { img: 'eastbridge', tag: 'Import & wholesale · Basic', t: 'China import company with a wholesale catalog', d: 'A catalog of 500+ products with smart search and filters, carton counting, favorites and saved lists, a cart and a ready order on WhatsApp, in Arabic and English. Basic plan, first two weeks free.', href: 'demo/eastbridge/' },
       { img: 'artisan', tag: 'Gifts & event décor', t: 'Artisan Workshop', d: 'A live event designer with a neon name and booking calendar, a build-your-own gift box, and an “I want this” gallery on WhatsApp.', href: 'demo/artisan/' },
       { img: 'pitstop', tag: 'Garage', t: 'Garage with live car tracking', d: 'A cost and ready-time estimator with booking, car status tracking by receipt code, and an oil change reminder.', href: 'demo/pitstop/' },
       { img: 'asas', tag: 'Contracting', t: 'Contractor with before and after', d: 'Projects with before/after sliders, live progress on ongoing builds, and a cost estimator with a site-visit request.', href: 'demo/asas/' },
@@ -953,7 +955,7 @@ const arrow = (dir) => { const r = $('rail'), w = r.querySelector('.wk'); if (!w
 $('prevW').addEventListener('click', () => arrow(-1)); $('nextW').addEventListener('click', () => arrow(1));
 new IntersectionObserver(([e]) => { const v = $('featVid'); if (e.isIntersecting && !RM) { v.preload = 'auto'; v.play().catch(() => {}) } else v.pause() }, { threshold: .3 }).observe($('featVid'));
 /* live phone */
-const LIVE_IC = { rayhanpro: '🍽️', khayrat: '🛒', chalet: '🏖️', renley: '🎨', artisan: '🎁', pitstop: '🚗', asas: '🏗️', pulse: '🏋️', mizan: '📊', lamsa: '💅', ibtisama: '🦷', prime: '🏠', rayhan: '🥙' };
+const LIVE_IC = { rayhanpro: '🍽️', khayrat: '🛒', chalet: '🏖️', eastbridge: '🌏', renley: '🎨', artisan: '🎁', pitstop: '🚗', asas: '🏗️', pulse: '🏋️', mizan: '📊', lamsa: '💅', ibtisama: '🦷', prime: '🏠', rayhan: '🥙' };
 let liveSel = 'rayhanpro', liveOn = false;
 function liveList() {
   const t = T[lang], ws = t.works.filter(w => w.href);
