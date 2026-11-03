@@ -203,8 +203,10 @@ section.block { padding-block: 40px 6px; display: flex; flex-direction: column; 
 .again .btn { min-height: 42px; padding: 0 14px; font-size: 15px; box-shadow: 2px 2px 0 #FFF; border-color: #FFF }
 .locbtn { background: #FFF; border: 2.5px dashed var(--ink); border-radius: 12px; min-height: 46px; font-weight: 800; cursor: pointer }
 .locbtn.ok { border-style: solid; background: #E9F8EF; color: #157A41 }
-.dsheet .dimg { aspect-ratio: 602 / 440; border: 2.5px solid var(--ink); border-radius: 18px; overflow: hidden; background: repeating-linear-gradient(135deg, var(--y) 0 18px, var(--y2) 18px 36px); display: grid; place-items: center; font-size: 70px }
-.dsheet .dimg img { width: 100%; height: 100%; object-fit: cover }
+.dsheet .dimg { border: 2.5px solid var(--ink); border-radius: 18px; overflow: hidden; background: #FFF; display: grid; place-items: center; font-size: 70px; min-height: 160px }
+.dsheet .dimg img { width: 100%; height: auto; max-height: 62vh; object-fit: contain }
+.dsheet .dimg span { padding: 30px }
+.dsheet { max-height: 94vh }
 .dsheet h2 { font-family: var(--display); font-weight: 400; font-size: 30px; line-height: 1.25 }
 .dsheet p { margin: 0; color: var(--muted); font-weight: 600 }
 .dsheet .drow { display: flex; justify-content: space-between; align-items: center; gap: 10px; border-top: 2px dashed var(--line); padding-top: 12px }
