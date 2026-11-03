@@ -1,0 +1,57 @@
+{
+ "name": "East Bridge \u2014 Global Import & Trading",
+ "short_name": "East Bridge",
+ "description": "Wholesale products from China with clear carton quantities.",
+ "lang": "en",
+ "start_url": "./?source=app",
+ "scope": "./",
+ "id": "./",
+ "display": "standalone",
+ "orientation": "portrait",
+ "background_color": "#FFFFFF",
+ "theme_color": "#0A2A5C",
+ "categories": [
+  "shopping",
+  "business"
+ ],
+ "icons": [
+  {
+   "src": "brand/icon-192.png",
+   "sizes": "192x192",
+   "type": "image/png"
+  },
+  {
+   "src": "brand/icon-512.png",
+   "sizes": "512x512",
+   "type": "image/png"
+  },
+  {
+   "src": "brand/icon-mask-512.png",
+   "sizes": "512x512",
+   "type": "image/png",
+   "purpose": "maskable"
+  }
+ ],
+ "shortcuts": [
+  {
+   "name": "Catalog",
+   "url": "./?source=app#/catalog",
+   "icons": [
+    {
+     "src": "brand/icon-192.png",
+     "sizes": "192x192"
+    }
+   ]
+  },
+  {
+   "name": "Order list",
+   "url": "./?source=app#/cart",
+   "icons": [
+    {
+     "src": "brand/icon-192.png",
+     "sizes": "192x192"
+    }
+   ]
+  }
+ ]
+}
