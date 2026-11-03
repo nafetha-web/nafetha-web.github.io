@@ -297,9 +297,13 @@ function sumHtml(){
  }else h+='<p class="hint" style="margin-top:4px">'+_('Select dates on the calendar to see your total.','نقّي الأيام عالروزنامة ليطلعلك المجموع.')+'</p>';
  return h;
 }
-function mbar(){var q=quote(),e=$('#mb');if(location.hash.length>2){e.style.display='none';return}e.style.display='';e.innerHTML='<div>'+(q.ok?_('Total','المجموع')+'<b>'+usd(q.sub)+'</b>':_('From','ابتداءً من')+'<b>'+usd(Math.min(SET.day.wd,SET.night.wd))+'</b>')+'</div><button class="btn s" data-go2="book">'+(q.ok?_('Book now','احجز هلأ'):_('Check dates','شوف الأيام'))+'</button>';e.querySelector('button').onclick=function(){go('book')}}
+function mbar(){var q=quote(),e=$('#mb');if(location.hash.length>2){e.style.display='none';return}e.style.display='';e.innerHTML='<div>'+(q.ok?_('Total','المجموع')+'<b>'+usd(q.sub)+'</b>':_('From','ابتداءً من')+'<b>'+usd(Math.min(SET.day.wd,SET.night.wd))+'</b>')+'</div><button class="btn s" data-go2="book">'+(q.ok?_('Book now','احجز هلأ'):_('Check dates','شوف الأيام'))+'</button>';e.querySelector('button').onclick=function(){if(q.ok&&$('#bn')){toForm(true)}else go('book')}}
+function toForm(foc){var e=$('#bn');if(!e)return;var box=e.closest('.f')||e;window.scrollTo({top:box.getBoundingClientRect().top+scrollY-110,behavior:'smooth'});if(foc)setTimeout(function(){try{e.focus({preventScroll:true})}catch(x){}},450)}
+function bad(id,msg){var e=$('#'+id),er=$('#be');er.textContent=msg;$$('#bn,#bp').forEach(function(x){x.style.borderColor=''});e.style.borderColor='#d64545';var box=e.closest('.f')||e;window.scrollTo({top:box.getBoundingClientRect().top+scrollY-110,behavior:'smooth'});setTimeout(function(){try{e.focus({preventScroll:true})}catch(x){}},450)}
 function drawBook(){
+ var kv=$('#bn')?{n:$('#bn').value,p:$('#bp').value,o:$('#bo').value}:null;
  $('#cal').innerHTML=calHtml();$('#sum').innerHTML=sumHtml();mbar();
+ if(kv&&$('#bn')){$('#bn').value=kv.n;$('#bp').value=kv.p;$('#bo').value=kv.o}
  var p=$('#cp1'),n=$('#cn1');
  p.onclick=function(){var m=ST.month;ST.month=m[1]?[m[0],m[1]-1]:[m[0]-1,11];drawBook()};
  n.onclick=function(){var m=ST.month;ST.month=m[1]<11?[m[0],m[1]+1]:[m[0]+1,0];drawBook()};
@@ -316,9 +320,9 @@ function drawBook(){
 }
 function submit(){
  var n=$('#bn').value.trim(),p=$('#bp').value.trim(),o=$('#bo').value.trim(),q=quote();
- if(!n){$('#be').textContent=_('Please enter your name','اكتب اسمك');return}
- if(p.replace(/\D/g,'').length<7){$('#be').textContent=_('Please enter a valid phone number','اكتب رقم صحيح');return}
- $('#be').textContent='';
+ if(!n){bad('bn',_('Please enter your name','اكتب اسمك'));return}
+ if(p.replace(/\D/g,'').length<7){bad('bp',_('Please enter a valid phone number','اكتب رقم صحيح'));return}
+ $('#be').textContent='';$$('#bn,#bp').forEach(function(x){x.style.borderColor=''});
  var when=ST.mode==='n'?fmt(ST.cin,1)+' → '+fmt(ST.cout,1)+' ('+q.nights+' '+_('nights','ليالي')+')':'Day use '+fmt(ST.day,1);
  var L2=[_('*Booking request — ','*طلب حجز — ')+_(CFG.nameEn,CFG.nameAr)+'*','',_('Name: ','الاسم: ')+n,_('Phone: ','الهاتف: ')+p,_('Dates: ','التاريخ: ')+when,_('Guests: ','عدد الأشخاص: ')+ST.guests,''];
  q.lines.forEach(function(l){L2.push('• '+l[0]+': '+usd(l[1]))});
