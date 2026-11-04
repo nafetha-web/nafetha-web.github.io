@@ -71,7 +71,8 @@ const $ = (id) => document.getElementById(id);
 const MONTHS = ['كانون الثاني', 'شباط', 'آذار', 'نيسان', 'أيار', 'حزيران', 'تموز', 'آب', 'أيلول', 'تشرين الأول', 'تشرين الثاني', 'كانون الأول'];
 let data = null, touched = false;
 const saved = (() => { try { return JSON.parse(localStorage.getItem('nf_report') || '{}') } catch (e) { return {} } })();
-$('store').value = saved.store || '';
+$('store').value = (new URLSearchParams(location.search).get('s') || saved.store || '').toLowerCase().replace(/[^a-z0-9-]/g, '');
+if ($('store').value) setTimeout(() => $('pass').focus(), 0);
 const book = saved.book || {};
 const usd = (n, cur) => cur === 'LBP' ? Math.round(n).toLocaleString('en-US') + ' ل.ل' : '$' + (Math.round(n * 100) / 100).toLocaleString('en-US');
 
