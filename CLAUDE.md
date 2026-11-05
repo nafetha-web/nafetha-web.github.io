@@ -13,7 +13,7 @@ Hadi يشتغل من تلفونه فقط، وبده ردود بالعربي ال
 - API مشترك: Worker `nafetha-api` + D1 `nafetha-db` (جداول orders, calls, stores[rayhan,hasib,crazypasta], customers, lorders, ledger).
 - صفحة التقرير: /report/ (رمز المتجر + كلمة السر → زوار وطلبات واتساب + رسالة شهرية للزبون). ?s=rayhan بيعبّي الرمز. نسخة artifact: "تقرير الطلبات".
 - الاشتراكات: artifact "اشتراكات نافذة" (https://claude.ai/artifact/2xC3t11tVmsAEzj5QZQnD5)، ArtifactData collection `subs` (crazypasta, eastbridge). الباقات: monthly Basic $25، buy $249/$199 عرض، pmonthly Pro $45، pbuy $550 (+$90 سنوي).
-- الريلز: /reels/ (ملفات منشورة لـMetricool)، حلقة ١ المنيو، حلقة ٢ الطلب من الطاولة. صوت Mimi (ElevenLabs)، تشكيل كامل لبناني.
+- الريلز: /reels/ (ملفات منشورة لـMetricool)، حلقة ١ المنيو، حلقة ٢ الطلب من الطاولة، حلقة ٣ نقاط الولاء (ep3-points، مجدولة ٥/١١ الساعة ١٢). سكريبت الصوت بدون حركات (طلب Hadi لأنو ميمي طلعت سورية مع التشكيل). صوت Mimi (ElevenLabs)، تشكيل كامل لبناني.
 - Metricool: blogId 7180766 (nafetha.web)، دايمًا Instagram + Facebook ريل، أقصى ٥ هاشتاغات مع #لبنان #lebanon، Hadi بيوافق قبل الجدولة.
 - Cloudflare: zone nafetha-web.com، Workers عبر API/MCP.
 
