@@ -9,6 +9,7 @@ Hadi يشتغل من تلفونه فقط، وبده ردود بالعربي ال
   - crazypasta.nafetha-web.com (Worker crazypasta-site، API crazypasta-api، DB crazypasta-db)
   - eastbridge.nafetha-web.com (Worker eastbridge-site، الكود بـ /eastbridge/، PWA، رسمي، مسجّل Basic استثناء)
   - hasib (سوبرماركت، /hasib و /hasib-admin، PWA)
+- نموذج مطعم «حار ب حار» (عراقي، توصيل واتساب): /demo/7arb7ar/ (نوفمبر 2026، بانتظار صور أصلية + رقم تاني + لينك Google Maps).
 - نماذج demo: /demo/* (rayhan, chalet, khayrat, dietitian, ...)، المطاعم Pro: rayhan + rayhan-kitchen/admin/points.
 - API مشترك: Worker `nafetha-api` + D1 `nafetha-db` (جداول orders, calls, stores[rayhan,hasib,crazypasta], customers, lorders, ledger).
 - صفحة التقرير: /report/ (رمز المتجر + كلمة السر → زوار وطلبات واتساب + رسالة شهرية للزبون). ?s=rayhan بيعبّي الرمز. نسخة artifact: "تقرير الطلبات".
