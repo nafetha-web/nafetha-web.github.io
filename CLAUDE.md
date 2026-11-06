@@ -19,6 +19,7 @@ Hadi يشتغل من تلفونه فقط، وبده ردود بالعربي ال
 - Cloudflare: zone nafetha-web.com، Workers عبر API/MCP.
 
 ## قواعد
+- كلمات السر: ما بتنحفظ بالـrepo. إذا Hadi طلب رمز، دوّر أول بالسكرين شوتس والمرفقات القديمة (/mnt/user-data/attachments/*) والمحادثة الحالية، مش بس conversation_search. رمز لوحة Crazy Pasta كان بسكرين شوت 4/11 (نفس الرمز بيزبط مع تقرير الطلبات).
 - صور المواقع بالريلز = screenshots حقيقية من demos نافذة.
 - ريلز: موسيقى خفيفة + SFX، نص مقروء، تشكيل كامل.
 - التطبيقات = PWA (مش Play/App Store).
